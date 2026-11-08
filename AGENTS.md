@@ -222,6 +222,10 @@ Copied into `PALETTE`; never import across repos.
   bookings signed with no way to cancel, ÷ 3 (shortfall from three
   organisers' own pockets). Paid off after "Just over break even": "Nobody
   had to pay it out of pocket."
+- **The other idea:** affordable in Europe's most expensive city (Numbeo 2025),
+  then a price comparison: regular 2026 in-person tickets in CHF from the
+  official pages (ECB 11 Sep 2026). Sources and full price ranges live in the
+  slide notes.
 - After the meetup numbers, still at Foifi: the agenda, chapter 1 (why on
   earth) and chapter 2 (the hard market, our three problems), then **ZurichJS
   on the road** (the globe) as the answer; then the camera flies to Technopark.

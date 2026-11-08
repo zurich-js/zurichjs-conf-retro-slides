@@ -103,6 +103,19 @@ export const VISUALS = {
   'stakes-no-cancel': { kind: 'statement', kicker: 'The bookings', text: 'Signed with no way to cancel.', emphasis: 'no way to cancel.' },
   'stakes-split': { kind: 'stat', value: '÷ 3', tone: 'warn', label: 'If we fell short, three of us would cover the gap from our own pockets.' },
   'stakes-covered': { kind: 'statement', text: 'Nobody had to pay it out of pocket.', emphasis: 'Nobody' },
+  // The other idea: affordable, in Europe's most expensive city.
+  'affordable-idea': { kind: 'statement', kicker: 'The other idea', text: 'One of the most affordable conferences in Europe, in its most expensive city.', emphasis: 'most affordable' },
+  'price-compare': {
+    kind: 'bars', title: 'Half the price of London', unit: ' CHF', source: 'Regular in-person ticket, 2026 · official ticket pages · ECB rate 11 Sep 2026',
+    bars: [
+      { label: 'React Advanced London', value: 595, tone: 'neutral' },
+      { label: 'React Summit Amsterdam', value: 567, tone: 'neutral' },
+      { label: 'JSNation Amsterdam', value: 463, tone: 'neutral' },
+      { label: 'Voxxed Days Zurich', value: 360, tone: 'neutral' },
+      { label: 'ZurichJS Conf', value: 295, tone: 'hero' },
+      { label: 'JSHeroes Cluj', value: 198, tone: 'neutral' },
+    ],
+  },
   'first-commit': { kind: 'stat', value: '3 Nov 2025', label: 'First commit. First ticket sold ten days later.' },
 
   // ── 2 · A hard year ────────────────────────────────────────────────────
