@@ -42,13 +42,12 @@ pnpm build          # typecheck + production build into dist/
 | Key | Does |
 |---|---|
 | `→` / `←` | Next / previous slide |
-| `Enter` / `Backspace` | Next / previous step within a slide |
 | `0`–`9` | Jump to a slide |
 | `f` | Fullscreen |
 
 | URL | Does |
 |---|---|
-| `?slide=<id>` | Open a slide (`&step=<n>` for a step) |
+| `?slide=<id>` | Open a slide |
 | `?flat` | 2D only, no 3D venue |
 | `?presenter` | Speaker notes, next slide and timer. Open in a second window; it stays in sync |
 | `?index` | Every slide in a grid |

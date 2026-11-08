@@ -15,12 +15,26 @@ export function defineSlides(
     if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(s.id)) throw new Error(`Slide id "${s.id}" must be kebab-case`)
     if (ids.has(s.id)) throw new Error(`Duplicate slide id "${s.id}"`)
     ids.add(s.id)
-    if (s.steps.length === 0) throw new Error(`Slide "${s.id}" needs at least one step`)
+    // Arrows only (Faris, 2026-11-08): one visual per slide, no Enter builds.
+    if (s.steps.length !== 1) throw new Error(`Slide "${s.id}" has ${s.steps.length} steps: one visual per slide; make each build its own slide`)
     for (const v of s.steps) {
       if (!catalog[v]) throw new Error(`Slide "${s.id}" references unknown visual "${v}"`)
     }
     if (s.camera !== undefined && !CAMERA_CUES.includes(s.camera)) {
       throw new Error(`Slide "${s.id}" camera "${s.camera}" is not one of ${CAMERA_CUES.join(', ')}`)
+    }
+    for (const id of s.steps) {
+      const v = catalog[id]
+      if (v?.kind === 'heatmap') {
+        for (const row of v.rows) {
+          if (row.values.length !== v.columns.length) throw new Error(`Visual "${id}": row "${row.label}" has ${row.values.length} values for ${v.columns.length} columns`)
+        }
+      }
+      if (v?.kind === 'growth') {
+        for (const series of v.series) {
+          if (series.values.length !== v.x.length) throw new Error(`Visual "${id}": series "${series.label}" has ${series.values.length} values for ${v.x.length} x labels`)
+        }
+      }
     }
     if (s.effect !== undefined && !(s.effect >= 0 && s.effect <= 1)) {
       throw new Error(`Slide "${s.id}" effect must be between 0 and 1`)

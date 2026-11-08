@@ -29,7 +29,7 @@ BroadcastChannel) · `?still` no animation + camera snaps (screenshots) ·
 `?cue=<name>` force one camera cue on every slide (preview the set) ·
 `?step=<n>` open the linked slide at step n.
 
-Keys: `→`/`←` slides · `Enter`/`Backspace` steps · `0–9` jump · `f` fullscreen.
+Keys: `→`/`←` slides · `0–9` jump · `f` fullscreen. Enter and Space are unbound.
 Space is intentionally unbound.
 
 ## Layout
@@ -69,8 +69,11 @@ public/models/        .glb files for the set
 ```
 
 ## Rules (non-negotiable)
-1. **Arrows move slides and nothing else.** One press = one slide. Builds
-   within a slide are steps, on Enter.
+1. **Arrows only.** One press = one slide, and every beat is a slide: no
+   Enter steps (Faris, 2026-11-08). A build (year one, then year two) is two
+   slides; the second can continue the first's animation (e.g. `growth`
+   `from`, `heatmap` `from`). `defineSlides` rejects a slide with more than
+   one visual.
 2. **No DOM content.** Everything legible is painted on the frame. If it is
    not on the frame it does not exist in `?flat` or on the 3D screen.
 3. **Slides are data.** No JSX, functions, or callbacks in `slides.ts` or
@@ -206,6 +209,17 @@ Copied into `PALETTE`; never import across repos.
   columns, pink bar against the one orange wall, colourful slatted chairs,
   red presenter table. Date flagged: 14 Nov (Faris) vs 13 Nov (other sources).
 - The cover credits the ZurichJS team, not one person.
+- **Rolling back a year** (after the cake): the camera dives into Foifi's
+  screen (`foifi-full`), a flip calendar rolls 14 Nov 2025 → 14 Nov 2024 (the
+  meetup relaunch), then the meetup's numbers from Meetup.com group stats
+  (export 8 Nov 2026): a growth chart from 0 at the relaunch, then a 2026 slide that
+  continues its lines, and an RSVP heatmap by month, then a 2026 slide that
+  adds year two. 2026 gets its own slides so the arrows reach it. The 257
+  members from before the relaunch are treated as inactive (per Faris), so
+  members count from 0. The candle on the cake is lit.
+- After the meetup numbers, still at Foifi: the agenda, chapter 1 (why on
+  earth) and chapter 2 (the hard market, our three problems), then **ZurichJS
+  on the road** (the globe) as the answer; then the camera flies to Technopark.
 
 ## Deck content (draft, 2026-11-08)
 - The talk is the **ZurichJS Conf retrospective**, scaffolded 1:1 from

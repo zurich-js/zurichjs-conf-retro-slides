@@ -28,12 +28,10 @@ function Live() {
   return <canvas ref={ref} width={2560} height={1440} />
 }
 
-/** What the next press shows: the next step if there is one, else the next slide. */
-function Next({ index, step }: { index: number; step: number }) {
+/** What the next arrow press shows: the next slide. */
+function Next({ index }: { index: number }) {
   const ref = useRef<HTMLCanvasElement>(null)
-  const slide = slides[index]
-  const nextStep = slide && step < slide.steps.length - 1
-  const id = nextStep ? slide.steps[step + 1] : slides[index + 1]?.steps[0]
+  const id = slides[index + 1]?.steps[0]
   useEffect(() => {
     const ctx = ref.current?.getContext('2d')
     if (!ctx) return
@@ -48,7 +46,7 @@ function Next({ index, step }: { index: number; step: number }) {
   }, [id])
   return (
     <figure>
-      <figcaption>{id ? (nextStep ? 'Next step · Enter' : 'Next slide · →') : 'End of deck'}</figcaption>
+      <figcaption>{id ? 'Next slide · →' : 'End of deck'}</figcaption>
       <canvas ref={ref} width={2560} height={1440} />
     </figure>
   )
@@ -73,7 +71,6 @@ function Timer() {
 
 export function Presenter() {
   const index = useDeck((s) => s.index)
-  const step = useDeck((s) => s.step)
   const slide = slides[index]
   return (
     <main className="presenter">
@@ -81,12 +78,12 @@ export function Presenter() {
         <Live />
         <p className="meta">
           {index + 1} / {slides.length} · <b>{slide?.id}</b>
-          {slide?.beat ? ` · ${slide.beat}` : ''} · step {step + 1}/{slide?.steps.length ?? 1}
+          {slide?.beat ? ` · ${slide.beat}` : ''}
         </p>
       </section>
       <aside>
         <Timer />
-        <Next index={index} step={step} />
+        <Next index={index} />
         <div className="notes">{slide?.notes ?? 'No notes.'}</div>
       </aside>
     </main>

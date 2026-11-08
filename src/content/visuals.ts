@@ -11,6 +11,23 @@ import { ROAD_TO_ZURICH } from './travel'
  * visuals are placeholders only Faris can fill. Sentence case per this deck's
  * brand rules (the handoff's old deck used Start Case).
  */
+/** Meetup.com group stats (export 8 Nov 2026), cumulative from the relaunch on 14 Nov 2024.
+ *  Points: 14 Nov 2024, month ends to Oct 2025, 14 Nov 2025, month ends to Oct 2026, 8 Nov 2026.
+ *  Members = total minus the 257 members from before the relaunch (treated as inactive, per Faris). */
+const MEETUP_X = ['14 Nov 2024', '', '', '', '', '', '', '', '', '', '', '', '', '14 Nov 2025', '', '', '', '', '', '', '', '', '', '', '', '', '8 Nov 2026'] as const
+const MEETUP_SERIES = [
+  { label: 'Members', values: [0, 14, 34, 63, 94, 157, 223, 258, 267, 297, 330, 356, 389, 409, 413, 424, 489, 514, 536, 606, 653, 682, 728, 762, 804, 830, 844] },
+  { label: 'RSVPs', values: [0, 4, 24, 73, 104, 200, 314, 368, 388, 441, 489, 543, 609, 634, 644, 683, 787, 866, 939, 1033, 1123, 1163, 1248, 1286, 1374, 1419, 1435], tone: 'neutral' },
+  { label: 'People joined', values: [0, 15, 35, 68, 100, 163, 229, 264, 275, 308, 349, 376, 413, 427, 430, 442, 512, 546, 574, 649, 699, 730, 808, 848, 897, 925, 939], tone: 'good' },
+] as const
+
+/** Meetup.com RSVPs per whole month, Nov to Oct (export 8 Nov 2026). */
+const RSVP_MONTHS = ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'] as const
+const RSVP_ROWS = [
+  { label: '2024/25', values: [31, 20, 49, 31, 96, 114, 54, 20, 53, 48, 54, 66] },
+  { label: '2025/26', values: [35, 39, 104, 79, 73, 94, 90, 40, 85, 38, 88, 45], tone: 'neutral' },
+] as const
+
 export const VISUALS = {
   // ── Opening ────────────────────────────────────────────────────────────
   cover: { kind: 'title', kicker: 'The ZurichJS team', title: 'ZurichJS Conf retrospective', subtitle: '9 to 12 September 2026, Zurich' },
@@ -26,6 +43,24 @@ export const VISUALS = {
     kind: 'code', title: 'Our first funny bug',
     lines: ['Someone buys a t-shirt', '→ the payment hits the same webhook as tickets', '→ the webhook issues them a ticket'],
     highlight: [3],
+  },
+  // ── Rolling back a year: the meetup's first year (Meetup.com group stats, 8 Nov 2026) ──
+  'rollback': { kind: 'calendar', from: '2025-11-14', to: '2024-11-14', kicker: 'One year earlier', caption: 'The ZurichJS meetup relaunch' },
+  'meetup-year': {
+    kind: 'growth', kicker: 'From the relaunch, 14 Nov 2024', title: "The meetup's first year", source: 'Meetup.com · cumulative · members counted from 0 at the relaunch',
+    x: MEETUP_X, series: MEETUP_SERIES, show: 14,
+  },
+  'meetup-year-2': {
+    kind: 'growth', kicker: 'And into 2026, to 8 Nov 2026', title: 'Two years of the meetup', source: 'Meetup.com · cumulative · members counted from 0 at the relaunch',
+    x: MEETUP_X, series: MEETUP_SERIES, show: 27, from: 13,
+  },
+  'meetup-rsvps': {
+    kind: 'heatmap', kicker: 'RSVPs per month', title: 'Year one: RSVPs peaked in spring', source: 'Meetup.com · whole months, Nov to Oct',
+    columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 1,
+  },
+  'meetup-rsvps-2': {
+    kind: 'heatmap', kicker: 'RSVPs per month', title: 'Year two: busier in 8 of 12 months', source: 'Meetup.com · whole months, Nov to Oct',
+    columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 2, from: 1,
   },
   'one-year': { kind: 'statement', ground: 'yellow', text: 'One year of ZurichJS. Ten months to the conference.', emphasis: 'Ten months' },
   'venue-map': { kind: 'statement', kicker: 'Ten months later · Technopark Zürich', text: 'One building, one week, one conference.', emphasis: 'one conference.' },

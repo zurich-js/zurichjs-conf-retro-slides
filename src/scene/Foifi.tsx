@@ -550,6 +550,24 @@ function Cake() {
         <cylinderGeometry args={[0.004, 0.004, 0.11, 8]} />
         <meshStandardMaterial color={S.foifiYellow} roughness={0.5} />
       </mesh>
+      {/* Lit: wick, a teardrop flame with a hot core, and a little warm light. */}
+      <mesh position={[-0.07, 0.918, 0.02]}>
+        <cylinderGeometry args={[0.0008, 0.0008, 0.008, 4]} />
+        <meshBasicMaterial color={S.ink} />
+      </mesh>
+      <mesh position={[-0.07, 0.932, 0.02]} scale={[0.0065, 0.016, 0.0065]}>
+        <sphereGeometry args={[1, 16, 12]} />
+        <meshBasicMaterial color={S.flame} transparent opacity={0.85} toneMapped={false} />
+      </mesh>
+      <mesh position={[-0.07, 0.928, 0.02]} scale={[0.003, 0.008, 0.003]}>
+        <sphereGeometry args={[1, 12, 8]} />
+        <meshBasicMaterial color={S.lamp} toneMapped={false} />
+      </mesh>
+      <mesh position={[-0.07, 0.935, 0.02]}>
+        <sphereGeometry args={[0.03, 16, 12]} />
+        <meshBasicMaterial color={S.flame} transparent opacity={0.12} depthWrite={false} toneMapped={false} />
+      </mesh>
+      <pointLight position={[-0.07, 0.96, 0.02]} color={S.flame} intensity={0.9} decay={0} distance={0.6 * M} />
     </group>
   )
 }

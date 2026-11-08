@@ -10,9 +10,9 @@ plain data in `src/content/slides.ts`: `id`, `steps`, optional `beat`,
 `camera`, `effect`, `notes`.
 
 ## Step
-One visual within a slide, advanced with **Enter** (Backspace undoes). Arriving
-at a slide always starts at step 0, from either direction. Steps let a slide
-build (title first, then the plot) without spending an arrow press.
+The visual a slide shows. Every slide has exactly one: the deck is arrows
+only, so a build is a sequence of slides, not Enter presses. (The engine
+still models steps; `defineSlides` holds each slide to one.)
 
 ## Beat
 Narrative metadata grouping slides (`open`, `evidence`, `close`…). No input,
@@ -24,7 +24,10 @@ addressed by id. The data lives here once; every renderer reads it.
 
 ## Kind
 The closed set of visual forms: `title`, `section`, `statement`, `stat`,
-`bars`, `quote`, `image`, `code`, `numbers` (2–6 number tiles), `journey`
+`bars`, `quote`, `image`, `code`, `numbers` (2–6 number tiles), `calendar`
+(a split-flap calendar rolling month by month between two dates), `growth`
+(lines growing from their start; `show`/`from` continue it across steps),
+`heatmap` (rows of value-shaded cells, e.g. RSVPs per month per year), `journey`
 (the road-to-Zurich globe: one leg per step, or with `play` every leg in
 one autoplaying draw-in). Each kind has exactly one painter. Adding a kind is a
 deliberate act (type + painter + doc), never a one-off.

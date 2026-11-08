@@ -4,14 +4,14 @@ import { VISUALS } from './visuals'
 /**
  * THE RUNNING ORDER — the only file you edit to arrange the talk.
  *
- *   steps   visual ids; arriving shows the first, Enter reveals each next one
+ *   steps   exactly one visual id (one visual per slide; builds are separate slides)
  *   camera  'screen' (fills the projector) | a set cue: stage, room, letters,
  *           podium, booth, rig, wall, foyer, badges, merch, atrium, booths, map
  *           (see src/scene/venue.ts; preview with ?cue=)
  *   effect  0 = clean passthrough … 1 = full medium effect
  *   notes   shown in ?presenter only
  *
- * Rule: → / ← move slides and nothing else. Enter performs steps.
+ * Rule: → / ← move slides and nothing else. No Enter steps: every beat is an arrow press.
  *
  * DRAFT (2026-11-08): ZurichJS Conf retrospective, scaffolded 1:1 from the
  * handoff's 87 slides, plus the road-to-Zurich globe and an optional venue
@@ -28,6 +28,44 @@ export const slides = defineSlides(VISUALS, [
   { id: 'first-ticket', beat: 'start', steps: ['first-ticket'], camera: 'foifi-screen', effect: 1, notes: 'Jonny Burger bought the first ticket.' },
   { id: 'tshirt-bug', beat: 'start', steps: ['tshirt-bug'], camera: 'foifi-screen', effect: 1, notes: 'Someone tried to buy a t-shirt; the same webhook endpoint as tickets intercepted it and issued a ticket.' },
   { id: 'one-year', beat: 'start', steps: ['one-year'], camera: 'cake', notes: 'The birthday cake on the "new Date()" flyer. Next slide flies from Foifi across Zurich to Technopark.' },
+  // ── Rolling back a year: the meetup's first year ───────────────────────
+  { id: 'rollback', beat: 'start', steps: ['rollback'], camera: 'foifi-full', notes: 'The camera dives into the Foifi screen; the calendar flips back from 14 Nov 2025 to the meetup relaunch on 14 Nov 2024 (relaunch date from faziz-dev.com/events).' },
+  { id: 'meetup-year', beat: 'start', steps: ['meetup-year'], camera: 'foifi-full', notes: 'Meetup.com group stats export, 8 Nov 2026, cumulative from the relaunch. Members counted from 0 (the 257 from before the relaunch treated as inactive, per Faris). Year one: 409 members, 634 RSVPs, 427 joined.' },
+  { id: 'meetup-2026', beat: 'start', steps: ['meetup-year-2'], camera: 'foifi-full', notes: 'The same lines continue into 2026, to 8 Nov 2026 (just before the 2nd anniversary on 12 Nov): 844 members, 1,435 RSVPs, 939 joined. Year two alone: +435 members, +801 RSVPs, +512 joined.' },
+  { id: 'meetup-rsvps', beat: 'start', steps: ['meetup-rsvps'], camera: 'foifi-full', notes: 'RSVPs per whole month, Nov to Oct (totals 636 and 810 differ slightly from anniversary-to-anniversary 634 and 801). Year one peaked in spring: 96 in March, 114 in April 2025 (outlined: the busiest month of both years). CHECK which meetups those were.' },
+  { id: 'meetup-rsvps-2026', beat: 'start', steps: ['meetup-rsvps-2'], camera: 'foifi-full', notes: 'Year two slides in under year one: busier in 8 of 12 months, 810 vs 636. Peaks: Jan 2026 (104), Apr (94), May (90). CHECK which meetups those were.' },
+  { id: 'chapters', beat: 'open', steps: ['chapters'], camera: 'foifi-full', notes: 'The agenda, right after the meetup numbers. Each problem in chapter 2 gets its answer later.' },
+  // ── 1 · Why on earth (still at Foifi) ──────────────────────────────────
+  { id: 'ch1', beat: 'why', steps: ['ch1'], camera: 'foifi', effect: 1 },
+  { id: 'meetup-itch', beat: 'why', steps: ['meetup-itch'], camera: 'foifi-full', notes: 'DATA GAP W1: Faris writes this.' },
+  { id: 'front-cancel', beat: 'why', steps: ['front-cancel'], camera: 'foifi-full', notes: 'Needs front-cancel.png (in the old deck repo). Zurich’s front-end conference for 10+ years. Front 26 was planned for 27 Feb 2026 at Alte Papierfabrik. Ticket demand was "way off, both via B2C and B2B channels", even after scaling to one day. Per Faris: two revival attempts (Q4 2025, Q1 2026) did not happen.' },
+  { id: 'front-book', beat: 'why', steps: ['front-book'], camera: 'foifi-full', notes: 'Needs front-book.png. Their notice lists conf.zurichjs.com first. Front Conference Zurich also bought 6 tickets by company invoice.' },
+  { id: 'dying', beat: 'why', steps: ['dying'], camera: 'foifi-full' },
+  { id: 'first-commit', beat: 'why', steps: ['first-commit'], camera: 'foifi-full', notes: 'First ticket 13 Nov 2025. FARIS: replace with the date you decided, if different.' },
+
+  // ── 2 · A hard year: the market and our three problems (still at Foifi) ──
+  { id: 'ch2', beat: 'hard-year', steps: ['ch2'], camera: 'foifi-screen', effect: 1 },
+  { id: 'hardest-year', beat: 'hard-year', steps: ['hardest-year'], camera: 'foifi-full' },
+  { id: 'react-advanced', beat: 'hard-year', steps: ['react-advanced'], camera: 'foifi-full', notes: 'UNVERIFIED (per Faris).' },
+  { id: 'react-alicante', beat: 'hard-year', steps: ['react-alicante'], camera: 'foifi-full', notes: 'UNVERIFIED.' },
+  { id: 'renamed', beat: 'hard-year', steps: ['renamed'], camera: 'foifi-full', notes: 'UNVERIFIED.' },
+  { id: 'last-editions', beat: 'hard-year', steps: ['last-editions'], camera: 'foifi-full', notes: 'UNVERIFIED except Front 26 (sourced from the frontconference.com screenshot).' },
+  { id: 'layoffs', beat: 'hard-year', steps: ['layoffs'], camera: 'foifi-full', notes: 'Netflix, Google, Microsoft, Canva, Smallpdf. Smallpdf was our Gold sponsor: decide whether to name companies.' },
+  { id: 'sponsor-tiers', beat: 'hard-year', steps: ['sponsor-tiers'], camera: 'foifi-full', notes: 'Platinum alone brought about CHF 27k.' },
+  { id: 'no-diamond', beat: 'hard-year', steps: ['no-diamond'], camera: 'foifi-full' },
+  { id: 'money-late', beat: 'hard-year', steps: ['money-late'], camera: 'foifi-full', notes: '15 of 24 were paid in the last three months.' },
+  { id: 'price-sensitive', beat: 'hard-year', steps: ['price-sensitive'], camera: 'foifi-full', notes: 'FARIS: add what you saw.' },
+  { id: 'expensive', beat: 'hard-year', steps: ['expensive'], camera: 'foifi-full' },
+  { id: 'ai-changed', beat: 'hard-year', steps: ['ai-changed'], camera: 'foifi-full', notes: 'FARIS: opinion to add.' },
+  { id: 'ai-share', beat: 'hard-year', steps: ['ai-share'], camera: 'foifi-full', notes: 'Keyword-based.' },
+  { id: 'three-problems', beat: 'hard-year', steps: ['three-problems'], camera: 'foifi-full', notes: 'FARIS to confirm the links: sponsor budgets → ch3 (tiny team, one app); AI submissions → ch4 (programme picks); price-sensitive buyers → ch5 (discounts, partner codes, invoices, currencies).' },
+
+  // ── ZurichJS on the road: the trips between the anniversary and the conference ──
+  {
+    id: 'road', beat: 'start', camera: 'foifi-full',
+    steps: ['road'],
+    notes: 'ZurichJS on the road: our answer to the hard year. Between the anniversary and the conference we took ZurichJS to meetups and conferences abroad to market the conf, meet speakers and close sponsor deals. Still on the Foifi screen; the next slide flies to Technopark. Plays by itself, about 35 s: starts at React Summit US, New York, then flies every trip in date order (19 stops) and lands on the totals. No keys needed; → moves on. From faziz-dev.com/events, Nov 2025 to Aug 2026. Blue = team trips: React Vienna, ReactJS Milano and jsday, CityJS London, JSHeroes; Voxxed Days Zurich is at home. ASSUMED: return trips from Zurich except Milan → Bologna and Warsaw → Cluj; km is great-circle.',
+  },
   { id: 'venue-map', beat: 'venue', steps: ['venue-map'], camera: 'map', notes: 'Ten months later. Crane shot from Foifi over to the Technopark cutaway. OPTIONAL flyover (5 slides): auditorium, booth, foyer, atrium.' },
   { id: 'venue-atrium', beat: 'venue', steps: ['venue-atrium'], camera: 'atrium', notes: 'OPTIONAL. The atrium: tables, pendants, lift tower.' },
   { id: 'venue-booths', beat: 'venue', steps: ['venue-booths'], camera: 'booths', notes: 'OPTIONAL. AG Grid booth, ZurichJS roll-up, namespace wall beyond.' },
@@ -36,32 +74,8 @@ export const slides = defineSlides(VISUALS, [
   { id: 'people-359', beat: 'open', steps: ['people-359'], camera: 'room', effect: 1, notes: '330 ticket holders, plus 19 speakers and MCs without a ticket, plus 10 staff without a ticket.' },
   { id: 'people-split', beat: 'open', steps: ['people-split'], notes: '21 people on stage, 2 of whom also held a ticket. 13 door staff, 3 of whom held a ticket.' },
   { id: 'year-numbers', beat: 'open', steps: ['year-numbers'] },
-  { id: 'chapters', beat: 'open', steps: ['chapters'], notes: 'Each problem in chapter 2 gets its answer later.' },
 
-  // ── 1 · Why on earth ───────────────────────────────────────────────────
-  { id: 'ch1', beat: 'why', steps: ['ch1'], camera: 'letters', effect: 1 },
-  { id: 'meetup-itch', beat: 'why', steps: ['meetup-itch'], notes: 'DATA GAP W1: Faris writes this.' },
-  { id: 'front-cancel', beat: 'why', steps: ['front-cancel'], notes: 'Needs front-cancel.png (in the old deck repo). Zurich’s front-end conference for 10+ years. Front 26 was planned for 27 Feb 2026 at Alte Papierfabrik. Ticket demand was "way off, both via B2C and B2B channels", even after scaling to one day. Per Faris: two revival attempts (Q4 2025, Q1 2026) did not happen.' },
-  { id: 'front-book', beat: 'why', steps: ['front-book'], notes: 'Needs front-book.png. Their notice lists conf.zurichjs.com first. Front Conference Zurich also bought 6 tickets by company invoice.' },
-  { id: 'dying', beat: 'why', steps: ['dying'] },
-  { id: 'first-commit', beat: 'why', steps: ['first-commit'], notes: 'First ticket 13 Nov 2025. FARIS: replace with the date you decided, if different.' },
 
-  // ── 2 · A hard year ────────────────────────────────────────────────────
-  { id: 'ch2', beat: 'hard-year', steps: ['ch2'], camera: 'wall', effect: 1 },
-  { id: 'hardest-year', beat: 'hard-year', steps: ['hardest-year'] },
-  { id: 'react-advanced', beat: 'hard-year', steps: ['react-advanced'], notes: 'UNVERIFIED (per Faris).' },
-  { id: 'react-alicante', beat: 'hard-year', steps: ['react-alicante'], notes: 'UNVERIFIED.' },
-  { id: 'renamed', beat: 'hard-year', steps: ['renamed'], notes: 'UNVERIFIED.' },
-  { id: 'last-editions', beat: 'hard-year', steps: ['last-editions'], notes: 'UNVERIFIED except Front 26 (sourced from the frontconference.com screenshot).' },
-  { id: 'layoffs', beat: 'hard-year', steps: ['layoffs'], notes: 'Netflix, Google, Microsoft, Canva, Smallpdf. Smallpdf was our Gold sponsor: decide whether to name companies.' },
-  { id: 'sponsor-tiers', beat: 'hard-year', steps: ['sponsor-tiers'], notes: 'Platinum alone brought about CHF 27k.' },
-  { id: 'no-diamond', beat: 'hard-year', steps: ['no-diamond'] },
-  { id: 'money-late', beat: 'hard-year', steps: ['money-late'], notes: '15 of 24 were paid in the last three months.' },
-  { id: 'price-sensitive', beat: 'hard-year', steps: ['price-sensitive'], notes: 'FARIS: add what you saw.' },
-  { id: 'expensive', beat: 'hard-year', steps: ['expensive'] },
-  { id: 'ai-changed', beat: 'hard-year', steps: ['ai-changed'], notes: 'FARIS: opinion to add.' },
-  { id: 'ai-share', beat: 'hard-year', steps: ['ai-share'], notes: 'Keyword-based.' },
-  { id: 'three-problems', beat: 'hard-year', steps: ['three-problems'], notes: 'FARIS to confirm the links: sponsor budgets → ch3 (tiny team, one app); AI submissions → ch4 (programme picks); price-sensitive buyers → ch5 (discounts, partner codes, invoices, currencies).' },
 
   // ── 3 · The machine ────────────────────────────────────────────────────
   { id: 'ch3', beat: 'machine', steps: ['ch3'], camera: 'booth', effect: 1, notes: 'Camera in the control booth: the crew behind the glass.' },
@@ -90,11 +104,6 @@ export const slides = defineSlides(VISUALS, [
 
   // ── 5 · Filling the room ───────────────────────────────────────────────
   { id: 'ch5', beat: 'room', steps: ['ch5'], camera: 'foyer', effect: 1, notes: 'Camera in the foyer: this slide is projected on the wall above check-in.' },
-  {
-    id: 'road', beat: 'room',
-    steps: ['road'],
-    notes: 'NEW (not in the handoff). Plays by itself, about 35 s: starts at React Summit US, New York, then flies every trip in date order (19 stops) and lands on the totals. No keys needed; → moves on. From faziz-dev.com/events, Nov 2025 to Aug 2026. Blue = team trips: React Vienna, ReactJS Milano and jsday, CityJS London, JSHeroes; Voxxed Days Zurich is at home. ASSUMED: return trips from Zurich except Milan → Bologna and Warsaw → Cluj; km is great-circle.',
-  },
   { id: 'price-stages', beat: 'room', steps: ['price-stages'] },
   { id: 'when-bought', beat: 'room', steps: ['when-bought'] },
   { id: 'last-100-days', beat: 'room', steps: ['last-100-days'], notes: 'FARIS: add the deadline lesson.' },
@@ -135,7 +144,8 @@ export const slides = defineSlides(VISUALS, [
   // ── 8 · The final numbers ──────────────────────────────────────────────
   { id: 'ch8', beat: 'final', steps: ['ch8'], camera: 'stage', effect: 1 },
   { id: 'income', beat: 'final', steps: ['income'], notes: 'Admin income may be off by up to about 5%. Costs are not in the admin.' },
-  { id: 'add-up', beat: 'final', steps: ['add-up-q', 'add-up-a'], notes: 'Enter reveals the answer.' },
+  { id: 'add-up', beat: 'final', steps: ['add-up-q'], notes: 'Pause. The next slide is the answer.' },
+  { id: 'add-up-answer', beat: 'final', steps: ['add-up-a'] },
   { id: 'rating', beat: 'final', steps: ['rating'] },
   { id: 'come-back', beat: 'final', steps: ['come-back'], notes: '61 Absolutely, 38 "I’ll try".' },
   { id: 'thanks', beat: 'final', steps: ['thanks'], camera: 'stage', effect: 1, notes: 'CHECK: 13 door staff vs 14 volunteers on the dashboard.' },
