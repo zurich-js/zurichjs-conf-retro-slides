@@ -10,9 +10,9 @@ plain data in `src/content/slides.ts`: `id`, `steps`, optional `beat`,
 `camera`, `effect`, `notes`.
 
 ## Step
-One visual within a slide, advanced with **Enter** (Backspace undoes). Arriving
-at a slide always starts at step 0, from either direction. Steps let a slide
-build (title first, then the plot) without spending an arrow press.
+The visual a slide shows. Every slide has exactly one: the deck is arrows
+only, so a build is a sequence of slides, not Enter presses. (The engine
+still models steps; `defineSlides` holds each slide to one.)
 
 ## Beat
 Narrative metadata grouping slides (`open`, `evidence`, `close`…). No input,

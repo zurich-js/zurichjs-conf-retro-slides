@@ -15,7 +15,8 @@ export function defineSlides(
     if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(s.id)) throw new Error(`Slide id "${s.id}" must be kebab-case`)
     if (ids.has(s.id)) throw new Error(`Duplicate slide id "${s.id}"`)
     ids.add(s.id)
-    if (s.steps.length === 0) throw new Error(`Slide "${s.id}" needs at least one step`)
+    // Arrows only (Faris, 2026-11-08): one visual per slide, no Enter builds.
+    if (s.steps.length !== 1) throw new Error(`Slide "${s.id}" has ${s.steps.length} steps: one visual per slide; make each build its own slide`)
     for (const v of s.steps) {
       if (!catalog[v]) throw new Error(`Slide "${s.id}" references unknown visual "${v}"`)
     }

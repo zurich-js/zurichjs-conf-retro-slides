@@ -4,14 +4,14 @@ import { VISUALS } from './visuals'
 /**
  * THE RUNNING ORDER — the only file you edit to arrange the talk.
  *
- *   steps   visual ids; arriving shows the first, Enter reveals each next one
+ *   steps   exactly one visual id (one visual per slide; builds are separate slides)
  *   camera  'screen' (fills the projector) | a set cue: stage, room, letters,
  *           podium, booth, rig, wall, foyer, badges, merch, atrium, booths, map
  *           (see src/scene/venue.ts; preview with ?cue=)
  *   effect  0 = clean passthrough … 1 = full medium effect
  *   notes   shown in ?presenter only
  *
- * Rule: → / ← move slides and nothing else. Enter performs steps.
+ * Rule: → / ← move slides and nothing else. No Enter steps: every beat is an arrow press.
  *
  * DRAFT (2026-11-08): ZurichJS Conf retrospective, scaffolded 1:1 from the
  * handoff's 87 slides, plus the road-to-Zurich globe and an optional venue
@@ -30,8 +30,10 @@ export const slides = defineSlides(VISUALS, [
   { id: 'one-year', beat: 'start', steps: ['one-year'], camera: 'cake', notes: 'The birthday cake on the "new Date()" flyer. Next slide flies from Foifi across Zurich to Technopark.' },
   // ── Rolling back a year: the meetup's first year ───────────────────────
   { id: 'rollback', beat: 'start', steps: ['rollback'], camera: 'foifi-full', notes: 'The camera dives into the Foifi screen; the calendar flips back from 14 Nov 2025 to the meetup relaunch on 14 Nov 2024 (relaunch date from faziz-dev.com/events).' },
-  { id: 'meetup-year', beat: 'start', steps: ['meetup-year', 'meetup-year-2'], camera: 'foifi-full', notes: 'Meetup.com group stats export, 8 Nov 2026, cumulative from the relaunch. Members since the relaunch = total minus the 257 from before it (treated as inactive, per Faris). Year one: 409 members (counted from 0), 634 RSVPs, 427 joined. ENTER continues the lines into 2026, to 8 Nov 2026 (just before the 2nd anniversary on 12 Nov): 844 members, 1,435 RSVPs, 939 joined.' },
-  { id: 'meetup-rsvps', beat: 'start', steps: ['meetup-rsvps', 'meetup-rsvps-2'], camera: 'foifi-full', notes: 'Heatmap: RSVPs per whole month, Nov to Oct, so totals (636 and 810) differ slightly from the anniversary-to-anniversary figures (634 and 801). Year one peaked in spring: 96 in March, 114 in April 2025 (outlined: the busiest month of both years). ENTER adds year two underneath: busier in 8 of 12 months, Jan 2026 at 104. CHECK which meetups those were.' },
+  { id: 'meetup-year', beat: 'start', steps: ['meetup-year'], camera: 'foifi-full', notes: 'Meetup.com group stats export, 8 Nov 2026, cumulative from the relaunch. Members counted from 0 (the 257 from before the relaunch treated as inactive, per Faris). Year one: 409 members, 634 RSVPs, 427 joined.' },
+  { id: 'meetup-2026', beat: 'start', steps: ['meetup-year-2'], camera: 'foifi-full', notes: 'The same lines continue into 2026, to 8 Nov 2026 (just before the 2nd anniversary on 12 Nov): 844 members, 1,435 RSVPs, 939 joined. Year two alone: +435 members, +801 RSVPs, +512 joined.' },
+  { id: 'meetup-rsvps', beat: 'start', steps: ['meetup-rsvps'], camera: 'foifi-full', notes: 'RSVPs per whole month, Nov to Oct (totals 636 and 810 differ slightly from anniversary-to-anniversary 634 and 801). Year one peaked in spring: 96 in March, 114 in April 2025 (outlined: the busiest month of both years). CHECK which meetups those were.' },
+  { id: 'meetup-rsvps-2026', beat: 'start', steps: ['meetup-rsvps-2'], camera: 'foifi-full', notes: 'Year two slides in under year one: busier in 8 of 12 months, 810 vs 636. Peaks: Jan 2026 (104), Apr (94), May (90). CHECK which meetups those were.' },
   { id: 'venue-map', beat: 'venue', steps: ['venue-map'], camera: 'map', notes: 'Ten months later. Crane shot from Foifi over to the Technopark cutaway. OPTIONAL flyover (5 slides): auditorium, booth, foyer, atrium.' },
   { id: 'venue-atrium', beat: 'venue', steps: ['venue-atrium'], camera: 'atrium', notes: 'OPTIONAL. The atrium: tables, pendants, lift tower.' },
   { id: 'venue-booths', beat: 'venue', steps: ['venue-booths'], camera: 'booths', notes: 'OPTIONAL. AG Grid booth, ZurichJS roll-up, namespace wall beyond.' },
@@ -139,7 +141,8 @@ export const slides = defineSlides(VISUALS, [
   // ── 8 · The final numbers ──────────────────────────────────────────────
   { id: 'ch8', beat: 'final', steps: ['ch8'], camera: 'stage', effect: 1 },
   { id: 'income', beat: 'final', steps: ['income'], notes: 'Admin income may be off by up to about 5%. Costs are not in the admin.' },
-  { id: 'add-up', beat: 'final', steps: ['add-up-q', 'add-up-a'], notes: 'Enter reveals the answer.' },
+  { id: 'add-up', beat: 'final', steps: ['add-up-q'], notes: 'Pause. The next slide is the answer.' },
+  { id: 'add-up-answer', beat: 'final', steps: ['add-up-a'] },
   { id: 'rating', beat: 'final', steps: ['rating'] },
   { id: 'come-back', beat: 'final', steps: ['come-back'], notes: '61 Absolutely, 38 "I’ll try".' },
   { id: 'thanks', beat: 'final', steps: ['thanks'], camera: 'stage', effect: 1, notes: 'CHECK: 13 door staff vs 14 volunteers on the dashboard.' },
