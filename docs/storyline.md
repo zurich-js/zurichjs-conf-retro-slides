@@ -32,7 +32,7 @@ House rules (from the original deck brief): no em dashes, never the word "bounda
 - **The human story is missing.** The four places where only Faris (and the team) can speak are empty: W1 the meetup itch, M1 brand and design, R1 the personal highs and lows, O5 the next edition date. Without them it is a data report, not a story.
 - **Decided: the story starts at the 1st anniversary** (Pause im Foifi, 14 Nov 2025), where conf.zurichjs.com went live five minutes before the meetup. It then flies to Technopark, "ten months later". What follows the venue flyover still needs a thread: it restarts at "359 people".
 - **Venue views were picked for looks, not meaning.** Chapter openers land on views that look good (the rig for "the rollercoaster", the wall for "a hard year") rather than places that mean something for that part of the story.
-- **Decided: ZurichJS on the road follows the meetup numbers**, still at Foifi, before the flight to Technopark: the trips that marketed the conference, met speakers and closed sponsor deals.
+- **Decided: the motivation comes before the road.** After the meetup numbers, still at Foifi: the agenda, chapter 1 (why on earth) and chapter 2 (the hard market and our three problems), then ZurichJS on the road as the answer, then the flight to Technopark. The Technopark opening ("359 people") follows the venue flyover.
 - **Unverified claims carry a whole chapter.** Chapter 2's industry context (React Advanced -50%, renames, last editions, layoffs) is per Faris and unverified. Either source it or soften it.
 - **Two placeholders** for the Front Conference screenshots (`front-cancel.png`, `front-book.png`) are not in this repo yet.
 
@@ -104,57 +104,62 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | 9 | `meetup-2026` | Growth chart (continues) | Two years of the meetup, to 8 Nov 2026: 844 members, 1,435 RSVPs, 939 joined | Foifi screen, full frame | The lines continue from where year one ended. | keep |
 | 10 | `meetup-rsvps` | Heatmap | RSVPs per month: year one peaked in spring (96 Mar, 114 Apr) | Foifi screen, full frame | CHECK which meetups the peaks were. | keep |
 | 11 | `meetup-rsvps-2026` | Heatmap (adds a row) | Year two busier in 8 of 12 months: 810 vs 636 (whole months Nov to Oct) | Foifi screen, full frame | | keep |
-| 12 | `road` | Globe | Globe: autoplays all 19 trips (Nov 2025 to Aug 2026), then totals: 16 trips · 31 events · 13 countries · ~89k km · 4 team trips | Foifi screen, full frame | NEW (not in the handoff). Plays by itself, about 35 s: starts at React Summit US, New York, then flies every trip in date order (19 stops) and lands on the totals. No keys needed; → moves on. From faziz-dev.com/events, Nov 2025 to Aug 2026. Blue = team trips: React Vienna, ReactJS Milano and jsday, CityJS London, JSHeroes; Voxxed Days Zurich is at home. ASSUMED: return trips from Zurich except Milan → Bologna and Warsaw → Cluj; km is great-circle. | |
 
-### Opening
+### 1 · Why on earth (at Foifi, after the meetup numbers) · *Where it came from*
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 13 | `people-359` | Big number | 359 · People in the room | Hall, back corner | 330 ticket holders, plus 19 speakers and MCs without a ticket, plus 10 staff without a ticket. | |
-| 14 | `people-split` | Number tiles | Where 359 comes from · 267 (Paid tickets) · 63 (Complimentary tickets) · 19 (Speakers and MCs without a ticket) · 10 (Staff and volunteers without a ticket) | Screen (full frame) | 21 people on stage, 2 of whom also held a ticket. 13 door staff, 3 of whom held a ticket. | |
-| 15 | `year-numbers` | Number tiles | A year in numbers · 434 (Talk submissions) · 1,336 (Commits) · 21 (Countries in the room) · 53,277 (Slack messages) | Screen (full frame) |  | |
-| 16 | `chapters` | List | Eight chapters · Why on earth · A hard year · The machine · Building the programme · Filling the room · The rollercoaster · What we learned · The final numbers | Screen (full frame) | Each problem in chapter 2 gets its answer later. | |
+| 12 | `chapters` | List | Eight chapters · Why on earth · A hard year · The machine · Building the programme · Filling the room · The rollercoaster · What we learned · The final numbers | Foifi screen, full frame | Each problem in chapter 2 gets its answer later. | |
+| 13 | `ch1` | Section | 01 · Where it came from · Why on earth | Foifi, from the back row |  | |
+| 14 | `meetup-itch` | Statement | Data gap · W1 · It started at the meetup. Your story: the itch. | Foifi screen, full frame | DATA GAP W1: Faris writes this. | |
+| 15 | `front-cancel` | Statement | Screenshot missing · front-cancel.png · Zurich's Front Conference cancelled Front 26. | Foifi screen, full frame | Needs front-cancel.png (in the old deck repo). Zurich's front-end conference for 10+ years. Front 26 was planned for 27 Feb 2026 at Alte Papierfabrik. Ticket demand was "way off, both via B2C and B2B channels", even after scaling to one day. Per Faris: two revival attempts (Q4 2025, Q1 2026) did not happen. | |
+| 16 | `front-book` | Statement | Screenshot missing · front-book.png · And told everyone to book ZurichJS Conf. | Foifi screen, full frame | Needs front-book.png. Their notice lists conf.zurichjs.com first. Front Conference Zurich also bought 6 tickets by company invoice. | |
+| 17 | `dying` | Statement (yellow) | Everyone said tech events were dying. So we started one. | Foifi screen, full frame |  | |
+| 18 | `first-commit` | Big number | 3 Nov 2025 · First commit. First ticket sold ten days later. | Foifi screen, full frame | First ticket 13 Nov 2025. FARIS: replace with the date you decided, if different. | |
+
+### 2 · A hard year (at Foifi) · *Three problems*
+
+| # | Slide | Block | On screen | View | Notes | Team decision |
+|---|---|---|---|---|---|---|
+| 19 | `ch2` | Section | 02 · Three problems · A hard year | Foifi projector |  | |
+| 20 | `hardest-year` | Statement | One of the hardest years in a decade to run a JavaScript conference. | Foifi screen, full frame |  | |
+| 21 | `react-advanced` | Big number | −50% · Ticket sales at React Advanced London | Foifi screen, full frame | UNVERIFIED (per Faris). | |
+| 22 | `react-alicante` | Big number | −200 · Seats at React Alicante versus last year | Foifi screen, full frame | UNVERIFIED. | |
+| 23 | `renamed` | Number tiles | Conferences renamed themselves · Web Engineering London (Was React Advanced) · CityAI (Was CityJS) | Foifi screen, full frame | UNVERIFIED. | |
+| 24 | `last-editions` | Number tiles | Or announced their last edition · React India (Last edition this year) · JSWorld (2027 is the last) · Devoxx Belgium (2027 likely the last) · Front Conference (Front 26 cancelled) | Foifi screen, full frame | UNVERIFIED except Front 26 (sourced from the frontconference.com screenshot). | |
+| 25 | `layoffs` | Statement | Layoffs everywhere. Sponsorship budgets cut. | Foifi screen, full frame | Netflix, Google, Microsoft, Canva, Smallpdf. Smallpdf was our Gold sponsor: decide whether to name companies. | |
+| 26 | `sponsor-tiers` | Bar chart | Half our sponsors were the smallest tier · Paid sponsor deals by tier · Platinum 2 · Gold 2 · Silver 3 · Bronze 5 · Supporter 12 | Foifi screen, full frame | Platinum alone brought about CHF 27k. | |
+| 27 | `no-diamond` | Big number | 0 · Diamond sponsors. One cancelled, one never left draft. | Foifi screen, full frame |  | |
+| 28 | `money-late` | Bar chart | And the money came late · Sponsor deals paid per month, 2026 · Feb 1 · Mar 0 · Apr 0 · May 7 · Jun 1 · Jul 5 · Aug 7 · Sep 3 | Foifi screen, full frame | 15 of 24 were paid in the last three months. | |
+| 29 | `price-sensitive` | Statement | Faris adds what he saw · Buyers were price-sensitive. | Foifi screen, full frame | FARIS: add what you saw. | |
+| 30 | `expensive` | Big number | 14 · Of 112 survey respondents found it expensive. 98 said good, excellent or just right. | Foifi screen, full frame |  | |
+| 31 | `ai-changed` | Statement | AI changed what people submitted. | Foifi screen, full frame | FARIS: opinion to add. | |
+| 32 | `ai-share` | Big number | 40% · Of CFP submissions mentioned AI. 171 of 428 analysed. | Foifi screen, full frame | Keyword-based. | |
+| 33 | `three-problems` | Statement (yellow) | Three problems. Each forced a decision. | Foifi screen, full frame | FARIS to confirm the links: sponsor budgets → ch3 (tiny team, one app); AI submissions → ch4 (programme picks); price-sensitive buyers → ch5 (discounts, partner codes, invoices, currencies). | |
+
+### ZurichJS on the road (decided) · *our answer to the hard year*
+
+| # | Slide | Block | On screen | View | Notes | Team decision |
+|---|---|---|---|---|---|---|
+| 34 | `road` | Globe | Globe: autoplays all 19 trips (Nov 2025 to Aug 2026), then totals: 16 trips · 31 events · 13 countries · ~89k km · 4 team trips | Foifi screen, full frame | NEW (not in the handoff). Plays by itself, about 35 s: starts at React Summit US, New York, then flies every trip in date order (19 stops) and lands on the totals. No keys needed; → moves on. From faziz-dev.com/events, Nov 2025 to Aug 2026. Blue = team trips: React Vienna, ReactJS Milano and jsday, CityJS London, JSHeroes; Voxxed Days Zurich is at home. ASSUMED: return trips from Zurich except Milan → Bologna and Warsaw → Cluj; km is great-circle. | |
 
 ### Venue flyover (optional)
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 17 | `venue-map` | Statement | Technopark Zürich · One building, one week, one conference. | Venue map (cutaway) | OPTIONAL flyover (5 slides). Cutaway of Technopark: auditorium, booth, foyer, atrium. | |
-| 18 | `venue-atrium` | Statement | The atrium · Sponsors, coffee, and every hallway conversation. | Atrium, from above | OPTIONAL. The atrium: tables, pendants, lift tower. | |
-| 19 | `venue-booths` | Statement | Sponsor booths · The people who paid for the room. | Sponsor booths | OPTIONAL. AG Grid booth, ZurichJS roll-up, namespace wall beyond. | |
-| 20 | `venue-badges` | Statement | Check-in · Nine kinds of badge. | Badges on the counter | OPTIONAL. All nine badge kinds on the check-in counter. | |
-| 21 | `venue-merch` | Statement | Volunteer merch desk · Cups and totes. | Merch table | OPTIONAL. Volunteer merch desk: cups and totes. | |
+| 35 | `venue-map` | Statement | Technopark Zürich · One building, one week, one conference. | Venue map (cutaway) | OPTIONAL flyover (5 slides). Cutaway of Technopark: auditorium, booth, foyer, atrium. | |
+| 36 | `venue-atrium` | Statement | The atrium · Sponsors, coffee, and every hallway conversation. | Atrium, from above | OPTIONAL. The atrium: tables, pendants, lift tower. | |
+| 37 | `venue-booths` | Statement | Sponsor booths · The people who paid for the room. | Sponsor booths | OPTIONAL. AG Grid booth, ZurichJS roll-up, namespace wall beyond. | |
+| 38 | `venue-badges` | Statement | Check-in · Nine kinds of badge. | Badges on the counter | OPTIONAL. All nine badge kinds on the check-in counter. | |
+| 39 | `venue-merch` | Statement | Volunteer merch desk · Cups and totes. | Merch table | OPTIONAL. Volunteer merch desk: cups and totes. | |
 
-### 1 · Why on earth · *Where it came from*
-
-| # | Slide | Block | On screen | View | Notes | Team decision |
-|---|---|---|---|---|---|---|
-| 22 | `ch1` | Section | 01 · Where it came from · Why on earth | Low along the foam letters |  | |
-| 23 | `meetup-itch` | Statement | Data gap · W1 · It started at the meetup. Your story: the itch. | Screen (full frame) | DATA GAP W1: Faris writes this. | |
-| 24 | `front-cancel` | Statement | Screenshot missing · front-cancel.png · Zurich's Front Conference cancelled Front 26. | Screen (full frame) | Needs front-cancel.png (in the old deck repo). Zurich's front-end conference for 10+ years. Front 26 was planned for 27 Feb 2026 at Alte Papierfabrik. Ticket demand was "way off, both via B2C and B2B channels", even after scaling to one day. Per Faris: two revival attempts (Q4 2025, Q1 2026) did not happen. | |
-| 25 | `front-book` | Statement | Screenshot missing · front-book.png · And told everyone to book ZurichJS Conf. | Screen (full frame) | Needs front-book.png. Their notice lists conf.zurichjs.com first. Front Conference Zurich also bought 6 tickets by company invoice. | |
-| 26 | `dying` | Statement (yellow) | Everyone said tech events were dying. So we started one. | Screen (full frame) |  | |
-| 27 | `first-commit` | Big number | 3 Nov 2025 · First commit. First ticket sold ten days later. | Screen (full frame) | First ticket 13 Nov 2025. FARIS: replace with the date you decided, if different. | |
-
-### 2 · A hard year · *Three problems*
+### Opening
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 28 | `ch2` | Section | 02 · Three problems · A hard year | Along the wood wall |  | |
-| 29 | `hardest-year` | Statement | One of the hardest years in a decade to run a JavaScript conference. | Screen (full frame) |  | |
-| 30 | `react-advanced` | Big number | −50% · Ticket sales at React Advanced London | Screen (full frame) | UNVERIFIED (per Faris). | |
-| 31 | `react-alicante` | Big number | −200 · Seats at React Alicante versus last year | Screen (full frame) | UNVERIFIED. | |
-| 32 | `renamed` | Number tiles | Conferences renamed themselves · Web Engineering London (Was React Advanced) · CityAI (Was CityJS) | Screen (full frame) | UNVERIFIED. | |
-| 33 | `last-editions` | Number tiles | Or announced their last edition · React India (Last edition this year) · JSWorld (2027 is the last) · Devoxx Belgium (2027 likely the last) · Front Conference (Front 26 cancelled) | Screen (full frame) | UNVERIFIED except Front 26 (sourced from the frontconference.com screenshot). | |
-| 34 | `layoffs` | Statement | Layoffs everywhere. Sponsorship budgets cut. | Screen (full frame) | Netflix, Google, Microsoft, Canva, Smallpdf. Smallpdf was our Gold sponsor: decide whether to name companies. | |
-| 35 | `sponsor-tiers` | Bar chart | Half our sponsors were the smallest tier · Paid sponsor deals by tier · Platinum 2 · Gold 2 · Silver 3 · Bronze 5 · Supporter 12 | Screen (full frame) | Platinum alone brought about CHF 27k. | |
-| 36 | `no-diamond` | Big number | 0 · Diamond sponsors. One cancelled, one never left draft. | Screen (full frame) |  | |
-| 37 | `money-late` | Bar chart | And the money came late · Sponsor deals paid per month, 2026 · Feb 1 · Mar 0 · Apr 0 · May 7 · Jun 1 · Jul 5 · Aug 7 · Sep 3 | Screen (full frame) | 15 of 24 were paid in the last three months. | |
-| 38 | `price-sensitive` | Statement | Faris adds what he saw · Buyers were price-sensitive. | Screen (full frame) | FARIS: add what you saw. | |
-| 39 | `expensive` | Big number | 14 · Of 112 survey respondents found it expensive. 98 said good, excellent or just right. | Screen (full frame) |  | |
-| 40 | `ai-changed` | Statement | AI changed what people submitted. | Screen (full frame) | FARIS: opinion to add. | |
-| 41 | `ai-share` | Big number | 40% · Of CFP submissions mentioned AI. 171 of 428 analysed. | Screen (full frame) | Keyword-based. | |
-| 42 | `three-problems` | Statement (yellow) | Three problems. Each forced a decision. | Screen (full frame) | FARIS to confirm the links: sponsor budgets → ch3 (tiny team, one app); AI submissions → ch4 (programme picks); price-sensitive buyers → ch5 (discounts, partner codes, invoices, currencies). | |
+| 40 | `people-359` | Big number | 359 · People in the room | Hall, back corner | 330 ticket holders, plus 19 speakers and MCs without a ticket, plus 10 staff without a ticket. | |
+| 41 | `people-split` | Number tiles | Where 359 comes from · 267 (Paid tickets) · 63 (Complimentary tickets) · 19 (Speakers and MCs without a ticket) · 10 (Staff and volunteers without a ticket) | Screen (full frame) | 21 people on stage, 2 of whom also held a ticket. 13 door staff, 3 of whom held a ticket. | |
+| 42 | `year-numbers` | Number tiles | A year in numbers · 434 (Talk submissions) · 1,336 (Commits) · 21 (Countries in the room) · 53,277 (Slack messages) | Screen (full frame) |  | |
 
 ### 3 · The machine · *Four people, day jobs, one app*
 
