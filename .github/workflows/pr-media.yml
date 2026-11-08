@@ -1,0 +1,37 @@
+name: PR media
+
+# Every PR must show its change: at least one screenshot and one screen
+# recording in the PR description. Edit the description and this re-runs.
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, ready_for_review]
+
+permissions: {}
+
+jobs:
+  media:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require screenshots and a screen recording
+        env:
+          BODY: ${{ github.event.pull_request.body }}
+        run: |
+          python3 - <<'PY'
+          import os, re, sys
+          body = re.sub(r'<!--.*?-->', '', os.environ.get('BODY') or '', flags=re.S)
+          def section(name):
+              m = re.search(r'^##\s*' + name + r'\b(.*?)(?=^##\s|\Z)', body, re.S | re.M | re.I)
+              return m.group(1) if m else ''
+          image = re.compile(r'!\[[^\]]*\]\([^)]+\)|<img\s|github\.com/user-attachments/assets/|\.(png|jpe?g|webp)\b', re.I)
+          video = re.compile(r'github\.com/user-attachments/assets/|\.(mp4|mov|webm|gif)\b|<video\s', re.I)
+          errors = []
+          if not image.search(section('Screenshots')):
+              errors.append('Add at least one screenshot under "## Screenshots" (pnpm shot).')
+          if not video.search(section('Recording')):
+              errors.append('Add a screen recording under "## Recording" (pnpm record, then drag the .mp4 in).')
+          for e in errors:
+              print('::error::' + e)
+          if not errors:
+              print('Screenshots and recording present.')
+          sys.exit(1 if errors else 0)
+          PY

@@ -1,0 +1,19 @@
+html, body, #root { margin: 0; height: 100%; background: #0a0a0a; overflow: hidden; }
+canvas.flat { display: block; width: 100vw; height: 100vh; object-fit: contain; }
+.index { height: 100%; overflow: auto; display: grid; gap: 24px; padding: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); box-sizing: border-box; }
+.card { color: #94a3b8; text-decoration: none; font: 14px ui-sans-serif, system-ui, sans-serif; }
+.card canvas { width: 100%; height: auto; display: block; border-radius: 12px; outline: 1px solid rgba(255,255,255,.12); }
+.card span { display: block; padding-top: 8px; }
+.card:hover canvas { outline-color: #f1e271; }
+
+.presenter { height: 100%; display: grid; grid-template-columns: 2fr 1fr; gap: 24px; padding: 24px;
+  box-sizing: border-box; color: #e5e7eb; font: 18px "Figtree", ui-sans-serif, system-ui, sans-serif; }
+.presenter canvas { width: 100%; height: auto; display: block; border-radius: 12px; outline: 1px solid rgba(255,255,255,.12); }
+.presenter .meta { color: #94a3b8; margin: 12px 0 0; }
+.presenter .meta b { color: #f1e271; font-weight: 700; }
+.presenter aside { display: flex; flex-direction: column; gap: 20px; min-height: 0; }
+.presenter figure { margin: 0; }
+.presenter figcaption { color: #94a3b8; font-size: 14px; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 8px; }
+.presenter .notes { flex: 1; overflow: auto; font-size: 26px; line-height: 1.4; white-space: pre-wrap; }
+.presenter .timer { all: unset; cursor: pointer; font: 600 56px "Geist Mono Variable", ui-monospace, monospace; color: #f1e271; }

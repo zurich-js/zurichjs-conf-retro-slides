@@ -1,0 +1,30 @@
+import { CAMERA_CUES, type Slide, type Visual } from './types'
+
+/**
+ * Validate the deck once, at module load. Runtime code can then trust every
+ * slide; a bad id or a dangling visual fails the dev server immediately
+ * instead of on stage.
+ */
+export function defineSlides(
+  catalog: Readonly<Record<string, Visual>>,
+  slides: readonly Slide[],
+): readonly Slide[] {
+  if (slides.length === 0) throw new Error('The deck needs at least one slide')
+  const ids = new Set<string>()
+  for (const s of slides) {
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(s.id)) throw new Error(`Slide id "${s.id}" must be kebab-case`)
+    if (ids.has(s.id)) throw new Error(`Duplicate slide id "${s.id}"`)
+    ids.add(s.id)
+    if (s.steps.length === 0) throw new Error(`Slide "${s.id}" needs at least one step`)
+    for (const v of s.steps) {
+      if (!catalog[v]) throw new Error(`Slide "${s.id}" references unknown visual "${v}"`)
+    }
+    if (s.camera !== undefined && !CAMERA_CUES.includes(s.camera)) {
+      throw new Error(`Slide "${s.id}" camera "${s.camera}" is not one of ${CAMERA_CUES.join(', ')}`)
+    }
+    if (s.effect !== undefined && !(s.effect >= 0 && s.effect <= 1)) {
+      throw new Error(`Slide "${s.id}" effect must be between 0 and 1`)
+    }
+  }
+  return Object.freeze(slides.map((s) => Object.freeze(s)))
+}
