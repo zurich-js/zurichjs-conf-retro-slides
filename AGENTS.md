@@ -217,6 +217,11 @@ Copied into `PALETTE`; never import across repos.
   adds year two. 2026 gets its own slides so the arrows reach it. The 257
   members from before the relaunch are treated as inactive (per Faris), so
   members count from 0. The candle on the cake is lit.
+- **The stakes** sit right after "So we started one": CHF 100k minimum (huge, on dark
+  right after the yellow "So we started one"),
+  bookings signed with no way to cancel, ÷ 3 (shortfall from three
+  organisers' own pockets). Paid off after "Just over break even": "Nobody
+  had to pay it out of pocket."
 - After the meetup numbers, still at Foifi: the agenda, chapter 1 (why on
   earth) and chapter 2 (the hard market, our three problems), then **ZurichJS
   on the road** (the globe) as the answer; then the camera flies to Technopark.

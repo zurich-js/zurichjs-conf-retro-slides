@@ -41,6 +41,9 @@ export const slides = defineSlides(VISUALS, [
   { id: 'front-cancel', beat: 'why', steps: ['front-cancel'], camera: 'foifi-full', notes: 'Needs front-cancel.png (in the old deck repo). Zurich’s front-end conference for 10+ years. Front 26 was planned for 27 Feb 2026 at Alte Papierfabrik. Ticket demand was "way off, both via B2C and B2B channels", even after scaling to one day. Per Faris: two revival attempts (Q4 2025, Q1 2026) did not happen.' },
   { id: 'front-book', beat: 'why', steps: ['front-book'], camera: 'foifi-full', notes: 'Needs front-book.png. Their notice lists conf.zurichjs.com first. Front Conference Zurich also bought 6 tickets by company invoice.' },
   { id: 'dying', beat: 'why', steps: ['dying'], camera: 'foifi-full' },
+  { id: 'stakes-100k', beat: 'why', steps: ['stakes-100k'], camera: 'foifi-full', notes: 'The stakes. We needed at least 100k to run it. CHECK: CHF assumed.' },
+  { id: 'stakes-no-cancel', beat: 'why', steps: ['stakes-no-cancel'], camera: 'foifi-full', notes: 'You sign the bookings with no cancellation. Once signed, the money is committed whether tickets sell or not.' },
+  { id: 'stakes-split', beat: 'why', steps: ['stakes-split'], camera: 'foifi-full', notes: 'If we did not make it, the three of us would take the hit, split between us, on our personal finances. (Not stated per person on purpose: worst case would be about a third of 100k each. Say it if you want to.)' },
   { id: 'first-commit', beat: 'why', steps: ['first-commit'], camera: 'foifi-full', notes: 'First ticket 13 Nov 2025. FARIS: replace with the date you decided, if different.' },
 
   // ── 2 · A hard year: the market and our three problems (still at Foifi) ──
@@ -146,6 +149,7 @@ export const slides = defineSlides(VISUALS, [
   { id: 'income', beat: 'final', steps: ['income'], notes: 'Admin income may be off by up to about 5%. Costs are not in the admin.' },
   { id: 'add-up', beat: 'final', steps: ['add-up-q'], notes: 'Pause. The next slide is the answer.' },
   { id: 'add-up-answer', beat: 'final', steps: ['add-up-a'] },
+  { id: 'stakes-covered', beat: 'final', steps: ['stakes-covered'], notes: 'Pays off the stakes from chapter 1 (the CHF 100k, no cancellation, split three ways). CHECK: just over break even means no one paid personally.' },
   { id: 'rating', beat: 'final', steps: ['rating'] },
   { id: 'come-back', beat: 'final', steps: ['come-back'], notes: '61 Absolutely, 38 "I’ll try".' },
   { id: 'thanks', beat: 'final', steps: ['thanks'], camera: 'stage', effect: 1, notes: 'CHECK: 13 door staff vs 14 volunteers on the dashboard.' },

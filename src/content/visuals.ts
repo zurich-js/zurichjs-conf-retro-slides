@@ -98,6 +98,11 @@ export const VISUALS = {
   'front-cancel': { kind: 'statement', kicker: 'Screenshot missing · front-cancel.png', text: 'Zurich’s Front Conference cancelled Front 26.', emphasis: 'cancelled' },
   'front-book': { kind: 'statement', kicker: 'Screenshot missing · front-book.png', text: 'And told everyone to book ZurichJS Conf.', emphasis: 'book ZurichJS Conf.' },
   'dying': { kind: 'statement', ground: 'yellow', text: 'Everyone said tech events were dying. So we started one.', emphasis: 'So we started one.' },
+  // The stakes: what starting one actually meant.
+  'stakes-100k': { kind: 'stat', value: 'CHF 100k', label: 'The minimum it would cost to run ZurichJS Conf.' },
+  'stakes-no-cancel': { kind: 'statement', kicker: 'The bookings', text: 'Signed with no way to cancel.', emphasis: 'no way to cancel.' },
+  'stakes-split': { kind: 'stat', value: '÷ 3', tone: 'warn', label: 'If we fell short, three of us would cover the gap from our own pockets.' },
+  'stakes-covered': { kind: 'statement', text: 'Nobody had to pay it out of pocket.', emphasis: 'Nobody' },
   'first-commit': { kind: 'stat', value: '3 Nov 2025', label: 'First commit. First ticket sold ten days later.' },
 
   // ── 2 · A hard year ────────────────────────────────────────────────────
