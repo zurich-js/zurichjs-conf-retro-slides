@@ -27,7 +27,8 @@ The closed set of visual forms: `title`, `section`, `statement`, `stat`,
 `bars`, `quote`, `image`, `code`, `numbers` (2–6 number tiles), `calendar`
 (a split-flap calendar rolling month by month between two dates), `growth`
 (lines growing from their start; `show`/`from` continue it across steps),
-`heatmap` (rows of value-shaded cells, e.g. RSVPs per month per year), `journey`
+`heatmap` (rows of value-shaded cells, e.g. RSVPs per month per year), `matrix`
+(a ✓/✗ feature grid: what each option includes, one column highlighted), `journey`
 (the road-to-Zurich globe: one leg per step, or with `play` every leg in
 one autoplaying draw-in). Each kind has exactly one painter. Adding a kind is a
 deliberate act (type + painter + doc), never a one-off.

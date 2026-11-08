@@ -5,6 +5,7 @@ import { journeySeconds, paintJourney } from './journey'
 import { CALENDAR_SECS, paintCalendar } from './calendar'
 import { paintGrowth } from './growth'
 import { paintHeatmap } from './heatmap'
+import { paintMatrix } from './matrix'
 
 type Painter<K extends VisualKind> = (ctx: Ctx, v: Extract<Visual, { kind: K }>, p: number, r: Roles) => void
 
@@ -270,8 +271,9 @@ const journey: Painter<'journey'> = paintJourney
 const calendar: Painter<'calendar'> = paintCalendar
 const growth: Painter<'growth'> = paintGrowth
 const heatmap: Painter<'heatmap'> = paintHeatmap
+const matrix: Painter<'matrix'> = paintMatrix
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear
@@ -282,6 +284,7 @@ export function drawTiming(visual: Visual | undefined): { secs: number; linear: 
   if (visual?.kind === 'calendar') return { secs: CALENDAR_SECS, linear: true }
   if (visual?.kind === 'growth') return { secs: 2.6, linear: false }
   if (visual?.kind === 'heatmap') return { secs: 2.4, linear: false }
+  if (visual?.kind === 'matrix') return { secs: 1.8, linear: false }
   return { secs: MOTION.drawSecs, linear: false }
 }
 

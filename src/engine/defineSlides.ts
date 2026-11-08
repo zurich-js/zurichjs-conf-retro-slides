@@ -30,6 +30,12 @@ export function defineSlides(
           if (row.values.length !== v.columns.length) throw new Error(`Visual "${id}": row "${row.label}" has ${row.values.length} values for ${v.columns.length} columns`)
         }
       }
+      if (v?.kind === 'matrix') {
+        for (const row of v.rows) {
+          if (row.values.length !== v.columns.length) throw new Error(`Visual "${id}": row "${row.label}" has ${row.values.length} values for ${v.columns.length} columns`)
+        }
+        if (v.highlight !== undefined && !(v.highlight >= 0 && v.highlight < v.columns.length)) throw new Error(`Visual "${id}": highlight ${v.highlight} is not a column`)
+      }
       if (v?.kind === 'growth') {
         for (const series of v.series) {
           if (series.values.length !== v.x.length) throw new Error(`Visual "${id}": series "${series.label}" has ${series.values.length} values for ${v.x.length} x labels`)

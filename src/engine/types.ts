@@ -63,6 +63,18 @@ export type Visual = Base &
         caption?: string
       }
     | {
+        kind: 'matrix'
+        title: string
+        kicker?: string
+        source?: string
+        /** What is compared: a name and a sub-line (e.g. the price). */
+        columns: readonly { label: string; sub?: string }[]
+        /** One value per column: 'yes' ✓, 'no' ✗, '-' not listed, or short text. */
+        rows: readonly { label: string; values: readonly string[] }[]
+        /** Column on a card with a hero outline (usually ours). */
+        highlight?: number
+      }
+    | {
         kind: 'numbers'
         title?: string
         kicker?: string
@@ -119,6 +131,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   calendar: 'dark',
   growth: 'dark',
   heatmap: 'dark',
+  matrix: 'dark',
   journey: 'dark',
 }
 
