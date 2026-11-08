@@ -4,6 +4,7 @@ import { useLoader } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 import { Atrium } from './Atrium'
+import { Foifi } from './Foifi'
 import { Booth } from './Booth'
 import { FOYER_ASSETS, Foyer } from './Foyer'
 import { Hall } from './Hall'
@@ -12,7 +13,7 @@ import { Seats } from './Seats'
 import { SPONSOR_ASSETS } from './sponsors'
 import { ATRIUM, ATRIUM_TOP, CUES, FLOOR, FOYER, HALL_BACK, LIGHTS, M, STAGE_FRONT, STAGE_TOP } from './venue'
 import { MapOnly } from './layers'
-import { mapLabel } from './textures'
+import { mapLabel, nightGround } from './textures'
 
 // Load set assets with the module, not on first navigation to a set cue.
 useLoader.preload(SVGLoader, PROP_ASSETS.wordmark)
@@ -36,6 +37,8 @@ export function Set({ frame }: { frame: THREE.Material }) {
       <MapLabels />
       <Hall frame={frame} />
       <Seats />
+      <Foifi frame={frame} />
+      <Ground />
       <Suspense fallback={null}>
         <Booth frame={frame} />
         <Props frame={frame} />
@@ -114,5 +117,16 @@ function MapLabels() {
     <MapOnly>
       {LABELS.map((l) => <MapLabel key={l.text} text={l.text} pos={l.pos} />)}
     </MapOnly>
+  )
+}
+
+/** Night ground under and between the venues, so flights never cross a void. */
+function Ground() {
+  const map = useMemo(nightGround, [])
+  return (
+    <mesh rotation-x={-Math.PI / 2} position={[-30, FLOOR - 0.15, 20]}>
+      <planeGeometry args={[220, 160]} />
+      <meshStandardMaterial map={map} roughness={0.95} />
+    </mesh>
   )
 }

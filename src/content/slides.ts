@@ -21,8 +21,14 @@ import { VISUALS } from './visuals'
  */
 export const slides = defineSlides(VISUALS, [
   // ── Opening ────────────────────────────────────────────────────────────
-  { id: 'cover', beat: 'open', steps: ['cover'], notes: 'Pace about 15 seconds a slide. Option: show the movie here or at the close.' },
-  { id: 'venue-map', beat: 'venue', steps: ['venue-map'], camera: 'map', notes: 'OPTIONAL flyover (5 slides). Cutaway of Technopark: auditorium, booth, foyer, atrium.' },
+  // ── Where it started: Pause im Foifi, 14 Nov 2025 ───────────────────────
+  { id: 'cover', beat: 'start', steps: ['cover'], camera: 'projector', notes: 'Full screen: we are looking into the lens of the projector at Pause im Foifi. The next slide backs out of the projector eye and flips round to the screen. We open where it started: Pause im Foifi, the ZurichJS 1st anniversary. Option: show the movie here or at the close.' },
+  { id: 'anniversary', beat: 'start', steps: ['anniversary'], camera: 'foifi', effect: 1, notes: 'Pause im Foifi, thanks to Digitec Galaxus. CHECK the date: Faris says 14 Nov 2025; the events page lists the 1st Anniversary Special on 13 Nov and the handoff has the first ticket sold on 13 Nov.' },
+  { id: 'go-live', beat: 'start', steps: ['go-live'], camera: 'deploy', effect: 1, notes: 'We deployed conf.zurichjs.com and opened ticket sales five minutes before the meetup started. The slide is on the laptop that shipped it.' },
+  { id: 'first-ticket', beat: 'start', steps: ['first-ticket'], camera: 'foifi-screen', effect: 1, notes: 'Jonny Burger bought the first ticket.' },
+  { id: 'tshirt-bug', beat: 'start', steps: ['tshirt-bug'], camera: 'foifi-screen', effect: 1, notes: 'Someone tried to buy a t-shirt; the same webhook endpoint as tickets intercepted it and issued a ticket.' },
+  { id: 'one-year', beat: 'start', steps: ['one-year'], camera: 'cake', notes: 'The birthday cake on the "new Date()" flyer. Next slide flies from Foifi across Zurich to Technopark.' },
+  { id: 'venue-map', beat: 'venue', steps: ['venue-map'], camera: 'map', notes: 'Ten months later. Crane shot from Foifi over to the Technopark cutaway. OPTIONAL flyover (5 slides): auditorium, booth, foyer, atrium.' },
   { id: 'venue-atrium', beat: 'venue', steps: ['venue-atrium'], camera: 'atrium', notes: 'OPTIONAL. The atrium: tables, pendants, lift tower.' },
   { id: 'venue-booths', beat: 'venue', steps: ['venue-booths'], camera: 'booths', notes: 'OPTIONAL. AG Grid booth, ZurichJS roll-up, namespace wall beyond.' },
   { id: 'venue-badges', beat: 'venue', steps: ['venue-badges'], camera: 'badges', notes: 'OPTIONAL. All nine badge kinds on the check-in counter.' },

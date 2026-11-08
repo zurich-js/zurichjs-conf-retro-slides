@@ -904,3 +904,106 @@ export function cupEngraving() {
   bump.colorSpace = THREE.NoColorSpace
   return { map, bump }
 }
+
+/** Foifi's yellow column: chalk-white hand-drawn swirls (no invented words). */
+export const columnScript = () =>
+  canvasTexture(512, 1024, (ctx, w, h) => {
+    ctx.fillStyle = S.foifiYellow
+    ctx.fillRect(0, 0, w, h)
+    ctx.strokeStyle = 'rgba(255,255,255,0.85)'
+    ctx.lineCap = 'round'
+    for (let i = 0; i < 14; i++) {
+      const y = 60 + i * 70
+      const x = 40 + hash(i + 900) * 200
+      ctx.lineWidth = 4 + hash(i + 910) * 5
+      ctx.beginPath()
+      ctx.moveTo(x, y)
+      ctx.bezierCurveTo(x + 80, y - 60, x + 160, y + 60, x + 240 + hash(i + 920) * 120, y - 10)
+      if (hash(i + 930) > 0.5) ctx.arc(x + 300, y + 10, 18 + hash(i) * 14, 0, Math.PI * 1.6)
+      ctx.stroke()
+    }
+  }, [2, 1])
+
+/** Disco-ball mosaic: tiles of varying brightness (deterministic). */
+export const discoTiles = () =>
+  canvasTexture(256, 128, (ctx, w, h) => {
+    const n = 32
+    for (let r = 0; r < n / 2; r++) {
+      for (let c = 0; c < n; c++) {
+        const v = 110 + Math.round(hash(r * 97 + c * 13 + 5) * 145)
+        ctx.fillStyle = `rgb(${v},${v},${Math.min(255, v + 10)})`
+        ctx.fillRect(c * (w / n), r * (h / (n / 2)), w / n - 1, h / (n / 2) - 1)
+      }
+    }
+  })
+
+/** Night street through Foifi's glazing: sodium-lit road, trees, bokeh. */
+export const nightWindow = () =>
+  canvasTexture(1024, 512, (ctx, w, h) => {
+    const sky = ctx.createLinearGradient(0, 0, 0, h)
+    sky.addColorStop(0, '#0b0f1c')
+    sky.addColorStop(0.55, '#2a1c10')
+    sky.addColorStop(1, '#5a3a18')
+    ctx.fillStyle = sky
+    ctx.fillRect(0, 0, w, h)
+    // Road glow under the street lamps.
+    const road = ctx.createLinearGradient(0, h * 0.62, 0, h)
+    road.addColorStop(0, 'rgba(255,170,70,0.25)')
+    road.addColorStop(1, 'rgba(255,150,50,0.6)')
+    ctx.fillStyle = road
+    ctx.fillRect(0, h * 0.62, w, h * 0.38)
+    // Tree silhouettes.
+    ctx.fillStyle = 'rgba(8,10,8,0.85)'
+    for (let i = 0; i < 9; i++) {
+      const x = hash(i + 700) * w
+      const r = 40 + hash(i + 710) * 60
+      ctx.beginPath(); ctx.arc(x, h * 0.42, r, 0, Math.PI * 2); ctx.fill()
+      ctx.fillRect(x - 4, h * 0.42, 8, h * 0.25)
+    }
+    // Street lamps and bokeh.
+    for (let i = 0; i < 60; i++) {
+      const x = hash(i + 300) * w
+      const y = h * (0.3 + hash(i + 400) * 0.45)
+      const r = 2 + hash(i + 500) * 8
+      ctx.fillStyle = hash(i + 600) > 0.25 ? 'rgba(255,180,90,0.85)' : 'rgba(150,220,170,0.7)'
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill()
+    }
+  })
+
+/** Night ground between the venues: dark asphalt with faint street-light pools. */
+export const nightGround = () =>
+  canvasTexture(1024, 1024, (ctx, w, h) => {
+    ctx.fillStyle = '#0d0e10'
+    ctx.fillRect(0, 0, w, h)
+    for (let i = 0; i < 80; i++) {
+      const x = hash(i + 1300) * w
+      const y = hash(i + 1400) * h
+      const g = ctx.createRadialGradient(x, y, 0, x, y, 18 + hash(i + 1500) * 24)
+      g.addColorStop(0, 'rgba(255,170,80,0.35)')
+      g.addColorStop(1, 'rgba(0,0,0,0)')
+      ctx.fillStyle = g
+      ctx.fillRect(x - 50, y - 50, 100, 100)
+    }
+  })
+
+/** The yellow "new Date()" flyer under the cake (text as seen in the photo). */
+export const dateFlyer = () =>
+  canvasTexture(640, 300, (ctx, w, h) => {
+    ctx.fillStyle = PALETTE.yellowSecondary
+    ctx.fillRect(0, 0, w, h)
+    ctx.fillStyle = 'rgba(0,0,0,0.75)'
+    ctx.font = `${TYPE.weight.medium} 74px ${TYPE.sans}`
+    ctx.fillText('new Date()', 34, 92)
+    ctx.font = `${TYPE.weight.regular} 22px ${TYPE.sans}`
+    ctx.fillText('Help support ZurichJS', 250, 238)
+    ctx.fillText('Buy us a coffee or grab a T-Shirt', 250, 266)
+    // Three decorative QR-like squares (not scannable).
+    for (const [qx, qy] of [[40, 180], [190, 150], [470, 130]] as const) {
+      ctx.fillStyle = PALETTE.white
+      ctx.fillRect(qx, qy, 74, 74)
+      ctx.fillStyle = PALETTE.black
+      for (let r = 0; r < 9; r++) for (let c = 0; c < 9; c++) {
+        if (hash(qx + r * 9 + c) > 0.5) ctx.fillRect(qx + 5 + c * 7, qy + 5 + r * 7, 7, 7)
+      }
+    }
+  })
