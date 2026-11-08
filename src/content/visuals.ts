@@ -98,6 +98,84 @@ export const VISUALS = {
   'front-cancel': { kind: 'statement', kicker: 'Screenshot missing · front-cancel.png', text: 'Zurich’s Front Conference cancelled Front 26.', emphasis: 'cancelled' },
   'front-book': { kind: 'statement', kicker: 'Screenshot missing · front-book.png', text: 'And told everyone to book ZurichJS Conf.', emphasis: 'book ZurichJS Conf.' },
   'dying': { kind: 'statement', ground: 'yellow', text: 'Everyone said tech events were dying. So we started one.', emphasis: 'So we started one.' },
+  // The stakes: what starting one actually meant.
+  'stakes-100k': { kind: 'stat', value: 'CHF 100k', label: 'The minimum it would cost to run ZurichJS Conf.' },
+  'stakes-no-cancel': { kind: 'statement', kicker: 'The bookings', text: 'Signed with no way to cancel.', emphasis: 'no way to cancel.' },
+  'stakes-split': { kind: 'stat', value: '÷ 3', tone: 'warn', label: 'If we fell short, three of us would cover the gap from our own pockets.' },
+  'stakes-covered': { kind: 'statement', text: 'Nobody had to pay it out of pocket.', emphasis: 'Nobody' },
+  // The other idea: affordable, in Europe's most expensive city.
+  'affordable-idea': { kind: 'statement', kicker: 'The other idea', text: 'One of the most affordable conferences in Europe, in its most expensive city.', emphasis: 'most affordable' },
+  'price-compare': {
+    kind: 'bars', title: 'Half the price of London', unit: ' CHF', source: 'Regular in-person ticket, 2026 · official ticket pages · ECB rate 11 Sep 2026',
+    bars: [
+      { label: 'React Paris', value: 614, tone: 'neutral' },
+      { label: 'React Advanced London', value: 595, tone: 'neutral' },
+      { label: 'React Summit Amsterdam', value: 567, tone: 'neutral' },
+      { label: 'React Day Berlin', value: 515, tone: 'neutral' },
+      { label: 'Voxxed Days Zurich', value: 360, tone: 'neutral' },
+      { label: 'ZurichJS Conf', value: 295, tone: 'hero' },
+      { label: 'JSHeroes Cluj', value: 198, tone: 'neutral' },
+    ],
+  },
+  // Value for the money: what each regular in-person ticket includes.
+  'value-grid': {
+    kind: 'matrix', kicker: 'For the money', title: 'What the ticket gets you',
+    source: 'Official sites and ticket pages, 2026 · dash: not listed',
+    columns: [
+      { label: 'ZurichJS Conf', sub: 'CHF 295' },
+      { label: 'React Day Berlin', sub: 'CHF 515' },
+      { label: 'React Summit', sub: 'CHF 567' },
+      { label: 'React Paris', sub: 'CHF 614' },
+      { label: 'JSWorld Amsterdam', sub: '-' },
+    ],
+    highlight: 0,
+    rows: [
+      { label: 'Lunch and coffee', values: ['yes', 'yes', 'yes', 'yes', '-'] },
+      { label: 'Same-calibre speakers', values: ['yes', 'yes', 'yes', 'yes', 'yes'] },
+      { label: 'Conference T-shirt', values: ['yes', '-', '-', '-', '-'] },
+      { label: 'Goodie bag and merch', values: ['yes', '-', '-', '-', '-'] },
+      { label: 'Talk recordings', values: ['yes', '-', '-', 'yes', '-'] },
+      { label: 'Warm-up meetup', values: ['yes', '-', '-', 'yes', '-'] },
+      { label: 'Student tickets', values: ['yes', 'yes', '-', '-', '-'] },
+      { label: 'After-party', values: ['VIP', 'yes', 'yes', 'yes', 'yes'] },
+      { label: 'Remote day', values: ['no', 'yes', 'yes', '-', '-'] },
+      { label: 'Workshops', values: ['Extra', 'Extra', 'Extra', 'Extra', '-'] },
+    ],
+  },
+  'workshop-compare': {
+    kind: 'bars', title: 'Workshops at Paris prices, in Zurich', unit: ' CHF', source: 'List price · React Paris official site · ECB rate 11 Sep 2026',
+    bars: [
+      { label: 'ZurichJS Conf, 4 hours', value: 250, tone: 'hero' },
+      { label: 'React Paris, 4 hours', value: 236, tone: 'neutral' },
+      { label: 'ZurichJS Conf, 4 hours, VIP', value: 200, tone: 'good' },
+      { label: 'ZurichJS Conf, 2 hours', value: 150, tone: 'hero' },
+    ],
+  },
+  // VIP: business class funds economy.
+  'vip-vs-standard': {
+    kind: 'matrix', kicker: 'Two tickets', title: 'Standard or VIP',
+    columns: [
+      { label: 'Standard', sub: 'CHF 295' },
+      { label: 'VIP', sub: 'CHF 495' },
+    ],
+    highlight: 1,
+    rows: [
+      { label: 'Conference day, lunch, T-shirt, goodie bag', values: ['yes', 'yes'] },
+      { label: 'Warm-up meetup', values: ['yes', 'yes'] },
+      { label: 'After-party', values: ['no', 'yes'] },
+      { label: 'Limited-edition goodies', values: ['no', 'yes'] },
+      { label: '20% off workshops', values: ['no', 'yes'] },
+    ],
+  },
+  'vip-business-class': { kind: 'statement', kicker: 'Why VIP', text: 'Business class pays for economy.', emphasis: 'pays for economy.' },
+  'vip-funds': {
+    kind: 'numbers', kicker: 'Business class funds economy', title: 'The extra spend kept the floor low',
+    items: [
+      { value: '46', label: 'VIP tickets' },
+      { value: '14.4k', label: 'CHF of workshop sales, 80 seats', tone: 'neutral' },
+      { value: '33', label: 'Student and unemployed tickets', tone: 'good' },
+    ],
+  },
   'first-commit': { kind: 'stat', value: '3 Nov 2025', label: 'First commit. First ticket sold ten days later.' },
 
   // ── 2 · A hard year ────────────────────────────────────────────────────

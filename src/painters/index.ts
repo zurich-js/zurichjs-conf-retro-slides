@@ -5,6 +5,7 @@ import { journeySeconds, paintJourney } from './journey'
 import { CALENDAR_SECS, paintCalendar } from './calendar'
 import { paintGrowth } from './growth'
 import { paintHeatmap } from './heatmap'
+import { paintMatrix } from './matrix'
 
 type Painter<K extends VisualKind> = (ctx: Ctx, v: Extract<Visual, { kind: K }>, p: number, r: Roles) => void
 
@@ -118,8 +119,15 @@ const bars: Painter<'bars'> = (ctx, v, p, r) => {
   const titleY = SAFE.top + tsize * 0.8
   ctx.save(); enter(ctx, window01(p, 0, 0.5))
   text(ctx, v.title, SAFE.left, titleY, { size: tsize, weight: TYPE.weight.black, tracking: D, color: r.text })
-  // Source sits under the title, never down by the wordmark.
-  if (v.source) label(ctx, v.source, SAFE.left, titleY + 80, r.textMuted)
+  // Source sits under the title, never down by the wordmark; shrinks to fit the width.
+  if (v.source) {
+    ctx.save()
+    ctx.font = `${TYPE.weight.medium} ${TYPE.size.label}px ${TYPE.mono}`
+    ctx.letterSpacing = `${TYPE.tracking.label * TYPE.size.label}px`
+    const sw = ctx.measureText(v.source.toUpperCase()).width
+    ctx.restore()
+    label(ctx, v.source, SAFE.left, titleY + 80, r.textMuted, { size: Math.min(TYPE.size.label, (TYPE.size.label * SAFE.width) / sw) })
+  }
   ctx.restore()
   if (v.bars.length === 0) return
   const top = titleY + (v.source ? 180 : 120)
@@ -128,14 +136,15 @@ const bars: Painter<'bars'> = (ctx, v, p, r) => {
   const pitch = Math.min(150, avail / v.bars.length)
   const gap = pitch * 0.28
   const rowH = pitch - gap
-  const ls = Math.max(TYPE.size.label, Math.min(TYPE.size.label * 1.25, pitch * 0.85))
-  // Label column fits the longest label; the block centres in the space left.
+  let ls = Math.max(TYPE.size.label, Math.min(TYPE.size.label * 1.25, pitch * 0.85))
+  // Label column fits the longest label (up to 40% of the width); labels shrink to fit it.
   ctx.save()
   ctx.font = `${TYPE.weight.medium} ${ls}px ${TYPE.mono}`
   ctx.letterSpacing = `${TYPE.tracking.label * ls}px`
   const longest = Math.max(...v.bars.map((b) => ctx.measureText(b.label.toUpperCase()).width))
   ctx.restore()
   const labelW = Math.min(SAFE.width * 0.4, Math.max(420, longest + 60))
+  if (longest + 60 > labelW) ls *= (labelW - 60) / longest
   const barMax = SAFE.width - labelW - 320
   const y0 = top + (avail - pitch * v.bars.length + gap) / 2
   v.bars.forEach((b, i) => {
@@ -262,8 +271,9 @@ const journey: Painter<'journey'> = paintJourney
 const calendar: Painter<'calendar'> = paintCalendar
 const growth: Painter<'growth'> = paintGrowth
 const heatmap: Painter<'heatmap'> = paintHeatmap
+const matrix: Painter<'matrix'> = paintMatrix
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear
@@ -274,6 +284,7 @@ export function drawTiming(visual: Visual | undefined): { secs: number; linear: 
   if (visual?.kind === 'calendar') return { secs: CALENDAR_SECS, linear: true }
   if (visual?.kind === 'growth') return { secs: 2.6, linear: false }
   if (visual?.kind === 'heatmap') return { secs: 2.4, linear: false }
+  if (visual?.kind === 'matrix') return { secs: 1.8, linear: false }
   return { secs: MOTION.drawSecs, linear: false }
 }
 
