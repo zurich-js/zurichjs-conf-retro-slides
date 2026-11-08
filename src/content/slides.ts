@@ -34,6 +34,12 @@ export const slides = defineSlides(VISUALS, [
   { id: 'meetup-2026', beat: 'start', steps: ['meetup-year-2'], camera: 'foifi-full', notes: 'The same lines continue into 2026, to 8 Nov 2026 (just before the 2nd anniversary on 12 Nov): 844 members, 1,435 RSVPs, 939 joined. Year two alone: +435 members, +801 RSVPs, +512 joined.' },
   { id: 'meetup-rsvps', beat: 'start', steps: ['meetup-rsvps'], camera: 'foifi-full', notes: 'RSVPs per whole month, Nov to Oct (totals 636 and 810 differ slightly from anniversary-to-anniversary 634 and 801). Year one peaked in spring: 96 in March, 114 in April 2025 (outlined: the busiest month of both years). CHECK which meetups those were.' },
   { id: 'meetup-rsvps-2026', beat: 'start', steps: ['meetup-rsvps-2'], camera: 'foifi-full', notes: 'Year two slides in under year one: busier in 8 of 12 months, 810 vs 636. Peaks: Jan 2026 (104), Apr (94), May (90). CHECK which meetups those were.' },
+  // ── ZurichJS on the road: the trips between the anniversary and the conference ──
+  {
+    id: 'road', beat: 'start', camera: 'foifi-full',
+    steps: ['road'],
+    notes: 'ZurichJS on the road: between the anniversary and the conference we took ZurichJS to meetups and conferences abroad to market the conf, meet speakers and close sponsor deals. Still on the Foifi screen; the next slide flies to Technopark. Plays by itself, about 35 s: starts at React Summit US, New York, then flies every trip in date order (19 stops) and lands on the totals. No keys needed; → moves on. From faziz-dev.com/events, Nov 2025 to Aug 2026. Blue = team trips: React Vienna, ReactJS Milano and jsday, CityJS London, JSHeroes; Voxxed Days Zurich is at home. ASSUMED: return trips from Zurich except Milan → Bologna and Warsaw → Cluj; km is great-circle.',
+  },
   { id: 'venue-map', beat: 'venue', steps: ['venue-map'], camera: 'map', notes: 'Ten months later. Crane shot from Foifi over to the Technopark cutaway. OPTIONAL flyover (5 slides): auditorium, booth, foyer, atrium.' },
   { id: 'venue-atrium', beat: 'venue', steps: ['venue-atrium'], camera: 'atrium', notes: 'OPTIONAL. The atrium: tables, pendants, lift tower.' },
   { id: 'venue-booths', beat: 'venue', steps: ['venue-booths'], camera: 'booths', notes: 'OPTIONAL. AG Grid booth, ZurichJS roll-up, namespace wall beyond.' },
@@ -96,11 +102,6 @@ export const slides = defineSlides(VISUALS, [
 
   // ── 5 · Filling the room ───────────────────────────────────────────────
   { id: 'ch5', beat: 'room', steps: ['ch5'], camera: 'foyer', effect: 1, notes: 'Camera in the foyer: this slide is projected on the wall above check-in.' },
-  {
-    id: 'road', beat: 'room',
-    steps: ['road'],
-    notes: 'NEW (not in the handoff). Plays by itself, about 35 s: starts at React Summit US, New York, then flies every trip in date order (19 stops) and lands on the totals. No keys needed; → moves on. From faziz-dev.com/events, Nov 2025 to Aug 2026. Blue = team trips: React Vienna, ReactJS Milano and jsday, CityJS London, JSHeroes; Voxxed Days Zurich is at home. ASSUMED: return trips from Zurich except Milan → Bologna and Warsaw → Cluj; km is great-circle.',
-  },
   { id: 'price-stages', beat: 'room', steps: ['price-stages'] },
   { id: 'when-bought', beat: 'room', steps: ['when-bought'] },
   { id: 'last-100-days', beat: 'room', steps: ['last-100-days'], notes: 'FARIS: add the deadline lesson.' },

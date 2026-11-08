@@ -217,6 +217,8 @@ Copied into `PALETTE`; never import across repos.
   adds year two. 2026 gets its own slides so the arrows reach it. The 257
   members from before the relaunch are treated as inactive (per Faris), so
   members count from 0. The candle on the cake is lit.
+- **ZurichJS on the road** (the globe) follows the meetup numbers, on the
+  Foifi screen, then the camera flies to Technopark.
 
 ## Deck content (draft, 2026-11-08)
 - The talk is the **ZurichJS Conf retrospective**, scaffolded 1:1 from
