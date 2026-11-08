@@ -71,12 +71,20 @@ looking out), `booth` (behind the operators), `rig` (up in the trusses), `wall`
 (down the aisle along the lit wood), `foyer` (registration), `merch` (the
 cups and totes), `badges` (the four badge designs on the counter), `atrium`
 (from the bridge, down the open hall), `booths` (among the tables, facing
-AG Grid), `map` (the whole venue as a labelled cutaway). Cues describe destinations, never timelines. `?cue=<name>`
+AG Grid), `map` (the whole venue as a labelled cutaway), `projector`
+(looking into Foifi's projector lens, the slide filling the frame; solved
+like `screen`), `foifi` /
+`foifi-screen` (Pause im Foifi), `deploy` (the launch laptop), `cake`. Cues describe destinations, never timelines. `?cue=<name>`
 previews one.
 
 ## Space
-Which room a camera cue is in: `hall`, `booth`, `foyer`, `atrium`, or `map`
-(the overview).
+Which room a camera cue is in: `hall`, `booth`, `foyer`, `atrium`, `foifi`,
+or `map` (the overview).
+
+## Foifi
+Pause im Foifi, the Digitec Galaxus event space of the ZurichJS 1st
+anniversary, where the story starts. A separate room; reached by flying over
+the city.
 
 ## Portal
 A doorway between two spaces (booth window, back door, hallway, the map's

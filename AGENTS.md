@@ -53,6 +53,7 @@ src/
     Booth.tsx           raised control booth: two operator avatars, monitors, mixer, cables
     Foyer.tsx           hallway through the back doors: registration, backdrop, merch table
     Atrium.tsx          open hall: galleries, lift tower, bells, cocktail tables, sponsor booths
+    Foifi.tsx           Pause im Foifi (Digitec Galaxus): the 1st anniversary, where tickets went live
   scene/sponsors.ts     sponsor manifest (slug, tier) → public/sponsors/<slug>[-color].png
   scene/useSponsorLogos.ts  all logos as loaded images (suspends; preloaded in Set.tsx)
   scene/layers.tsx      render layers: set / cutaway (hidden in `map`) / map (labels only)
@@ -189,6 +190,22 @@ Copied into `PALETTE`; never import across repos.
   are not modelled.
 - **Show lighting**: house down and warm, stage wash, podium pin. No shadows.
 - Group/team photos belong on the frame (`image`), not in the set.
+
+## Opening (decided with Faris, 2026-11-08)
+- The talk starts at the **ZurichJS 1st anniversary, Pause im Foifi** (Digitec
+  Galaxus), where conf.zurichjs.com went live and ticket sales opened five
+  minutes before the meetup. Jonny Burger bought the first ticket; a t-shirt
+  order hit the ticket webhook and was issued a ticket. Cover is full screen,
+  looking into the lens of Foifi's ceiling projector (`projector`); the next
+  slide backs out of the projector's eye and flips round to the screen (a
+  choreographed `enter` on the `foifi` cue). After the
+  cake, the camera flies over the city to Technopark ("ten months later").
+- Foifi (`scene/Foifi.tsx`): square-grid galvanised glazing onto the night
+  street on three sides, demijohn shelf, planter ledge, blue ceiling, steel
+  grids with moss baskets, pothos, globes, disco balls, LED tubes, yellow
+  columns, pink bar against the one orange wall, colourful slatted chairs,
+  red presenter table. Date flagged: 14 Nov (Faris) vs 13 Nov (other sources).
+- The cover credits the ZurichJS team, not one person.
 
 ## Deck content (draft, 2026-11-08)
 - The talk is the **ZurichJS Conf retrospective**, scaffolded 1:1 from

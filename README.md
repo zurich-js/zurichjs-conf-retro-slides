@@ -6,6 +6,12 @@ The slides for **ZurichJS Conf retrospective**, a 40-minute talk on how ZurichJS
 
 > **Status: draft.** The 3D venue and the slide blocks are in place. The storyline is being reworked with the team in [`docs/storyline.md`](docs/storyline.md).
 
+## Where it starts
+
+![Pause im Foifi](docs/screenshots/foifi.jpg)
+
+The talk opens at the ZurichJS 1st anniversary at **Pause im Foifi** (thanks to Digitec Galaxus), the night conf.zurichjs.com went live. The first slide is the view into the projector's lens; the camera backs out of it and turns to the screen. After the cake, it flies across the city to Technopark.
+
 ## The venue
 
 Moving between slides walks the camera through the venue at eye level, through the booth window, the back doors and the hallway, with no cuts.

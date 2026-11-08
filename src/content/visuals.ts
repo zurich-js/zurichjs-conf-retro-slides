@@ -13,8 +13,22 @@ import { ROAD_TO_ZURICH } from './travel'
  */
 export const VISUALS = {
   // ── Opening ────────────────────────────────────────────────────────────
-  cover: { kind: 'title', kicker: 'Faris Aziz · ZurichJS', title: 'ZurichJS Conf retrospective', subtitle: '9 to 12 September 2026, Zurich' },
-  'venue-map': { kind: 'statement', kicker: 'Technopark Zürich', text: 'One building, one week, one conference.', emphasis: 'one conference.' },
+  cover: { kind: 'title', kicker: 'The ZurichJS team', title: 'ZurichJS Conf retrospective', subtitle: '9 to 12 September 2026, Zurich' },
+  // ── Where it started: the 1st anniversary at Pause im Foifi ─────────────
+  'anniversary': { kind: 'statement', kicker: '14 November 2025 · Pause im Foifi', text: 'ZurichJS turned one. Digitec Galaxus gave us the room.', emphasis: 'turned one.' },
+  'go-live': {
+    kind: 'code', title: 'conf.zurichjs.com · anniversary night',
+    lines: ['T−5 min   conf.zurichjs.com goes live', 'T−5 min   ticket sales open', 'T−0       the anniversary meetup starts'],
+    highlight: [1, 2],
+  },
+  'first-ticket': { kind: 'stat', value: '#1', label: 'The first ticket: Jonny Burger.' },
+  'tshirt-bug': {
+    kind: 'code', title: 'Our first funny bug',
+    lines: ['Someone buys a t-shirt', '→ the payment hits the same webhook as tickets', '→ the webhook issues them a ticket'],
+    highlight: [3],
+  },
+  'one-year': { kind: 'statement', ground: 'yellow', text: 'One year of ZurichJS. Ten months to the conference.', emphasis: 'Ten months' },
+  'venue-map': { kind: 'statement', kicker: 'Ten months later · Technopark Zürich', text: 'One building, one week, one conference.', emphasis: 'one conference.' },
   'venue-atrium': { kind: 'statement', kicker: 'The atrium', text: 'Sponsors, coffee, and every hallway conversation.', emphasis: 'hallway' },
   'venue-booths': { kind: 'statement', kicker: 'Sponsor booths', text: 'The people who paid for the room.', emphasis: 'paid for the room.' },
   'venue-badges': { kind: 'statement', kicker: 'Check-in', text: 'Nine kinds of badge.', emphasis: 'Nine' },

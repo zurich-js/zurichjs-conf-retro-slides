@@ -8,7 +8,7 @@ import { CUE, STILL } from '../engine/params'
 import { slides } from '../content/slides'
 import { CAMERA_CUES, type CameraCue } from '../engine/types'
 import { Set } from '../scene/Set'
-import { CUES, FLOOR, HALL, M, routeBetween, SCREEN, type Space } from '../scene/venue'
+import { CUES, FLOOR, HALL, PROJECTOR_PANEL, M, routeBetween, SCREEN, type SolvedCue, type Space } from '../scene/venue'
 import { MASK } from '../scene/layers'
 
 export { SCREEN }
@@ -20,9 +20,10 @@ const FORCED: CameraCue | undefined = CAMERA_CUES.find((c) => c === CUE)
  * Distance at which the screen exactly COVERS the viewport at any aspect —
  * so 'screen' slides look like a plain projector feed, no visible edge.
  */
-function coverDistance(fovDeg: number, aspect: number) {
+function coverDistance(fovDeg: number, aspect: number, width = SCREEN.width) {
   const t = Math.tan(THREE.MathUtils.degToRad(fovDeg) / 2)
-  return Math.min(SCREEN.height / (2 * t), SCREEN.width / (2 * t * aspect))
+  const height = width * (SCREEN.height / SCREEN.width)
+  return Math.min(height / (2 * t), width / (2 * t * aspect))
 }
 
 /** Resolved poses in world units, built once (navigation allocates nothing). */
@@ -34,15 +35,26 @@ const POSES = Object.fromEntries(
       target: new THREE.Vector3(...c.target).multiplyScalar(M),
       fov: c.fov,
       space: c.space ?? 'hall',
+      enter: c.enter && { from: c.enter.from, via: c.enter.via.map((w) => new THREE.Vector3(...w).multiplyScalar(M)) },
     },
   ]),
-) as Record<Exclude<CameraCue, 'screen'>, Pose>
+) as Record<Exclude<CameraCue, SolvedCue>, Pose>
 const SCREEN_POSE: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'hall' }
 
-interface Pose { pos: THREE.Vector3; target: THREE.Vector3; fov: number; space: Space }
+interface Pose { pos: THREE.Vector3; target: THREE.Vector3; fov: number; space: Space; enter?: { from: CameraCue; via: THREE.Vector3[] } }
 
 /** 'screen' is solved per aspect; every other cue is a measured pose in the venue. */
+const PROJECTOR_POSE: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'foifi' }
+
 function cue(name: CameraCue, aspect: number) {
+  if (name === 'projector') {
+    // Looking into Foifi's projector lens: the panel inside fills the viewport.
+    const [x, y, z] = PROJECTOR_PANEL.centre
+    PROJECTOR_POSE.target.set(x, y, z).multiplyScalar(M)
+    PROJECTOR_POSE.pos.copy(PROJECTOR_POSE.target)
+    PROJECTOR_POSE.pos.z -= coverDistance(PROJECTOR_POSE.fov, aspect, PROJECTOR_PANEL.width * M)
+    return PROJECTOR_POSE
+  }
   if (name !== 'screen') return POSES[name]
   SCREEN_POSE.pos.set(0, 0, coverDistance(SCREEN_POSE.fov, aspect))
   return SCREEN_POSE
@@ -130,7 +142,7 @@ const smooth = (a: number, b: number, x: number) => {
   const t = Math.min(1, Math.max(0, (x - a) / (b - a)))
   return t * t * (3 - 2 * t)
 }
-const spaceOf = (name: CameraCue): Space => (name === 'screen' ? 'hall' : (CUES[name].space ?? 'hall'))
+const spaceOf = (name: CameraCue): Space => (name === 'screen' ? 'hall' : name === 'projector' ? 'foifi' : (CUES[name].space ?? 'hall'))
 const ROOF = (FLOOR + HALL.ridge + 0.3) * M
 
 interface Move {
@@ -143,6 +155,7 @@ interface Move {
   dur: number
   walk: boolean
   crane: boolean
+  reveal: boolean
   fromLook: THREE.Vector3
   fromFov: number
 }
@@ -161,7 +174,7 @@ function CameraRig() {
   const look = useMemo(() => new THREE.Vector3(), [])
   const tmp = useMemo(() => ({ a: new THREE.Vector3(), b: new THREE.Vector3(), walkLook: new THREE.Vector3() }), [])
   const mv = useMemo<Move>(() => ({
-    name: '', xz: null, hs: [], ss: [], t0: 0, dur: 0, walk: false, crane: false, fromLook: new THREE.Vector3(), fromFov: 35,
+    name: '', xz: null, hs: [], ss: [], t0: 0, dur: 0, walk: false, crane: false, reveal: false, fromLook: new THREE.Vector3(), fromFov: 35,
   }), [])
   useFrame(() => {
     const name = FORCED ?? slides[useDeck.getState().index]?.camera ?? 'screen'
@@ -172,7 +185,9 @@ function CameraRig() {
     if (name !== mv.name) {
       const first = mv.name === ''
       const from = first ? c.space : spaceOf(mv.name as CameraCue)
-      const pts = [cam.position.clone(), ...routeBetween(from, c.space).map((w) => new THREE.Vector3(...w).multiplyScalar(M)), c.pos.clone()]
+      mv.reveal = !first && c.enter?.from === mv.name
+      const via = mv.reveal ? c.enter!.via : routeBetween(from, c.space).map((w) => new THREE.Vector3(...w).multiplyScalar(M))
+      const pts = [cam.position.clone(), ...via, c.pos.clone()]
       // Plan route on the floor plane; height rides separately.
       const flat = pts.map((p) => new THREE.Vector3(p.x, 0, p.z))
       let acc = 0
@@ -182,9 +197,10 @@ function CameraRig() {
       mv.hs = pts.map((p) => p.y)
       mv.xz = acc > 1e-6 ? new THREE.CatmullRomCurve3(flat, false, 'centripetal') : null
       const metres = acc / M
-      mv.crane = from === 'map' || c.space === 'map'
-      mv.walk = !mv.crane && (pts.length > 2 || metres > 8)
-      mv.dur = first || STILL ? 0 : Math.min(mv.crane ? 5.5 : 5, Math.max(1.6, 1.2 + metres / 5.5))
+      // A crane shot whenever the route leaves the rooftops (to/from the map, or Foifi ↔ Technopark).
+      mv.crane = from === 'map' || c.space === 'map' || pts.some((p) => p.y > (FLOOR + 12) * M)
+      mv.walk = !mv.reveal && !mv.crane && (pts.length > 2 || metres > 8)
+      mv.dur = first || STILL ? 0 : mv.reveal ? 4.6 : Math.min(mv.crane ? 5.5 : 5, Math.max(1.6, 1.2 + metres / 5.5))
       mv.fromLook.copy(first ? c.target : look)
       mv.fromFov = first ? c.fov : cam.fov
       mv.t0 = now
@@ -200,7 +216,10 @@ function CameraRig() {
       const e = sine(t)
       mv.xz.getPointAt(e, tmp.a)
       cam.position.set(tmp.a.x, heightAt(mv, e), tmp.a.z)
-      if (mv.walk) {
+      if (mv.reveal) {
+        // Keep watching what we came out of, then flip round to the subject.
+        look.lerpVectors(mv.fromLook, c.target, smooth(0.35, 0.95, e))
+      } else if (mv.walk) {
         // Eyes level, looking down the route, then turning to the subject.
         mv.xz.getPointAt(Math.min(1, e + 0.1), tmp.b)
         if (tmp.b.distanceToSquared(tmp.a) < 1e-6) tmp.b.copy(c.target)

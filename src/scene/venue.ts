@@ -107,6 +107,31 @@ export const ATRIUM = {
 export const ATRIUM_HALF = ATRIUM.void / 2 + ATRIUM.gallery
 export const ATRIUM_TOP = FLOOR + ATRIUM.storey * (ATRIUM.levels + 1)
 
+/**
+ * Pause im Foifi, the Digitec Galaxus event space where ZurichJS turned one
+ * (14 Nov 2025) and conf.zurichjs.com went live. A separate room west of
+ * Technopark (they are neighbours in Zurich); the camera flies between them.
+ * Local frame: origin at the front-left of the floor plan, x right, z toward
+ * the back (bar). Estimated from the anniversary photos.
+ */
+export const FOIFI = { x: -70, z: 10, width: 16, depth: 13, height: 4.6 } as const
+/**
+ * Foifi's ceiling projector (local frame), throwing onto the screen. Its lens
+ * holds a small panel showing the live frame: the projector's "eye", which the
+ * `projector` cue fills the viewport with before the camera backs out of it.
+ */
+export const PROJECTOR = { x: 8, y: 3.2, z: 7.6, panel: 0.12, panelZ: 7.33 } as const
+export const PROJECTOR_PANEL = {
+  width: PROJECTOR.panel,
+  centre: [FOIFI.x + PROJECTOR.x - FOIFI.width / 2, FLOOR + PROJECTOR.y, FOIFI.z + PROJECTOR.panelZ] as const,
+}
+
+/** Cues solved per aspect so an image exactly fills the viewport. */
+export type SolvedCue = 'screen' | 'projector'
+/** A point in Foifi's local frame (metres) → world metres. */
+export const foifi = (x: number, y: number, z: number): readonly [number, number, number] =>
+  [FOIFI.x + x - FOIFI.width / 2, FLOOR + y, FOIFI.z + z]
+
 /** Physical surfaces. Not brand colours: these are what the room is made of. */
 export const SURFACES = {
   floor: '#3a3633',
@@ -142,6 +167,27 @@ export const SURFACES = {
   uiRed: '#ff4d4d',
   uiAmber: '#ffb020',
   bottleCap: '#e8742a',
+  foifiCeiling: '#2445b5',
+  foifiWall: '#d8742c',
+  foifiPink: '#e3a39e',
+  foifiFloor: '#3a2820',
+  foifiYellow: '#f0cf2e',
+  tableRed: '#7c2a1c',
+  steelGalv: '#a9aeb3',
+  moss: '#a99a3c',
+  leaf: '#4f8a2c',
+  leafDark: '#2f5e22',
+  terracotta: '#b0643a',
+  amberGlass: '#8a4b16',
+  chocolate: '#3a2016',
+  chairYellow: '#f0cf2e',
+  chairLime: '#a5b52f',
+  chairPink: '#e6a19b',
+  chairRed: '#de452f',
+  chairMint: '#bcd6c8',
+  chairWhite: '#d8dbd6',
+  chairTeal: '#2f5550',
+  chairOrange: '#e36a2a',
   concrete: '#b9b7b2',
   fabricBack: '#2a2b30',
   daylight: '#e9eef2',
@@ -180,18 +226,25 @@ export const LIGHTS = {
   houseGround: '#2a2420',
   booth: '#a9b8ff',
   foyer: '#fff6e8',
+  foifiWarm: '#ffc98a',
+  foifiCool: '#7f9bff',
 } as const
 
 /**
  * Which room a cue is in. Rooms connect through portals (below); a cue change
  * flies the camera along the portal chain, never through a wall or slab.
  */
-export type Space = 'hall' | 'booth' | 'foyer' | 'atrium' | 'map'
+export type Space = 'hall' | 'booth' | 'foyer' | 'atrium' | 'map' | 'foifi'
 
 export interface CuePose {
   pos: readonly [number, number, number]
   target: readonly [number, number, number]
   fov: number
+  /**
+   * A choreographed entrance: arriving from cue `from`, thread `via` while
+   * keeping eyes on where we came from, then turn to the target (a reveal).
+   */
+  enter?: { from: CameraCue; via: readonly (readonly [number, number, number])[] }
   /** Defaults to 'hall'. */
   space?: Space
 }
@@ -200,7 +253,7 @@ export interface CuePose {
  * Camera cues in metres. `screen` is solved in the Stage renderer (the frame
  * exactly covers the viewport), so it is not listed here.
  */
-export const CUES: Readonly<Record<Exclude<CameraCue, 'screen'>, CuePose>> = {
+export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
   /** Row 4, centre-right, tall seated eye height. Screen, podium, letters, rig. */
   stage: { pos: [0.8, FLOOR + 1.45, 9.4], target: [0, -0.6, 0], fov: 44 },
   /** Standing in the back-right corner: the whole hall. */
@@ -224,6 +277,19 @@ export const CUES: Readonly<Record<Exclude<CameraCue, 'screen'>, CuePose>> = {
    * so arriving or leaving is always a cut.
    */
   map: { pos: [-40, FLOOR + 50, 4], target: [0, FLOOR, 29], fov: 42, space: 'map' },
+  /** Pause im Foifi, from a back-row seat: screen, vines, the room. */
+  foifi: {
+    pos: foifi(8.6, 1.35, 10.8), target: foifi(7.4, 1.9, 0.9), fov: 54, space: 'foifi',
+    // Out of the projector's eye: back away along the beam, swing round the
+    // projector, flip to face the screen the slide is projected on.
+    enter: { from: 'projector', via: [foifi(8, 3.05, 5.2), foifi(10.9, 2.5, 8.2)] },
+  },
+  /** Pause im Foifi, close on the projector screen under the hanging plants. */
+  'foifi-screen': { pos: foifi(8.0, 1.5, 5.6), target: foifi(8.0, 2.05, 0.9), fov: 46, space: 'foifi' },
+  /** Over the laptop where conf.zurichjs.com went live, screen beyond. */
+  deploy: { pos: foifi(5.42, 1.04, 2.82), target: foifi(5.4, 0.9, 2.2), fov: 40, space: 'foifi' },
+  /** The anniversary cake on the "new Date()" flyer. */
+  cake: { pos: foifi(10.75, 1.12, 3.75), target: foifi(10.45, 0.8, 3.2), fov: 34, space: 'foifi' },
   /** From the bridge above the atrium entrance, down the hall to the lift tower. */
   atrium: { pos: [0.5, FLOOR + 9.0, ATRIUM.start + 0.8], target: [0, FLOOR + 1.2, ATRIUM.start + 21], fov: 58, space: 'atrium' },
   /** Ground level among the cocktail tables, facing the AG Grid booth. */
@@ -253,6 +319,8 @@ export const PORTALS: readonly { a: Space; b: Space; via: readonly P3[] }[] = [
   // The overview: a crane shot out of each room and up over the building.
   { a: 'map', b: 'hall', via: [[-14, FLOOR + 30, 10], [-2, FLOOR + 6, 12]] },
   { a: 'map', b: 'foyer', via: [[-14, FLOOR + 26, FOYER.start + 6], [2, FLOOR + 2.4, FOYER.start + 7]] },
+  // Out of Foifi, up over Zurich, across to the Technopark overview.
+  { a: 'map', b: 'foifi', via: [[-48, FLOOR + 40, 6], [FOIFI.x, FLOOR + 22, FOIFI.z + 7]] },
   { a: 'map', b: 'atrium', via: [[-12, FLOOR + 32, ATRIUM.start + 12], [0, FLOOR + 11, ATRIUM.start + 6]] },
 ]
 
