@@ -27,6 +27,42 @@ export type Visual = Base &
     | { kind: 'image'; src: string; caption?: string; fit?: 'contain' | 'cover' }
     | { kind: 'code'; title?: string; lines: readonly string[]; highlight?: readonly number[] }
     | {
+        kind: 'growth'
+        title: string
+        kicker?: string
+        source?: string
+        /** One label per point; '' hides it. */
+        x: readonly string[]
+        /** Every series has one value per point. No tone → hero, neutral, good. */
+        series: readonly { label: string; values: readonly number[]; tone?: Tone }[]
+        /** Points drawn (default all). */
+        show?: number
+        /** Point index where the draw-in starts; earlier points are already drawn. */
+        from?: number
+      }
+    | {
+        kind: 'heatmap'
+        title: string
+        kicker?: string
+        source?: string
+        columns: readonly string[]
+        /** One value per column. No tone → hero. */
+        rows: readonly { label: string; values: readonly number[]; tone?: Tone }[]
+        /** Rows drawn (default all). */
+        show?: number
+        /** First row that animates in; earlier rows are already drawn. */
+        from?: number
+      }
+    | {
+        kind: 'calendar'
+        /** ISO dates. The flip calendar rolls month by month from `from` to `to` (either direction). */
+        from: string
+        to: string
+        kicker?: string
+        /** Shown under the calendar once it lands. */
+        caption?: string
+      }
+    | {
         kind: 'numbers'
         title?: string
         kicker?: string
@@ -80,6 +116,9 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   image: 'dark',
   code: 'dark',
   numbers: 'dark',
+  calendar: 'dark',
+  growth: 'dark',
+  heatmap: 'dark',
   journey: 'dark',
 }
 
@@ -87,7 +126,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
  * Named camera destinations. `screen` is solved in src/renderers/Stage.tsx;
  * the rest are measured poses in src/scene/venue.ts (CUES).
  */
-export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi', 'foifi-screen', 'deploy', 'cake'] as const
+export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake'] as const
 export type CameraCue = (typeof CAMERA_CUES)[number]
 
 export interface Slide {

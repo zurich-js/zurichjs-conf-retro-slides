@@ -126,8 +126,14 @@ export const PROJECTOR_PANEL = {
   centre: [FOIFI.x + PROJECTOR.x - FOIFI.width / 2, FLOOR + PROJECTOR.y, FOIFI.z + PROJECTOR.panelZ] as const,
 }
 
+/** The image on Foifi's projector screen (metres): width and centre, facing +z. */
+export const FOIFI_IMAGE = {
+  width: 3.0,
+  centre: [FOIFI.x, FLOOR + 1.05 + (3.0 * (9 / 16)) / 2, FOIFI.z + 0.9 + 0.005] as const,
+}
+
 /** Cues solved per aspect so an image exactly fills the viewport. */
-export type SolvedCue = 'screen' | 'projector'
+export type SolvedCue = 'screen' | 'projector' | 'foifi-full'
 /** A point in Foifi's local frame (metres) → world metres. */
 export const foifi = (x: number, y: number, z: number): readonly [number, number, number] =>
   [FOIFI.x + x - FOIFI.width / 2, FLOOR + y, FOIFI.z + z]
@@ -173,6 +179,7 @@ export const SURFACES = {
   foifiFloor: '#3a2820',
   foifiYellow: '#f0cf2e',
   tableRed: '#7c2a1c',
+  flame: '#ffb347',
   steelGalv: '#a9aeb3',
   moss: '#a99a3c',
   leaf: '#4f8a2c',

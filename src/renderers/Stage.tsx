@@ -8,7 +8,7 @@ import { CUE, STILL } from '../engine/params'
 import { slides } from '../content/slides'
 import { CAMERA_CUES, type CameraCue } from '../engine/types'
 import { Set } from '../scene/Set'
-import { CUES, FLOOR, HALL, PROJECTOR_PANEL, M, routeBetween, SCREEN, type SolvedCue, type Space } from '../scene/venue'
+import { CUES, FLOOR, FOIFI_IMAGE, HALL, PROJECTOR_PANEL, M, routeBetween, SCREEN, type SolvedCue, type Space } from '../scene/venue'
 import { MASK } from '../scene/layers'
 
 export { SCREEN }
@@ -45,8 +45,17 @@ interface Pose { pos: THREE.Vector3; target: THREE.Vector3; fov: number; space: 
 
 /** 'screen' is solved per aspect; every other cue is a measured pose in the venue. */
 const PROJECTOR_POSE: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'foifi' }
+const FOIFI_FULL: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'foifi' }
 
 function cue(name: CameraCue, aspect: number) {
+  if (name === 'foifi-full') {
+    // Foifi's projector screen fills the viewport, like 'screen' does in the hall.
+    const [x, y, z] = FOIFI_IMAGE.centre
+    FOIFI_FULL.target.set(x, y, z).multiplyScalar(M)
+    FOIFI_FULL.pos.copy(FOIFI_FULL.target)
+    FOIFI_FULL.pos.z += coverDistance(FOIFI_FULL.fov, aspect, FOIFI_IMAGE.width * M)
+    return FOIFI_FULL
+  }
   if (name === 'projector') {
     // Looking into Foifi's projector lens: the panel inside fills the viewport.
     const [x, y, z] = PROJECTOR_PANEL.centre
@@ -142,7 +151,7 @@ const smooth = (a: number, b: number, x: number) => {
   const t = Math.min(1, Math.max(0, (x - a) / (b - a)))
   return t * t * (3 - 2 * t)
 }
-const spaceOf = (name: CameraCue): Space => (name === 'screen' ? 'hall' : name === 'projector' ? 'foifi' : (CUES[name].space ?? 'hall'))
+const spaceOf = (name: CameraCue): Space => (name === 'screen' ? 'hall' : name === 'projector' || name === 'foifi-full' ? 'foifi' : (CUES[name].space ?? 'hall'))
 const ROOF = (FLOOR + HALL.ridge + 0.3) * M
 
 interface Move {

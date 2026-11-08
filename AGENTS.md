@@ -206,6 +206,13 @@ Copied into `PALETTE`; never import across repos.
   columns, pink bar against the one orange wall, colourful slatted chairs,
   red presenter table. Date flagged: 14 Nov (Faris) vs 13 Nov (other sources).
 - The cover credits the ZurichJS team, not one person.
+- **Rolling back a year** (after the cake): the camera dives into Foifi's
+  screen (`foifi-full`), a flip calendar rolls 14 Nov 2025 → 14 Nov 2024 (the
+  meetup relaunch), then the meetup's numbers from Meetup.com group stats
+  (export 8 Nov 2026): a growth chart from 0 at the relaunch (step 2 continues
+  into 2026), and an RSVP heatmap by month (step 2 adds year two). The 257
+  members from before the relaunch are treated as inactive (per Faris), so
+  members count from 0. The candle on the cake is lit.
 
 ## Deck content (draft, 2026-11-08)
 - The talk is the **ZurichJS Conf retrospective**, scaffolded 1:1 from

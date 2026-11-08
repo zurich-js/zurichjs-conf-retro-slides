@@ -22,6 +22,19 @@ export function defineSlides(
     if (s.camera !== undefined && !CAMERA_CUES.includes(s.camera)) {
       throw new Error(`Slide "${s.id}" camera "${s.camera}" is not one of ${CAMERA_CUES.join(', ')}`)
     }
+    for (const id of s.steps) {
+      const v = catalog[id]
+      if (v?.kind === 'heatmap') {
+        for (const row of v.rows) {
+          if (row.values.length !== v.columns.length) throw new Error(`Visual "${id}": row "${row.label}" has ${row.values.length} values for ${v.columns.length} columns`)
+        }
+      }
+      if (v?.kind === 'growth') {
+        for (const series of v.series) {
+          if (series.values.length !== v.x.length) throw new Error(`Visual "${id}": series "${series.label}" has ${series.values.length} values for ${v.x.length} x labels`)
+        }
+      }
+    }
     if (s.effect !== undefined && !(s.effect >= 0 && s.effect <= 1)) {
       throw new Error(`Slide "${s.id}" effect must be between 0 and 1`)
     }
