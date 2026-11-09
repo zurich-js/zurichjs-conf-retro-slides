@@ -97,8 +97,8 @@ export const VISUALS = {
   // ── 1 · Why on earth ───────────────────────────────────────────────────
   'ch1': { kind: 'section', number: '01 · Where it came from', title: 'Why on earth' },
   'meetup-itch': { kind: 'statement', kicker: 'Data gap · W1', text: 'It started at the meetup. Your story: the itch.', emphasis: 'Your story: the itch.' },
-  'front-cancel': { kind: 'statement', kicker: 'Screenshot missing · front-cancel.png', text: 'Zurich’s Front Conference cancelled Front 26.', emphasis: 'cancelled' },
-  'front-book': { kind: 'statement', kicker: 'Screenshot missing · front-book.png', text: 'And told everyone to book ZurichJS Conf.', emphasis: 'book ZurichJS Conf.' },
+  'front-cancel': { kind: 'image', src: '/front/front-cancel.png', title: 'Zurich’s Front Conference cancelled Front 26.' },
+  'front-book': { kind: 'image', src: '/front/front-book.png', title: 'And told everyone to book ZurichJS Conf.', mark: { x: 0.0, y: 0.37, w: 0.53, h: 0.1 } },
   'dying': { kind: 'statement', ground: 'yellow', text: 'Everyone said tech events were dying. So we started one.', emphasis: 'So we started one.' },
   // The stakes: what starting one actually meant.
   'stakes-100k': { kind: 'stat', value: 'CHF 100k', label: 'The minimum it would cost to run ZurichJS Conf.' },
@@ -210,22 +210,12 @@ export const VISUALS = {
   'hardest-year': { kind: 'statement', text: 'One of the hardest years in a decade to run a JavaScript conference.', emphasis: 'hardest years in a decade' },
   'react-advanced': { kind: 'stat', value: '−50%', label: 'Ticket sales at React Advanced London', tone: 'bad' },
   'react-alicante': { kind: 'stat', value: '−200', label: 'Seats at React Alicante versus last year', tone: 'bad' },
-  'renamed': {
-    kind: 'numbers', title: 'Conferences renamed themselves',
-    items: [
-      { value: 'Web Engineering London', label: 'Was React Advanced', tone: 'neutral' },
-      { value: 'CityAI', label: 'Was CityJS', tone: 'neutral' },
-    ],
-  },
-  'last-editions': {
-    kind: 'numbers', title: 'Or announced their last edition',
-    items: [
-      { value: 'React India', label: 'Last edition this year', tone: 'warn' },
-      { value: 'JSWorld', label: '2027 is the last', tone: 'warn' },
-      { value: 'Devoxx Belgium', label: '2027 likely the last', tone: 'warn' },
-      { value: 'Front Conference', label: 'Front 26 cancelled', tone: 'bad' },
-    ],
-  },
+  'renamed-react-advanced': { kind: 'strike', kicker: 'Conferences renamed themselves', name: 'React Advanced London', to: 'Web Engineering London' },
+  'renamed-cityjs': { kind: 'strike', kicker: 'Conferences renamed themselves', name: 'CityJS', to: 'CityAI' },
+  'last-react-india': { kind: 'strike', kicker: 'Or announced their last edition', name: 'React India', stamp: 'Deprecated', note: 'Last edition this year' },
+  'last-jsworld': { kind: 'strike', kicker: 'Or announced their last edition', name: 'JSWorld', stamp: 'Deprecated', note: '2027 is the last' },
+  'last-devoxx-be': { kind: 'strike', kicker: 'Or announced their last edition', name: 'Devoxx Belgium', stamp: 'Deprecated', note: '2027 likely the last' },
+  'last-front': { kind: 'strike', kicker: 'Or announced their last edition', name: 'Front Conference', stamp: 'Deprecated', note: 'Front 26 cancelled' },
   'layoffs': { kind: 'statement', text: 'Layoffs everywhere. Sponsorship budgets cut.', emphasis: 'budgets cut.' },
   'sponsor-tiers': {
     kind: 'bars', title: 'Half our sponsors were the smallest tier', source: 'Paid sponsor deals by tier',

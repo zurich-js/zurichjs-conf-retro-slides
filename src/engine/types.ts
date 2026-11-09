@@ -24,7 +24,16 @@ export type Visual = Base &
         bars: readonly { label: string; value: number; tone?: Tone }[]
       }
     | { kind: 'quote'; text: string; author: string; role?: string }
-    | { kind: 'image'; src: string; caption?: string; fit?: 'contain' | 'cover' }
+    | {
+        kind: 'image'
+        src: string
+        caption?: string
+        fit?: 'contain' | 'cover'
+        /** A line above the image (e.g. what a screenshot shows). */
+        title?: string
+        /** Outline part of the image in accent: x, y, w, h as fractions of the image. */
+        mark?: { x: number; y: number; w: number; h: number }
+      }
     | { kind: 'code'; title?: string; lines: readonly string[]; highlight?: readonly number[] }
     | {
         kind: 'growth'
@@ -114,6 +123,17 @@ export type Visual = Base &
         step?: 'insert' | 'dispense'
       }
     | {
+        kind: 'strike'
+        /** The name as it was. */
+        name: string
+        /** A rename: the old name is struck through and this rises in below. */
+        to?: string
+        /** A stamp slammed onto the name, e.g. "Deprecated". */
+        stamp?: string
+        kicker?: string
+        note?: string
+      }
+    | {
         kind: 'numbers'
         title?: string
         kicker?: string
@@ -175,6 +195,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   moments: 'dark',
   flapboard: 'dark',
   atm: 'dark',
+  strike: 'dark',
   matrix: 'dark',
   journey: 'dark',
 }

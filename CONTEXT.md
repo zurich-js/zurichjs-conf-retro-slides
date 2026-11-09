@@ -28,14 +28,20 @@ addressed by id. The data lives here once; every renderer reads it.
 
 ## Kind
 The closed set of visual forms: `title`, `section`, `statement`, `stat`,
-`bars`, `quote`, `image`, `code`, `numbers` (2–6 number tiles), `calendar`
-(a split-flap calendar rolling month by month between two dates), `growth`
-(lines growing from their start; `show`/`from` continue it across steps),
-`heatmap` (rows of value-shaded cells, e.g. RSVPs per month per year), `matrix`
-(a ✓/✗ feature grid: what each option includes, one column highlighted), `journey`
-(the road-to-Zurich globe: one leg per step, or with `play` every leg in
-one autoplaying draw-in). Each kind has exactly one painter. Adding a kind is a
-deliberate act (type + painter + doc), never a one-off.
+`bars`, `quote`, `image` (optionally titled, with a `mark` outline), `code`,
+`numbers` (2–6 number tiles), `calendar` (a split-flap calendar rolling month
+by month between two dates), `growth` (lines growing from their start;
+`show`/`from` continue it across steps), `heatmap` (rows of value-shaded
+cells, e.g. RSVPs per month per year), `matrix` (a ✓/✗ feature grid, one
+column highlighted), `moments` (photos in date order flowing past a month
+timeline, then a wall with totals), `flapboard` (an airport split-flap
+departures board: columns of flaps that spin and land), `atm` (one screen of
+a cash machine: prompt, touch options, a tapped choice; its `step` drives the
+machine in the set: card in, cash out), `strike` (one name: struck through and
+renamed, or stamped, e.g. Deprecated), `journey` (the road-to-Zurich globe:
+one leg per step, or with `play` every leg in one autoplaying draw-in). Each
+kind has exactly one painter. Adding a kind is a deliberate act (type +
+painter + doc), never a one-off.
 
 ## Painter
 A pure function `(ctx, visual, progress, roles) → void` that draws one kind
