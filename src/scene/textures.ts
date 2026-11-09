@@ -1136,23 +1136,24 @@ export const terminalWindows = () =>
 
 // ── The cash machine (Swiss through-the-wall style, no bank) ────────────────
 
-/** The lit header box: white light-box, the ATM pictogram (person at a keypad), "Bargeld · Cash". */
+/** The lit header box of a Zürcher Kantonalbank (ZKB) Bancomat: ZKB blue, the bank's name in white, the cash pictogram. Plain type, not the logo artwork. */
 export const atmSign = () =>
   canvasTexture(620, 160, (ctx, w, h) => {
-    ctx.fillStyle = '#f4f5f6'
+    ctx.fillStyle = '#0a5aa8'
     ctx.fillRect(0, 0, w, h)
-    // Pictogram, line art: a person facing a machine with a card.
-    ctx.strokeStyle = '#1a1d22'
-    ctx.lineWidth = 7
+    // Pictogram, white line art: a person at a cash machine.
+    ctx.strokeStyle = '#ffffff'
+    ctx.lineWidth = 6
     ctx.lineCap = 'round'
-    ctx.beginPath(); ctx.arc(60, 42, 13, 0, Math.PI * 2); ctx.stroke()
-    ctx.beginPath(); ctx.moveTo(60, 58); ctx.lineTo(60, 112); ctx.moveTo(60, 70); ctx.lineTo(92, 82); ctx.moveTo(60, 112); ctx.lineTo(48, 140); ctx.moveTo(60, 112); ctx.lineTo(72, 140); ctx.stroke()
-    ctx.strokeRect(100, 30, 46, 110)
-    ctx.strokeRect(108, 42, 30, 24)
-    ctx.fillStyle = '#1a1d22'
-    ctx.font = `${TYPE.weight.bold} 60px ${TYPE.sans}`
+    ctx.beginPath(); ctx.arc(46, 44, 11, 0, Math.PI * 2); ctx.stroke()
+    ctx.beginPath(); ctx.moveTo(46, 58); ctx.lineTo(46, 106); ctx.moveTo(46, 68); ctx.lineTo(74, 78); ctx.moveTo(46, 106); ctx.lineTo(36, 132); ctx.moveTo(46, 106); ctx.lineTo(56, 132); ctx.stroke()
+    ctx.strokeRect(82, 32, 40, 100)
+    ctx.strokeRect(89, 42, 26, 20)
+    ctx.fillStyle = '#ffffff'
     ctx.textBaseline = 'middle'
-    ctx.fillText('Bargeld · Cash', 178, h / 2 + 4)
+    ctx.font = `${TYPE.weight.black} 50px ${TYPE.sans}`
+    ctx.fillText('Zürcher', 150, h * 0.36)
+    ctx.fillText('Kantonalbank', 150, h * 0.7)
   })
 
 /** A black label strip with white text (GELD, KARTE, QUITTUNG). */

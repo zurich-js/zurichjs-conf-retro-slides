@@ -163,7 +163,8 @@ export const PROJECTOR_PANEL = {
 
 /**
  * A cash machine against Foifi's right-hand wall, facing into the room (−x),
- * by the bar: a brushed-steel pillar holding a Swiss through-the-wall unit
+ * by the bar: a Zürcher Kantonalbank (ZKB) Bancomat, a brushed-steel pillar
+ * with a ZKB-blue band, holding a Swiss through-the-wall unit
  * (recessed fascia under a hood, lit header box, card column on the right,
  * cash shutter under the screen, keypad on a shelf). From Swiss ATM photos. Local frame (metres): origin on the floor at the machine's
  * centre, +z out of its fascia toward the user, y up. Where the AI-pressure
@@ -334,6 +335,8 @@ export const SURFACES = {
   hotSauce: '#c2461a',
   toteBlue: '#1f5fd6',
   atmSteel: '#a9aaa6',
+  /** Zürcher Kantonalbank blue (estimate). */
+  zkbBlue: '#0a5aa8',
   zinc: '#6c7176',
   attendeeSkin: '#c9a88c',
   atmFascia: '#c5c9cc',

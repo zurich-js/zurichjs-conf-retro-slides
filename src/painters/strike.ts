@@ -1,6 +1,6 @@
 import { type Roles, TYPE } from '../brand/tokens'
 import type { Visual } from '../engine/types'
-import { type Ctx, enter, font, label, SAFE, text, window01 } from './kit'
+import { type Ctx, enter, font, label, SAFE, text, window01, wrap } from './kit'
 
 /**
  * The `strike` painter: one name, and what happened to it.
@@ -94,6 +94,9 @@ export function paintStrike(ctx: Ctx, v: StrikeVisual, p: number, r: Roles) {
 
   if (v.note) {
     const y = v.to ? ny + 480 : ny + 400
-    text(ctx, v.note, cx, y, { size: TYPE.size.body, weight: TYPE.weight.bold, color: r.textSoft, align: 'center', alpha: window01(p, 0.6, 0.95) })
+    const ns = TYPE.size.body
+    // Wrapped to the safe area, centred line by line.
+    wrap(ctx, v.note, SAFE.width * 0.8, ns, TYPE.weight.bold).forEach((l, i) =>
+      text(ctx, l, cx, y + i * ns * TYPE.bodyLineHeight, { size: ns, weight: TYPE.weight.bold, color: r.textSoft, align: 'center', alpha: window01(p, 0.6, 0.95) }))
   }
 }
