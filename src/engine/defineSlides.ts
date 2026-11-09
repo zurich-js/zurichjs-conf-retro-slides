@@ -54,6 +54,22 @@ export function defineSlides(
           })
         }
       }
+      if (v?.kind === 'inbox') {
+        if (v.days.length === 0) throw new Error(`Visual "${id}": no days`)
+        let prev = ''
+        for (const d of v.days) {
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(d.date)) throw new Error(`Visual "${id}": day "${d.date}" is not YYYY-MM-DD`)
+          if (d.date <= prev) throw new Error(`Visual "${id}": day ${d.date} is out of date order`)
+          prev = d.date
+        }
+      }
+      if (v?.kind === 'pipeline') {
+        if (v.stages.length < 2) throw new Error(`Visual "${id}": a pipeline needs at least two stages`)
+        for (const f of v.features) if (!(f.month >= 0 && f.month < v.months.length)) throw new Error(`Visual "${id}": feature "${f.label}" month ${f.month} is not a month`)
+      }
+      if (v?.kind === 'chatter' && v.people.length > 4) throw new Error(`Visual "${id}": chatter shows at most four people`)
+      if (v?.kind === 'chatter' && v.channels.length > 3) throw new Error(`Visual "${id}": chatter splits into at most three channel kinds`)
+      if (v?.kind === 'arrivals' && v.origins.length === 0) throw new Error(`Visual "${id}": no origins`)
       if (v?.kind === 'atm') {
         const n = v.options?.length ?? 0
         if (n > 4) throw new Error(`Visual "${id}": an ATM screen has at most four options`)

@@ -18,14 +18,14 @@ const topo = land110 as unknown as Topo
 const LAND = feature(topo, topo.objects.land as Parameters<typeof feature>[1]) as GeoPermissibleObjects
 const GRATICULE = geoGraticule10()
 
-const R = 500
-const CX = SAFE.right - R
-const CY = FRAME.height / 2 + 30
-const projection = geoOrthographic().scale(R).translate([CX, CY]).clipAngle(90).precision(0.5)
+export const R = 500
+export const CX = SAFE.right - R
+export const CY = FRAME.height / 2 + 30
+export const projection = geoOrthographic().scale(R).translate([CX, CY]).clipAngle(90).precision(0.5)
 const path = geoPath(projection)
 
-type LonLat = [number, number]
-const ll = (p: Place): LonLat => [p.lon, p.lat]
+export type LonLat = [number, number]
+export const ll = (p: Place): LonLat => [p.lon, p.lat]
 
 /** Spherical mean of points: where to point the globe so they all show. */
 function centreOf(points: readonly Place[]): LonLat {
@@ -48,7 +48,7 @@ const legCentre = (v: JourneyVisual, k: number): LonLat => {
 }
 
 /** Points along a leg, lifted off the globe; `vis` = in front of, or outside, the disc. */
-function route(leg: Leg, t: number, centre: LonLat) {
+export function route(leg: Pick<Leg, 'from' | 'to'>, t: number, centre: LonLat) {
   const a = ll(leg.from)
   const b = ll(leg.to)
   const interp = geoInterpolate(a, b)
@@ -68,7 +68,7 @@ function route(leg: Leg, t: number, centre: LonLat) {
   return pts
 }
 
-function strokeRoute(ctx: Ctx, pts: ReturnType<typeof route>) {
+export function strokeRoute(ctx: Ctx, pts: ReturnType<typeof route>) {
   ctx.beginPath()
   let pen = false
   for (const q of pts) {
@@ -81,7 +81,7 @@ function strokeRoute(ctx: Ctx, pts: ReturnType<typeof route>) {
 }
 
 /** A small plane silhouette pointing along +x. */
-function plane(ctx: Ctx, x: number, y: number, angle: number, size: number, fill: string, edge: string) {
+export function plane(ctx: Ctx, x: number, y: number, angle: number, size: number, fill: string, edge: string) {
   const s = [
     [1, 0], [0.72, 0.09], [0.12, 0.1], [-0.12, 0.7], [-0.3, 0.7], [-0.14, 0.1], [-0.62, 0.1], [-0.78, 0.34], [-0.92, 0.34], [-0.84, 0],
   ] as const
@@ -100,9 +100,12 @@ function plane(ctx: Ctx, x: number, y: number, angle: number, size: number, fill
   ctx.restore()
 }
 
-function drawGlobe(ctx: Ctx, r: Roles, centre: LonLat) {
+export function drawGlobe(ctx: Ctx, r: Roles, centre: LonLat) {
   projection.rotate([-centre[0], -centre[1]])
   path.context(ctx)
+  // The disc follows the projection, so a painter may zoom it (see `arrivals`).
+  const R = projection.scale()
+  const [CX, CY] = projection.translate()
   // Atmosphere.
   ctx.save()
   const glow = ctx.createRadialGradient(CX, CY, R * 0.96, CX, CY, R * 1.16)
@@ -137,7 +140,7 @@ function drawGlobe(ctx: Ctx, r: Roles, centre: LonLat) {
   ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI * 2); ctx.stroke()
 }
 
-function dot(ctx: Ctx, p: Place, centre: LonLat, radius: number, color: string, alpha = 1) {
+export function dot(ctx: Ctx, p: Place, centre: LonLat, radius: number, color: string, alpha = 1) {
   if (geoDistance(ll(p), centre) > Math.PI / 2) return
   const [x, y] = projection(ll(p)) ?? [CX, CY]
   ctx.save()
