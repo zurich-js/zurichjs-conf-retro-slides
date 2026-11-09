@@ -38,7 +38,8 @@ timeline, then a wall with totals), `flapboard` (an airport split-flap
 departures board: columns of flaps that spin and land), `atm` (one screen of
 a cash machine: prompt, touch options, a tapped choice; its `step` drives the
 machine in the set: card in, cash out), `strike` (one name: struck through and
-renamed, or stamped, e.g. Deprecated), `journey` (the road-to-Zurich globe:
+renamed, or stamped, e.g. Deprecated), `badgetest` (a caption whose `rig`
+drives the badge-hole test stand; see Badge test), `journey` (the road-to-Zurich globe:
 one leg per step, or with `play` every leg in one autoplaying draw-in). Each
 kind has exactly one painter. Adding a kind is a deliberate act (type +
 painter + doc), never a one-off.
@@ -155,3 +156,11 @@ The semantic colours of one ground (`bg`, `text`, `textMuted`, `accent`,
 A fixed colour meaning used across the whole talk: `hero` (yellow), `neutral`
 (blue), `good` (green), `warn` (orange), `bad` (red — errors only). Resolved
 through the ground, so on yellow every tone is black.
+
+## Badge test
+The `badgetest` kind: the caption for one step of the badge-hole test (one
+hole, two holes, stress, held), projected above the check-in counter. Its
+`rig` drives the test stand on the counter (`scene/Foyer.tsx`, `BadgeLab`):
+one-hole badge flips; two-hole badge hangs flat; under stress the single hole
+tears and that badge drops, the two-hole one holds. The `lanyards` cue frames
+the stand with the projection behind it.

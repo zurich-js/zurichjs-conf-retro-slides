@@ -134,6 +134,14 @@ export type Visual = Base &
         note?: string
       }
     | {
+        kind: 'badgetest'
+        title: string
+        kicker?: string
+        note?: string
+        /** What the test stand on the check-in counter shows. */
+        rig: 'one-hole' | 'two-holes' | 'stress' | 'held'
+      }
+    | {
         kind: 'numbers'
         title?: string
         kicker?: string
@@ -196,6 +204,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   flapboard: 'dark',
   atm: 'dark',
   strike: 'dark',
+  badgetest: 'dark',
   matrix: 'dark',
   journey: 'dark',
 }
@@ -204,7 +213,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
  * Named camera destinations. `screen` is solved in src/renderers/Stage.tsx;
  * the rest are measured poses in src/scene/venue.ts (CUES).
  */
-export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats'] as const
+export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats', 'lanyards'] as const
 export type CameraCue = (typeof CAMERA_CUES)[number]
 
 export interface Slide {
