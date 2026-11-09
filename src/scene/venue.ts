@@ -271,16 +271,6 @@ export const ROAD: readonly (readonly [number, number])[] = [
   [74, ATRIUM.start + 16], [92, ATRIUM.start + 16], [112, ATRIUM.start + 4], [128, -2], [140, -14], [AIRPORT.x + 2, AIRPORT.z + LOUNGE.depth + 6],
 ]
 
-/**
- * The VIP after-party (aftermovie): a lakeside bath on Lake Zurich at dusk,
- * well north of Technopark in the deck's world (not to scale). Local frame
- * (metres): origin at the shore end of the wooden deck, +z out over the lake,
- * x along the shore. The pool sits in the deck; the swimming raft floats
- * beyond it.
- */
-export const LAKE = { x: -40, z: -190 } as const
-export const lake = (x: number, y: number, z: number): readonly [number, number, number] => [LAKE.x + x, FLOOR + y, LAKE.z - z]
-
 /** Cues solved per aspect so an image exactly fills the viewport. */
 export type SolvedCue = 'screen' | 'projector' | 'foifi-full' | 'gate-full' | 'seat-full'
 /** A point in Foifi's local frame (metres) → world metres. */
@@ -416,10 +406,6 @@ export const SURFACES = {
   cushionPink: '#f2a7c3',
   lavender: '#c9c2f0',
   neonBlue: '#6fb2ff',
-  lakeWater: '#1a3550',
-  poolWater: '#1d5e74',
-  deckWood: '#8a6a4a',
-  dusk: '#ffb36b',
   chalk: '#f2f2ee',
   strobe: '#ffffff',
 } as const
@@ -442,7 +428,7 @@ export const LIGHTS = {
  * Which room a cue is in. Rooms connect through portals (below); a cue change
  * flies the camera along the portal chain, never through a wall or slab.
  */
-export type Space = 'hall' | 'booth' | 'foyer' | 'atrium' | 'map' | 'foifi' | 'plane' | 'gate' | 'city' | 'lake'
+export type Space = 'hall' | 'booth' | 'foyer' | 'atrium' | 'map' | 'foifi' | 'plane' | 'gate' | 'city'
 
 export interface CuePose {
   pos: readonly [number, number, number]
@@ -532,8 +518,6 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
     pos: podium(0.12, 1.78, -1.55), target: podium(-0.25, 1.1, 9), fov: 56,
     enter: { from: 'wings', follow: true, via: [[-8.3, FLOOR + 1.75, 1.0], [-6.7, FLOOR + 1.8, 1.1], [-5.6, STAGE_TOP + 1.75, 1.3], [-5.0, STAGE_TOP + 1.75, 1.55]] },
   },
-  /** The lakeside after-party at dusk: the deck, the pool, string lights, the raft beyond. */
-  lake: { pos: lake(-14, 6.5, -8), target: lake(2, 0.6, 12), fov: 52, space: 'lake' },
   /** In the foyer, facing the signing wall. */
   signing: { pos: [-5.0, FLOOR + 1.65, FOYER.start + 7.4], target: [-9, FLOOR + 1.3, FOYER.start + 7.6], fov: 56, space: 'foyer' },
   /** High over the city at night: Technopark on the left, the airport on the right, cars on the road between. */
@@ -593,8 +577,6 @@ export const PORTALS: readonly { a: Space; b: Space; via: readonly P3[] }[] = [
   ] },
   // Out through the glass over the apron, then up and away to the overview.
   { a: 'gate', b: 'map', via: [airport(1, GATE_LEVEL + 1.65, -3), airport(-12, 28, -34)] },
-  // To the lake: up out of Technopark and across the city at dusk.
-  { a: 'map', b: 'lake', via: [[-30, FLOOR + 60, -110], lake(-20, 14, -14)] },
   // Technopark and the airport from above: a glide between two high views.
   { a: 'map', b: 'city', via: [[40, FLOOR + 110, 110]] },
   { a: 'map', b: 'atrium', via: [[-12, FLOOR + 32, ATRIUM.start + 12], [0, FLOOR + 11, ATRIUM.start + 6]] },

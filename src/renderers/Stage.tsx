@@ -200,8 +200,8 @@ function Prewarm() {
     if (DEBUG) (window as unknown as { __deck: unknown }).__deck = { gl, scene, camera }
     const id = setTimeout(() => {
       // The only combinations a move can show: one venue (walks inside it), Technopark + airport (the city view), or all three (crane shots).
-      for (const [t, f, a, l] of [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 1, 0], [1, 1, 1, 1]] as const) {
-        showVenues(!!t, !!f, !!a, !!l)
+      for (const [t, f, a] of [[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 1], [1, 1, 1]] as const) {
+        showVenues(!!t, !!f, !!a)
         gl.compile(scene, camera)
       }
       const index = useDeck.getState().index
@@ -300,7 +300,7 @@ function moveSeconds(a: CameraCue, b: CameraCue, aspect: number, curtain = false
   for (let k = 1; k < pts.length; k++) {
     acc += Math.hypot(pts[k]!.x - pts[k - 1]!.x, pts[k]!.z - pts[k - 1]!.z) + Math.abs(pts[k]!.y - pts[k - 1]!.y) * 0.5
   }
-  const crane = fromSpace === 'map' || cb.space === 'map' || fromSpace === 'city' || cb.space === 'city' || fromSpace === 'lake' || cb.space === 'lake' || pts.some((p) => p.y > (FLOOR + 12) * M)
+  const crane = fromSpace === 'map' || cb.space === 'map' || fromSpace === 'city' || cb.space === 'city' || pts.some((p) => p.y > (FLOOR + 12) * M)
   return moveDuration(acc / M, crane, false)
 }
 
@@ -342,7 +342,7 @@ function CameraRig() {
       mv.xz = acc > 1e-6 ? new THREE.CatmullRomCurve3(flat, false, 'centripetal') : null
       const metres = acc / M
       // A crane shot whenever the route leaves the rooftops (to/from the map, or Foifi ↔ Technopark).
-      mv.crane = from === 'map' || c.space === 'map' || from === 'city' || c.space === 'city' || from === 'lake' || c.space === 'lake' || pts.some((p) => p.y > (FLOOR + 12) * M)
+      mv.crane = from === 'map' || c.space === 'map' || from === 'city' || c.space === 'city' || pts.some((p) => p.y > (FLOOR + 12) * M)
       mv.walk = !mv.reveal && !mv.crane && (pts.length > 2 || metres > 8)
       mv.curtain = !first && !STILL && slides[index]?.transition === 'curtain'
       mv.dur = first || STILL ? 0 : mv.curtain ? CURTAIN : moveDuration(metres, mv.crane, mv.reveal)
@@ -352,7 +352,7 @@ function CameraRig() {
       mv.name = name
       mv.settled = false
       // Draw where we are and where we are going; a crane shot passes over everything.
-      if (mv.crane) showVenues(true, true, true, true)
+      if (mv.crane) showVenues(true, true, true)
       else showSpaces(from, c.space)
       setContinuous(name === 'lanyards' || name === 'badges' || name === 'foyer')
     }

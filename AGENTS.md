@@ -179,7 +179,7 @@ Copied into `PALETTE`; never import across repos.
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·
-  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle` · `seat-full` · `wings` · `walk-on` · `signing` · `lake`. Poses
+  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle` · `seat-full` · `wings` · `walk-on` · `signing`. Poses
   live in `CUES` (venue.ts). Each cue has a `space` (`hall` | `booth` |
   `foyer` | `atrium` | `map`); moves inside a room glide, so a new cue needs
   a clear line to its neighbours in that room.
@@ -339,9 +339,6 @@ Copied into `PALETTE`; never import across repos.
 - **Stage:** the tall drawing table with an iPad; the e18e panel
   (`action: 'panel'`); the group photo with the letters held up
   (`action: 'group-photo'`).
-- **After-party:** a fourth venue, `lake` (scene/Lake.tsx): deck, pool,
-  pavilion, string lights, long tables, the raft with someone mid-jump, dusk
-  sky dome. Reached by a crane shot; not to scale.
 
 ## Open decisions
 Track here; resolve with Faris, then update code and move the line above.
