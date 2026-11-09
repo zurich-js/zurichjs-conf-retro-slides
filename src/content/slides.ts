@@ -145,7 +145,7 @@ export const slides = defineSlides(VISUALS, [
   // ── 5 · Filling the room ───────────────────────────────────────────────
   { id: 'ch5', transition: 'curtain', beat: 'room', steps: ['ch5'], camera: 'seats', fill: 0, notes: 'Back over the auditorium, and the seats empty again: this chapter is how we filled them. HANDOFF (to confirm): proposed Nadja for logistics and the room.' },
   { id: 'price-stages', beat: 'room', steps: ['price-stages'], camera: 'stage', fill: 0.81, notes: 'The seats fill as the stages play: 267 paid tickets of 330 (the other 63 were subsidised tickets).' },
-  { id: 'when-bought', beat: 'room', steps: ['when-bought'], notes: 'On the full screen: from the seats the month labels were too small to read.' },
+  { id: 'when-bought', beat: 'room', steps: ['when-bought'], notes: 'Every card payment in the ticket shop, the day it came in, by currency (Stripe export: 253 card payments, 25 Nov 2025 to 3 Sep 2026; CHF 190, EUR 53, USD 6, GBP 4). A payment can hold several tickets or a workshop, so these are payments, not tickets (267 paid tickets in total). The export misses the first weeks (the first ticket was 13 Nov) and the last days before the event; company invoices are not card payments. Plays by itself, about 12 s.' },
   { id: 'ways-in', beat: 'room', steps: ['ways-in'] },
   { id: 'invoices', beat: 'room', steps: ['invoices'], notes: 'About a tenth of ticket revenue.' },
   { id: 'currencies', beat: 'room', steps: ['currencies'] },

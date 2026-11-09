@@ -76,6 +76,14 @@ export function defineSlides(
         for (const i of v.selected ?? []) if (!(i >= 0 && i < n)) throw new Error(`Visual "${id}": selected ${i} is not an option`)
       }
       if (v?.kind === 'strike' && !v.to === !v.stamp) throw new Error(`Visual "${id}": a strike has either \`to\` (a rename) or \`stamp\`, not both or neither`)
+      if (v?.kind === 'checkout') {
+        if (v.days.length === 0) throw new Error(`Visual "${id}": no days`)
+        let prev = ''
+        for (const d of v.days) {
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(d.date) || d.date <= prev) throw new Error(`Visual "${id}": day ${d.date} is not a YYYY-MM-DD date in order`)
+          prev = d.date
+        }
+      }
       if (v?.kind === 'split' && (v.segments.length < 2 || v.segments.length > 6 || v.segments.some((s) => !(s.value >= 0)))) throw new Error(`Visual "${id}": a split has 2 to 6 non-negative segments`)
       if (v?.kind === 'timeline') {
         if (v.marks.length < 2 || v.marks.length > 5) throw new Error(`Visual "${id}": a timeline has 2 to 5 marks`)
