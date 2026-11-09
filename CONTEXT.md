@@ -116,13 +116,13 @@ like `screen`), `foifi` /
 `gate-full` (the departures board filling the frame; solved), `apron` (the
 plane at the gate, from outside), `atm` (close on the cash machine's screen in
 Foifi), `atm-wide` (the whole machine: card slot, keypad, cash), `aerial` (Technopark
-at night from above, roofs on), `laptop` (over the speaker's shoulder at the podium: laptop, dock, cables), `shuttle` (high over the city: Technopark, the road and the airport, cars shuttling with speaker portraits, delayed planes holding), `wings` (by the side steps, where speakers are miked up), `walk-on` (behind the speaker at the podium, a full room ahead; arriving from `wings` it follows them up the steps), `signing` (the signing wall in the foyer), `lake` (the VIP after-party at the lakeside bath, at dusk), `seats` (hovering low over the auditorium's rows). Cues describe destinations, never timelines. `?cue=<name>`
+at night from above, roofs on), `laptop` (over the speaker's shoulder at the podium: laptop, dock, cables), `shuttle` (high over the city: Technopark, the road and the airport, cars shuttling with speaker portraits, delayed planes holding), `wings` (by the side steps, where speakers are miked up), `walk-on` (behind the speaker at the podium, a full room ahead; arriving from `wings` it follows them up the steps), `signing` (the signing wall in the foyer), `seats` (hovering low over the auditorium's rows). Cues describe destinations, never timelines. `?cue=<name>`
 previews one.
 
 ## Space
 Which room a camera cue is in: `hall`, `booth`, `foyer`, `atrium`, `foifi`,
 `plane` (the 777 cabin), `gate` (the airport lounge and apron), `city`
-(Technopark and the airport at once, for the airport runs), `lake` (the after-party) or `map`
+(Technopark and the airport at once, for the airport runs) or `map`
 (the overview).
 
 ## Foifi
