@@ -55,13 +55,9 @@ export const VISUALS = {
     kind: 'growth', kicker: 'And into 2026, to 8 Nov 2026', title: 'Two years of the meetup',
     x: MEETUP_X, series: MEETUP_SERIES, show: 27, from: 13,
   },
-  'meetup-rsvps': {
-    kind: 'heatmap', kicker: 'RSVPs per month', title: 'Year one: RSVPs peaked in spring',
-    columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 1,
-  },
   'meetup-rsvps-2': {
     kind: 'heatmap', kicker: 'RSVPs per month, November to October', title: 'Year two beat year one in 8 of 12 months',
-    columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 2, from: 1,
+    columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 2,
   },
   'one-year': { kind: 'statement', ground: 'yellow', text: 'One year of ZurichJS. Ten months to the conference.', emphasis: 'Ten months' },
   // ── Attention to detail: one hole or two ──
@@ -83,15 +79,6 @@ export const VISUALS = {
       { value: '63', label: 'Subsidised tickets', tone: 'neutral' },
       { value: '19', label: 'Speakers and MCs without a ticket', tone: 'neutral' },
       { value: '10', label: 'Staff and volunteers without a ticket', tone: 'neutral' },
-    ],
-  },
-  'year-numbers': {
-    kind: 'numbers', title: 'A year in numbers',
-    items: [
-      { value: '434', label: 'Talk submissions' },
-      { value: '1,336', label: 'Commits' },
-      { value: '21', label: 'Countries in the room' },
-      { value: '53,277', label: 'Slack messages' },
     ],
   },
   // A year in motion: each number from year-numbers, played out.
@@ -259,27 +246,26 @@ export const VISUALS = {
   'why-home': { kind: 'statement', kicker: 'Why a conference', text: 'And bring home what we found on stages abroad: the speakers, the friends, the ideas.', emphasis: 'bring home' },
   'front-cancel': { kind: 'image', src: '/front/front-cancel.png', title: 'Zurich’s Front Conference cancelled Front 26.' },
   'front-book': { kind: 'image', src: '/front/front-book.png', title: 'Its organisers passed the baton to us.', mark: { x: 0.0, y: 0.37, w: 0.53, h: 0.1 } },
-  'why-missing': { kind: 'statement', kicker: 'Not a bigger meetup', text: 'Zurich deserved another international web conference.', emphasis: 'international web conference.' },
-  'dying': { kind: 'statement', ground: 'yellow', text: 'Everyone said tech events were dying. So we started one.', emphasis: 'So we started one.' },
+  'why-missing': { kind: 'statement', ground: 'yellow', kicker: 'Not a bigger meetup', text: 'Zurich deserved another international web conference. So we started one.', emphasis: 'So we started one.' },
   // The stakes: what starting one actually meant.
   'stakes-100k': { kind: 'stat', value: 'CHF 100k*', label: 'The bare minimum to run ZurichJS Conf.', source: '*Bare-minimum operating budget. The actual conference budget was substantially higher.' },
   'spend': {
-    kind: 'bars', title: 'Feeding, flying and hosting people: two thirds of the spend', unit: '%',
-    source: 'Share of conference spend · organisers’ estimate, rounded',
+    kind: 'bars', title: 'Where the money went', unit: '%',
     bars: [
-      { label: 'Conference catering', value: 23.4, tone: 'hero' },
-      { label: 'Speaker travel and hotels', value: 20.7, tone: 'hero' },
+      { label: 'Catering', value: 23.4, tone: 'hero' },
+      { label: 'Speaker travel', value: 20.7, tone: 'hero' },
       { label: 'After-party', value: 10.9, tone: 'hero' },
-      { label: 'Technical partner', value: 10.9, tone: 'neutral' },
+      { label: 'Tech partner', value: 10.9, tone: 'neutral' },
       { label: 'T-shirts', value: 9.4, tone: 'neutral' },
       { label: 'Speaker dinner', value: 6.2, tone: 'hero' },
       { label: 'Media team', value: 4.7, tone: 'neutral' },
-      { label: 'Signage, branding, lanyards', value: 3.9, tone: 'neutral' },
-      { label: 'Workshop speaker payouts', value: 3.1, tone: 'neutral' },
-      { label: 'City and speaker tours', value: 3.1, tone: 'hero' },
+      { label: 'Signage', value: 3.9, tone: 'neutral' },
+      { label: 'Workshop pay', value: 3.1, tone: 'neutral' },
+      { label: 'Tours', value: 3.1, tone: 'hero' },
       { label: 'Other', value: 3.7, tone: 'neutral' },
     ],
   },
+
   'stakes-no-cancel': {
     kind: 'timeline', kicker: 'Signed. No way out.', title: 'You’re committed 12 months ahead. You find out if you can afford it 1 to 3 months before.',
     marks: [
@@ -300,7 +286,6 @@ export const VISUALS = {
       { value: 'Penalties', label: 'In some sponsor contracts', tone: 'bad' },
     ],
   },
-  'stakes-covered': { kind: 'statement', text: 'No shortfall to cover from our own pockets.', emphasis: 'No shortfall' },
   // The other idea: affordable, in Europe's most expensive city.
   // ── The gate: the pricing story as split-flap departure boards ──
   'affordable-idea': {
@@ -415,7 +400,6 @@ export const VISUALS = {
   'renamed-react-advanced': { kind: 'strike', kicker: 'Even the meetups renamed themselves', name: 'React Advanced London', to: 'Web Engineering London' },
   'last-react-india': { kind: 'strike', kicker: 'Or announced their last edition', name: 'React India', stamp: 'Deprecated', note: 'Last edition this year' },
   'last-devoxx-be': { kind: 'strike', kicker: 'Or announced their last edition', name: 'Devoxx Belgium', stamp: 'Deprecated', note: '2027 likely the last' },
-  'last-front': { kind: 'strike', kicker: 'Or announced their last edition', name: 'Front Conference', stamp: 'Deprecated', note: 'Front 26 cancelled' },
   'layoffs': { kind: 'statement', text: 'Layoffs everywhere. Sponsorship budgets cut.', emphasis: 'budgets cut.' },
   'sponsor-tiers': {
     kind: 'bars', title: 'Your first conference is a hard sell', source: 'Half our sponsors (12 of 24) backed us at the smallest tier',
@@ -430,8 +414,8 @@ export const VISUALS = {
   'sponsor-prices': {
     kind: 'bars', title: 'Our top tier: about half of React Summit’s', unit: ' CHF',
     bars: [
-      { label: 'React Summit Amsterdam', value: 20792, tone: 'neutral' },
-      { label: 'React Advanced, React Day Berlin', value: 15121, tone: 'neutral' },
+      { label: 'React Summit', value: 20792, tone: 'neutral' },
+      { label: 'React Advanced', value: 15121, tone: 'neutral' },
       { label: 'React Norway', value: 13231, tone: 'neutral' },
       { label: 'ZurichJS Conf', value: 11000, tone: 'hero' },
       { label: 'DevOpsDays Zurich', value: 8000, tone: 'neutral' },
@@ -458,7 +442,7 @@ export const VISUALS = {
     ],
   },
   'sponsor-talks': { kind: 'statement', kicker: 'Elsewhere: a 20-minute sponsor talk, about CHF 6,600', text: 'At ZurichJS Conf, speaking slots were not for sale.', emphasis: 'not for sale.' },
-  'refuse-talks': { kind: 'statement', kicker: 'An offer for speaking slots, about CHF 15,000', text: 'CHF 15,000 today. What does it cost us tomorrow?', emphasis: 'cost us tomorrow?' },
+  'refuse-talks': { kind: 'statement', kicker: 'An offer we turned down', text: 'CHF 15,000 today. What does it cost us tomorrow?', emphasis: 'cost us tomorrow?' },
   'sponsor-pipeline': {
     kind: 'numbers', kicker: 'Sponsorship, 2025 to 2026', title: 'The sponsors you see are the survivors',
     items: [
@@ -512,7 +496,7 @@ export const VISUALS = {
   },
   'atm-declined': {
     kind: 'atm', kicker: 'Sponsors · A technical talk slot', title: 'TRANSACTION DECLINED',
-    message: 'Technical talks are not for sale.', tone: 'bad', detail: 'Insufficient editorial permissions.',
+    message: 'Talks are not for sale.', tone: 'bad', detail: 'Insufficient editorial permissions.',
   },
   'pitch-time': {
     kind: 'numbers', kicker: 'The compromise', title: 'Want to sell something? Call it a pitch.',
@@ -529,19 +513,14 @@ export const VISUALS = {
   },
   'pressure-top': {
     kind: 'atm', kicker: 'Top-down pressure', title: 'Who pays wants a say.',
-    options: [{ label: 'Sponsors' }, { label: 'Companies' }, { label: 'Marketing budgets' }, { label: 'AI hype' }],
+    options: [{ label: 'Sponsors' }, { label: 'Companies: AI only' }, { label: 'Marketing budgets' }, { label: 'AI hype' }],
     message: 'Push: AI branding, visibility, speaking slots.', tone: 'warn',
-  },
-  'atm-companies': {
-    kind: 'atm', kicker: 'Companies', title: 'Fund a ticket for your team?',
-    options: [{ label: 'An AI conference', value: 'YES' }, { label: 'Anything else', value: 'NO BUDGET' }],
-    selected: [0],
   },
   'atm-value': {
     kind: 'atm', kicker: 'Companies and experienced engineers', title: 'Why should I spend a day there?',
     options: [{ label: 'I already know this stuff' }, { label: 'Talks are too beginner' }, { label: 'What will I really learn?' }, { label: 'Is it worth the time?' }],
+    message: 'We were selling the value of being in the room.', tone: 'hero',
   },
-  'value-room': { kind: 'statement', kicker: 'The value proposition problem', text: 'We weren’t only selling talks. We were selling the value of being in the room.', emphasis: 'being in the room.' },
   'pressure-bottom': { kind: 'statement', kicker: 'Bottom-up pressure', text: 'Speakers, attendees, the community: they decide if the programme delivers.', emphasis: 'if the programme delivers.' },
   'atm-speakers': {
     kind: 'atm', kicker: 'Speakers', title: 'Speakers submit what they think conferences want.',
@@ -583,22 +562,9 @@ export const VISUALS = {
       { value: '13', label: 'Door staff', tone: 'neutral' },
     ],
   },
-  'slack-share': { kind: 'stat', value: '96%', label: 'Of all Slack messages came from the four of us. 51,202 of 53,277.' },
   'story-volunteers': { kind: 'statement', kicker: 'Volunteers', text: 'We started recruiting volunteers far too late.', emphasis: 'far too late.' },
   'story-comms': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Every email, every question.', emphasis: 'every question.' },
   'brand': { kind: 'statement', kicker: 'Data gap · M1', text: 'Brand and design.', emphasis: 'design.' },
-  'timeline': {
-    kind: 'numbers', title: 'Ten months from first commit to the door',
-    items: [
-      { value: '3 Nov', label: '2025 · First commit', tone: 'neutral' },
-      { value: '13 Nov', label: '2025 · First ticket sold', tone: 'neutral' },
-      { value: '29 Dec', label: '2025 · CFP opens', tone: 'neutral' },
-      { value: '3 Apr', label: '2026 · CFP closes', tone: 'neutral' },
-      { value: '31 Aug', label: '2026 · Door check-in ships', tone: 'neutral' },
-      { value: '9–12 Sep', label: '2026 · Conference week' },
-    ],
-  },
-  'agent-prs': { kind: 'stat', value: '58%', label: 'Of 281 PRs came from agent branches. 145 Claude · 11 Cursor · 8 Codex.' },
   'agent-share': {
     kind: 'bars', title: 'From helper to default', unit: '%', source: 'Agent share of merged PRs',
     bars: [
@@ -626,43 +592,10 @@ export const VISUALS = {
 
   // ── 4 · Building the programme ─────────────────────────────────────────
   'ch4': { kind: 'section', number: '04 · 434 ideas, 9 picked', title: 'Building the programme' },
-  'submissions': {
-    kind: 'numbers', title: '434 talk submissions',
-    items: [
-      { value: '347', label: 'Talks' },
-      { value: '47', label: 'Lightning talks', tone: 'neutral' },
-      { value: '40', label: 'Workshops', tone: 'neutral' },
-    ],
-  },
-  'final-week': {
-    kind: 'bars', title: 'A quarter arrived in the final week', source: 'CFP submissions per week, 29 Dec to 3 Apr',
-    bars: [
-      { label: 'Week 1', value: 44, tone: 'neutral' }, { label: 'Week 2', value: 33, tone: 'neutral' }, { label: 'Week 3', value: 30, tone: 'neutral' },
-      { label: 'Week 4', value: 18, tone: 'neutral' }, { label: 'Week 5', value: 8, tone: 'neutral' }, { label: 'Week 6', value: 23, tone: 'neutral' },
-      { label: 'Week 7', value: 6, tone: 'neutral' }, { label: 'Week 8', value: 12, tone: 'neutral' }, { label: 'Week 9', value: 14, tone: 'neutral' },
-      { label: 'Week 10', value: 9, tone: 'neutral' }, { label: 'Week 11', value: 18, tone: 'neutral' }, { label: 'Week 12', value: 38, tone: 'neutral' },
-      { label: 'Week 13', value: 60, tone: 'neutral' }, { label: 'Week 14', value: 121, tone: 'hero' },
-    ],
-  },
   'reviews': { kind: 'stat', value: '2,489', label: 'Reviews from 15 reviewers. About 166 each.' },
   'lesson-email': { kind: 'strike', kicker: 'A weird lesson: ask for a personal email', name: 'speaker@yourcompany.com', to: 'speaker@gmail.com', note: 'By the time we said yes or no, some had changed jobs or lost them. Ticket holders too.' },
   'accepted': { kind: 'stat', value: '9', label: 'Accepted from 434. 6 talks, 3 workshops, 5 waitlisted.' },
   'story-workshops': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Running the workshops.', emphasis: 'workshops.' },
-  'fundamentals': {
-    kind: 'numbers', title: 'But attendees asked for fundamentals',
-    items: [
-      { value: '75', label: 'Want more JS and TS deep dives' },
-      { value: '48', label: 'Want more AI', tone: 'neutral' },
-    ],
-  },
-  'speakers-flew': {
-    kind: 'bars', title: '18 of 21 speakers flew in', source: '5 from North America · 9 countries · 3 did not fly',
-    bars: [
-      { label: 'USA', value: 3, tone: 'hero' }, { label: 'Germany', value: 3, tone: 'neutral' }, { label: 'Canada', value: 2, tone: 'hero' },
-      { label: 'Netherlands', value: 2, tone: 'neutral' }, { label: 'Austria', value: 2, tone: 'neutral' }, { label: 'UK', value: 2, tone: 'neutral' },
-      { label: 'Spain', value: 2, tone: 'neutral' }, { label: 'Czechia', value: 1, tone: 'neutral' }, { label: 'Portugal', value: 1, tone: 'neutral' },
-    ],
-  },
   'workshops': { kind: 'stat', value: '6', label: 'Workshops, 80 seats. Workshop day, 10 September.' },
 
   // ── 5 · Filling the room ───────────────────────────────────────────────
@@ -687,7 +620,6 @@ export const VISUALS = {
       { label: 'Aug', value: 39, tone: 'hero' }, { label: 'Sep', value: 26, tone: 'hero' },
     ],
   },
-  'last-100-days': { kind: 'stat', ground: 'yellow', value: '56%', label: 'Of paid tickets sold in the last 100 days. 149 of 267, from 1 June.' },
   'ways-in': {
     kind: 'numbers', title: 'So we built ways in',
     items: [
@@ -716,14 +648,6 @@ export const VISUALS = {
       { label: 'Sep', value: 4408, tone: 'neutral' },
     ],
   },
-  'ads-when': {
-    kind: 'numbers', title: 'We barely ran ads',
-    items: [
-      { value: 'None', label: 'Before June. Everything else was organic.' },
-      { value: '9 days', label: 'Reddit, June: 919 visitors, 0 tickets', tone: 'warn' },
-      { value: '5 weeks', label: 'Google Ads, 1 August to 6 September', tone: 'warn' },
-    ],
-  },
   'august-without-ads': {
     kind: 'numbers', title: 'Take the ads out, and August looks like July',
     items: [
@@ -741,29 +665,7 @@ export const VISUALS = {
       { value: '0.09%', label: 'Of Google Ads visitors bought. Our own channels: 3.7%', tone: 'neutral' },
     ],
   },
-  'buyers-from': {
-    kind: 'bars', title: 'Buyers came from people who already knew us', source: 'Where each buyer first came from · our analytics · 180 buyers',
-    bars: [
-      { label: 'Typed it in, bookmarks', value: 72, tone: 'hero' },
-      { label: 'Our own channels', value: 38, tone: 'hero' },
-      { label: 'Search', value: 27, tone: 'neutral' },
-      { label: 'Social', value: 13, tone: 'neutral' },
-      { label: 'Community sites', value: 10, tone: 'neutral' },
-      { label: 'Google Ads', value: 8, tone: 'warn' },
-      { label: 'Newsletters', value: 1, tone: 'neutral' },
-      { label: 'Reddit Ads', value: 0, tone: 'warn' },
-    ],
-  },
   'cart': { kind: 'stat', value: '1 in 4', label: 'Cart viewers went on to check out. Most dropped off at the details step.', tone: 'warn' },
-  'countries': { kind: 'stat', value: '21', label: 'Countries. 2 in 3 paid tickets from Switzerland.' },
-  'abroad': {
-    kind: 'bars', title: 'Germany first, then everyone', source: 'Paid tickets from outside Switzerland',
-    bars: [
-      { label: 'Germany', value: 26, tone: 'hero' }, { label: 'Austria', value: 10, tone: 'neutral' }, { label: 'UK', value: 7, tone: 'neutral' },
-      { label: 'Spain', value: 7, tone: 'neutral' }, { label: 'USA', value: 7, tone: 'neutral' }, { label: 'Netherlands', value: 5, tone: 'neutral' },
-      { label: 'Poland', value: 5, tone: 'neutral' }, { label: 'Croatia', value: 4, tone: 'neutral' },
-    ],
-  },
   'swiss-early': {
     kind: 'bars', title: 'Swiss bought early, everyone else later', unit: '%', source: 'International share of paid tickets by stage',
     bars: [
@@ -790,11 +692,9 @@ export const VISUALS = {
   },
 
   // ── 6 · The rollercoaster ──────────────────────────────────────────────
-  'ch6': { kind: 'section', number: '06 · Highs and lows', title: 'The rollercoaster' },
-  'hi-final-week': { kind: 'stat', value: '121', label: 'Submissions in the final week. High · 30 Mar to 3 Apr 2026.', tone: 'good' },
-  'lo-1000-rows': { kind: 'stat', value: '1,000', label: 'Rows: a silent limit hid CFP reviews. Fixed days before the CFP closed. Low · 31 Mar 2026.', tone: 'bad' },
+  'ch6': { kind: 'section', number: '06 · Highs and lows of the year', title: 'The rollercoaster' },
+  'ch7': { kind: 'section', number: '07 · Countdown to doors', title: 'The week and the day' },
   'lo-178': { kind: 'stat', value: '#178', label: 'Removed an obfuscated malicious payload hidden in a build config. Low · 25 May 2026.', tone: 'bad' },
-  'hi-july': { kind: 'stat', value: '50', label: 'Tickets sold, our best month. High · July 2026.', tone: 'good' },
   'mail-inbox': {
     kind: 'numbers', kicker: 'The inbox · Jul 2025 to Nov 2026', title: 'A year of email',
     items: [
@@ -841,14 +741,6 @@ export const VISUALS = {
       { label: 'Badges', values: [12, 139, 25, 15, 4, 2, 5, 1, 1, 0, 2], tone: 'neutral' },
       { label: 'Check-ins', values: [14, 118, 21, 3, 2, 0, 0, 0, 0, 0, 0], tone: 'neutral' },
       { label: 'Goodies', values: [0, 0, 0, 53, 40, 24, 55, 16, 14, 4, 17], tone: 'hero' },
-    ],
-  },
-  'badges': {
-    kind: 'numbers', title: 'On the day',
-    items: [
-      { value: '253', label: 'Badges picked up of 330 tickets' },
-      { value: '222', label: 'T-shirts', tone: 'neutral' },
-      { value: '204', label: 'Goodie bags', tone: 'neutral' },
     ],
   },
   'space-empty': { kind: 'statement', kicker: 'Two weeks out', text: 'The space was still in boxes.', emphasis: 'in boxes.' },
@@ -909,15 +801,15 @@ export const VISUALS = {
   },
   'not-in-data': { kind: 'statement', kicker: 'Data gap · R1', text: 'The ones not in the data.', emphasis: 'not in the data.' },
 
-  // ── 7 · What we learned ────────────────────────────────────────────────
-  'ch7': { kind: 'section', number: '07 · For anyone who wants to organise something', title: 'What we learned' },
+  // ── 8 · What we learned ────────────────────────────────────────────────
+  'ch8': { kind: 'section', number: '08 · For anyone who wants to organise something', title: 'What we learned' },
   'execution': { kind: 'statement', kicker: 'Execution', text: 'The plan only counts at the door.', emphasis: 'at the door.' },
   'distribution': { kind: 'statement', kicker: 'Distribution', text: 'Reach people where they buy.', emphasis: 'where they buy.' },
   'pragmatism': { kind: 'statement', kicker: 'Pragmatism', text: 'One app, a boring stack, agents for the grind.', emphasis: 'agents for the grind.' },
   'plan-people': { kind: 'quote', text: 'You can plan every tiny logistical detail, but you can\'t plan people.', author: 'Nadja', role: 'ZurichJS Conf organiser' },
 
-  // ── 8 · The final numbers ──────────────────────────────────────────────
-  'ch8': { kind: 'section', number: '08 · Did it add up?', title: 'The final numbers' },
+  // ── 9 · The final numbers ──────────────────────────────────────────────
+  'ch9': { kind: 'section', number: '09 · Did it add up?', title: 'The final numbers' },
   'income': {
     kind: 'bars', title: 'Where the money came from', unit: '%', source: 'Share of income',
     bars: [
@@ -927,8 +819,8 @@ export const VISUALS = {
   },
   'add-up-q': { kind: 'statement', text: 'Did it add up?', emphasis: 'add up?' },
   'add-up-a': { kind: 'statement', ground: 'yellow', text: 'Just over break even.', emphasis: 'Just over break even' },
-  'rating': { kind: 'stat', value: '4.6', label: 'Out of 5 overall. 112 survey responses, 110 rated 4 or 5.', tone: 'good' },
-  'come-back': { kind: 'stat', ground: 'yellow', value: '88%', label: 'Of survey respondents want to come back. 99 of 112.' },
+  'rating': { kind: 'stat', value: '4.6', label: 'Out of 5. 110 of 112 respondents rated it 4 or 5.', tone: 'good' },
+  'come-back': { kind: 'stat', ground: 'yellow', value: '88%', label: 'Want to come back: 99 of 112 respondents.' },
   'feedback-heard': { kind: 'statement', kicker: 'Slot · attendee feedback', text: 'What you told us.', emphasis: 'told us.' },
   'next-edition': { kind: 'statement', kicker: 'Slot · next edition, to decide', text: 'What comes next.', emphasis: 'next.' },
   'thanks': {
@@ -941,11 +833,11 @@ export const VISUALS = {
     ],
   },
   'come-2028': {
-    kind: 'numbers', kicker: 'Data gap · O5 · next edition date', title: 'Come in 2028',
+    kind: 'numbers', kicker: 'See you at the next one', title: 'Come in 2028',
     items: [
       { value: 'Come back', label: 'As an attendee or speaker' },
       { value: 'Volunteer', label: 'Help us run the next one', tone: 'neutral' },
-      { value: 'Start your own', label: 'Execution, distribution, pragmatism', tone: 'good' },
+      { value: 'Bring your team', label: 'The value is in the room', tone: 'good' },
     ],
   },
 } as const satisfies Record<string, Visual>

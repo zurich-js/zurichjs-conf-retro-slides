@@ -445,7 +445,7 @@ export interface CuePose {
  */
 export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
   /** Row 4, centre-right, tall seated eye height. Screen, podium, letters, rig. */
-  stage: { pos: [0.8, FLOOR + 1.45, 9.4], target: [0, -0.6, 0], fov: 44 },
+  stage: { pos: [0.7, FLOOR + 1.4, 7.6], target: [0, -0.5, 0], fov: 44 },
   /** Standing in the back-right corner: the whole hall. */
   room: { pos: [7.4, FLOOR + 2.6, 16.2], target: [-1.2, FLOOR + 2.4, 1.5], fov: 52 },
   /** Low on the stage floor, raking along the foam letters. */
