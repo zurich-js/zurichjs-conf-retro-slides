@@ -4,7 +4,7 @@ The slides for **ZurichJS Conf retrospective**, a 40-minute talk on how ZurichJS
 
 ![Walking from the foyer into the hall](docs/screenshots/walk.gif)
 
-> **Status: draft.** The 3D venue and the slide blocks are in place. The storyline is being reworked with the team in [`docs/storyline.md`](docs/storyline.md).
+> **Status: in review.** 165 slides in nine chapters, the 3D venue and its set pieces are in place. Open items and the review history live in [`docs/storyline.md`](docs/storyline.md).
 
 ## Where it starts
 
@@ -14,7 +14,7 @@ The talk opens at the ZurichJS 1st anniversary at **Pause im Foifi** (thanks to 
 
 ## The venue
 
-Moving between slides walks the camera through the venue at eye level, through the booth window, the back doors and the hallway, with no cuts.
+Moving between slides walks the camera through the venue at eye level, through the booth window, the back doors and the hallway. Chapter openers fade through black instead.
 
 | | |
 |---|---|
@@ -59,9 +59,10 @@ pnpm build          # typecheck + production build into dist/
 - **Running order:** `src/content/slides.ts`
 - **What each slide shows:** `src/content/visuals.ts`
 - **Road-to-Zurich trips:** `src/content/travel.ts`
+- **Remotion videos:** rendered into `public/video/` from github.com/JonnyBurger/zurichjs-scenes
 - **Brand tokens:** `src/brand/tokens.ts`
 
-Slides are plain data, and the venue views are named camera positions. See [`AGENTS.md`](AGENTS.md) for the rules and [`CONTEXT.md`](CONTEXT.md) for the vocabulary.
+Slides are plain data, and the venue views are named camera positions. The repo is public: money appears as shares only, and no vendor or private names go in slides, notes or PRs. See [`AGENTS.md`](AGENTS.md) for the rules and [`CONTEXT.md`](CONTEXT.md) for the vocabulary.
 
 ## Pull requests
 
