@@ -4,6 +4,7 @@ import { useLoader } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 import { Airport } from './Airport'
+import { Exterior } from './Exterior'
 import { Atm } from './Atm'
 import { Atrium } from './Atrium'
 import { Foifi } from './Foifi'
@@ -43,6 +44,7 @@ export function Set({ frame }: { frame: THREE.Material }) {
       <Airport frame={frame} />
       <Atm frame={frame} />
       <Ground />
+      <Exterior />
       <Suspense fallback={null}>
         <Booth frame={frame} />
         <Props frame={frame} />
@@ -128,8 +130,8 @@ function MapLabels() {
 function Ground() {
   const map = useMemo(nightGround, [])
   return (
-    <mesh rotation-x={-Math.PI / 2} position={[-30, FLOOR - 0.15, 20]}>
-      <planeGeometry args={[220, 160]} />
+    <mesh rotation-x={-Math.PI / 2} position={[-5, FLOOR - 0.15, 55]}>
+      <planeGeometry args={[250, 270]} />
       <meshStandardMaterial map={map} roughness={0.95} />
     </mesh>
   )
