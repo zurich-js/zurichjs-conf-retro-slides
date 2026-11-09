@@ -85,7 +85,7 @@ export const slides = defineSlides(VISUALS, [
     notes: 'ZurichJS on the road: our answer to the hard year. Between the anniversary and the conference we took ZurichJS to meetups and conferences abroad to market the conf, meet speakers and close sponsor deals. Still on the Foifi screen; the next slide flies to Technopark. Plays by itself, about 35 s: starts at React Summit US, New York, then flies every trip in date order (19 stops) and lands on the totals. No keys needed; → moves on. From faziz-dev.com/events, Nov 2025 to Aug 2026. Blue = team trips: React Vienna, ReactJS Milano and jsday, CityJS London, JSHeroes; Voxxed Days Zurich is at home. ASSUMED: return trips from Zurich except Milan → Bologna and Warsaw → Cluj; km is great-circle.',
   },
   {
-    id: 'road-moments', beat: 'start', camera: 'seat',
+    id: 'road-moments', beat: 'start', camera: 'seat-full',
     steps: ['road-moments'],
     notes: 'The road in pictures: 70 photos from September 2025 to the conference, in date order, then the wall. Plays by itself (about 48 s); talk over it. Every photo is someone we had to meet to make it happen: organisers, speakers, sponsors, communities. It ends where it was all for: foam letters, boxes at Technopark, workshop day, the booth. Place from each photo\'s GPS, else from its date and the trips. CHECK: the three September 2025 photos (where, which event); 19 Apr (call) and 2 May (black and white) have no place; London (15 and 17 Apr) and Amsterdam (5 Jun) are by date; Berlin (Jan) and Geneva (Aug) are not on the globe. Totals use the photos\' scope (Sep 2025 to Sep 2026, Zurich included), so they differ from the globe (Nov 2025 to Aug 2026, trips abroad): 19 cities and 15 countries in the photos vs 16 trips and 13 countries visited.',
   },

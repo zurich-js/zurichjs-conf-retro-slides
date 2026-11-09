@@ -10,7 +10,7 @@ import { CUE, DEBUG, STILL } from '../engine/params'
 import { slides } from '../content/slides'
 import { CAMERA_CUES, type CameraCue } from '../engine/types'
 import { Set } from '../scene/Set'
-import { CUES, FLOOR, FOIFI_IMAGE, GATE_IMAGE, HALL, PROJECTOR_PANEL, M, routeBetween, SCREEN, type SolvedCue, type Space } from '../scene/venue'
+import { CUES, FLOOR, FOIFI_IMAGE, GATE_IMAGE, SEAT_IMAGE, HALL, PROJECTOR_PANEL, M, routeBetween, SCREEN, type SolvedCue, type Space } from '../scene/venue'
 import { MASK } from '../scene/layers'
 
 export { SCREEN }
@@ -66,6 +66,7 @@ const PROJECTOR_POSE: Pose = { pos: new THREE.Vector3(), target: new THREE.Vecto
 const FOIFI_FULL: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'foifi' }
 
 const GATE_FULL: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'gate' }
+const SEAT_FULL: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'plane' }
 
 /** Fill the viewport with an image facing +z (facing = 1) or −z (facing = −1). */
 function fill(pose: Pose, img: { width: number; centre: readonly [number, number, number] }, facing: 1 | -1, aspect: number) {
@@ -79,6 +80,8 @@ function fill(pose: Pose, img: { width: number; centre: readonly [number, number
 function cue(name: CameraCue, aspect: number) {
   // The departures board faces into the lounge (+z).
   if (name === 'gate-full') return fill(GATE_FULL, GATE_IMAGE, 1, aspect)
+  // The seat-back screen in front of 15C faces back down the cabin (−z), toward us.
+  if (name === 'seat-full') return fill(SEAT_FULL, SEAT_IMAGE, -1, aspect)
   if (name === 'foifi-full') {
     // Foifi's projector screen fills the viewport, like 'screen' does in the hall.
     const [x, y, z] = FOIFI_IMAGE.centre
@@ -243,6 +246,7 @@ const spaceOf = (name: CameraCue): Space =>
   name === 'screen' ? 'hall'
   : name === 'projector' || name === 'foifi-full' ? 'foifi'
   : name === 'gate-full' ? 'gate'
+  : name === 'seat-full' ? 'plane'
   : (CUES[name].space ?? 'hall')
 const ROOF = (FLOOR + HALL.ridge + 0.3) * M
 

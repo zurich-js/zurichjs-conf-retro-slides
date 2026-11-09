@@ -110,7 +110,7 @@ AG Grid), `map` (the whole venue as a labelled cutaway), `projector`
 (looking into Foifi's projector lens, the slide filling the frame; solved
 like `screen`), `foifi` /
 `foifi-screen` (Pause im Foifi), `deploy` (the launch laptop), `cake`, `cabin`
-(down the 777's aisle), `seat` (seat 15C, looking straight at the seat-back screen), `gate` (the Zurich Airport gate lounge, departures board ahead),
+(down the 777's aisle), `seat` (seat 15C, looking straight at the seat-back screen), `seat-full` (that screen filling the frame; solved), `gate` (the Zurich Airport gate lounge, departures board ahead),
 `gate-full` (the departures board filling the frame; solved), `apron` (the
 plane at the gate, from outside), `atm` (close on the cash machine's screen in
 Foifi), `atm-wide` (the whole machine: card slot, keypad, cash), `aerial` (Technopark

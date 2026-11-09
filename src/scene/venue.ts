@@ -269,7 +269,7 @@ export const ROAD: readonly (readonly [number, number])[] = [
 ]
 
 /** Cues solved per aspect so an image exactly fills the viewport. */
-export type SolvedCue = 'screen' | 'projector' | 'foifi-full' | 'gate-full'
+export type SolvedCue = 'screen' | 'projector' | 'foifi-full' | 'gate-full' | 'seat-full'
 /** A point in Foifi's local frame (metres) → world metres. */
 export const foifi = (x: number, y: number, z: number): readonly [number, number, number] =>
   [FOIFI.x + x - FOIFI.width / 2, FLOOR + y, FOIFI.z + z]
