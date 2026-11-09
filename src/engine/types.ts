@@ -116,9 +116,13 @@ export type Visual = Base &
         options?: readonly { label: string; value?: string }[]
         /** Options lit as pressed. */
         selected?: readonly number[]
+        /** Colour of the pressed keys (default accent); `bad` for a refused choice. */
+        selectedTone?: Tone
         message?: string
         /** Message tone (default accent). */
         tone?: Tone
+        /** A smaller second line under the message (e.g. the reason for a decline). */
+        detail?: string
         /** Small, bottom right: a source or a footnote. */
         note?: string
         /** What the machine does in the set: take the card, or hand it back and pay out. */

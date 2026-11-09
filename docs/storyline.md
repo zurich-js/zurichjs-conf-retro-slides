@@ -4,6 +4,34 @@ Working document for the team. It captures the storyline **as it is in the deck 
 
 > The 3D venue and the slide building blocks are in good shape. **The storyline is not.** Rework the story here; leave the visuals to the deck.
 
+## Revision batches 1 and 2, 9 Nov 2026
+
+Shares and counts only on slides; the only CHF amounts are the minimums and public list prices.
+
+| Slide | Change |
+|---|---|
+| `anniversary` | Digitec Galaxus offered their venue, where Bogdan and Faris first met. |
+| `go-live` | Camera closer to the laptop; larger code type. |
+| `tshirt-bug` | Same steps, larger type. |
+| `meetup-year` | More space between the end labels and the date axis. |
+| `meetup-rsvps-2026` | "Year two beat year one in 8 of 12 months" (Nov to Oct, completed months). |
+| `chapters`, `no-diamond`, `price-sensitive`, `meetup-itch`, `lesson-diamond`, `atm-repitch`, `ai-changed` | **Cut** or replaced. |
+| `why-fresh`, `why-home`, `why-missing` | **New**: why a conference; Front passed the baton (`front-book` retitled). |
+| `stakes-100k` | CHF 100k* with the bare-minimum footnote. |
+| `spend` | **New**: share of spend by line (organisers' estimate). Venue hire missing from the estimate. |
+| `stakes-no-cancel` | Timeline: committed 12 months out, exits expire, viability 1 to 3 months out, conference day. |
+| `stakes-split` | CHF 33k each, at least. |
+| `stakes-worst` | **New**: fees, refunds, lost payment fees, penalties; worst case about double the minimum. |
+| `first-commit` | Timeline: 3 Nov 2025 first commit, 13 Nov first ticket. |
+| `sponsor-tiers` | "Your first conference is a hard sell"; 12 of 24 at the smallest tier. |
+| `sponsor-pipeline`, `deal-fails` | **New**: hundreds of conversations, 24 signed; withdrew, laid off, pivoted, +20% penalty (GDPR in notes). |
+| `sponsor-prices` | Source line removed (kept in notes). |
+| `sponsor-get` | Verified against 2026 packages: lead capture, workshop, talk rows corrected. |
+| `sponsor-talks`, `refuse-talks` | CHF conversions; speaking slots not for sale; the CHF 15k offer. |
+| `money-late` | 12 months committed; 15 of 24 sponsor deals paid in the last three months; 56% of tickets in the last 100 days. |
+| `expensive` | Survey split: too expensive 3, slightly 11, just right 27, good 41, excellent 30 (n = 112). |
+| ATM run | `atm-ask` (empty), `atm-sponsors` (options), `atm-talk` (red), `atm-declined` (TRANSACTION DECLINED), `pitch-time`, `atm-ai` (request received), `pressure-top`, `atm-companies`, `atm-value`, `value-room`, `pressure-bottom`, `atm-speakers`, `ai-share`, `atm-attendees`, `atm-taste`, `substance`, `value-props`. |
+
 ## Review pass, 9 Nov 2026
 
 From the retrospective review. Not a redesign: the journey stays (Foifi, a year earlier, funding and travel, Technopark, the day, outcomes). Where the review said "maybe" or "we need to decide", it is listed under decisions, not built.

@@ -106,23 +106,28 @@ const statement: Painter<'statement'> = (ctx, v, p, r) => {
 }
 
 const stat: Painter<'stat'> = (ctx, v, p, r) => {
-  const base = FRAME.height / 2 + TYPE.size.stat * 0.2
+  // Centre the whole block (value, label, source) vertically, so long labels never sink to the wordmark.
+  const lines = wrap(ctx, v.label, SAFE.width * 0.7, TYPE.size.body, TYPE.weight.medium)
+  const lh = TYPE.size.body * TYPE.bodyLineHeight
+  const srcLines = v.source ? labelLines(ctx, v.source, SAFE.width * 0.8, TYPE.size.label) : []
+  const cap = TYPE.size.stat * 0.72
+  const block = cap + 130 + (lines.length - 1) * lh + 20 + (srcLines.length ? 30 + srcLines.length * TYPE.size.label * 1.35 : 0)
+  const base = Math.min(FRAME.height / 2 + TYPE.size.stat * 0.2, (FRAME.height - block) / 2 - 30 + cap)
   ctx.save(); enter(ctx, window01(p, 0, 0.7), 80)
   text(ctx, v.value, SAFE.left - TYPE.size.stat * 0.04, base, {
     size: TYPE.size.stat, weight: TYPE.weight.black, tracking: D, color: r.tone(v.tone ?? 'hero'),
   })
   ctx.restore()
   ctx.save(); enter(ctx, window01(p, 0.3, 1))
-  const lines = wrap(ctx, v.label, SAFE.width * 0.7, TYPE.size.body, TYPE.weight.medium)
   lines.forEach((l, i) =>
-    text(ctx, l, SAFE.left, base + 130 + i * TYPE.size.body * TYPE.bodyLineHeight, {
+    text(ctx, l, SAFE.left, base + 130 + i * lh, {
       size: TYPE.size.body, weight: TYPE.weight.medium, color: r.textSoft,
     }),
   )
   // A source or footnote sits under the label, wrapped, clear of the wordmark.
   if (v.source) {
-    const y0 = base + 130 + lines.length * TYPE.size.body * TYPE.bodyLineHeight + 30
-    labelLines(ctx, v.source, SAFE.width * 0.8, TYPE.size.label).forEach((l, i) =>
+    const y0 = base + 130 + lines.length * lh + 30
+    srcLines.forEach((l, i) =>
       label(ctx, l, SAFE.left, y0 + i * TYPE.size.label * 1.35, r.textMuted))
   }
   ctx.restore()
@@ -297,8 +302,13 @@ const numbers: Painter<'numbers'> = (ctx, v, p, r) => {
   if (widest > colW * 0.9) vsize *= (colW * 0.9) / widest
   // Row heights from their tallest label; the whole grid centres vertically.
   const lines = v.items.map((it) => wrap(ctx, it.label, colW * 0.86, TYPE.size.body, TYPE.weight.medium))
-  const rowH = Array.from({ length: rows }, (_, k) =>
-    vsize + 70 + Math.max(...lines.slice(k * cols, k * cols + cols).map((l) => l.length)) * lh + 70)
+  const rowHeights = (vs: number) => Array.from({ length: rows }, (_, k) =>
+    vs + 70 + Math.max(...lines.slice(k * cols, k * cols + cols).map((l) => l.length)) * lh + 70)
+  // Shrink the values until the whole grid fits above the wordmark.
+  let rowH = rowHeights(vsize)
+  const fit = avail - 60
+  const over = rowH.reduce((a, b) => a + b, 0) - 70 - fit
+  if (over > 0) { vsize = Math.max(TYPE.size.h2 * 0.6, vsize - over / rows); rowH = rowHeights(vsize) }
   const total = rowH.reduce((a, b) => a + b, 0) - 70
   let ry = top + Math.max(0, (avail - total) / 2)
   const rowTop = rowH.map((h) => { const y = ry; ry += h; return y })
