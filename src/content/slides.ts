@@ -171,6 +171,8 @@ export const slides = defineSlides(VISUALS, [
   { id: 'arrivals', beat: 'rollercoaster', steps: ['arrivals'] },
   { id: 'busiest-day', beat: 'rollercoaster', steps: ['busiest-day'] },
   { id: 'badges', beat: 'rollercoaster', steps: ['badges'], camera: 'foyer', effect: 1, notes: 'CHECK: badges (253) or door scans (156) as the attendance number.' },
+  { id: 'badge-frontload', beat: 'rollercoaster', steps: ['badge-frontload'], camera: 'foyer', effect: 1, notes: 'From the door system export (door_events, 9 Nov 2026). Warm-up meetup, 9 Sep (community_day): 50 badge pickups, 1 undone, between 17:00 and 20:00. 48 of those people were never scanned at the check-in desk on 11 Sep. On the day: 206 pickups (2 undone), 139 between 08:00 and 09:00. Total 49 + 204 = 253, which matches the badge count. No badge pickups on the workshop day. Events on 6 and 8 Sep were setup tests, left out.' },
+  { id: 'door-rhythm', beat: 'rollercoaster', steps: ['door-rhythm'], camera: 'foyer', effect: 1, notes: 'From the door system export (door_events). Badge pickup, check-in and goodies were three separate stations; goodie bags came later at a separate table (the code notes it saved about 3.5 s per person at the door). Check-ins: 118 between 08:00 and 09:00, 158 on the day, 15 workshop seats on 10 Sep. Goodies: 223 handovers (1 undone = 222 T-shirts), from 10:30 in waves at the breaks (13:00 hour busiest), 17 at the end of the day; 33 hoodies handed, 48 owed.' },
   { id: 'not-in-data', beat: 'rollercoaster', steps: ['not-in-data'], notes: 'DATA GAP R1: personal highs and lows.' },
 
   // ── 7 · What we learned ────────────────────────────────────────────────

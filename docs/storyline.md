@@ -26,8 +26,8 @@ House rules (from the original deck brief): no em dashes, never the word "bounda
 
 ## What isn't working (starting points for discussion)
 
-- **Length is not the problem, the shape is.** 138 slides, plus a 35-second autoplaying globe: roughly 26 minutes at about 15 seconds a slide, inside a 40-minute talk. There is room to slow down and tell the story; what is missing is a thread, not time.
-- **Numbers without a thread.** Long runs of big-number slides in a row (chapter 2 has 138 slides, chapter 5 has 20). Each number is true, but few of them move the story forward. Most could be one chart, or cut.
+- **Length is not the problem, the shape is.** 139 slides, plus a 35-second autoplaying globe: roughly 26 minutes at about 15 seconds a slide, inside a 40-minute talk. There is room to slow down and tell the story; what is missing is a thread, not time.
+- **Numbers without a thread.** Long runs of big-number slides in a row (chapter 2 has 139 slides, chapter 5 has 20). Each number is true, but few of them move the story forward. Most could be one chart, or cut.
 - **The setup is never paid off.** Chapter 2 promises "three problems, each forced a decision" (sponsor budgets, price-sensitive buyers, AI submissions). Chapters 3 to 5 never say which decision answers which problem, so the structure is invisible to the audience.
 - **The human story is missing.** The four places where only Faris (and the team) can speak are empty: W1 the meetup itch, M1 brand and design, R1 the personal highs and lows, O5 the next edition date. Without them it is a data report, not a story.
 - **Decided: the story starts at the 1st anniversary** (Pause im Foifi, 14 Nov 2025), where conf.zurichjs.com went live five minutes before the meetup. It then flies to Technopark, "ten months later". What follows the venue flyover still needs a thread: it restarts at "359 people".
@@ -262,30 +262,31 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | 122 | `arrivals` | Bar chart | Everyone arrives at once · Door scans per 10 minutes from 07:40, 11 Sep · 07:40 5 · 07:50 6 · 08:00 12 · 08:10 24 · 08:20 21 · 08:30 29 · 08:40 20 · 08:50 11 · 09:00 5 · 09:10 8 · 09:20 2 · 09:30 2 | Screen (full frame) |  | |
 | 123 | `busiest-day` | Big number | 5,067 · Pageviews: the busiest day of the year. 69% on mobile. /schedule opened 3,729 times over 4 days. | Screen (full frame) |  | |
 | 124 | `badges` | Number tiles | On the day · 253 (Badges picked up of 330 tickets) · 222 (T-shirts) · 204 (Goodie bags) | Foyer, check-in | CHECK: badges (253) or door scans (156) as the attendance number. | |
-| 125 | `not-in-data` | Statement | Data gap · R1 · The ones not in the data. | Screen (full frame) | DATA GAP R1: personal highs and lows. | |
+| 125 | `door-rhythm` | Heatmap | Doors first, goodies later · check-ins per hour (118 at 08:00) vs goodie bags (from 10:30, waves at the breaks) | Foyer, projected | Door system event log, 11 Sep. No pickups logged on 9 or 10 Sep. | new |
+| 126 | `not-in-data` | Statement | Data gap · R1 · The ones not in the data. | Screen (full frame) | DATA GAP R1: personal highs and lows. | |
 
 ### 7 · What we learned · *For anyone who wants to organise something*
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 126 | `ch7` | Section | 07 · For anyone who wants to organise something · What we learned | Hall, back corner |  | |
-| 127 | `execution` | Statement | Execution · The plan only counts at the door. | Screen (full frame) | Best-rated: organisation and logistics, 3.7 of 4. Weakest: food and drinks, 3.2 of 4. | |
-| 128 | `distribution` | Statement | Distribution · Reach people where they buy. | Screen (full frame) |  | |
-| 129 | `pragmatism` | Statement | Pragmatism · One app, a boring stack, agents for the grind. | Screen (full frame) |  | |
+| 127 | `ch7` | Section | 07 · For anyone who wants to organise something · What we learned | Hall, back corner |  | |
+| 128 | `execution` | Statement | Execution · The plan only counts at the door. | Screen (full frame) | Best-rated: organisation and logistics, 3.7 of 4. Weakest: food and drinks, 3.2 of 4. | |
+| 129 | `distribution` | Statement | Distribution · Reach people where they buy. | Screen (full frame) |  | |
+| 130 | `pragmatism` | Statement | Pragmatism · One app, a boring stack, agents for the grind. | Screen (full frame) |  | |
 
 ### 8 · The final numbers · *Did it add up?*
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 130 | `ch8` | Section | 08 · Did it add up? · The final numbers | Stage, from the seats |  | |
-| 131 | `income` | Bar chart | Where the money came from · CHF · roughly 170k in · about 2.4k Stripe fees · Sponsorship 81k · Tickets 75k · Workshops 14k · VIP upgrades 1k | Screen (full frame) | Admin income may be off by up to about 5%. Costs are not in the admin. | |
-| 132 | `add-up` | Statement | Did it add up? | Screen (full frame) | Pause. The next slide is the answer. | |
-| 133 | `add-up-answer` | Statement (yellow) | Just over break even, on roughly CHF 170k of income. | Screen (full frame) |  | |
-| 134 | `stakes-covered` | Statement | Nobody had to pay it out of pocket. | Screen (full frame) | Pays off the stakes in chapter 1. CHECK. | keep |
-| 135 | `rating` | Big number | 4.6 · Out of 5 overall. 112 survey responses, 110 rated 4 or 5. | Screen (full frame) |  | |
-| 136 | `come-back` | Big number (yellow) | 88% · Of survey respondents want to come back. 99 of 112. | Screen (full frame) | 61 Absolutely, 38 "I'll try". | |
-| 137 | `thanks` | Number tiles | Thank you · 24 (Sponsors) · 80 (Community partners) · 21 (Speakers and MCs) · 13 (Door staff and volunteers) | Stage, from the seats | CHECK: 13 door staff vs 14 volunteers on the dashboard. | |
-| 138 | `come-2028` | Number tiles | Data gap · O5 · next edition date · Come in 2028 · Come back (As an attendee or speaker) · Volunteer (Help us run the next one) · Start your own (Execution, distribution, pragmatism) | Hall, back corner | DATA GAP O5: next edition date. Optional movie. | |
+| 131 | `ch8` | Section | 08 · Did it add up? · The final numbers | Stage, from the seats |  | |
+| 132 | `income` | Bar chart | Where the money came from · CHF · roughly 170k in · about 2.4k Stripe fees · Sponsorship 81k · Tickets 75k · Workshops 14k · VIP upgrades 1k | Screen (full frame) | Admin income may be off by up to about 5%. Costs are not in the admin. | |
+| 133 | `add-up` | Statement | Did it add up? | Screen (full frame) | Pause. The next slide is the answer. | |
+| 134 | `add-up-answer` | Statement (yellow) | Just over break even, on roughly CHF 170k of income. | Screen (full frame) |  | |
+| 135 | `stakes-covered` | Statement | Nobody had to pay it out of pocket. | Screen (full frame) | Pays off the stakes in chapter 1. CHECK. | keep |
+| 136 | `rating` | Big number | 4.6 · Out of 5 overall. 112 survey responses, 110 rated 4 or 5. | Screen (full frame) |  | |
+| 137 | `come-back` | Big number (yellow) | 88% · Of survey respondents want to come back. 99 of 112. | Screen (full frame) | 61 Absolutely, 38 "I'll try". | |
+| 138 | `thanks` | Number tiles | Thank you · 24 (Sponsors) · 80 (Community partners) · 21 (Speakers and MCs) · 13 (Door staff and volunteers) | Stage, from the seats | CHECK: 13 door staff vs 14 volunteers on the dashboard. | |
+| 139 | `come-2028` | Number tiles | Data gap · O5 · next edition date · Come in 2028 · Come back (As an attendee or speaker) · Volunteer (Help us run the next one) · Start your own (Execution, distribution, pragmatism) | Hall, back corner | DATA GAP O5: next edition date. Optional movie. | |
 
 ## Open questions to resolve
 

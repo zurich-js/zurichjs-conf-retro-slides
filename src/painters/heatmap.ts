@@ -27,19 +27,21 @@ export function paintHeatmap(ctx: Ctx, v: HeatmapVisual, p: number, r: Roles) {
   const shown = Math.min(v.rows.length, v.show ?? v.rows.length)
   const from = Math.min(shown - 1, v.from ?? 0)
   const max = Math.max(...v.rows.flatMap((row) => row.values))
-  const labelW = 300
+  const labelW = 340
   const totalW = 250
   const n = v.columns.length
   const gap = 14
   const cell = Math.min(220, (SAFE.width - labelW - totalW - gap * (n - 1)) / n)
-  const rowH = 250
   const rowGap = 40
+  // Rows shrink to fit above the wordmark when there are more than two.
+  const avail = SAFE.bottom - 40 - (y + 100)
+  const rowH = Math.min(250, (avail - (v.rows.length - 1) * rowGap) / v.rows.length)
   const num = Math.min(TYPE.size.body, cell * 0.42)
   const gridW = cell * n + gap * (n - 1)
   const x0 = SAFE.left + labelW
   // Centre the full grid (every row, shown or not) so adding a row never moves the others.
   const blockH = 70 + v.rows.length * rowH + (v.rows.length - 1) * rowGap
-  const top = y + 70 + Math.max(0, (SAFE.bottom - (y + 70) - blockH) / 2)
+  const top = y + 100 + Math.max(0, (SAFE.bottom - (y + 100) - blockH) / 2)
 
   // Column headers.
   const ha = window01(p, 0.05, 0.35)
