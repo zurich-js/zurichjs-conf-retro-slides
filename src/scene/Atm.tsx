@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 import { useDeck } from '../engine/store'
 import { STILL } from '../engine/params'
+import { revealedAt } from '../engine/frame'
 import { slides } from '../content/slides'
 import { VISUALS } from '../content/visuals'
 import type { Visual } from '../engine/types'
@@ -50,13 +51,11 @@ export function Atm({ frame }: { frame: THREE.Material }) {
 
   const card = useRef<THREE.Group>(null)
   const cash = useRef<THREE.Group>(null)
-  const st = useRef({ index: -1, t0: 0 })
 
   useFrame(() => {
     const index = useDeck.getState().index
-    const now = performance.now() / 1000
-    if (index !== st.current.index) { st.current.index = index; st.current.t0 = now }
-    const t = STILL ? 99 : now - st.current.t0
+    // In step with the slide's draw-in, which starts once the camera has turned to the machine.
+    const t = STILL ? 99 : (performance.now() - revealedAt()) / 1000
     const v = atmAt[index]
     // Card: 0 = held in front of the slot, 1 = inside. Cash: 0 = inside, 1 = out.
     let c = 0

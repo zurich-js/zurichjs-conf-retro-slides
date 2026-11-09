@@ -31,15 +31,43 @@ export function createFrameCanvas(): HTMLCanvasElement {
 }
 
 /**
+ * Hand-off between slides when the camera moves. A renderer with a camera
+ * registers `holdFor(from, to)`: how long (ms) the previous slide must stay
+ * on the screen after navigation, i.e. until the camera has turned away from
+ * it. The new slide's draw-in starts then, not on the key press. Renderers
+ * without a camera (flat, presenter) register nothing: no hold.
+ */
+let holdFor: ((from: number, to: number) => number) | null = null
+export const setHoldPolicy = (fn: typeof holdFor) => { holdFor = fn }
+
+const shown = { index: -1, from: -1, revealAt: 0 }
+
+/** When the current slide's draw-in started (ms, performance.now clock). Scene props sync to it. */
+export const revealedAt = () => Math.max(useDeck.getState().stepAt, shown.revealAt)
+
+/**
  * Paint the current deck state. Returns true while still animating, so
  * callers can stop repainting (and stop re-uploading a texture) once settled.
  */
 export function paintCurrent(ctx: CanvasRenderingContext2D, now: number): boolean {
   const { index, step, stepAt } = useDeck.getState()
+  if (index !== shown.index) {
+    const hold = !STILL && holdFor && shown.index >= 0 ? holdFor(shown.index, index) : 0
+    shown.from = hold > 0 ? shown.index : -1
+    shown.revealAt = stepAt + hold
+    shown.index = index
+  }
+  // Still turning away from the previous slide: keep it, settled.
+  if (shown.from >= 0 && now < shown.revealAt) {
+    const prev = slides[shown.from]?.steps[0]
+    paintVisual(ctx, prev ? getVisual(prev) : undefined, 1)
+    return true
+  }
   const id = slides[index]?.steps[step]
   const visual = id ? getVisual(id) : undefined
   const timing = drawTiming(visual)
-  const raw = STILL ? 1 : Math.min(1, (now - stepAt) / 1000 / timing.secs)
+  const start = Math.max(stepAt, shown.revealAt)
+  const raw = STILL ? 1 : Math.min(1, Math.max(0, (now - start) / 1000 / timing.secs))
   paintVisual(ctx, visual, timing.linear ? raw : ease(raw))
   return raw < 1
 }

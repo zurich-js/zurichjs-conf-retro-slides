@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { GROUNDS } from '../brand/tokens'
-import { createFrameCanvas, paintCurrent } from '../engine/frame'
+import { createFrameCanvas, paintCurrent, setHoldPolicy } from '../engine/frame'
 import { useDeck } from '../engine/store'
 import { CUE, STILL } from '../engine/params'
 import { slides } from '../content/slides'
@@ -194,6 +194,35 @@ function heightAt(m: Move, s: number) {
   return m.hs[m.hs.length - 1]!
 }
 
+/** How long a move lasts, from its route (metres) and kind. One formula for the rig and the hand-off. */
+const moveDuration = (metres: number, crane: boolean, reveal: boolean) =>
+  reveal ? 4.6 : Math.min(crane ? 5.5 : 5, Math.max(1.6, 1.2 + metres / 5.5))
+
+/** Seconds the camera takes from cue a's pose to cue b's (same plan as the rig, from a's resting pose). */
+function moveSeconds(a: CameraCue, b: CameraCue, aspect: number) {
+  if (a === b) return 0
+  const pa = cue(a, aspect).pos.clone()
+  const cb = cue(b, aspect)
+  const fromSpace = spaceOf(a)
+  if (cb.enter?.from === a) return moveDuration(0, false, true)
+  const via = routeBetween(fromSpace, cb.space).map((w) => new THREE.Vector3(...w).multiplyScalar(M))
+  const pts = [pa, ...via, cb.pos.clone()]
+  let acc = 0
+  for (let k = 1; k < pts.length; k++) {
+    acc += Math.hypot(pts[k]!.x - pts[k - 1]!.x, pts[k]!.z - pts[k - 1]!.z) + Math.abs(pts[k]!.y - pts[k - 1]!.y) * 0.5
+  }
+  const crane = fromSpace === 'map' || cb.space === 'map' || pts.some((p) => p.y > (FLOOR + 12) * M)
+  return moveDuration(acc / M, crane, false)
+}
+
+/**
+ * While the camera turns away from a screen, that screen keeps the previous
+ * slide: the new one appears halfway through the move, never while the old
+ * view is still in shot.
+ */
+const HOLD = 0.5
+const cueOf = (i: number): CameraCue => FORCED ?? slides[i]?.camera ?? 'screen'
+
 function CameraRig() {
   const { camera, size } = useThree()
   const look = useMemo(() => new THREE.Vector3(), [])
@@ -225,7 +254,7 @@ function CameraRig() {
       // A crane shot whenever the route leaves the rooftops (to/from the map, or Foifi ↔ Technopark).
       mv.crane = from === 'map' || c.space === 'map' || pts.some((p) => p.y > (FLOOR + 12) * M)
       mv.walk = !mv.reveal && !mv.crane && (pts.length > 2 || metres > 8)
-      mv.dur = first || STILL ? 0 : mv.reveal ? 4.6 : Math.min(mv.crane ? 5.5 : 5, Math.max(1.6, 1.2 + metres / 5.5))
+      mv.dur = first || STILL ? 0 : moveDuration(metres, mv.crane, mv.reveal)
       mv.fromLook.copy(first ? c.target : look)
       mv.fromFov = first ? c.fov : cam.fov
       mv.t0 = now
@@ -267,6 +296,10 @@ function CameraRig() {
 }
 
 export function Stage() {
+  useEffect(() => {
+    setHoldPolicy((from, to) => moveSeconds(cueOf(from), cueOf(to), window.innerWidth / window.innerHeight) * HOLD * 1000)
+    return () => setHoldPolicy(null)
+  }, [])
   return (
     <Canvas
       dpr={[1, 1.5]}
