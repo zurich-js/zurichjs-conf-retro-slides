@@ -258,11 +258,11 @@ export const VISUALS = {
       { label: 'Lead scanning', values: ['no', 'yes', '-', 'no'] },
       { label: 'Workshop seats', values: ['3', '3 h online', '-', '-'] },
       { label: 'Video ad', values: ['30 s', '30 s', '-', '-'] },
-      { label: 'Time on stage', values: ['2 min', '-', '-', '1 min'] },
-      { label: 'A talk in the programme', values: ['no', 'Add-on', 'yes', 'no'] },
+      { label: 'Pitch time on stage', values: ['2 min', '-', '-', '1 min'] },
+      { label: 'A technical talk', values: ['no', 'Add-on', 'yes', 'no'] },
     ],
   },
-  'sponsor-talks': { kind: 'statement', kicker: 'Elsewhere', text: 'A 20-minute sponsor talk costs €7,000. Ours were not for sale.', emphasis: 'not for sale.' },
+  'sponsor-talks': { kind: 'statement', kicker: 'Elsewhere', text: 'A 20-minute sponsor talk costs €7,000. Our technical talks were not for sale.', emphasis: 'not for sale.' },
   'no-diamond': { kind: 'stat', value: '0', label: 'Diamond sponsors. One cancelled, one never left draft.', tone: 'warn' },
   'money-late': {
     kind: 'bars', title: 'And the money came late', source: 'Sponsor deals paid per month, 2026',
@@ -285,8 +285,8 @@ export const VISUALS = {
     selected: [1, 3],
   },
   'atm-declined': {
-    kind: 'atm', kicker: 'From the top · Sponsors', title: 'Sponsored talk slot',
-    message: 'Declined. The programme is not for sale.', tone: 'bad', note: 'Sponsors got two minutes on stage, never a talk',
+    kind: 'atm', kicker: 'From the top · Sponsors', title: 'A technical talk slot',
+    message: 'Declined. Technical talks are not for sale.', tone: 'bad', note: 'The compromise: two minutes of pitch time on stage',
   },
   'atm-companies': {
     kind: 'atm', kicker: 'From the top · Companies', title: 'Fund a ticket for your team?',

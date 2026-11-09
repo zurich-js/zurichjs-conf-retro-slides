@@ -137,8 +137,8 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | 32 | `layoffs` | Statement | Layoffs everywhere. Sponsorship budgets cut. | Foifi screen, full frame | Netflix, Google, Microsoft, Canva, Smallpdf. Smallpdf was our Gold sponsor: decide whether to name companies. | |
 | 33 | `sponsor-tiers` | Bar chart | Half our sponsors were the smallest tier · Paid sponsor deals by tier · Platinum 2 · Gold 2 · Silver 3 · Bronze 5 · Supporter 12 | Foifi screen, full frame | Platinum alone brought about CHF 27k. | |
 | 34 | `sponsor-prices` | Bar chart | Our top tier: about half of React Summit's · React Summit 20,792 · React Advanced / Day Berlin 15,121 · React Norway 13,231 · ZurichJS 11,000 · DevOpsDays Zurich 8,000 (CHF) | Foifi screen, full frame | Official sponsor pages; per-head figures in the notes. | new |
-| 35 | `sponsor-get` | ✓/✗ grid | What a sponsor gets for the top tier: tickets, booth, leads, workshops, video, stage time, a programme talk | Foifi screen, full frame | | new |
-| 36 | `sponsor-talks` | Statement | Elsewhere · A 20-minute sponsor talk costs €7,000. Ours were not for sale. | Foifi screen, full frame | React Summit add-on. | new |
+| 35 | `sponsor-get` | ✓/✗ grid | What a sponsor gets for the top tier: tickets, booth, leads, workshops, video, pitch time on stage, a technical talk | Foifi screen, full frame | | new |
+| 36 | `sponsor-talks` | Statement | Elsewhere · A 20-minute sponsor talk costs €7,000. Our technical talks were not for sale. | Foifi screen, full frame | React Summit add-on. | new |
 | 37 | `no-diamond` | Big number | 0 · Diamond sponsors. One cancelled, one never left draft. | Foifi screen, full frame |  | |
 | 38 | `money-late` | Bar chart | And the money came late · Sponsor deals paid per month, 2026 · Feb 1 · Mar 0 · Apr 0 · May 7 · Jun 1 · Jul 5 · Aug 7 · Sep 3 | Foifi screen, full frame | 15 of 24 were paid in the last three months. | |
 | 39 | `price-sensitive` | Statement | Faris adds what he saw · Buyers were price-sensitive. | Foifi screen, full frame | FARIS: add what you saw. | |
@@ -148,7 +148,7 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | 43 | `three-problems` | Statement (yellow) | Three problems, and AI pressed on every one: from the top and from the bottom. | Foifi screen, full frame | FARIS to confirm the links: sponsor budgets → ch3 (tiny team, one app); AI submissions → ch4 (programme picks); price-sensitive buyers → ch5 (discounts, partner codes, invoices, currencies). | |
 | 44 | `atm-insert` | ATM screen | Funding ZurichJS Conf · Please insert your card. (the card goes in) | Cash machine at Foifi, wide | | new |
 | 45 | `atm-sponsors` | ATM screen | From the top · Sponsors: what would you like to fund? Talk slot and AI-only lit | Cash machine, close | | new |
-| 46 | `atm-declined` | ATM screen | Sponsored talk slot · Declined. Talks are not for sale. | Cash machine, close | | new |
+| 46 | `atm-declined` | ATM screen | A technical talk slot · Declined. Technical talks are not for sale. (The compromise: two minutes of pitch time on stage.) | Cash machine, close | | new |
 | 47 | `atm-companies` | ATM screen | From the top · Companies: fund a ticket? AI conference yes, anything else no budget | Cash machine, close | | new |
 | 48 | `atm-speakers` | ATM screen | From the bottom · Speakers: which talk will get picked? The one about AI | Cash machine, close | | new |
 | 49 | `atm-attendees` | ATM screen | From the bottom · Attendees: deep dives 75, case studies 71, performance 66, AI 48 | Cash machine, close | | new |
