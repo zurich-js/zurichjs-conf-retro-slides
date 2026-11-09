@@ -53,13 +53,13 @@ const POSES = Object.fromEntries(
       fov: c.fov,
       base: c.fov,
       space: c.space ?? 'hall',
-      enter: c.enter && { from: c.enter.from, via: c.enter.via.map((w) => new THREE.Vector3(...w).multiplyScalar(M)) },
+      enter: c.enter && { from: c.enter.from, follow: !!c.enter.follow, via: c.enter.via.map((w) => new THREE.Vector3(...w).multiplyScalar(M)) },
     },
   ]),
 ) as Record<Exclude<CameraCue, SolvedCue>, Pose>
 const SCREEN_POSE: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'hall' }
 
-interface Pose { pos: THREE.Vector3; target: THREE.Vector3; fov: number; base?: number; space: Space; enter?: { from: CameraCue; via: THREE.Vector3[] } }
+interface Pose { pos: THREE.Vector3; target: THREE.Vector3; fov: number; base?: number; space: Space; enter?: { from: CameraCue; via: THREE.Vector3[]; follow: boolean } }
 
 /** 'screen' is solved per aspect; every other cue is a measured pose in the venue. */
 const PROJECTOR_POSE: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'foifi' }
@@ -369,7 +369,14 @@ function CameraRig() {
       const e = sine(t)
       mv.xz.getPointAt(e, tmp.a)
       cam.position.set(tmp.a.x, heightAt(mv, e), tmp.a.z)
-      if (mv.reveal) {
+      if (mv.reveal && c.enter?.follow) {
+        // Following someone: look down the route ahead of us, then turn to the subject.
+        mv.xz.getPointAt(Math.min(1, e + 0.12), tmp.b)
+        if (tmp.b.distanceToSquared(tmp.a) < 1e-6) tmp.b.copy(c.target)
+        tmp.walkLook.set(tmp.b.x, cam.position.y - 0.05 * M, tmp.b.z)
+        tmp.b.lerpVectors(mv.fromLook, tmp.walkLook, smooth(0, 0.2, e))
+        look.lerpVectors(tmp.b, c.target, smooth(0.7, 1, e))
+      } else if (mv.reveal) {
         // Keep watching what we came out of, then flip round to the subject.
         look.lerpVectors(mv.fromLook, c.target, smooth(0.35, 0.95, e))
       } else if (mv.walk) {

@@ -179,7 +179,7 @@ Copied into `PALETTE`; never import across repos.
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·
-  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle`. Poses
+  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle` · `wings` · `walk-on`. Poses
   live in `CUES` (venue.ts). Each cue has a `space` (`hall` | `booth` |
   `foyer` | `atrium` | `map`); moves inside a room glide, so a new cue needs
   a clear line to its neighbours in that room.
@@ -293,6 +293,14 @@ Copied into `PALETTE`; never import across repos.
   devices (300 quoted, 120 in budget, 250 bought, about CHF 1,000), Bogdan
   in the booth all day, airport runs (`shuttle` cue: cars on a road from
   Technopark to the airport, not to scale), and Nadja's line closing chapter 7.
+- **Airport chaos and transitions (Faris, 9 Nov 2026):** speaker portraits
+  float over the shuttling cars (illustrative, not a log of who rode when),
+  delayed planes hold over the airport with status tags; an arrivals board
+  tells Arnau Gómez Farell's night (UK radar disruption, missed connection
+  in Düsseldorf, landed 06:00) and his car races to a 09:00 workshop. Every
+  transition: an organiser mics up the next speaker in the wings, the
+  camera follows them on stage, the laptop is plugged in; near-zero delays
+  all day, 3 to 5 minutes at worst.
 - **Videos** come from github.com/JonnyBurger/zurichjs-scenes, rendered at
   1280×720 H.264 into `public/video/` (`ConferenceOpening`, one speaker intro).
   ZurichJS owns them; the stock footage inside is licensed to ZurichJS.

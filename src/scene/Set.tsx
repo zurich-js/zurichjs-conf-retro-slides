@@ -5,7 +5,7 @@ import { useTexture } from '@react-three/drei'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 import { Airport } from './Airport'
 import { Exterior } from './Exterior'
-import { Roads } from './Roads'
+import { Roads, SPEAKER_PHOTOS } from './Roads'
 import { Atm } from './Atm'
 import { Atrium } from './Atrium'
 import { Foifi } from './Foifi'
@@ -26,6 +26,7 @@ useTexture.preload(PROP_ASSETS.technopark)
 useTexture.preload(PROP_ASSETS.rollup)
 useTexture.preload(FOYER_ASSETS.skyline)
 useTexture.preload(SPONSOR_ASSETS as string[])
+useTexture.preload(SPEAKER_PHOTOS as unknown as string[])
 
 /**
  * The physical set around the screen: Technopark Zürich Auditorium, ZurichJS
@@ -45,12 +46,12 @@ export function Set({ frame }: { frame: THREE.Material }) {
         <Hall frame={frame} />
         <Seats />
         <Exterior />
-        <Roads />
         <Suspense fallback={null}>
           <Booth frame={frame} />
           <Props frame={frame} />
           <Foyer frame={frame} />
           <Atrium />
+          <Roads />
         </Suspense>
       </Venue>
       <Venue name="foifi">

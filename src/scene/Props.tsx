@@ -7,6 +7,7 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 import { BENCH, FLOOR, HALL, M, PODIUM, PODIUM_TILT, podiumTop, ROLLUP, STAGE, STAGE_FRONT, STAGE_TOP, SURFACES as S } from './venue'
 import { keepAwake } from '../engine/activity'
 import { currentAction, sinceReveal, smoothstep } from './beats'
+import { WalkOn } from './WalkOn'
 import { benchTile, carpetTile, flagFace } from './textures'
 
 export const PROP_ASSETS = {
@@ -396,6 +397,7 @@ export function Props({ frame }: { frame: THREE.Material }) {
       <ConfidenceMonitor frame={frame} />
       <FloorBox />
       <RollUp />
+      <WalkOn />
     </group>
   )
 }

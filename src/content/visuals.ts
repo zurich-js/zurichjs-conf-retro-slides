@@ -772,6 +772,34 @@ export const VISUALS = {
   },
   'control-room': { kind: 'statement', kicker: 'Conference day', text: 'Bogdan ran the booth all day, with the technician.', emphasis: 'all day,' },
   'airport-runs': { kind: 'statement', kicker: 'Airport runs', text: 'Flights moved. Plans changed. We kept driving.', emphasis: 'We kept driving.' },
+  'arrivals-board': {
+    kind: 'flapboard', title: 'Arrivals',
+    source: 'Workshop day · one speaker\'s night',
+    columns: [{ label: 'Time', width: 5 }, { label: 'From', width: 12 }, { label: 'Status', width: 17 }],
+    rows: [
+      { cells: ['', 'UK AIRSPACE', 'RADAR DISRUPTION'] },
+      { cells: ['', 'DUSSELDORF', 'DELAYED'] },
+      { cells: ['', 'DUSSELDORF', 'MISSED CONNECTION'], highlight: true },
+      { cells: ['06:00', 'DUSSELDORF', 'LANDED'], highlight: true },
+    ],
+  },
+  'arnau-rush': { kind: 'statement', kicker: 'Arnau Gómez Farell, workshop day', text: 'Landed at six. Teaching at nine.', emphasis: 'Teaching at nine.' },
+  'six-to-nine': {
+    kind: 'numbers', kicker: 'Workshop day', title: 'From the gate to the room',
+    items: [
+      { value: '06:00', label: 'Arnau lands in Zurich, after a missed connection in Düsseldorf', tone: 'warn' },
+      { value: '09:00', label: 'His workshop starts at Technopark, on time', tone: 'good' },
+    ],
+  },
+  'mic-up': { kind: 'statement', kicker: 'Every transition', text: 'Mic on. Checked. Next speaker ready.', emphasis: 'Checked.' },
+  'walk-on': { kind: 'statement', kicker: 'Every transition', text: 'Walk on, plug in, start. In seconds.', emphasis: 'In seconds.' },
+  'precision': {
+    kind: 'numbers', kicker: 'Running order, conference day', title: 'Seconds of precision kept the day on time',
+    items: [
+      { value: '~0 min', label: 'Behind schedule for most of the day', tone: 'good' },
+      { value: '3–5 min', label: 'The most we ever slipped', tone: 'warn' },
+    ],
+  },
   'speaker-runner': { kind: 'statement', kicker: 'Learned on the day', text: 'Someone had to bring every speaker to the stage, on time.', emphasis: 'on time.' },
   'merch-guess': {
     kind: 'numbers', kicker: 'Ordering merch', title: 'Sizes for people we had not met yet',
