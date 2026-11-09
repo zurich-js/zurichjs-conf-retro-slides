@@ -117,13 +117,14 @@ export const VISUALS = {
   },
   'price-compare': {
     kind: 'flapboard', title: 'Half the price of London',
-    source: 'Regular ticket, 2026 · official pages · ECB, 11 Sep 2026',
+    source: 'Regular ticket, 2026 (JSWorld: 2027) · official pages · ECB, 11 Sep 2026',
     columns: [{ label: 'Destination', width: 22 }, { label: 'Ticket', width: 7, align: 'right' }],
     rows: [
       { cells: ['REACT PARIS', 'CHF 614'] },
       { cells: ['REACT ADVANCED LONDON', 'CHF 595'] },
       { cells: ['REACT SUMMIT AMSTERDAM', 'CHF 567'] },
       { cells: ['REACT DAY BERLIN', 'CHF 515'] },
+      { cells: ['JSWORLD AMSTERDAM', 'CHF 377'] },
       { cells: ['VOXXED DAYS ZURICH', 'CHF 360'] },
       { cells: ['ZURICHJS CONF', 'CHF 295'], highlight: true },
       { cells: ['JSHEROES CLUJ', 'CHF 198'] },
@@ -131,13 +132,13 @@ export const VISUALS = {
   },
   'value-grid': {
     kind: 'flapboard', title: 'What the ticket gets you',
-    source: 'Official sites and ticket pages, 2026 · dash: not listed',
+    source: 'Official sites and ticket pages, 2026 (JSWorld price: 2027) · dash: not listed',
     columns: [
       { label: 'Included', width: 18 }, { label: 'ZurichJS', width: 5 }, { label: 'Berlin', width: 5 },
       { label: 'Summit', width: 5 }, { label: 'Paris', width: 5 }, { label: 'JSWorld', width: 5 },
     ],
     rows: [
-      { cells: ['TICKET, CHF', '295', '515', '567', '614', '-'], highlight: true },
+      { cells: ['TICKET, CHF', '295', '515', '567', '614', '377'], highlight: true },
       { cells: ['LUNCH AND COFFEE', 'YES', 'YES', 'YES', 'YES', '-'] },
       { cells: ['SAME-CALIBRE TALKS', 'YES', 'YES', 'YES', 'YES', 'YES'] },
       { cells: ['T-SHIRT', 'YES', '-', '-', '-', '-'] },
