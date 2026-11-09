@@ -275,7 +275,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
  * Named camera destinations. `screen` is solved in src/renderers/Stage.tsx;
  * the rest are measured poses in src/scene/venue.ts (CUES).
  */
-export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats', 'lanyards', 'laptop', 'shuttle', 'seat-full'] as const
+export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats', 'lanyards', 'laptop', 'shuttle', 'seat-full', 'wings', 'walk-on'] as const
 export type CameraCue = (typeof CAMERA_CUES)[number]
 
 export interface Slide {
@@ -310,9 +310,13 @@ export interface Slide {
   /**
    * A choreographed set action played once as the slide draws in:
    * `cut-letters` carves the foam letters out of a block with a hot wire;
-   * `plug-in` plugs the speaker's laptop into the podium dock.
+   * `plug-in` plugs the speaker's laptop into the podium dock;
+   * `rush` races the first car (the speaker who landed at 6 am) from the
+   * airport to Technopark on the `shuttle` cue; `mic-up` has an organiser
+   * fit the speaker's headset mic and check it in the wings; `walk-on`
+   * walks the speaker up the steps to the podium (the camera follows behind).
    */
-  action?: 'cut-letters' | 'plug-in'
+  action?: 'cut-letters' | 'plug-in' | 'rush' | 'mic-up' | 'walk-on'
   /** Speaker notes. Shown in ?presenter, never painted on the frame. */
   notes?: string
 }

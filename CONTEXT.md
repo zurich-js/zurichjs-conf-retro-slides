@@ -28,7 +28,11 @@ stripping is instant. Bare, the atrium holds delivery boxes.
 ## Action
 A choreographed set action a slide plays once as it draws in (`action`):
 `cut-letters` (a hot wire carves the foam letters out of a block) or
-`plug-in` (the speaker's laptop is cabled into the podium dock). Closed list.
+`plug-in` (the speaker's laptop is cabled into the podium dock), `rush`
+(Arnau's car races from the airport to Technopark), `mic-up` (an organiser
+fits the next speaker's headset in the wings; the check goes green) or
+`walk-on` (the speaker walks up the steps to the podium, the camera
+following behind). Closed list.
 
 ## Fill
 How full the auditorium is on a slide (`fill`, 0–1). Carries forward from the
@@ -110,7 +114,7 @@ like `screen`), `foifi` /
 `gate-full` (the departures board filling the frame; solved), `apron` (the
 plane at the gate, from outside), `atm` (close on the cash machine's screen in
 Foifi), `atm-wide` (the whole machine: card slot, keypad, cash), `aerial` (Technopark
-at night from above, roofs on), `laptop` (over the speaker's shoulder at the podium: laptop, dock, cables), `shuttle` (high over the city: Technopark, the road and the airport, cars shuttling), `seats` (hovering low over the auditorium's rows). Cues describe destinations, never timelines. `?cue=<name>`
+at night from above, roofs on), `laptop` (over the speaker's shoulder at the podium: laptop, dock, cables), `shuttle` (high over the city: Technopark, the road and the airport, cars shuttling with speaker portraits, delayed planes holding), `wings` (by the side steps, where speakers are miked up), `walk-on` (behind the speaker at the podium, a full room ahead; arriving from `wings` it follows them up the steps), `seats` (hovering low over the auditorium's rows). Cues describe destinations, never timelines. `?cue=<name>`
 previews one.
 
 ## Space

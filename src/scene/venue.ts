@@ -397,6 +397,8 @@ export const SURFACES = {
   carBody: '#2b2e33',
   headlight: '#fff3cf',
   taillight: '#ff3b2f',
+  navGreen: '#3dff6e',
+  strobe: '#ffffff',
 } as const
 
 /** Light colours: warm stage wash, dim warm house, cool booth screens. */
@@ -427,7 +429,12 @@ export interface CuePose {
    * A choreographed entrance: arriving from cue `from`, thread `via` while
    * keeping eyes on where we came from, then turn to the target (a reveal).
    */
-  enter?: { from: CameraCue; via: readonly (readonly [number, number, number])[] }
+  enter?: {
+    from: CameraCue
+    via: readonly (readonly [number, number, number])[]
+    /** Look down the route while moving (following someone), instead of back at where we came from. */
+    follow?: boolean
+  }
   /** Defaults to 'hall'. */
   space?: Space
 }
@@ -491,6 +498,17 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
   aerial: { pos: [132, FLOOR + 88, -70], target: [18, FLOOR + 2, 58], fov: 46, space: 'map' },
   /** Over the speaker's shoulder at the podium: the laptop showing the slide, the USB-C dock and its cables. */
   laptop: { pos: podium(-0.12, 1.62, -0.62), target: podium(0.05, 1.02, 0.02), fov: 46 },
+  /** Audience-left of the stage, by the side steps: an organiser mics up the next speaker. */
+  wings: { pos: [-8.9, FLOOR + 1.7, 2.6], target: [-7.0, FLOOR + 1.35, 1.3], fov: 46 },
+  /**
+   * Behind the speaker at the podium, looking out at a full room. Arriving
+   * from the wings, the camera follows the speaker up the steps and across
+   * the stage (a choreographed entrance), then turns to the audience.
+   */
+  'walk-on': {
+    pos: podium(0.12, 1.78, -1.55), target: podium(-0.25, 1.1, 9), fov: 56,
+    enter: { from: 'wings', follow: true, via: [[-8.3, FLOOR + 1.75, 1.0], [-6.7, FLOOR + 1.8, 1.1], [-5.6, STAGE_TOP + 1.75, 1.3], [-5.0, STAGE_TOP + 1.75, 1.55]] },
+  },
   /** High over the city at night: Technopark on the left, the airport on the right, cars on the road between. */
   shuttle: { pos: [178, FLOOR + 58, 96], target: [106, FLOOR, 6], fov: 54, space: 'city' },
   /** Hovering low over the auditorium's rows, the screen ahead: the seats we had to fill. */
