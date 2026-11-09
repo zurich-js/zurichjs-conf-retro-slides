@@ -9,6 +9,7 @@ import { momentsSeconds, paintMoments } from './moments'
 import { flapSeconds, paintFlapboard } from './flapboard'
 import { ATM_SECS, paintAtm } from './atm'
 import { paintStrike, STRIKE_SECS } from './strike'
+import { paintBadgeTest } from './badgetest'
 import { paintMatrix } from './matrix'
 
 type Painter<K extends VisualKind> = (ctx: Ctx, v: Extract<Visual, { kind: K }>, p: number, r: Roles) => void
@@ -302,9 +303,10 @@ const moments: Painter<'moments'> = paintMoments
 const flapboard: Painter<'flapboard'> = paintFlapboard
 const atm: Painter<'atm'> = paintAtm
 const strike: Painter<'strike'> = paintStrike
+const badgetest: Painter<'badgetest'> = paintBadgeTest
 const matrix: Painter<'matrix'> = paintMatrix
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear

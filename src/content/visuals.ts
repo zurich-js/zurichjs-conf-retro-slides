@@ -64,6 +64,11 @@ export const VISUALS = {
     columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 2, from: 1,
   },
   'one-year': { kind: 'statement', ground: 'yellow', text: 'One year of ZurichJS. Ten months to the conference.', emphasis: 'Ten months' },
+  // ── Attention to detail: one hole or two ──
+  'badge-one-hole': { kind: 'badgetest', kicker: 'Attention to detail', title: 'One hole, and the badge flips.', note: 'Hang it from the middle and it spins round: half the room shows you the back.', rig: 'one-hole' },
+  'badge-two-holes': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Two holes, and it stays put.', note: 'Two clips on a V of lanyard: the name faces out all day.', rig: 'two-holes' },
+  'badge-stress': { kind: 'badgetest', kicker: 'So we stress-tested the holes', title: 'Would they snap?', note: 'Weight on, pulled hard. A single hole tears through; two holes share the load.', rig: 'stress' },
+  'badge-held': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Two holes. Tested. Held.', rig: 'held' },
   'venue-map': { kind: 'statement', kicker: 'Ten months later · Technopark Zürich', text: 'One building, one week, one conference.', emphasis: 'one conference.' },
   'venue-atrium': { kind: 'statement', kicker: 'The atrium', text: 'Sponsors, coffee, and every hallway conversation.', emphasis: 'hallway' },
   'venue-booths': { kind: 'statement', kicker: 'Sponsor booths', text: 'The people who paid for the room.', emphasis: 'paid for the room.' },

@@ -85,6 +85,9 @@ export const DOORS = { x: 5.5, width: 2.0, height: 2.6 } as const
 /** The curved pop-up backdrop beside the left doors, angled toward the queue. */
 export const BACKDROP = { arc: 3.1, height: 2.3, radius: 3.2, x: -7.6, z: FOYER.start + 2.6, yaw: 0.6 } as const
 
+/** The badge-hole test stand on the counter's right end: three hooks on a bar. */
+export const LANYARD_RIG = { x0: 0.45, x1: 1.35, bar: 0.62 } as const
+
 /** Registration: the check-in counter along the wall, queue in front. */
 export const CHECKIN = { x0: -4.0, x1: 2.2, z: FOYER.start + 1.05, depth: 0.7, height: 1.05 } as const
 
@@ -382,6 +385,8 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
   /** Down the right-hand aisle, along the warm wood wall. */
   wall: { pos: [7.7, FLOOR + 1.7, 15.5], target: [5.2, FLOOR + 3.0, 2.0], fov: 46 },
   /** In the foyer: check-in, the doors, the backdrop. A cut from any hall cue. */
+  /** The badge-hole test stand at the right end of the counter, its caption projected on the wall behind. */
+  lanyards: { pos: [0.92, FLOOR + CHECKIN.height + 0.36, CHECKIN.z + 0.9], target: [0.9, FLOOR + CHECKIN.height + 0.68, FOYER.start], fov: 58, space: 'foyer' },
   /** Close on the check-in counter: badges by role, lanyards. */
   badges: { pos: [-2.75, FLOOR + 1.8, FOYER.start + 1.95], target: [-2.8, FLOOR + 1.05, FOYER.start + 1.1], fov: 40, space: 'foyer' },
   /**

@@ -145,3 +145,11 @@ The semantic colours of one ground (`bg`, `text`, `textMuted`, `accent`,
 A fixed colour meaning used across the whole talk: `hero` (yellow), `neutral`
 (blue), `good` (green), `warn` (orange), `bad` (red — errors only). Resolved
 through the ground, so on yellow every tone is black.
+
+## Badge test
+The `badgetest` kind: the caption for one step of the badge-hole test (one
+hole, two holes, stress, held), projected above the check-in counter. Its
+`rig` drives the test stand on the counter (`scene/Foyer.tsx`, `BadgeLab`):
+one-hole badge flips; two-hole badge hangs flat; under stress the single hole
+tears and that badge drops, the two-hole one holds. The `lanyards` cue frames
+the stand with the projection behind it.
