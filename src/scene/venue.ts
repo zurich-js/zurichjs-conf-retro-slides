@@ -389,7 +389,7 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
   /** Down the 777's left aisle from the forward galley, seats and bins either side. */
   cabin: { pos: airport(AISLES.left, GATE_LEVEL + 1.65, -16.6), target: airport(AISLES.left - 0.3, GATE_LEVEL + 1.2, -42), fov: 58, space: 'plane' },
   /** In seat 15C, looking straight ahead: the seat back in front with its screen, neighbours either side, the window. */
-  seat: { pos: airport(seatX(HERO.seat), GATE_LEVEL + 1.12, rowZ(HERO.row) + 0.2), target: airport(seatX(HERO.seat), GATE_LEVEL + 1.04, rowZ(HERO.row - 1)), fov: 48, space: 'plane' },
+  seat: { pos: airport(seatX(HERO.seat), GATE_LEVEL + 1.12, rowZ(HERO.row) + 0.2), target: airport(seatX(HERO.seat), GATE_LEVEL + 1.0, rowZ(HERO.row - 1)), fov: 36, space: 'plane' },
   /** In the gate lounge, the departures board ahead, the plane through the glass behind it. */
   gate: { pos: airport(1.2, GATE_LEVEL + 1.7, 7.4), target: airport(-1.7, GATE_LEVEL + 2.75, 2.2), fov: 44, space: 'gate' },
   /** Out on the apron at night: the 777 at the gate, the jet bridge on its front door. */
