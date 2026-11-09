@@ -64,6 +64,7 @@ export const VISUALS = {
     columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 2, from: 1,
   },
   'one-year': { kind: 'statement', ground: 'yellow', text: 'One year of ZurichJS. Ten months to the conference.', emphasis: 'Ten months' },
+  'empty-seats': { kind: 'statement', kicker: 'The auditorium, ten months out', text: 'Every one of these seats had to be sold.', emphasis: 'had to be sold.' },
   'venue-map': { kind: 'statement', kicker: 'Ten months later · Technopark Zürich', text: 'One building, one week, one conference.', emphasis: 'one conference.' },
   'venue-atrium': { kind: 'statement', kicker: 'The atrium', text: 'Sponsors, coffee, and every hallway conversation.', emphasis: 'hallway' },
   'venue-booths': { kind: 'statement', kicker: 'Sponsor booths', text: 'The people who paid for the room.', emphasis: 'paid for the room.' },

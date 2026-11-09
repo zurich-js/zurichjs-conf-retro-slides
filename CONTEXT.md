@@ -14,6 +14,10 @@ The visual a slide shows. Every slide has exactly one: the deck is arrows
 only, so a build is a sequence of slides, not Enter presses. (The engine
 still models steps; `defineSlides` holds each slide to one.)
 
+## Fill
+How full the auditorium is on a slide (`fill`, 0–1). Carries forward from the
+last slide that set it; a change fills or empties the seats in sales order.
+
 ## Beat
 Narrative metadata grouping slides (`open`, `evidence`, `close`…). No input,
 no index, no runtime behaviour.
@@ -82,7 +86,8 @@ like `screen`), `foifi` /
 (down the 777's aisle), `seat` (seat 15C, looking straight at the seat-back screen), `gate` (the Zurich Airport gate lounge, departures board ahead),
 `gate-full` (the departures board filling the frame; solved), `apron` (the
 plane at the gate, from outside), `atm` (close on the cash machine's screen in
-Foifi), `atm-wide` (the whole machine: card slot, keypad, cash). Cues describe destinations, never timelines. `?cue=<name>`
+Foifi), `atm-wide` (the whole machine: card slot, keypad, cash), `aerial` (Technopark
+at night from above, roofs on), `seats` (hovering low over the auditorium's rows). Cues describe destinations, never timelines. `?cue=<name>`
 previews one.
 
 ## Space

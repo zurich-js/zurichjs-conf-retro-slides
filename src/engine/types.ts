@@ -183,7 +183,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
  * Named camera destinations. `screen` is solved in src/renderers/Stage.tsx;
  * the rest are measured poses in src/scene/venue.ts (CUES).
  */
-export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide'] as const
+export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats'] as const
 export type CameraCue = (typeof CAMERA_CUES)[number]
 
 export interface Slide {
@@ -195,6 +195,12 @@ export interface Slide {
   steps: readonly string[]
   /** Where the camera sits (3D only). Defaults to 'screen'. */
   camera?: CameraCue
+  /**
+   * How full the auditorium's seats are on this slide, 0–1. Carries forward:
+   * a slide without one keeps the last slide's. Changing it fills (or
+   * empties) the seats in sales order while the slide draws in.
+   */
+  fill?: number
   /** Medium effect dial, 0 = clean passthrough, 1 = full effect. Defaults to 0. */
   effect?: number
   /** Speaker notes. Shown in ?presenter, never painted on the frame. */

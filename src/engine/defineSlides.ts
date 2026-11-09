@@ -65,6 +65,9 @@ export function defineSlides(
         }
       }
     }
+    if (s.fill !== undefined && !(s.fill >= 0 && s.fill <= 1)) {
+      throw new Error(`Slide "${s.id}" fill must be between 0 and 1`)
+    }
     if (s.effect !== undefined && !(s.effect >= 0 && s.effect <= 1)) {
       throw new Error(`Slide "${s.id}" effect must be between 0 and 1`)
     }

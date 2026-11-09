@@ -1228,3 +1228,88 @@ export const franc100 = () =>
     ctx.lineWidth = 3
     ctx.beginPath(); ctx.arc(w * 0.66, h * 0.42, 34, 0, Math.PI * 2); ctx.stroke()
   })
+
+// ── Technopark from outside ─────────────────────────────────────────────────
+
+/**
+ * A finger's long façade, one storey tall and 10 m wide: grey-blue Eternit
+ * panels (1.25 m module, screw dots), a ribbon window band with aluminium
+ * blinds, about a third of the panes lit at night, a white gallery railing.
+ */
+export const fingerFacade = () =>
+  canvasTexture(1024, 360, (ctx, w, h) => {
+    ctx.fillStyle = '#5f7f98'
+    ctx.fillRect(0, 0, w, h)
+    // Panel joints and screws.
+    ctx.strokeStyle = 'rgba(20,30,40,0.35)'
+    ctx.lineWidth = 3
+    for (let i = 0; i <= 8; i++) { ctx.beginPath(); ctx.moveTo(i * w / 8, 0); ctx.lineTo(i * w / 8, h); ctx.stroke() }
+    ctx.beginPath(); ctx.moveTo(0, h * 0.5); ctx.lineTo(w, h * 0.5); ctx.stroke()
+    ctx.fillStyle = 'rgba(230,236,240,0.35)'
+    for (let i = 0; i < 8; i++) for (const y of [0.08, 0.42, 0.58, 0.92]) for (const x of [0.12, 0.88]) {
+      ctx.beginPath(); ctx.arc((i + x) * w / 8, y * h, 2.5, 0, Math.PI * 2); ctx.fill()
+    }
+    // Ribbon windows: a continuous band, mullions every 1.25 m, some lit.
+    const y0 = h * 0.22, wh = h * 0.42
+    for (let i = 0; i < 16; i++) {
+      const x = i * w / 16
+      const lit = hash(i * 13 + 7) > 0.62
+      ctx.fillStyle = lit ? (hash(i + 77) > 0.5 ? '#f3d9a4' : '#dfe8f2') : '#1a2430'
+      ctx.fillRect(x + 4, y0, w / 16 - 8, wh)
+      // Blinds half down on some.
+      if (!lit && hash(i + 31) > 0.5) { ctx.fillStyle = '#7e8a94'; ctx.fillRect(x + 4, y0, w / 16 - 8, wh * (0.3 + hash(i + 9) * 0.5)) }
+    }
+    // Gallery railing along the bottom.
+    ctx.fillStyle = '#e8ecef'
+    ctx.fillRect(0, h * 0.86, w, 5)
+    for (let x = 0; x < w; x += 18) ctx.fillRect(x, h * 0.86, 2, h * 0.14)
+  }, [1, 1])
+
+/** Corrugated aluminium, silver, vertical ribs. */
+export const corrugated = (repeat: readonly [number, number]) =>
+  canvasTexture(256, 64, (ctx, w, h) => {
+    for (let x = 0; x < w; x += 16) {
+      const g = ctx.createLinearGradient(x, 0, x + 16, 0)
+      g.addColorStop(0, '#8f969c'); g.addColorStop(0.5, '#cfd4d8'); g.addColorStop(1, '#8f969c')
+      ctx.fillStyle = g
+      ctx.fillRect(x, 0, 16, h)
+    }
+  }, repeat)
+
+/** Sawtooth roof glazing seen from above: warm-lit glass strips between aluminium. */
+export const sawtoothRoof = (repeat: readonly [number, number]) =>
+  canvasTexture(256, 256, (ctx, w, h) => {
+    ctx.fillStyle = '#9aa1a7'
+    ctx.fillRect(0, 0, w, h)
+    for (let y = 0; y < h; y += 64) {
+      const g = ctx.createLinearGradient(0, y, 0, y + 64)
+      g.addColorStop(0, '#9aa1a7'); g.addColorStop(0.55, '#b9c0c5'); g.addColorStop(0.6, '#3c4a57'); g.addColorStop(1, '#5a6c7c')
+      ctx.fillStyle = g
+      ctx.fillRect(0, y, w, 64)
+    }
+  }, repeat)
+
+/** TECHNOPARK in black capitals on a light ground (finger heads, Werkhalle gables). */
+export const technoparkLetters = (ink = '#111111', paper = 'rgba(0,0,0,0)') =>
+  canvasTexture(1024, 160, (ctx, w, h) => {
+    ctx.fillStyle = paper
+    ctx.fillRect(0, 0, w, h)
+    ctx.fillStyle = ink
+    ctx.font = `${TYPE.weight.black} 132px ${TYPE.sans}`
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.letterSpacing = '10px'
+    ctx.fillText('TECHNOPARK', w / 2, h / 2 + 6)
+  })
+
+/** Night asphalt with lane markings. */
+export const streetAsphalt = (repeat: readonly [number, number]) =>
+  canvasTexture(256, 512, (ctx, w, h) => {
+    ctx.fillStyle = '#2a2c30'
+    ctx.fillRect(0, 0, w, h)
+    speckle(ctx, w, h, 1800, 93, 'rgba(255,255,255,0.05)', 'rgba(0,0,0,0.15)')
+    ctx.fillStyle = 'rgba(235,235,225,0.85)'
+    for (let y = 0; y < h; y += 128) ctx.fillRect(w / 2 - 3, y, 6, 64)
+    ctx.fillRect(10, 0, 4, h)
+    ctx.fillRect(w - 14, 0, 4, h)
+  }, repeat)

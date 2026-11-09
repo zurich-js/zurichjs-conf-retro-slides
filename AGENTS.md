@@ -55,6 +55,7 @@ src/
     Foyer.tsx           hallway through the back doors: registration, backdrop, merch table
     Atrium.tsx          open hall: galleries, lift tower, bells, cocktail tables, sponsor booths
     Foifi.tsx           Pause im Foifi (Digitec Galaxus): the 1st anniversary, where tickets went live
+    Exterior.tsx        Technopark from outside: six fingers, the spine + entrance, Werkhallen, streets (TP in venue.ts)
     Atm.tsx             a cash machine in Foifi: the AI-squeeze screens; card in, cash out (driven by `atm` step)
     Airport.tsx         Zurich Airport: gate lounge + departures board, jet bridge, SWISS 777-300ER (cabin + exterior)
   scene/sponsors.ts     sponsor manifest (slug, tier) → public/sponsors/<slug>[-color].png
@@ -166,7 +167,7 @@ Copied into `PALETTE`; never import across repos.
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·
-  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide`. Poses
+  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats`. Poses
   live in `CUES` (venue.ts). Each cue has a `space` (`hall` | `booth` |
   `foyer` | `atrium` | `map`); moves inside a room glide, so a new cue needs
   a clear line to its neighbours in that room.
@@ -261,11 +262,20 @@ Copied into `PALETTE`; never import across repos.
   JSHeroes; Voxxed Days Zurich is a home event. Return trips from Zurich are
   assumed; km is great-circle.
 
+## Technopark from outside (Faris, 2026-11-09)
+- Built from OpenStreetMap, the 1993 drawings and the official event-room
+  plan: a comb of six office fingers across a spine (the atrium), corrugated
+  Werkhallen between them; the auditorium sits in the first north Werkhalle.
+  `venue-map` arrives on the `aerial` cue (roofs on); the next slide dives in.
+- **Seats fill** with the slide's `fill` (0–1, carried forward): empty over
+  the auditorium (`empty-seats`, `ch5`), filling to 267 of 330 paid tickets on
+  `price-stages`, full on `people-359`.
+
 ## Open decisions
 Track here; resolve with Faris, then update code and move the line above.
 
 - [ ] **Booth print files** — namespace wall and AG Grid roll-ups are rebuilt
       from photos (their logos, their copy); swap in the real print files if
       the sponsors share them.
-- [ ] **Real dimensions** — venue figures beyond the 318 m² fact sheet are
-      estimates from photos (`scene/venue.ts`); replace with a floor plan if found.
+- [ ] **Real dimensions** — the exterior follows OSM and the 1993 drawings; the
+      rooms inside are still estimated from photos (`scene/venue.ts`).
