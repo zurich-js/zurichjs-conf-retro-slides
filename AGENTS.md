@@ -55,7 +55,7 @@ src/
     Foyer.tsx           hallway through the back doors: registration, backdrop, merch table
     Atrium.tsx          open hall: galleries, lift tower, bells, cocktail tables, sponsor booths
     Foifi.tsx           Pause im Foifi (Digitec Galaxus): the 1st anniversary, where tickets went live
-    Airport.tsx         Zurich Airport: gate lounge + departures board, jet bridge, SWISS A220 (cabin + exterior)
+    Airport.tsx         Zurich Airport: gate lounge + departures board, jet bridge, SWISS 777-300ER (cabin + exterior)
   scene/sponsors.ts     sponsor manifest (slug, tier) → public/sponsors/<slug>[-color].png
   scene/useSponsorLogos.ts  all logos as loaded images (suspends; preloaded in Set.tsx)
   scene/layers.tsx      render layers: set / cutaway (hidden in `map`) / map (labels only)
@@ -230,7 +230,7 @@ Copied into `PALETTE`; never import across repos.
   official pages (ECB 11 Sep 2026). Sources and full price ranges live in the
   slide notes.
 - **The flight (Faris, 2026-11-09):** after the globe, the camera rises out of
-  Foifi and flies to a SWISS A220 at a Zurich Airport gate, boards through the
+  Foifi and flies to a SWISS 777-300ER at a Zurich Airport gate, boards through the
   open front-right door, and the road photos play on a seat-back screen
   (`seat`; the `moments` slide holds 5.5 s for the trip). The next slide
   walks off through the jet bridge into the gate lounge, where the pricing

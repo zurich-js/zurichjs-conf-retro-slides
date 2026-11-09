@@ -138,7 +138,7 @@ export const FOIFI_IMAGE = {
  * Technopark, so the overview never sees it. Local frame (metres): origin on
  * the apron at the foot of the terminal's glass wall; x along the wall, z
  * into the lounge (the apron and the plane are at z < 0), y up from the apron.
- * Estimated from typical A220 and ZRH Dock gate dimensions.
+ * Estimated from SWISS 777 photos and seat maps, and typical ZRH gate dimensions.
  */
 export const AIRPORT = { x: 150, z: -40 } as const
 /** Lounge and cabin floor above the apron (the jet bridge is level). A 777's door sill is ~5 m up. */
