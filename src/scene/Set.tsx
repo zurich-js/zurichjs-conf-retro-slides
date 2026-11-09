@@ -5,6 +5,7 @@ import { useTexture } from '@react-three/drei'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 import { Airport } from './Airport'
 import { Exterior } from './Exterior'
+import { Roads } from './Roads'
 import { Atm } from './Atm'
 import { Atrium } from './Atrium'
 import { Foifi } from './Foifi'
@@ -44,6 +45,7 @@ export function Set({ frame }: { frame: THREE.Material }) {
         <Hall frame={frame} />
         <Seats />
         <Exterior />
+        <Roads />
         <Suspense fallback={null}>
           <Booth frame={frame} />
           <Props frame={frame} />

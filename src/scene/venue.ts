@@ -52,6 +52,23 @@ export const SURFACE = { width: 7.2, bottom: FLOOR + 1.05, top: FLOOR + 6.3 } as
 /** Side screens either side of the curtains. Same slide, smaller. */
 export const SIDE_SCREEN = { x: 6.9, y: FLOOR + 4.0, width: 3.0, height: 2.4, image: 2.8 } as const
 
+/**
+ * The Technopark lectern on the stage, audience-left, turned a little toward
+ * the room. Local frame (metres): origin on the stage floor under its centre,
+ * +z toward the audience, y up. Its reading top slopes down toward the
+ * speaker (−z): 1.15 m at the front edge, 1.01 m at the back.
+ */
+export const PODIUM = { x: -4.35, z: STAGE_FRONT - 0.7, yaw: 0.15, depth: 0.55, width: 0.62, front: 1.15, drop: 0.14 } as const
+/** World metres of a point in the podium's local frame. */
+export const podium = (x: number, y: number, z: number): readonly [number, number, number] => {
+  const c = Math.cos(PODIUM.yaw)
+  const s = Math.sin(PODIUM.yaw)
+  return [PODIUM.x + x * c + z * s, STAGE_TOP + y, PODIUM.z - x * s + z * c]
+}
+/** Height of the podium's reading top at local z, and its tilt (radians about x). */
+export const podiumTop = (z: number) => PODIUM.front - PODIUM.drop / 2 + (z / PODIUM.depth) * PODIUM.drop
+export const PODIUM_TILT = -Math.atan2(PODIUM.drop, PODIUM.depth)
+
 /** The control booth: raised, behind the back wall, glazed toward the stage. */
 export const BOOTH = {
   floor: FLOOR + 3.3,
@@ -242,6 +259,15 @@ export const GATE_IMAGE = {
   centre: airport(-2, GATE_LEVEL + 3.0, 3.0),
 }
 
+/**
+ * Airport runs: the road from Technopark's entrance on Technoparkstrasse to
+ * the airport's landside kerb (world metres, x/z on the ground). Not to scale:
+ * the deck's airport sits just east of Technopark (the real drive is ~11 km).
+ */
+export const ROAD: readonly (readonly [number, number])[] = [
+  [74, ATRIUM.start + 16], [92, ATRIUM.start + 16], [112, ATRIUM.start + 4], [128, -2], [140, -14], [AIRPORT.x + 2, AIRPORT.z + LOUNGE.depth + 6],
+]
+
 /** Cues solved per aspect so an image exactly fills the viewport. */
 export type SolvedCue = 'screen' | 'projector' | 'foifi-full' | 'gate-full'
 /** A point in Foifi's local frame (metres) → world metres. */
@@ -367,6 +393,10 @@ export const SURFACES = {
   glassMullion: '#8e9398',
   bridgeGrey: '#b4b8bc',
   terminal: '#3a3d42',
+  cardboard: '#b88a55',
+  carBody: '#2b2e33',
+  headlight: '#fff3cf',
+  taillight: '#ff3b2f',
 } as const
 
 /** Light colours: warm stage wash, dim warm house, cool booth screens. */
@@ -387,7 +417,7 @@ export const LIGHTS = {
  * Which room a cue is in. Rooms connect through portals (below); a cue change
  * flies the camera along the portal chain, never through a wall or slab.
  */
-export type Space = 'hall' | 'booth' | 'foyer' | 'atrium' | 'map' | 'foifi' | 'plane' | 'gate'
+export type Space = 'hall' | 'booth' | 'foyer' | 'atrium' | 'map' | 'foifi' | 'plane' | 'gate' | 'city'
 
 export interface CuePose {
   pos: readonly [number, number, number]
@@ -459,6 +489,10 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
   apron: { pos: airport(-62, 15, -78), target: airport(-5, 6, -38), fov: 50, space: 'gate' },
   /** Birds-eye over Technopark at night, from above the Giessereistrasse corner: the comb, the sawtooth roofs, the lit entrance. */
   aerial: { pos: [132, FLOOR + 88, -70], target: [18, FLOOR + 2, 58], fov: 46, space: 'map' },
+  /** Over the speaker's shoulder at the podium: the laptop showing the slide, the USB-C dock and its cables. */
+  laptop: { pos: podium(-0.12, 1.62, -0.62), target: podium(0.05, 1.02, 0.02), fov: 46 },
+  /** High over the city at night: Technopark on the left, the airport on the right, cars on the road between. */
+  shuttle: { pos: [178, FLOOR + 58, 96], target: [106, FLOOR, 6], fov: 54, space: 'city' },
   /** Hovering low over the auditorium's rows, the screen ahead: the seats we had to fill. */
   seats: { pos: [3.2, FLOOR + 2.6, 15.6], target: [-0.6, FLOOR + 2.2, 1.0], fov: 52 },
   /** From the bridge above the atrium entrance, down the hall to the lift tower. */
@@ -514,6 +548,8 @@ export const PORTALS: readonly { a: Space; b: Space; via: readonly P3[] }[] = [
   ] },
   // Out through the glass over the apron, then up and away to the overview.
   { a: 'gate', b: 'map', via: [airport(1, GATE_LEVEL + 1.65, -3), airport(-12, 28, -34)] },
+  // Technopark and the airport from above: a glide between two high views.
+  { a: 'map', b: 'city', via: [[40, FLOOR + 110, 110]] },
   { a: 'map', b: 'atrium', via: [[-12, FLOOR + 32, ATRIUM.start + 12], [0, FLOOR + 11, ATRIUM.start + 6]] },
 ]
 

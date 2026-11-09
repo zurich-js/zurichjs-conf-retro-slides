@@ -5,6 +5,7 @@ import { ATRIUM, ATRIUM_HALF, ATRIUM_TOP, FLOOR, FOYER, LIGHTS, M, SURFACES as S
 import { agRollup, concreteTile, floorTile, galleryWall, hash, logoRollup, namespaceWall, towerSign } from './textures'
 import { useSponsorLogos } from './useSponsorLogos'
 import { Cutaway } from './layers'
+import { Dressing } from './Dressing'
 
 export const ATRIUM_ASSETS = { technopark: '/brand/technopark.png', rollup: '/brand/rollup.svg' } as const
 
@@ -373,6 +374,35 @@ function Lights() {
   )
 }
 
+/**
+ * Two weeks out (Nadja): the dressing was still on its way. Delivery boxes
+ * stacked on the bare atrium floor, shown only while the venue is undressed.
+ */
+function Deliveries() {
+  const boxes = useMemo(() => {
+    const out: { p: [number, number, number]; s: [number, number, number]; r: number }[] = []
+    const stacks = [[-6, 9], [-4.6, 10.2], [4.8, 8.5], [6.2, 12], [-1.2, 14], [1.6, 6.5], [-7.2, 15.5], [3.2, 16]] as const
+    stacks.forEach(([x, z], k) => {
+      let y = 0
+      const n = 2 + Math.floor(hash(k + 401) * 3)
+      for (let i = 0; i < n; i++) {
+        const w = 0.5 + hash(k * 7 + i + 11) * 0.45
+        const h = 0.35 + hash(k * 5 + i + 23) * 0.3
+        out.push({ p: [x + (hash(k + i + 3) - 0.5) * 0.15, FLOOR + y + h / 2, Z0 + z + (hash(k + i + 9) - 0.5) * 0.15], s: [w, h, w * 0.8], r: (hash(k * 3 + i) - 0.5) * 0.5 })
+        y += h
+      }
+    })
+    return out
+  }, [])
+  const geo = useMemo(() => new THREE.BoxGeometry(1, 1, 1), [])
+  const mat = useMemo(() => new THREE.MeshStandardMaterial({ color: S.cardboard, roughness: 0.9 }), [])
+  return (
+    <group>
+      {boxes.map((b, i) => <mesh key={i} geometry={geo} material={mat} position={b.p} scale={b.s} rotation-y={b.r} />)}
+    </group>
+  )
+}
+
 export function Atrium() {
   return (
     <group>
@@ -385,8 +415,9 @@ export function Atrium() {
       <Cutaway>
         <Bells />
       </Cutaway>
-      <CocktailTables />
-      <Booths />
+      <Dressing order={0} invert><Deliveries /></Dressing>
+      <Dressing order={3}><CocktailTables /></Dressing>
+      <Dressing order={1}><Booths /></Dressing>
       <Lights />
     </group>
   )

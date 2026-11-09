@@ -3,6 +3,7 @@ import { STILL } from './params'
 import { getVisual } from '../content/visuals'
 import { slides } from '../content/slides'
 import { drawTiming, paintVisual } from '../painters'
+import { videoPending } from '../painters/kit'
 import { useDeck } from './store'
 
 /** cubic-bezier easing solved numerically — matches the site's --easing-smooth. */
@@ -69,5 +70,6 @@ export function paintCurrent(ctx: CanvasRenderingContext2D, now: number): boolea
   const start = Math.max(stepAt, shown.revealAt)
   const raw = STILL ? 1 : Math.min(1, Math.max(0, (now - start) / 1000 / timing.secs))
   paintVisual(ctx, visual, timing.linear ? raw : ease(raw))
-  return raw < 1
+  // A clip still loading or seeking has no frame yet: keep painting until it lands.
+  return raw < 1 || videoPending()
 }
