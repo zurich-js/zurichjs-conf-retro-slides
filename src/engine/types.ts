@@ -87,6 +87,16 @@ export type Visual = Base &
         hold?: number
       }
     | {
+        kind: 'flapboard'
+        /** In accent beside a plane glyph, like "Departures". */
+        title: string
+        source?: string
+        /** Widths in characters; one blank cell between columns. */
+        columns: readonly { label?: string; width: number; align?: 'left' | 'right' }[]
+        /** One string per column. YES is good, NO and '-' are muted; a highlighted row is accent. */
+        rows: readonly { cells: readonly string[]; highlight?: boolean }[]
+      }
+    | {
         kind: 'numbers'
         title?: string
         kicker?: string
@@ -146,6 +156,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   growth: 'dark',
   heatmap: 'dark',
   moments: 'dark',
+  flapboard: 'dark',
   matrix: 'dark',
   journey: 'dark',
 }

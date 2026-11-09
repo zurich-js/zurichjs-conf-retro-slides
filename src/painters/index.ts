@@ -6,6 +6,7 @@ import { CALENDAR_SECS, paintCalendar } from './calendar'
 import { paintGrowth } from './growth'
 import { paintHeatmap } from './heatmap'
 import { momentsSeconds, paintMoments } from './moments'
+import { flapSeconds, paintFlapboard } from './flapboard'
 import { paintMatrix } from './matrix'
 
 type Painter<K extends VisualKind> = (ctx: Ctx, v: Extract<Visual, { kind: K }>, p: number, r: Roles) => void
@@ -273,9 +274,10 @@ const calendar: Painter<'calendar'> = paintCalendar
 const growth: Painter<'growth'> = paintGrowth
 const heatmap: Painter<'heatmap'> = paintHeatmap
 const moments: Painter<'moments'> = paintMoments
+const flapboard: Painter<'flapboard'> = paintFlapboard
 const matrix: Painter<'matrix'> = paintMatrix
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear
@@ -283,6 +285,7 @@ const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement,
  */
 export function drawTiming(visual: Visual | undefined): { secs: number; linear: boolean } {
   if (visual?.kind === 'journey') return { secs: journeySeconds(visual), linear: true }
+  if (visual?.kind === 'flapboard') return { secs: flapSeconds(visual), linear: true }
   if (visual?.kind === 'moments') return { secs: momentsSeconds(visual), linear: true }
   if (visual?.kind === 'calendar') return { secs: CALENDAR_SECS, linear: true }
   if (visual?.kind === 'growth') return { secs: 2.6, linear: false }

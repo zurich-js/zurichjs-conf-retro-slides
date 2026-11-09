@@ -46,6 +46,14 @@ export function defineSlides(
           prev = m.date
         }
       }
+      if (v?.kind === 'flapboard') {
+        for (const row of v.rows) {
+          if (row.cells.length !== v.columns.length) throw new Error(`Visual "${id}": a row has ${row.cells.length} cells for ${v.columns.length} columns`)
+          row.cells.forEach((c, i) => {
+            if (c.length > v.columns[i]!.width) throw new Error(`Visual "${id}": "${c}" is longer than its column (${v.columns[i]!.width})`)
+          })
+        }
+      }
       if (v?.kind === 'growth') {
         for (const series of v.series) {
           if (series.values.length !== v.x.length) throw new Error(`Visual "${id}": series "${series.label}" has ${series.values.length} values for ${v.x.length} x labels`)

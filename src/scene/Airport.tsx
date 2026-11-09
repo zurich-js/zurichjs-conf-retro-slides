@@ -326,8 +326,13 @@ function Board({ frame }: { frame: THREE.Material }) {
   const ceil = L + LOUNGE.height - local[1]
   return (
     <group position={local as unknown as [number, number, number]}>
-      <mesh position={[0, headH / 2, -0.07]}>
-        <boxGeometry args={[w + 0.14, h + headH + 0.14, 0.12]} />
+      {/* Brushed silver bezel round a black face, like a split-flap board. */}
+      <mesh position={[0, headH / 2, -0.1]}>
+        <boxGeometry args={[w + 0.3, h + headH + 0.3, 0.14]} />
+        <meshStandardMaterial color={S.chrome} metalness={0.8} roughness={0.32} />
+      </mesh>
+      <mesh position={[0, headH / 2, -0.02]}>
+        <boxGeometry args={[w + 0.12, h + headH + 0.12, 0.04]} />
         <meshStandardMaterial color={S.ink} roughness={0.5} />
       </mesh>
       <mesh position={[0, h / 2 + headH / 2, 0.002]}>
@@ -339,7 +344,7 @@ function Board({ frame }: { frame: THREE.Material }) {
       </mesh>
       {/* Two hanging rods to the ceiling. */}
       {[-w / 3, w / 3].map((x) => (
-        <mesh key={x} position={[x, (ceil + top) / 2, -0.07]}>
+        <mesh key={x} position={[x, (ceil + top) / 2 + 0.08, -0.1]}>
           <cylinderGeometry args={[0.02, 0.02, ceil - top, 8]} />
           <meshStandardMaterial color={S.chrome} metalness={0.7} roughness={0.3} />
         </mesh>
