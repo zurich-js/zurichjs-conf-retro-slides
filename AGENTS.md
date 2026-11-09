@@ -179,7 +179,7 @@ Copied into `PALETTE`; never import across repos.
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·
-  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle` · `seat-full` · `wings` · `walk-on`. Poses
+  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle` · `seat-full` · `wings` · `walk-on` · `signing` · `lake`. Poses
   live in `CUES` (venue.ts). Each cue has a `space` (`hall` | `booth` |
   `foyer` | `atrium` | `map`); moves inside a room glide, so a new cue needs
   a clear line to its neighbours in that room.
@@ -323,6 +323,25 @@ Copied into `PALETTE`; never import across repos.
   in red, TRANSACTION DECLINED, then pitch time, then the AI request; top-down
   vs bottom-up pressure; companies' value doubts; speakers, the CFP (171 of
   428), attendees (AI, yes; AI slop, no); four value propositions.
+
+## From the aftermovie (Faris, 9 Nov 2026)
+- **Booths:** Proton's curved navy wall ("Build an internet where you're not
+  the product"), blue sofa with pink and white cushions, side table with the
+  blue neon cat and ivy (right of the atrium); CopilotKit's lavender printed
+  cloth with folded shirts; PrimeUI's table is black-clothed.
+- **People:** a crowd around the cocktail tables and booths (part of the
+  dressing); organisers' yellow shirts carry ORGANIZING TEAM on the back.
+- **Accuracy:** cocktail tables are tall with white cloths to the floor; the
+  main entrance has a curved canopy with TECHNOPARK in silver letters.
+- **Foyer:** the signing wall (black skyline mural, white-marker scribbles,
+  never real names) and the white framework-logo interview backdrop (plain
+  coloured tiles, not the real marks).
+- **Stage:** the tall drawing table with an iPad; the e18e panel
+  (`action: 'panel'`); the group photo with the letters held up
+  (`action: 'group-photo'`).
+- **After-party:** a fourth venue, `lake` (scene/Lake.tsx): deck, pool,
+  pavilion, string lights, long tables, the raft with someone mid-jump, dusk
+  sky dome. Reached by a crane shot; not to scale.
 
 ## Open decisions
 Track here; resolve with Faris, then update code and move the line above.

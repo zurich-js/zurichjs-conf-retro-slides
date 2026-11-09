@@ -6,6 +6,7 @@ import { STILL } from '../engine/params'
 import { keepAwake } from '../engine/activity'
 import { currentAction, sinceReveal, smoothstep } from './beats'
 import { FLOOR, PODIUM, podium, STAGE_TOP, SURFACES as S } from './venue'
+import { useTeamPrint } from './Avatar'
 
 /**
  * Stage transitions (Nadja): a speaker is fitted with a headset mic by an
@@ -34,8 +35,15 @@ const sine = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2
 
 /** A simple figure in the deck's avatar language, with arms and legs that can move. */
 function Figure({ tee, refs }: { tee: string; refs: { arm: React.RefObject<THREE.Group | null>; legs: React.RefObject<(THREE.Group | null)[]> } }) {
+  const print = useTeamPrint()
   return (
     <group>
+      {tee === S.teamShirt && (
+        <mesh position={[0, 1.27, -0.183]} rotation-y={Math.PI}>
+          <planeGeometry args={[0.26, 0.16]} />
+          <meshStandardMaterial map={print} transparent roughness={0.9} />
+        </mesh>
+      )}
       {[-1, 1].map((s, i) => (
         <group key={s} position={[s * 0.1, 0.84, 0]} ref={(g) => { refs.legs.current[i] = g }}>
           <mesh position-y={-0.42}>

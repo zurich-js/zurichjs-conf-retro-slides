@@ -318,7 +318,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
  * Named camera destinations. `screen` is solved in src/renderers/Stage.tsx;
  * the rest are measured poses in src/scene/venue.ts (CUES).
  */
-export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats', 'lanyards', 'laptop', 'shuttle', 'seat-full', 'wings', 'walk-on'] as const
+export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats', 'lanyards', 'laptop', 'shuttle', 'seat-full', 'wings', 'walk-on', 'lake', 'signing'] as const
 export type CameraCue = (typeof CAMERA_CUES)[number]
 
 export interface Slide {
@@ -357,9 +357,11 @@ export interface Slide {
    * `rush` races the first car (the speaker who landed at 6 am) from the
    * airport to Technopark on the `shuttle` cue; `mic-up` has an organiser
    * fit the speaker's headset mic and check it in the wings; `walk-on`
-   * walks the speaker up the steps to the podium (the camera follows behind).
+   * walks the speaker up the steps to the podium (the camera follows behind);
+   * `panel` seats the e18e panel on stage; `group-photo` fills the stage with
+   * everyone, the foam letters held up at the front.
    */
-  action?: 'cut-letters' | 'plug-in' | 'rush' | 'mic-up' | 'walk-on'
+  action?: 'cut-letters' | 'plug-in' | 'rush' | 'mic-up' | 'walk-on' | 'panel' | 'group-photo'
   /** Speaker notes. Shown in ?presenter, never painted on the frame. */
   notes?: string
 }

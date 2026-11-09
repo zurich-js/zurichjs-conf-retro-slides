@@ -191,6 +191,7 @@ function Spine() {
     box(-ax, ax, top, TP.roof, SN.z1 - 0.3, SN.z1),
   ]), [ax, top])
   const sign = useMemo(() => technoparkLetters('#f4f4f2'), [])
+  const letters = useMemo(() => technoparkLetters('#d9dcdf'), [])
   const zc = (SN.z0 + SN.z1) / 2
   const stacks = useMemo(() => merge([10, 18, 92, 104].flatMap((z) => [0, 1.3, 2.6].map((dz) => new THREE.CylinderGeometry(0.5, 0.5, 4.5, 16).translate(SN.x1 + 3, 2.25, z + dz)))), [])
   return (
@@ -212,6 +213,21 @@ function Spine() {
         <planeGeometry args={[18, 3]} />
         <meshStandardMaterial color={S.glass} transparent opacity={0.35} roughness={0.05} side={THREE.DoubleSide} depthWrite={false} />
       </mesh>
+      {/* The rotunda (aftermovie): a curved canopy over the revolving door, TECHNOPARK in silver letters along its edge. */}
+      <group position={[SN.x1, 0, zc]}>
+        <mesh position-y={3.55} rotation-y={Math.PI / 2}>
+          <cylinderGeometry args={[3.4, 3.4, 0.5, 40, 1, true, -Math.PI / 2, Math.PI]} />
+          <meshStandardMaterial color={S.chrome} roughness={0.4} metalness={0.6} side={THREE.DoubleSide} />
+        </mesh>
+        <mesh position-y={3.3} rotation-x={-Math.PI / 2} rotation-z={Math.PI / 2}>
+          <circleGeometry args={[3.4, 40, 0, Math.PI]} />
+          <meshStandardMaterial color={S.paper} roughness={0.6} side={THREE.DoubleSide} />
+        </mesh>
+        <mesh position-y={4.25} rotation-y={Math.PI / 2}>
+          <cylinderGeometry args={[3.42, 3.42, 0.9, 40, 1, true, -Math.PI / 2.6, Math.PI / 1.3]} />
+          <meshBasicMaterial map={letters} transparent toneMapped={false} side={THREE.DoubleSide} />
+        </mesh>
+      </group>
       {[-4, 4].map((dz) => (
         <mesh key={dz} position={[SN.x1 + 0.9, 1.25, zc + dz]}>
           <cylinderGeometry args={[1.1, 1.1, 2.5, 24, 1, true]} />
