@@ -488,7 +488,9 @@ export const PORTALS: readonly { a: Space; b: Space; via: readonly P3[] }[] = [
   // Along the hallway and out into the atrium.
   { a: 'foyer', b: 'atrium', via: [[0, FLOOR + EYE, FOYER.start + FOYER.depth - 2.5], [0, FLOOR + EYE, ATRIUM.start + 3]] },
   // The overview: a crane shot out of each room and up over the building.
-  { a: 'map', b: 'hall', via: [[-14, FLOOR + 30, 10], [-2, FLOOR + 6, 12]] },
+  // In from above the auditorium itself: high over the comb, then straight down through the
+  // (hidden) roof, so the camera never cuts through the office finger beside it.
+  { a: 'map', b: 'hall', via: [[6, FLOOR + 72, 4], [0.5, FLOOR + 40, 10], [0, FLOOR + 7, 11]] },
   { a: 'map', b: 'foyer', via: [[-14, FLOOR + 26, FOYER.start + 6], [2, FLOOR + 2.4, FOYER.start + 7]] },
   // Out of Foifi, up over Zurich, across to the Technopark overview.
   { a: 'map', b: 'foifi', via: [[-48, FLOOR + 40, 6], [FOIFI.x, FLOOR + 22, FOIFI.z + 7]] },

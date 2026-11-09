@@ -35,7 +35,7 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 const tilt = (i: number) => ((((i * 37) % 7) - 3) * Math.PI) / 180
 
 // Layout on the frame.
-const STAGE = { cx: FRAME.width / 2 + 220, cy: 700, h: 600 }
+const STAGE = { cx: FRAME.width / 2 + 380, cy: 690, h: 860 }
 const AXIS = { y: SAFE.bottom - 120 }
 const WALL = { cols: 10, gap: 10 }
 const BORDER = 12
@@ -52,7 +52,7 @@ function conveyor(i: number, c: number, aspect: number): Rect & { alpha: number 
   // Behind: one big step to the first, then a tight pile. Ahead: comes in from the right.
   const x = d >= 0
     ? STAGE.cx + d * 1500
-    : STAGE.cx - (Math.min(ad, 1) * 620 + Math.max(ad - 1, 0) * 95)
+    : STAGE.cx - (Math.min(ad, 1) * 760 + Math.max(ad - 1, 0) * 95)
   const y = STAGE.cy + (d < 0 ? Math.min(ad, 1) * 80 : 0)
   // The pile keeps the last five; older prints fade before they leave the safe area.
   const alpha = d > 0 ? 1 - Math.min(1, d) : 1 - smooth((ad - 4) / 1.5)

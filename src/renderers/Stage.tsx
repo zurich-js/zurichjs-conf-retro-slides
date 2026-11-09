@@ -201,7 +201,8 @@ function Prewarm() {
         showVenues(!!t, !!f, !!a)
         gl.compile(scene, camera)
       }
-      const name = FORCED ?? slides[useDeck.getState().index]?.camera ?? 'screen'
+      const index = useDeck.getState().index
+    const name = FORCED ?? slides[index]?.camera ?? 'screen'
       showSpaces(spaceOf(name))
       keepAwake(500)
     }, 0)
@@ -256,6 +257,7 @@ interface Move {
   walk: boolean
   crane: boolean
   reveal: boolean
+  curtain: boolean
   fromLook: THREE.Vector3
   fromFov: number
   /** Arrived: only the destination venue is drawn. */
@@ -271,13 +273,19 @@ function heightAt(m: Move, s: number) {
   return m.hs[m.hs.length - 1]!
 }
 
+/** A curtain: fade to black, cut, fade back in (seconds, whole thing). */
+const CURTAIN = 1.1
+/** The black overlay the curtain fades; mutated in the frame loop, never re-rendered. */
+const curtainEl: { current: HTMLDivElement | null } = { current: null }
+
 /** How long a move lasts, from its route (metres) and kind. One formula for the rig and the hand-off. */
 const moveDuration = (metres: number, crane: boolean, reveal: boolean) =>
   reveal ? 4.6 : Math.min(crane ? 5.5 : 5, Math.max(1.6, 1.2 + metres / 5.5))
 
 /** Seconds the camera takes from cue a's pose to cue b's (same plan as the rig, from a's resting pose). */
-function moveSeconds(a: CameraCue, b: CameraCue, aspect: number) {
+function moveSeconds(a: CameraCue, b: CameraCue, aspect: number, curtain = false) {
   if (a === b) return 0
+  if (curtain) return CURTAIN
   const pa = cue(a, aspect).pos.clone()
   const cb = cue(b, aspect)
   const fromSpace = spaceOf(a)
@@ -305,10 +313,11 @@ function CameraRig() {
   const look = useMemo(() => new THREE.Vector3(), [])
   const tmp = useMemo(() => ({ a: new THREE.Vector3(), b: new THREE.Vector3(), walkLook: new THREE.Vector3() }), [])
   const mv = useMemo<Move>(() => ({
-    name: '', xz: null, hs: [], ss: [], t0: 0, dur: 0, walk: false, crane: false, reveal: false, fromLook: new THREE.Vector3(), fromFov: 35, settled: false,
+    name: '', xz: null, hs: [], ss: [], t0: 0, dur: 0, walk: false, crane: false, reveal: false, curtain: false, fromLook: new THREE.Vector3(), fromFov: 35, settled: false,
   }), [])
   useFrame(() => {
-    const name = FORCED ?? slides[useDeck.getState().index]?.camera ?? 'screen'
+    const index = useDeck.getState().index
+    const name = FORCED ?? slides[index]?.camera ?? 'screen'
     const c = cue(name, size.width / size.height)
     const cam = camera as THREE.PerspectiveCamera
     const now = performance.now() / 1000
@@ -331,7 +340,8 @@ function CameraRig() {
       // A crane shot whenever the route leaves the rooftops (to/from the map, or Foifi ↔ Technopark).
       mv.crane = from === 'map' || c.space === 'map' || pts.some((p) => p.y > (FLOOR + 12) * M)
       mv.walk = !mv.reveal && !mv.crane && (pts.length > 2 || metres > 8)
-      mv.dur = first || STILL ? 0 : moveDuration(metres, mv.crane, mv.reveal)
+      mv.curtain = !first && !STILL && slides[index]?.transition === 'curtain'
+      mv.dur = first || STILL ? 0 : mv.curtain ? CURTAIN : moveDuration(metres, mv.crane, mv.reveal)
       mv.fromLook.copy(first ? c.target : look)
       mv.fromFov = first ? c.fov : cam.fov
       mv.t0 = now
@@ -346,10 +356,15 @@ function CameraRig() {
     const t = mv.dur > 0 ? Math.min(1, (now - mv.t0) / mv.dur) : 1
     if (t < 1) keepAwake(120)
     else if (!mv.settled) { mv.settled = true; showSpaces(c.space) }
-    if (t >= 1 || !mv.xz) {
+    // Curtain: black by a third of the way, the cut at half, lifted by the end.
+    if (curtainEl.current) curtainEl.current.style.opacity = mv.curtain && t < 1 ? String(t < 0.5 ? smooth(0, 0.35, t) : 1 - smooth(0.6, 1, t)) : '0'
+    if (mv.curtain && t >= 0.5 && !mv.settled) { mv.settled = true; showSpaces(c.space) }
+    if (t >= 1 || !mv.xz || (mv.curtain && t >= 0.5)) {
       cam.position.copy(c.pos)
       look.copy(c.target)
       cam.fov = c.fov
+    } else if (mv.curtain) {
+      // Behind the curtain's first half the camera holds still.
     } else {
       const e = sine(t)
       mv.xz.getPointAt(e, tmp.a)
@@ -382,10 +397,11 @@ function CameraRig() {
 
 export function Stage() {
   useEffect(() => {
-    setHoldPolicy((from, to) => moveSeconds(cueOf(from), cueOf(to), window.innerWidth / window.innerHeight) * HOLD * 1000)
+    setHoldPolicy((from, to) => moveSeconds(cueOf(from), cueOf(to), window.innerWidth / window.innerHeight, !FORCED && !STILL && slides[to]?.transition === 'curtain') * HOLD * 1000)
     return () => setHoldPolicy(null)
   }, [])
   return (
+    <>
     <Canvas
       dpr={[1, 1.5]}
       frameloop="demand"
@@ -396,5 +412,7 @@ export function Stage() {
       <color attach="background" args={[GROUNDS.dark.bg]} />
       <Scene />
     </Canvas>
+    <div ref={(el) => { curtainEl.current = el }} style={{ position: 'fixed', inset: 0, background: GROUNDS.dark.bg, opacity: 0, pointerEvents: 'none' }} />
+    </>
   )
 }

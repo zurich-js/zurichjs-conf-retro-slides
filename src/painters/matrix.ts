@@ -5,7 +5,7 @@ import { type Ctx, enter, font, label, SAFE, text, window01, wrap } from './kit'
 /**
  * The `matrix` painter: a feature grid. Columns are the things compared (a
  * name and a sub-line, e.g. the price), rows are features. Cell values:
- * 'yes' (✓, good tone), 'no' (✗, muted), '-' (not listed, muted dash), or
+ * 'yes' (✓, good tone), 'no' (✗, text: known not included), '-' (not listed: a muted ?, so unknown never reads as no), or
  * short text. The `highlight` column sits on a card with a hero outline.
  *
  * Layout: title and source on top (the bottom-left belongs to the wordmark),
@@ -100,8 +100,8 @@ export function paintMatrix(ctx: Ctx, v: MatrixVisual, p: number, r: Roles) {
     text(ctx, row.label, SAFE.left, mid, { size: ls, weight: TYPE.weight.medium, color: r.textSoft, alpha: a })
     row.values.forEach((val, ci) => {
       if (val === 'yes') text(ctx, '✓', cx(ci), mid + 4, { size: ls * 1.3, weight: TYPE.weight.black, color: r.tone('good'), align: 'center', alpha: a })
-      else if (val === 'no') text(ctx, '✗', cx(ci), mid + 4, { size: ls * 1.2, weight: TYPE.weight.bold, color: r.textMuted, align: 'center', alpha: a })
-      else if (val === '-') text(ctx, '–', cx(ci), mid, { size: ls, color: r.textMuted, align: 'center', alpha: a })
+      else if (val === 'no') text(ctx, '✗', cx(ci), mid + 4, { size: ls * 1.2, weight: TYPE.weight.bold, color: r.text, align: 'center', alpha: a })
+      else if (val === '-') text(ctx, '?', cx(ci), mid, { size: ls, color: r.textMuted, align: 'center', alpha: a })
       else label(ctx, val, cx(ci), mid, ci === v.highlight ? r.text : r.textSoft, { align: 'center', alpha: a })
     })
   })

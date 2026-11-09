@@ -4,6 +4,125 @@ Working document for the team. It captures the storyline **as it is in the deck 
 
 > The 3D venue and the slide building blocks are in good shape. **The storyline is not.** Rework the story here; leave the visuals to the deck.
 
+## Review pass, 9 Nov 2026
+
+From the retrospective review. Not a redesign: the journey stays (Foifi, a year earlier, funding and travel, Technopark, the day, outcomes). Where the review said "maybe" or "we need to decide", it is listed under decisions, not built.
+
+### Change log, slide by slide
+
+| Slide | Change |
+|---|---|
+| `meetup-year`, `meetup-2026`, `meetup-rsvps`, `meetup-rsvps-2026` | Grey source lines removed from the slides (sources stay in the notes). |
+| `stakes-split` | Unchanged on screen. Notes: the CHF 33k-each proposal, held until approved. |
+| `renamed-react-advanced` | Kicker now "Even the meetups renamed themselves": only the meetup series became Web Engineering London. |
+| `renamed-cityjs` | **Cut.** CityAI is a new event from the CityJS team, not a rename. |
+| `last-jsworld` | **Cut.** Contradicted: their site calls 2027 the 10th edition, not the last. |
+| `last-react-india` | Now sourced (reactindia.io: 2026 is the 7th and final edition). |
+| `react-advanced`, `react-alicante`, `last-devoxx-be` | Unchanged; notes say no public source was found. See decisions. |
+| `sponsor-get` | A muted **?** now means "not listed on their pages"; **✗** (now in white) means "known not included". |
+| `value-grid` | Same: **?** means not listed (muted), **NO** means not included (white). Recordings for Berlin and Summit, and lunch for JSWorld, changed from ? to YES (from their official pages). |
+| `vip-invested` | Title "Once in, people went further" became "VIP buyers took more workshops". The notes no longer state sunk cost as the cause. |
+| `affordable-idea` | Notes fixed: Geneva, Basel, Lausanne, Lugano and Bern are also over 100 in Numbeo, so the line is now "every European city outside Switzerland". |
+| `road-moments` | Photos bigger on the seat-back screen (the current photo is about 45% larger). Totals now read "Countries in the photos" and "Months with photos"; the globe reads "Countries visited". |
+| `venue-map` → `empty-seats` | The crane now comes down near-vertically over the auditorium instead of cutting past the office finger. |
+| `people-split`, `price-stages` | "Complimentary" became **"Subsidised tickets"** (63). |
+| `year-cfp` | Unchanged on screen. The bars grow together and show no shift in topics. Notes flag 106 AI and ML tags vs the 40% keyword count. |
+| `year-slack` | **No names, no count per person.** The per-person bars became team figures: busiest day 836 (3 Sep), 3 days without a message, 15% on weekends. |
+| `slack-people` | **Cut** (messages per organiser, by name). |
+| `slack-days-off`, `slack-peak` | **Cut** (repeated on `year-slack`). |
+| `commits` | **Cut** (the same monthly numbers as `year-commits`). |
+| `story-volunteers`, `story-comms`, `story-workshops`, `story-space`, `story-control-room` | **New slots** for organiser stories (see below). |
+| `ch3` to `ch8` | **Curtain**: a short fade to black into each chapter opener, then the next slide moves from that view to the screen. Replaces the fly-out and fly-in. |
+| `when-bought` | Moved from the seats view to the full screen (the months were unreadable). |
+| `ads` | Labels now separate "of site visitors" (40%) from "of ticket buyers" (4%, 8 of 180). New tile: 0.09% of Google Ads visitors bought, against 3.7% from our own channels. |
+| `arrivals` (door scans) | Redesigned: one row of 12 cells, left to right in time, with only a few time labels. Title: "Busiest at 08:30: 29 people in 10 minutes". Kept on the venue screen. |
+| `badge-frontload` | Percentages with their denominators: 19% (49 of all 253 badges), 68% (139 of the 204 picked up on the day). |
+| `badges`, `badge-frontload`, `door-rhythm` | Moved from the foyer wall to the full screen (unreadable on the wall). |
+| `income` | Shares only (47 / 44 / 8 / 1%); the amounts are in the notes. |
+| `add-up-answer` | "Just over break even." (dropped "on roughly CHF 170k of income"). |
+| `stakes-covered` | "No shortfall to cover from our own pockets." The old line implied there were no costs. |
+| `income` to `come-back` | The final numbers stay in the crowd (`stage` view) instead of flying to the screen. |
+| `feedback-heard`, `next-edition` | **New slots** near the end (see below). |
+| Notes | HANDOFF markers on `cover`, `ch3`, `brand`, `ch5` and `come-2028` (all to confirm). |
+
+### Slots for organiser material (do not fill with drafted prose)
+
+Nadja and Bogdan send voice notes or written points; Faris turns them into the story. Each slot is a placeholder slide, marked "Slot" on screen.
+
+| Slot | Slide | Where |
+|---|---|---|
+| Finding and coordinating volunteers | `story-volunteers` | Ch 3, after `small-team` |
+| Communications with sponsors, speakers and attendees; recurring problems from the correspondence analysis | `story-comms` | Ch 3 |
+| Workshops: the work of running them (one day or two? see decisions) | `story-workshops` | Ch 4, after `workshops` |
+| Last-minute space design and preparation | `story-space` | Ch 6, at the foyer |
+| Control-room pressure on the day; stage and video transitions; what was skipped or changed | `story-control-room` | Ch 6, in the booth |
+| Attendee feedback we actually received (kept apart from ideas for next time) | `feedback-heard` | Ch 8, after `come-back` |
+| What comes next: the proposed two-day format, its community and technical angles. No name ("TBDConf" was floated, not chosen) | `next-edition` | Ch 8, after `thanks` |
+
+The opening note on burnout and the workload stays off the slides: it is said outside them.
+
+### Presenter handoffs (proposed, not assigned)
+
+- **Open:** Dominic, with the duck (`cover`).
+- **Brand and friendly design:** Bogdan (`brand`).
+- **Logistics, the space, comms, workshops:** Nadja (`ch5` and the story slots).
+- **Close:** Faris speaks last (`come-2028`).
+- **Ch 3:** who tells it is open.
+
+### Runtime
+
+152 slides. At about 15 s a slide, plus the globe (35 s), the photos (48 s) and the curtains, that is about 38 minutes before the seven slots get any content. With the slots filled, it runs past 40. Places that repeat or run long:
+
+- Chapter 5 traffic run, six slides (`august-traffic` to `buyers-from`): could be two.
+- The CFP is told three times: `year-cfp`, `final-week`, `hi-final-week`.
+- Countries are told three times: `year-flights`, `countries`, `abroad`.
+- `year-numbers` plus the four motion slides repeat each other; the tiles could go.
+- Chapter 2's strike run, now 5 slides.
+
+What to say while things animate: `year-cfp` (12 s), the globe (35 s) and `road-moments` (48 s) all play by themselves. Talk over them; the notes say what each one shows.
+
+### Unverified figures and claims
+
+| Claim | Slide | Status, source |
+|---|---|---|
+| React Advanced London ticket sales −50% | `react-advanced` | No public source (audit 9 Nov). Faris's account. |
+| React Alicante −200 seats | `react-alicante` | No public source; listings say 600 attendees in both 2025 and 2026. |
+| Devoxx Belgium 2027 likely the last | `last-devoxx-be` | No public source; their FAQ plans 2027 normally. |
+| CHF 100k minimum; three organisers liable (about 33k each) | `stakes-100k`, `stakes-split` | Faris's account. Currency to confirm. "Three of us" vs four organisers in ch 3. |
+| "Just over break even", no shortfall | `add-up-answer`, `stakes-covered` | Cost total not in the data. Confirm before saying it. |
+| Income shares 47 / 44 / 8 / 1% | `income` | From the rounded admin income (81k, 75k, 14k, 1k), which may be off by up to 5%. |
+| Workshop revenue allocation | not shown | No verified breakdown; the split mentioned in the review was only an illustration. |
+| 63 "subsidised" tickets | `people-split` | Check that the word fits all 63 (sponsor allocations, speakers, volunteers). |
+| React Summit regular ticket €600 (2026) | `price-compare`, `value-grid` | The live page shows 2027 tiers (€600 is the 2027 2nd batch). Needs a 2026 source. |
+| React Paris €650 regular | `price-compare` | Wayback only; Ticket Tailor did not load in the audit. |
+| Voxxed Days Zurich CHF 360 | `price-compare` | A search snippet only; check voxxeddays.com/zurich. |
+| JSWorld 2027 €399 excl. VAT | `price-compare`, `value-grid` | Ticket Tailor did not load in the audit. |
+| Berlin student ticket YES | `value-grid` | Not found on reactday.berlin in the audit. |
+| CHF 295 as our comparison price | `price-compare` | Open (general admission). |
+| VIP: 19% vs 5% took a workshop; 3× VIP if travelling | `vip-invested`, `vip-travel` | Correlation, from tracked checkouts only (32 of 46 VIP). |
+| AI share: 40% (keyword) vs 106 AI and ML tags | `ai-share`, `year-cfp` | Two methods; do not quote them as one number. |
+| Topic mix stable over the CFP | `year-cfp` | Not checked; the slide does not claim a shift. |
+| Ad attribution 40% / 4% / 0.09%; Reddit 11 to 19 June; Google 1 Aug to 6 Sep | `ads`, `ads-when` | PostHog first touch; ad blockers undercount. Check the campaign dates. |
+| 19% and 68% badge shares | `badge-frontload` | From the door export; recheck. |
+| Door scans: 145 from 07:40 | `arrivals` | Vs 156 door scans and 158 check-ins elsewhere; pick one definition. |
+| Feature months on the pipeline (VIP in Jul, travel in Aug) | `year-commits` | Check. |
+| Travel totals: 16 trips, 13 countries visited (globe); 70 photos, 19 cities, 15 countries, 12 months (photos) | `road`, `road-moments` | Different scopes, now labelled. km about 110k per Faris (great-circle gives about 89k). |
+
+### Decisions needed before Thursday
+
+1. **Market claims with no source** (React Advanced −50%, React Alicante −200, Devoxx last): say "we heard", or cut them?
+2. **Stakes:** show about CHF 33k per organiser? Is it three or four organisers on the hook?
+3. **Budget:** shares only, or absolute amounts? Any cost line at all?
+4. **"Subsidised tickets":** is the word right for all 63, or should we cut `people-split`?
+5. **Curtain on chapter openers:** keep it? It breaks the "no cuts" rule from 8 Nov.
+6. **Final numbers in the crowd** (`stage` view): keep, or back to the full screen?
+7. **Presenter assignments:** Dominic to open, Bogdan on brand, Nadja on logistics, Faris to close?
+8. **Next edition:** two days? Which date for "Come in 2028"? (No name until one is chosen.)
+9. **Feedback slot:** which quotes, from the 12 respondents who agreed to be named?
+10. **Workshops:** one day (10 Sep) or two?
+11. **Spelling:** Nadja (deck) or Nadia (review notes)?
+12. **Trims to get under 40 minutes** (see Runtime).
+
 ## How to use this document
 
 1. Read the brief and **What isn't working** first.
@@ -129,9 +248,9 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | 24 | `react-advanced` | Big number | −50% · Ticket sales at React Advanced London | Foifi screen, full frame | UNVERIFIED (per Faris). | |
 | 25 | `react-alicante` | Big number | −200 · Seats at React Alicante versus last year | Foifi screen, full frame | UNVERIFIED. | |
 | 26 | `renamed-react-advanced` | Strike | Conferences renamed themselves · React Advanced London struck through · now Web Engineering London | Foifi screen, full frame | UNVERIFIED. | new |
-| 27 | `renamed-cityjs` | Strike | CityJS struck through · now CityAI | Foifi screen, full frame | UNVERIFIED. | new |
+| 27 | `renamed-cityjs` | Strike | CityJS struck through · now CityAI | Foifi screen, full frame | UNVERIFIED. | cut (review 9 Nov) |
 | 28 | `last-react-india` | Strike | React India · DEPRECATED stamp · Last edition this year | Foifi screen, full frame | UNVERIFIED. | new |
-| 29 | `last-jsworld` | Strike | JSWorld · DEPRECATED · 2027 is the last | Foifi screen, full frame | UNVERIFIED. | new |
+| 29 | `last-jsworld` | Strike | JSWorld · DEPRECATED · 2027 is the last | Foifi screen, full frame | UNVERIFIED. | cut (review 9 Nov) |
 | 30 | `last-devoxx-be` | Strike | Devoxx Belgium · DEPRECATED · 2027 likely the last | Foifi screen, full frame | UNVERIFIED. | new |
 | 31 | `last-front` | Strike | Front Conference · DEPRECATED · Front 26 cancelled | Foifi screen, full frame | Sourced: frontconference.com. | new |
 | 32 | `layoffs` | Statement | Layoffs everywhere. Sponsorship budgets cut. | Foifi screen, full frame | Netflix, Google, Microsoft, Canva, Smallpdf. Smallpdf was our Gold sponsor: decide whether to name companies. | |
@@ -205,13 +324,13 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 |---|---|---|---|---|---|---|
 | 81 | `ch3` | Section | 03 · Four people, day jobs, one app · The machine | Control booth | Camera in the control booth: the crew behind the glass. | |
 | 82 | `small-team` | Number tiles | A small team, and an admin that did the rest · 4 (Organisers) · 15 (CFP reviewers) · 13 (Door staff) | Screen (full frame) | Admin areas: tickets, workshops, CFP and reviewers, speaker travel, sponsorships, partnerships, company invoices, VIP perks, apparel, door check-in. CONFIRM organisers: Faris, Bogdan, Nadja, Colin. | |
-| 83 | `slack-people` | Bar chart | Four people, 51,202 messages · Active days: Faris 396 · Bogdan 382 · Nadja 327 · Colin 327 · Faris 20,354 · Bogdan 19,954 · Nadja 6,979 · Colin 3,915 | Screen (full frame) | About 129 messages a day. | |
+| 83 | `slack-people` | Bar chart | Four people, 51,202 messages · Active days: Faris 396 · Bogdan 382 · Nadja 327 · Colin 327 · Faris 20,354 · Bogdan 19,954 · Nadja 6,979 · Colin 3,915 | Screen (full frame) | About 129 messages a day. | cut (review 9 Nov) |
 | 84 | `slack-share` | Big number | 96% · Of all Slack messages came from the four of us. 51,202 of 53,277. | Screen (full frame) | 88% were in private channels. | |
-| 85 | `slack-days-off` | Big number | 3 · Days without a single message, out of 397. | Screen (full frame) | 15% of messages were sent on weekends. | |
-| 86 | `slack-peak` | Big number | 836 · Messages on 3 September. Our busiest day, a week before doors opened. | Screen (full frame) | August was the busiest month at 8,265. Top days: 3 Sep 836, 1 Sep 744, 4 Aug 705. | |
+| 85 | `slack-days-off` | Big number | 3 · Days without a single message, out of 397. | Screen (full frame) | 15% of messages were sent on weekends. | cut (review 9 Nov) |
+| 86 | `slack-peak` | Big number | 836 · Messages on 3 September. Our busiest day, a week before doors opened. | Screen (full frame) | August was the busiest month at 8,265. Top days: 3 Sep 836, 1 Sep 744, 4 Aug 705. | cut (review 9 Nov) |
 | 87 | `brand` | Statement | Data gap · M1 · Brand and design. | Screen (full frame) | DATA GAP M1: Faris writes this. | |
 | 88 | `timeline` | Number tiles | Ten months from first commit to the door · 3 Nov (2025 · First commit) · 13 Nov (2025 · First ticket sold) · 29 Dec (2025 · CFP opens) · 3 Apr (2026 · CFP closes) · 31 Aug (2026 · Door check-in ships) · 9–12 Sep (2026 · Conference week) | Screen (full frame) | Old deck revealed these one per click; one slide in this draft. | |
-| 89 | `commits` | Bar chart | 1,336 commits · Commits per month · busiest week 27 Jul to 2 Aug, 91 commits · Nov 137 · Dec 87 · Jan 96 · Feb 116 · Mar 83 · Apr 158 · May 191 · Jun 92 · Jul 173 · Aug 104 · Sep 99 | Screen (full frame) |  | |
+| 89 | `commits` | Bar chart | 1,336 commits · Commits per month · busiest week 27 Jul to 2 Aug, 91 commits · Nov 137 · Dec 87 · Jan 96 · Feb 116 · Mar 83 · Apr 158 · May 191 · Jun 92 · Jul 173 · Aug 104 · Sep 99 | Screen (full frame) |  | cut (review 9 Nov) |
 | 90 | `agent-prs` | Big number | 58% · Of 281 PRs came from agent branches. 145 Claude · 11 Cursor · 8 Codex. | Screen (full frame) | The first PR (5 Nov 2025) was already from a claude/ branch. | |
 | 91 | `agent-share` | Bar chart | From helper to default · Agent share of merged PRs · Nov 12% · Dec 50% · Jan 0% · Feb 53% · Mar 55% · Apr 47% · May 28% · Jun 68% · Jul 89% · Aug 85% · Sep 71% | Screen (full frame) |  | |
 | 92 | `my-job` | Number tiles | My job changed · 56 → 1 (My own commits, May to August) · 119 (Agent commits in July) | Screen (full frame) |  | |

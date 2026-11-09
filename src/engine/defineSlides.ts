@@ -67,7 +67,7 @@ export function defineSlides(
         if (v.stages.length < 2) throw new Error(`Visual "${id}": a pipeline needs at least two stages`)
         for (const f of v.features) if (!(f.month >= 0 && f.month < v.months.length)) throw new Error(`Visual "${id}": feature "${f.label}" month ${f.month} is not a month`)
       }
-      if (v?.kind === 'chatter' && v.people.length > 4) throw new Error(`Visual "${id}": chatter shows at most four people`)
+      if (v?.kind === 'chatter' && (v.stats.length === 0 || v.stats.length > 3)) throw new Error(`Visual "${id}": chatter shows one to three team figures`)
       if (v?.kind === 'chatter' && v.channels.length > 3) throw new Error(`Visual "${id}": chatter splits into at most three channel kinds`)
       if (v?.kind === 'arrivals' && v.origins.length === 0) throw new Error(`Visual "${id}": no origins`)
       if (v?.kind === 'atm') {
