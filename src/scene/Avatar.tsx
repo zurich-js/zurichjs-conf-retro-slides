@@ -1,5 +1,12 @@
+import { useMemo } from 'react'
 import type * as THREE from 'three'
 import { SURFACES as S } from './venue'
+import { shirtPrint } from './textures'
+
+/** The organisers' yellow shirts carried ORGANIZING TEAM across the back (aftermovie). */
+export function useTeamPrint() {
+  return useMemo(() => shirtPrint(['ORGANIZING', 'TEAM']), [])
+}
 
 /**
  * A standing volunteer, in the same simple avatar language as the booth
@@ -9,8 +16,15 @@ import { SURFACES as S } from './venue'
 export function StandingAvatar(
   { x, y, z, yaw = 0, tee = S.teamShirt, badge }: { x: number; y: number; z: number; yaw?: number; tee?: string; badge?: THREE.Texture },
 ) {
+  const print = useTeamPrint()
   return (
     <group position={[x, y, z]} rotation-y={yaw}>
+      {tee === S.teamShirt && (
+        <mesh position={[0, 1.27, -0.183]} rotation-y={Math.PI}>
+          <planeGeometry args={[0.26, 0.16]} />
+          <meshStandardMaterial map={print} transparent roughness={0.9} />
+        </mesh>
+      )}
       {[-1, 1].map((s) => (
         <mesh key={s} position={[s * 0.1, 0.44, 0]}>
           <capsuleGeometry args={[0.07, 0.74, 4, 10]} />

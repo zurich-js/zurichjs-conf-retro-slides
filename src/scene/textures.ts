@@ -1314,3 +1314,116 @@ export const streetAsphalt = (repeat: readonly [number, number]) =>
     ctx.fillRect(10, 0, 4, h)
     ctx.fillRect(w - 14, 0, 4, h)
   }, repeat)
+
+/** A team-shirt back print: two lines of black caps on transparent, as on the organisers' shirts. */
+export function shirtPrint(lines: readonly string[]) {
+  const c = document.createElement('canvas')
+  c.width = 512
+  c.height = 320
+  const ctx = c.getContext('2d')!
+  ctx.fillStyle = S.ink
+  ctx.textAlign = 'center'
+  ctx.font = `${TYPE.weight.bold} 54px ${TYPE.sans}`
+  ctx.fillText(lines[0] ?? '', 256, 120)
+  ctx.font = `${TYPE.weight.black} 130px ${TYPE.sans}`
+  ctx.fillText(lines[1] ?? '', 256, 250)
+  const t = new THREE.CanvasTexture(c)
+  t.colorSpace = THREE.SRGBColorSpace
+  return t
+}
+
+/** Proton's curved booth wall (aftermovie): deep navy, the headline, a row of product icons, the URL. */
+export const protonWall = (logos: Logos) =>
+  canvasTexture(1600, 900, (ctx, w, h) => {
+    ctx.fillStyle = S.protonNavy
+    ctx.fillRect(0, 0, w, h)
+    drawLogo(ctx, logos.proton, 120, 90, 260, 70, 'left')
+    ctx.fillStyle = PALETTE.white
+    ctx.font = `${TYPE.weight.medium} 92px Georgia, serif`
+    ctx.fillText('Build an internet where', 120, 290)
+    ctx.fillText('you\u2019re not the product', 120, 400)
+    // Product icons: small rounded tiles in Proton's purples, labels underneath.
+    const icons = ['Mail', 'Calendar', 'Drive', 'VPN', 'Pass', 'Lumo']
+    icons.forEach((label, i) => {
+      const x = 120 + i * 200
+      ctx.fillStyle = i % 2 ? '#7d6bff' : '#a58bff'
+      ctx.beginPath(); ctx.roundRect(x, 520, 96, 96, 22); ctx.fill()
+      ctx.fillStyle = PALETTE.white
+      ctx.font = `${TYPE.weight.medium} 30px ${TYPE.sans}`
+      ctx.fillText(label, x, 660)
+    })
+    ctx.font = `${TYPE.weight.medium} 34px ${TYPE.sans}`
+    ctx.fillText('proton.me', w - 320, h - 70)
+  })
+
+/** A printed table cloth: a colour with the sponsor logo across the front (CopilotKit, aftermovie). */
+export const printedCloth = (logo: HTMLImageElement | undefined, bg: string) =>
+  canvasTexture(1000, 380, (ctx, w, h) => {
+    ctx.fillStyle = bg
+    ctx.fillRect(0, 0, w, h)
+    drawLogo(ctx, logo, 120, 120, w - 240, 160)
+  })
+
+/**
+ * The signing wall (aftermovie): a black mural with the white skyline along
+ * the bottom, the conference name and date, and attendees\u2019 signatures in
+ * white marker. Signatures are deterministic scribbles, not real names.
+ */
+export function signingWall(skyline: HTMLImageElement) {
+  return canvasTexture(2400, 900, (ctx, w, h) => {
+    ctx.fillStyle = S.ink
+    ctx.fillRect(0, 0, w, h)
+    // The skyline twice across the wall, its towers reaching up to the middle.
+    const sk = tintedSkyline(skyline, S.chalk, 1200, 1020)
+    ctx.drawImage(sk, 0, h - 1020 + 160, 1200, 1020)
+    ctx.drawImage(sk, 1200, h - 1020 + 160, 1200, 1020)
+    ctx.fillStyle = S.chalk
+    ctx.font = `${TYPE.weight.black} 110px ${TYPE.sans}`
+    ctx.fillText('Zurich JS Conf 2026', 120, 170)
+    ctx.font = `${TYPE.weight.medium} 46px ${TYPE.sans}`
+    ctx.fillText('September 11, 2026 \u00b7 Technopark Z\u00fcrich', 124, 240)
+    // Scribbled signatures across the black: short looping strokes.
+    ctx.strokeStyle = S.chalk
+    ctx.lineCap = 'round'
+    for (let i = 0; i < 140; i++) {
+      const x = 100 + hash(i + 1) * (w - 300)
+      const y = 300 + hash(i + 300) * 300
+      const len = 70 + hash(i + 600) * 110
+      ctx.lineWidth = 2 + hash(i + 900) * 2
+      ctx.beginPath()
+      ctx.moveTo(x, y)
+      for (let k = 1; k <= 6; k++) {
+        ctx.quadraticCurveTo(x + (k - 0.5) * len / 6, y + (hash(i * 7 + k) - 0.5) * 50, x + k * len / 6, y + (hash(i * 13 + k) - 0.5) * 20)
+      }
+      ctx.stroke()
+    }
+  })
+}
+
+/**
+ * The interview and registration backdrop (aftermovie): white, the conference
+ * name, a grid of framework-logo tiles. Drawn as plain coloured tiles: the
+ * real framework marks are not copied into the deck.
+ */
+export const logoWall = () =>
+  canvasTexture(1600, 1000, (ctx, w, h) => {
+    ctx.fillStyle = '#f4f5f7'
+    ctx.fillRect(0, 0, w, h)
+    const colours = ['#61dafb', '#000000', '#3c873a', '#dd0031', '#3178c6', '#ff3e00', '#41b883', '#f7df1e', '#7b61ff', '#ef4444', '#0ea5e9', '#a855f7']
+    for (let r = 0; r < 5; r++) {
+      for (let c = 0; c < 9; c++) {
+        if (r === 2 && c > 1 && c < 7) continue
+        const k = r * 9 + c
+        ctx.globalAlpha = 0.85
+        ctx.fillStyle = colours[k % colours.length]!
+        ctx.beginPath(); ctx.roundRect(70 + c * 170, 70 + r * 180, 110, 110, 26); ctx.fill()
+        ctx.globalAlpha = 1
+        ctx.fillStyle = '#ffffff'
+        ctx.beginPath(); ctx.arc(125 + c * 170, 125 + r * 180, 26 + hash(k) * 10, 0, Math.PI * 2); ctx.fill()
+      }
+    }
+    ctx.fillStyle = S.ink
+    ctx.font = `${TYPE.weight.black} 104px ${TYPE.sans}`
+    ctx.textAlign = 'center'
+    ctx.fillText('Zurich JS Conf 2026', w / 2, 70 + 2 * 180 + 90)
+  })

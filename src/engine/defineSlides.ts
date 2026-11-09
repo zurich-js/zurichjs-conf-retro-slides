@@ -103,8 +103,8 @@ export function defineSlides(
     if (s.dressed !== undefined && !(s.dressed >= 0 && s.dressed <= 1)) {
       throw new Error(`Slide "${s.id}" dressed must be between 0 and 1`)
     }
-    if (s.action !== undefined && !['cut-letters', 'plug-in', 'rush', 'mic-up', 'walk-on'].includes(s.action)) {
-      throw new Error(`Slide "${s.id}" action "${s.action}" is not cut-letters, plug-in, rush, mic-up or walk-on`)
+    if (s.action !== undefined && !['cut-letters', 'plug-in', 'rush', 'mic-up', 'walk-on', 'panel', 'group-photo'].includes(s.action)) {
+      throw new Error(`Slide "${s.id}" action "${s.action}" is not a known action`)
     }
     if (s.effect !== undefined && !(s.effect >= 0 && s.effect <= 1)) {
       throw new Error(`Slide "${s.id}" effect must be between 0 and 1`)

@@ -2,7 +2,7 @@ import { useLayoutEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { useTexture } from '@react-three/drei'
 import { ATRIUM, ATRIUM_HALF, ATRIUM_TOP, FLOOR, FOYER, LIGHTS, M, SURFACES as S } from './venue'
-import { agRollup, concreteTile, floorTile, galleryWall, hash, logoRollup, namespaceWall, towerSign } from './textures'
+import { agRollup, concreteTile, floorTile, galleryWall, hash, logoRollup, namespaceWall, printedCloth, protonWall, towerSign } from './textures'
 import { useSponsorLogos } from './useSponsorLogos'
 import { Cutaway } from './layers'
 import { Dressing } from './Dressing'
@@ -220,9 +220,9 @@ function Bells() {
   )
 }
 
-/** White-clothed cocktail tables, instanced: cloth (lathe), pole, foot. */
+/** White cocktail tables, instanced: a stretch cloth from the top right down to the floor (aftermovie), pole, foot. */
 const CLOTH = [
-  [0, 1.1], [0.4, 1.1], [0.42, 1.09], [0.43, 1.0], [0.36, 0.78], [0.3, 0.62], [0.36, 0.42], [0.33, 0.4],
+  [0, 1.1], [0.4, 1.1], [0.42, 1.09], [0.43, 1.02], [0.36, 0.86], [0.27, 0.62], [0.27, 0.4], [0.36, 0.14], [0.43, 0.02], [0.42, 0],
 ] as const
 function CocktailTables() {
   const spots = useMemo(() => {
@@ -290,6 +290,126 @@ function Banner({ map, x, z, yaw }: { map: THREE.Texture; x: number; z: number; 
   )
 }
 
+/** A table whose front drop carries a printed cloth. */
+function PrintedTable({ x, z, yaw, map, cloth, length }: { x: number; z: number; yaw: number; map: THREE.Texture; cloth: string; length: number }) {
+  return (
+    <group position={[x, FLOOR, z]} rotation-y={yaw}>
+      <mesh position-y={0.38}>
+        <boxGeometry args={[length, 0.76, 0.8]} />
+        <meshStandardMaterial color={cloth} roughness={0.9} />
+      </mesh>
+      <mesh position={[0, 0.38, 0.401]}>
+        <planeGeometry args={[length, 0.76]} />
+        <meshStandardMaterial map={map} roughness={0.9} />
+      </mesh>
+    </group>
+  )
+}
+
+/** A sitting-cat outline in metres (x, y), and its tail: the neon lamp on Proton's side table. */
+const CAT = [[-0.07, 0], [0.09, 0], [0.1, 0.1], [0.07, 0.2], [0.05, 0.26], [0.06, 0.34], [0.03, 0.31], [0, 0.32], [-0.03, 0.31], [-0.06, 0.34], [-0.05, 0.26], [-0.07, 0.2], [-0.1, 0.1]] as const
+const TAIL = [[0.09, 0.02], [0.17, 0.03], [0.2, 0.1], [0.16, 0.15]] as const
+
+/**
+ * Proton's booth (aftermovie): a curved navy fabric wall with the headline,
+ * a blue sofa with pink and white cushions, a white side table with the blue
+ * neon cat and trailing ivy. On the right of the atrium, facing the tables.
+ */
+function ProtonBooth({ wall }: { wall: THREE.Texture }) {
+  const neon = useMemo(() => {
+    const body = new THREE.CatmullRomCurve3(CAT.map(([x, y]) => new THREE.Vector3(x, y, 0)), true, 'centripetal')
+    const tail = new THREE.CatmullRomCurve3(TAIL.map(([x, y]) => new THREE.Vector3(x, y, 0)), false, 'centripetal')
+    return [new THREE.TubeGeometry(body, 80, 0.007, 6, true), new THREE.TubeGeometry(tail, 30, 0.007, 6, false)]
+  }, [])
+  const R = 2.6
+  return (
+    <group position={[9.4, FLOOR, Z0 + 12.5]} rotation-y={-Math.PI / 2}>
+      {/* The wall: an arc of fabric behind the sofa, its centre of curvature out in front, printed side facing in. */}
+      <mesh position={[0, 1.2, R - 0.8]}>
+        <cylinderGeometry args={[R, R, 2.4, 40, 1, true, Math.PI - 0.75, 1.5]} />
+        <meshStandardMaterial map={wall} roughness={0.85} side={THREE.BackSide} />
+      </mesh>
+      {/* The sofa: seat, back, arms; two cushions. */}
+      <group position={[0.4, 0, 0.4]}>
+        <mesh position-y={0.22}><boxGeometry args={[1.8, 0.44, 0.8]} /><meshStandardMaterial color={S.protonSofa} roughness={0.9} /></mesh>
+        <mesh position={[0, 0.6, -0.33]}><boxGeometry args={[1.8, 0.45, 0.16]} /><meshStandardMaterial color={S.protonSofa} roughness={0.9} /></mesh>
+        {[-0.9, 0.9].map((x) => <mesh key={x} position={[x, 0.36, 0]}><boxGeometry args={[0.14, 0.32, 0.8]} /><meshStandardMaterial color={S.protonSofa} roughness={0.9} /></mesh>)}
+        <mesh position={[-0.45, 0.6, -0.18]} rotation-x={-0.2}><boxGeometry args={[0.5, 0.38, 0.12]} /><meshStandardMaterial color={S.cushionPink} roughness={0.95} /></mesh>
+        <mesh position={[0.3, 0.6, -0.18]} rotation-x={-0.2}><boxGeometry args={[0.45, 0.34, 0.12]} /><meshStandardMaterial color={S.paper} roughness={0.95} /></mesh>
+      </group>
+      {/* Side table with the neon cat and ivy. */}
+      <group position={[-1.2, 0, 0.6]}>
+        <mesh position-y={0.36}><cylinderGeometry args={[0.32, 0.32, 0.72, 24]} /><meshStandardMaterial color={S.paper} roughness={0.5} /></mesh>
+        <group position={[0, 0.74, 0]} rotation-y={0.4}>
+          <mesh position-y={0.02}><cylinderGeometry args={[0.08, 0.09, 0.04, 20]} /><meshStandardMaterial color={S.paper} roughness={0.4} /></mesh>
+          {neon.map((g, i) => <mesh key={i} geometry={g} position-y={0.04}><meshBasicMaterial color={S.neonBlue} toneMapped={false} /></mesh>)}
+        </group>
+        {Array.from({ length: 9 }, (_, i) => (
+          <mesh key={i} position={[Math.cos(i * 0.9) * 0.26, 0.73 - (i % 3) * 0.06, Math.sin(i * 0.9) * 0.26]} rotation={[-0.6, i, 0.3]}>
+            <circleGeometry args={[0.04, 6]} />
+            <meshStandardMaterial color={S.leaf} roughness={0.8} side={THREE.DoubleSide} />
+          </mesh>
+        ))}
+      </group>
+    </group>
+  )
+}
+
+/**
+ * The crowd between sessions (aftermovie): people in groups around the
+ * cocktail tables and in front of the booths. Instanced (legs, torso, head);
+ * part of the dressing, so a bare venue is empty. Kept clear of the camera
+ * positions on the atrium floor.
+ */
+function Crowd() {
+  const people = useMemo(() => {
+    const out: { x: number; z: number; yaw: number }[] = []
+    let k = 0
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
+      const tx = -4.8 + c * 3.2 + (hash(k) - 0.5) * 0.9
+      const tz = Z0 + 3.5 + r * 4.0 + (hash(k + 50) - 0.5) * 1.0
+      const n = 2 + Math.floor(hash(k + 90) * 3)
+      for (let i = 0; i < n; i++) {
+        const a = (i / n) * Math.PI * 2 + hash(k * 3 + i)
+        out.push({ x: tx + Math.cos(a) * 0.72, z: tz + Math.sin(a) * 0.72, yaw: Math.atan2(tx - (tx + Math.cos(a)), tz - (tz + Math.sin(a))) })
+      }
+      k++
+    }
+    // Small groups at the booths.
+    for (const [x, z, yaw] of [[-8.2, Z0 + 15.6, -Math.PI / 2], [-8.1, Z0 + 16.8, -Math.PI / 2], [-8.4, Z0 + 8.4, -Math.PI / 2], [-8.3, Z0 + 4.8, -Math.PI / 2], [7.9, Z0 + 12, Math.PI / 2], [7.6, Z0 + 13.2, Math.PI / 2], [0, Z0 + L - 9.4, Math.PI], [-1.4, Z0 + L - 9.2, Math.PI]] as const) out.push({ x, z, yaw })
+    // Keep the booths cue's spot clear.
+    return out.filter((p) => Math.hypot(p.x + 2.6, p.z - (Z0 + 11.5)) > 3.4)
+  }, [])
+  const geo = useMemo(() => ({
+    legs: new THREE.CylinderGeometry(0.15, 0.13, 0.85, 8).translate(0, 0.43, 0),
+    torso: new THREE.CylinderGeometry(0.17, 0.2, 0.62, 10).translate(0, 1.15, 0),
+    head: new THREE.SphereGeometry(0.11, 12, 8).translate(0, 1.6, 0),
+  }), [])
+  const refs = { legs: useRef<THREE.InstancedMesh>(null), torso: useRef<THREE.InstancedMesh>(null), head: useRef<THREE.InstancedMesh>(null) }
+  useLayoutEffect(() => {
+    const m = new THREE.Matrix4()
+    const c = new THREE.Color()
+    const shirts = [S.avatarTeeA, S.avatarTeeB, S.toteBlue, S.paper, S.chairRed, S.leafDark, S.mugBlue, S.teamShirt]
+    people.forEach((p, i) => {
+      m.makeRotationY(p.yaw).setPosition(p.x, FLOOR, p.z)
+      for (const r of Object.values(refs)) r.current!.setMatrixAt(i, m)
+      refs.torso.current!.setColorAt(i, c.set(shirts[Math.floor(hash(i + 17) * shirts.length)]!))
+      refs.head.current!.setColorAt(i, c.set(S.attendeeSkin).offsetHSL(0, 0, (hash(i + 5) - 0.5) * 0.3))
+    })
+    for (const r of Object.values(refs)) { r.current!.instanceMatrix.needsUpdate = true; r.current!.computeBoundingSphere() }
+    refs.torso.current!.instanceColor!.needsUpdate = true
+    refs.head.current!.instanceColor!.needsUpdate = true
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [people])
+  return (
+    <group>
+      <instancedMesh ref={refs.legs} args={[geo.legs, undefined, people.length]}><meshStandardMaterial color={S.avatarPants} roughness={0.9} /></instancedMesh>
+      <instancedMesh ref={refs.torso} args={[geo.torso, undefined, people.length]}><meshStandardMaterial roughness={0.9} /></instancedMesh>
+      <instancedMesh ref={refs.head} args={[geo.head, undefined, people.length]}><meshStandardMaterial roughness={0.8} /></instancedMesh>
+    </group>
+  )
+}
+
 function Table({ x, z, yaw, cloth, length = 2.2 }: { x: number; z: number; yaw: number; cloth: string; length?: number }) {
   return (
     <group position={[x, FLOOR, z]} rotation-y={yaw}>
@@ -312,6 +432,8 @@ function Booths() {
     talk: agRollup(logos, 'talk'),
     prime: logoRollup(logos.primeui, S.clothBlack),
     copilot: logoRollup(logos['copilotkit-color'], S.paper),
+    proton: (() => { const t = protonWall(logos); t.wrapS = THREE.RepeatWrapping; t.repeat.x = -1; return t })(),
+    copilotCloth: printedCloth(logos['copilotkit-color'] ?? logos.copilotkit, S.lavender),
   }), [logos])
   const wallZ = Z0 + L - 7.6
   return (
@@ -351,11 +473,20 @@ function Booths() {
       {/* ZurichJS community roll-up beside it. */}
       <Banner map={rollupArt} x={-10.4} z={Z0 + 12.4} yaw={Math.PI / 2} />
       {/* PrimeUI and CopilotKit further along the left side. */}
-      <Table x={-9.2} z={Z0 + 8.2} yaw={Math.PI / 2} cloth={S.paper} length={1.6} />
+      {/* PrimeUI: black roll-ups and a black-clothed table (aftermovie). */}
+      <Table x={-9.2} z={Z0 + 8.2} yaw={Math.PI / 2} cloth={S.clothBlack} length={1.6} />
       <Banner map={art.prime} x={-10.6} z={Z0 + 7.2} yaw={Math.PI / 2} />
       <Banner map={art.prime} x={-10.6} z={Z0 + 9.2} yaw={Math.PI / 2} />
-      <Table x={-9.2} z={Z0 + 4.4} yaw={Math.PI / 2} cloth={S.paper} length={1.6} />
+      {/* CopilotKit: a lavender cloth printed with the logo, folded shirts on top. */}
+      <PrintedTable x={-9.2} z={Z0 + 4.4} yaw={Math.PI / 2} map={art.copilotCloth} cloth={S.lavender} length={1.8} />
+      {[-0.5, -0.1, 0.3].map((dz) => (
+        <mesh key={dz} position={[-9.2, FLOOR + 0.8, Z0 + 4.4 + dz]}>
+          <boxGeometry args={[0.32, 0.06, 0.26]} />
+          <meshStandardMaterial color={S.avatarTeeA} roughness={0.9} />
+        </mesh>
+      ))}
       <Banner map={art.copilot} x={-10.6} z={Z0 + 4.4} yaw={Math.PI / 2} />
+      <ProtonBooth wall={art.proton} />
     </group>
   )
 }
@@ -418,6 +549,7 @@ export function Atrium() {
       <Dressing order={0} invert><Deliveries /></Dressing>
       <Dressing order={3}><CocktailTables /></Dressing>
       <Dressing order={1}><Booths /></Dressing>
+      <Dressing order={4}><Crowd /></Dressing>
       <Lights />
     </group>
   )
