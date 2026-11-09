@@ -585,8 +585,8 @@ function Apron() {
     new THREE.PlaneGeometry(4, 0.25).rotateX(-Math.PI / 2).translate(P.x, 0.02, P.nose - 2.6),
   ]), [])
   const masts = [[-46, -16], [26, -64]] as const
-  // Kept east of x = −80 so it never reaches under Technopark.
-  const ground = useMemo(() => new THREE.PlaneGeometry(220, 210).rotateX(-Math.PI / 2).translate(30, 0, -65), [])
+  // Kept east of local x = −40 (world 110) so it stays clear of Technopark and its streets.
+  const ground = useMemo(() => new THREE.PlaneGeometry(180, 210).rotateX(-Math.PI / 2).translate(50, 0, -65), [])
   return (
     <group>
       <mesh geometry={ground} material={asphalt} />
