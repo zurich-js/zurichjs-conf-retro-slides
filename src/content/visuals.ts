@@ -535,12 +535,21 @@ export const VISUALS = {
     ],
   },
   'busiest-day': { kind: 'stat', value: '5,067', label: 'Pageviews: the busiest day of the year. 69% on mobile. /schedule opened 3,729 times over 4 days.' },
+  'badge-frontload': {
+    kind: 'numbers', kicker: 'The desk, front-loaded', title: 'We handed out badges the night before',
+    items: [
+      { value: '49', label: 'Badges picked up at the warm-up meetup, 9 Sep: 1 in 5' },
+      { value: '48', label: 'Of them never needed the check-in desk on the day', tone: 'good' },
+      { value: '139', label: 'Badges in the busiest hour on the day, 08:00', tone: 'neutral' },
+    ],
+  },
   'door-rhythm': {
-    kind: 'heatmap', kicker: 'Conference day, per hour', title: 'Doors first, goodies later', source: 'Door system events, 11 Sep · goodies: 200 of 204 logged',
+    kind: 'heatmap', kicker: 'Conference day, per hour', title: 'Badges and doors first, goodies later', source: 'Door system events, 11 Sep',
     columns: ['07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17'],
     rows: [
+      { label: 'Badges', values: [12, 139, 25, 15, 4, 2, 5, 1, 1, 0, 2], tone: 'neutral' },
       { label: 'Check-ins', values: [14, 118, 21, 3, 2, 0, 0, 0, 0, 0, 0], tone: 'neutral' },
-      { label: 'Goodies', values: [0, 0, 0, 30, 40, 24, 55, 16, 14, 4, 17], tone: 'hero' },
+      { label: 'Goodies', values: [0, 0, 0, 53, 40, 24, 55, 16, 14, 4, 17], tone: 'hero' },
     ],
   },
   'badges': {
