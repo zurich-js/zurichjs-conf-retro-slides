@@ -55,6 +55,7 @@ src/
     Foyer.tsx           hallway through the back doors: registration, backdrop, merch table
     Atrium.tsx          open hall: galleries, lift tower, bells, cocktail tables, sponsor booths
     Foifi.tsx           Pause im Foifi (Digitec Galaxus): the 1st anniversary, where tickets went live
+    Airport.tsx         Zurich Airport: gate lounge + departures board, jet bridge, SWISS A220 (cabin + exterior)
   scene/sponsors.ts     sponsor manifest (slug, tier) → public/sponsors/<slug>[-color].png
   scene/useSponsorLogos.ts  all logos as loaded images (suspends; preloaded in Set.tsx)
   scene/layers.tsx      render layers: set / cutaway (hidden in `map`) / map (labels only)
@@ -164,7 +165,7 @@ Copied into `PALETTE`; never import across repos.
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·
-  `booths` · `map`. Poses
+  `booths` · `map` · `cabin` · `seat-full` · `gate` · `gate-full` · `apron`. Poses
   live in `CUES` (venue.ts). Each cue has a `space` (`hall` | `booth` |
   `foyer` | `atrium` | `map`); moves inside a room glide, so a new cue needs
   a clear line to its neighbours in that room.
@@ -228,6 +229,13 @@ Copied into `PALETTE`; never import across repos.
   then a price comparison: regular 2026 in-person tickets in CHF from the
   official pages (ECB 11 Sep 2026). Sources and full price ranges live in the
   slide notes.
+- **The flight (Faris, 2026-11-09):** after the globe, the camera rises out of
+  Foifi and flies to a SWISS A220 at a Zurich Airport gate, boards through the
+  open front-right door, and the road photos play on a seat-back screen
+  (`seat-full`; the `moments` slide holds 5.5 s for the trip). The next slide
+  walks off through the jet bridge into the gate lounge, where the pricing
+  block (the other idea, price comparison, value grid, workshops, VIP) plays
+  on the departures board (`gate-full`). Then a crane shot to the Technopark map.
 - After the meetup numbers, still at Foifi: the agenda, chapter 1 (why on
   earth) and chapter 2 (the hard market, our three problems), then **ZurichJS
   on the road** (the globe) as the answer; then the camera flies to Technopark.

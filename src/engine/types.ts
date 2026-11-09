@@ -83,6 +83,8 @@ export type Visual = Base &
         /** In date order. Plays one by one, then settles into a wall with the totals. */
         moments: readonly Moment[]
         totals: readonly { value: string; label: string }[]
+        /** Seconds to hold on the opening before the first photo moves (e.g. while the camera travels). */
+        hold?: number
       }
     | {
         kind: 'numbers'
@@ -152,7 +154,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
  * Named camera destinations. `screen` is solved in src/renderers/Stage.tsx;
  * the rest are measured poses in src/scene/venue.ts (CUES).
  */
-export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake'] as const
+export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat-full', 'gate', 'gate-full', 'apron'] as const
 export type CameraCue = (typeof CAMERA_CUES)[number]
 
 export interface Slide {

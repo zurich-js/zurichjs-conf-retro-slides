@@ -1007,3 +1007,104 @@ export const dateFlyer = () =>
       }
     }
   })
+
+// ── Zurich Airport ──────────────────────────────────────────────────────────
+
+/** The departures board's header strip: "Abflug · Departures", ZRH yellow on black. */
+export const departuresHeader = () =>
+  canvasTexture(1024, 96, (ctx, w, h) => {
+    ctx.fillStyle = '#0b0c0e'
+    ctx.fillRect(0, 0, w, h)
+    ctx.fillStyle = '#f5d000'
+    ctx.font = `${TYPE.weight.bold} 52px ${TYPE.sans}`
+    ctx.textBaseline = 'middle'
+    // A small departing-plane glyph.
+    ctx.save()
+    ctx.translate(58, h / 2)
+    ctx.rotate(-0.35)
+    ctx.beginPath()
+    ctx.moveTo(-26, 4); ctx.lineTo(26, 4); ctx.lineTo(30, 0); ctx.lineTo(26, -4); ctx.lineTo(-26, -4); ctx.closePath()
+    ctx.moveTo(-2, -4); ctx.lineTo(10, -24); ctx.lineTo(16, -24); ctx.lineTo(10, -4); ctx.closePath()
+    ctx.moveTo(-2, 4); ctx.lineTo(10, 24); ctx.lineTo(16, 24); ctx.lineTo(10, 4); ctx.closePath()
+    ctx.moveTo(-26, -4); ctx.lineTo(-30, -14); ctx.lineTo(-24, -14); ctx.lineTo(-18, -4); ctx.closePath()
+    ctx.fill()
+    ctx.restore()
+    ctx.fillText('Abflug', 110, h / 2 + 2)
+    ctx.fillStyle = '#f2f2f2'
+    ctx.fillText('Departures', 300, h / 2 + 2)
+    ctx.textAlign = 'right'
+    ctx.fillStyle = '#f5d000'
+    ctx.font = `${TYPE.weight.bold} 46px ${TYPE.mono}`
+    ctx.fillText('A 52', w - 40, h / 2 + 2)
+  })
+
+/** The gate sign over the desk: black panel, yellow gate number. */
+export const gateSign = () =>
+  canvasTexture(512, 192, (ctx, w, h) => {
+    ctx.fillStyle = '#0b0c0e'
+    ctx.fillRect(0, 0, w, h)
+    ctx.fillStyle = '#f5d000'
+    ctx.font = `${TYPE.weight.black} 128px ${TYPE.sans}`
+    ctx.textBaseline = 'middle'
+    ctx.textAlign = 'center'
+    ctx.fillText('A 52', w / 2, h / 2 + 6)
+  })
+
+/** One cabin window from inside at night: rounded pane, pale bezel, a few apron lights. */
+export const cabinWindow = () =>
+  canvasTexture(128, 160, (ctx, w, h) => {
+    ctx.fillStyle = '#e8e6e1'
+    ctx.fillRect(0, 0, w, h)
+    const pane = (x: number, y: number, pw: number, ph: number, r: number) => {
+      ctx.beginPath(); ctx.roundRect(x, y, pw, ph, r)
+    }
+    ctx.fillStyle = '#c9c6bf'
+    pane(14, 14, w - 28, h - 28, 40); ctx.fill()
+    const g = ctx.createLinearGradient(0, 24, 0, h - 24)
+    g.addColorStop(0, '#0c1220')
+    g.addColorStop(0.7, '#1a1a22')
+    g.addColorStop(1, '#3a2a18')
+    ctx.fillStyle = g
+    pane(24, 24, w - 48, h - 48, 32); ctx.fill()
+    for (let i = 0; i < 5; i++) {
+      ctx.fillStyle = i % 2 ? '#ffd28a' : '#9fc0ff'
+      ctx.beginPath(); ctx.arc(36 + hash(i + 900) * (w - 72), h * 0.62 + hash(i + 910) * 18, 2.2, 0, Math.PI * 2); ctx.fill()
+    }
+  })
+
+/** Cabin carpet: dark grey with a faint fleck. */
+export const cabinCarpet = () =>
+  canvasTexture(256, 256, (ctx, w, h) => {
+    ctx.fillStyle = '#3b3e44'
+    ctx.fillRect(0, 0, w, h)
+    speckle(ctx, w, h, 2400, 41, 'rgba(255,255,255,0.05)', 'rgba(0,0,0,0.12)')
+  }, [2, 12])
+
+/** Terminal floor: large pale stone tiles. */
+export const loungeTiles = () =>
+  canvasTexture(512, 512, (ctx, w, h) => {
+    ctx.fillStyle = '#c8c4bb'
+    ctx.fillRect(0, 0, w, h)
+    speckle(ctx, w, h, 3000, 57, 'rgba(255,255,255,0.08)', 'rgba(0,0,0,0.06)')
+    ctx.strokeStyle = 'rgba(0,0,0,0.16)'
+    ctx.lineWidth = 2
+    for (let i = 0; i <= 4; i++) {
+      ctx.beginPath(); ctx.moveTo(i * w / 4, 0); ctx.lineTo(i * w / 4, h); ctx.stroke()
+      ctx.beginPath(); ctx.moveTo(0, i * h / 4); ctx.lineTo(w, i * h / 4); ctx.stroke()
+    }
+  }, [10, 4.5])
+
+/** Distant terminal windows: rows of warm and cool lit panes on a dark facade. */
+export const terminalWindows = () =>
+  canvasTexture(1024, 128, (ctx, w, h) => {
+    ctx.fillStyle = '#16181c'
+    ctx.fillRect(0, 0, w, h)
+    for (let row = 0; row < 2; row++) {
+      for (let i = 0; i < 64; i++) {
+        const lit = hash(i * 7 + row * 131 + 500) > 0.3
+        if (!lit) continue
+        ctx.fillStyle = hash(i + row * 50 + 600) > 0.5 ? 'rgba(255,214,150,0.9)' : 'rgba(200,220,255,0.75)'
+        ctx.fillRect(i * 16 + 2, 18 + row * 52, 12, 34)
+      }
+    }
+  })

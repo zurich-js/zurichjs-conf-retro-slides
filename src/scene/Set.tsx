@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { useLoader } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
+import { Airport } from './Airport'
 import { Atrium } from './Atrium'
 import { Foifi } from './Foifi'
 import { Booth } from './Booth'
@@ -38,6 +39,7 @@ export function Set({ frame }: { frame: THREE.Material }) {
       <Hall frame={frame} />
       <Seats />
       <Foifi frame={frame} />
+      <Airport frame={frame} />
       <Ground />
       <Suspense fallback={null}>
         <Booth frame={frame} />

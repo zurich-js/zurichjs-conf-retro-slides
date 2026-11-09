@@ -118,41 +118,41 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | 18 | `stakes-100k` | Big number | CHF 100k · The minimum it would cost to run ZurichJS Conf. | Foifi screen, full frame | CHECK: CHF assumed. | keep |
 | 19 | `stakes-no-cancel` | Statement | The bookings · Signed with no way to cancel. | Foifi screen, full frame | | keep |
 | 20 | `stakes-split` | Big number (orange) | ÷ 3 · If we fell short, three of us would cover the gap from our own pockets. | Foifi screen, full frame | Per-person worst case (~a third of 100k) deliberately not shown. | keep |
-| 21 | `affordable-idea` | Statement | The other idea · One of the most affordable conferences in Europe, in its most expensive city. | Foifi screen, full frame | Zurich #1 in Numbeo's 2025 mid-year cost of living index. | keep |
-| 22 | `price-compare` | Bar chart | Half the price of London · regular 2026 ticket in CHF: React Paris 614, React Advanced 595, React Summit 567, React Day Berlin 515, Voxxed Days Zurich 360, ZurichJS Conf 295, JSHeroes Cluj 198 | Foifi screen, full frame | Official pages (React Paris via web.archive.org); ECB rate 11 Sep 2026. JSNation left out (prices like React Summit). JSWorld left out: price no longer published. CHECK CHF 295. | keep |
-| 23 | `value-grid` | ✓/✗ grid | What the ticket gets you · ZurichJS Conf vs React Day Berlin, React Summit, React Paris, JSWorld Amsterdam | Foifi screen, full frame | Dash = not listed on their official pages. CHECK: JSWorld 2026 price. | new |
-| 24 | `workshop-compare` | Bar chart | Workshops at Paris prices, in Zurich · ZurichJS 4h 250, React Paris 4h 236, ZurichJS 4h VIP 200, ZurichJS 2h 150 | Foifi screen, full frame | React Paris: Dominik Dorfmeister, €250, 4h. | new |
-| 25 | `vip-vs-standard` | ✓/✗ grid | Standard CHF 295 or VIP CHF 495: after-party, limited-edition goodies, 20% off workshops | Foifi screen, full frame | | new |
-| 26 | `vip-business-class` | Statement | Why VIP · Business class pays for economy. | Foifi screen, full frame | Sunk cost: VIPs went on to buy workshops and merch. | new |
-| 27 | `vip-funds` | Number tiles | 46 VIP tickets · CHF 14.4k workshop sales · 33 student and unemployed tickets | Foifi screen, full frame | DATA GAP: VIPs who bought a workshop; after-party cost. | new |
-| 28 | `first-commit` | Big number | 3 Nov 2025 · First commit. First ticket sold ten days later. | Foifi screen, full frame | First ticket 13 Nov 2025. FARIS: replace with the date you decided, if different. | |
+| 21 | `first-commit` | Big number | 3 Nov 2025 · First commit. First ticket sold ten days later. | Foifi screen, full frame | First ticket 13 Nov 2025. FARIS: replace with the date you decided, if different. | |
 
 ### 2 · A hard year (at Foifi) · *Three problems*
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 29 | `ch2` | Section | 02 · Three problems · A hard year | Foifi projector |  | |
-| 30 | `hardest-year` | Statement | One of the hardest years in a decade to run a JavaScript conference. | Foifi screen, full frame |  | |
-| 31 | `react-advanced` | Big number | −50% · Ticket sales at React Advanced London | Foifi screen, full frame | UNVERIFIED (per Faris). | |
-| 32 | `react-alicante` | Big number | −200 · Seats at React Alicante versus last year | Foifi screen, full frame | UNVERIFIED. | |
-| 33 | `renamed` | Number tiles | Conferences renamed themselves · Web Engineering London (Was React Advanced) · CityAI (Was CityJS) | Foifi screen, full frame | UNVERIFIED. | |
-| 34 | `last-editions` | Number tiles | Or announced their last edition · React India (Last edition this year) · JSWorld (2027 is the last) · Devoxx Belgium (2027 likely the last) · Front Conference (Front 26 cancelled) | Foifi screen, full frame | UNVERIFIED except Front 26 (sourced from the frontconference.com screenshot). | |
-| 35 | `layoffs` | Statement | Layoffs everywhere. Sponsorship budgets cut. | Foifi screen, full frame | Netflix, Google, Microsoft, Canva, Smallpdf. Smallpdf was our Gold sponsor: decide whether to name companies. | |
-| 36 | `sponsor-tiers` | Bar chart | Half our sponsors were the smallest tier · Paid sponsor deals by tier · Platinum 2 · Gold 2 · Silver 3 · Bronze 5 · Supporter 12 | Foifi screen, full frame | Platinum alone brought about CHF 27k. | |
-| 37 | `no-diamond` | Big number | 0 · Diamond sponsors. One cancelled, one never left draft. | Foifi screen, full frame |  | |
-| 38 | `money-late` | Bar chart | And the money came late · Sponsor deals paid per month, 2026 · Feb 1 · Mar 0 · Apr 0 · May 7 · Jun 1 · Jul 5 · Aug 7 · Sep 3 | Foifi screen, full frame | 15 of 24 were paid in the last three months. | |
-| 39 | `price-sensitive` | Statement | Faris adds what he saw · Buyers were price-sensitive. | Foifi screen, full frame | FARIS: add what you saw. | |
-| 40 | `expensive` | Big number | 14 · Of 112 survey respondents found it expensive. 98 said good, excellent or just right. | Foifi screen, full frame |  | |
-| 41 | `ai-changed` | Statement | AI changed what people submitted. | Foifi screen, full frame | FARIS: opinion to add. | |
-| 42 | `ai-share` | Big number | 40% · Of CFP submissions mentioned AI. 171 of 428 analysed. | Foifi screen, full frame | Keyword-based. | |
-| 43 | `three-problems` | Statement (yellow) | Three problems. Each forced a decision. | Foifi screen, full frame | FARIS to confirm the links: sponsor budgets → ch3 (tiny team, one app); AI submissions → ch4 (programme picks); price-sensitive buyers → ch5 (discounts, partner codes, invoices, currencies). | |
+| 22 | `ch2` | Section | 02 · Three problems · A hard year | Foifi projector |  | |
+| 23 | `hardest-year` | Statement | One of the hardest years in a decade to run a JavaScript conference. | Foifi screen, full frame |  | |
+| 24 | `react-advanced` | Big number | −50% · Ticket sales at React Advanced London | Foifi screen, full frame | UNVERIFIED (per Faris). | |
+| 25 | `react-alicante` | Big number | −200 · Seats at React Alicante versus last year | Foifi screen, full frame | UNVERIFIED. | |
+| 26 | `renamed` | Number tiles | Conferences renamed themselves · Web Engineering London (Was React Advanced) · CityAI (Was CityJS) | Foifi screen, full frame | UNVERIFIED. | |
+| 27 | `last-editions` | Number tiles | Or announced their last edition · React India (Last edition this year) · JSWorld (2027 is the last) · Devoxx Belgium (2027 likely the last) · Front Conference (Front 26 cancelled) | Foifi screen, full frame | UNVERIFIED except Front 26 (sourced from the frontconference.com screenshot). | |
+| 28 | `layoffs` | Statement | Layoffs everywhere. Sponsorship budgets cut. | Foifi screen, full frame | Netflix, Google, Microsoft, Canva, Smallpdf. Smallpdf was our Gold sponsor: decide whether to name companies. | |
+| 29 | `sponsor-tiers` | Bar chart | Half our sponsors were the smallest tier · Paid sponsor deals by tier · Platinum 2 · Gold 2 · Silver 3 · Bronze 5 · Supporter 12 | Foifi screen, full frame | Platinum alone brought about CHF 27k. | |
+| 30 | `no-diamond` | Big number | 0 · Diamond sponsors. One cancelled, one never left draft. | Foifi screen, full frame |  | |
+| 31 | `money-late` | Bar chart | And the money came late · Sponsor deals paid per month, 2026 · Feb 1 · Mar 0 · Apr 0 · May 7 · Jun 1 · Jul 5 · Aug 7 · Sep 3 | Foifi screen, full frame | 15 of 24 were paid in the last three months. | |
+| 32 | `price-sensitive` | Statement | Faris adds what he saw · Buyers were price-sensitive. | Foifi screen, full frame | FARIS: add what you saw. | |
+| 33 | `expensive` | Big number | 14 · Of 112 survey respondents found it expensive. 98 said good, excellent or just right. | Foifi screen, full frame |  | |
+| 34 | `ai-changed` | Statement | AI changed what people submitted. | Foifi screen, full frame | FARIS: opinion to add. | |
+| 35 | `ai-share` | Big number | 40% · Of CFP submissions mentioned AI. 171 of 428 analysed. | Foifi screen, full frame | Keyword-based. | |
+| 36 | `three-problems` | Statement (yellow) | Three problems. Each forced a decision. | Foifi screen, full frame | FARIS to confirm the links: sponsor budgets → ch3 (tiny team, one app); AI submissions → ch4 (programme picks); price-sensitive buyers → ch5 (discounts, partner codes, invoices, currencies). | |
 
 ### ZurichJS on the road (decided) · *our answer to the hard year*
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 44 | `road` | Globe | Globe: autoplays all 19 trips (Nov 2025 to Aug 2026), then totals: 16 trips · 31 events · 13 countries · ~110k km · 4 team trips | Foifi screen, full frame | NEW (not in the handoff). Plays by itself, about 35 s: starts at React Summit US, New York, then flies every trip in date order (19 stops) and lands on the totals. No keys needed; → moves on. From faziz-dev.com/events, Nov 2025 to Aug 2026. Blue = team trips: React Vienna, ReactJS Milano and jsday, CityJS London, JSHeroes; Voxxed Days Zurich is at home. ASSUMED: return trips from Zurich except Milan → Bologna and Warsaw → Cluj; km is great-circle. | |
-| 45 | `road-moments` | Photo flow | On the road, in pictures: 70 photos (Sep 2025 to the conference) flow past a month timeline, then settle into a wall: 70 moments · 19 cities · 15 countries · 12 months | Foifi screen, full frame | Autoplays ~48 s. Place from photo GPS, else by date. CHECK: the Sep 2025 photos; Berlin and Geneva are not on the globe. | new |
+| 37 | `road` | Globe | Globe: autoplays all 19 trips (Nov 2025 to Aug 2026), then totals: 16 trips · 31 events · 13 countries · ~110k km · 4 team trips | Foifi screen, full frame | NEW (not in the handoff). Plays by itself, about 35 s: starts at React Summit US, New York, then flies every trip in date order (19 stops) and lands on the totals. No keys needed; → moves on. From faziz-dev.com/events, Nov 2025 to Aug 2026. Blue = team trips: React Vienna, ReactJS Milano and jsday, CityJS London, JSHeroes; Voxxed Days Zurich is at home. ASSUMED: return trips from Zurich except Milan → Bologna and Warsaw → Cluj; km is great-circle. | |
+| 38 | `road-moments` | Photo flow | On the road, in pictures: 70 photos (Sep 2025 to the conference) flow past a month timeline, then settle into a wall: 70 moments · 19 cities · 15 countries · 12 months | Seat-back screen in the A220, full frame | Autoplays ~48 s. Place from photo GPS, else by date. CHECK: the Sep 2025 photos; Berlin and Geneva are not on the globe. | new |
+| 39 | `affordable-idea` | Statement | The other idea · One of the most affordable conferences in Europe, in its most expensive city. | Departures board at the gate, full frame | Zurich #1 in Numbeo's 2025 mid-year cost of living index. | keep |
+| 40 | `price-compare` | Bar chart | Half the price of London · regular 2026 ticket in CHF: React Paris 614, React Advanced 595, React Summit 567, React Day Berlin 515, Voxxed Days Zurich 360, ZurichJS Conf 295, JSHeroes Cluj 198 | Departures board at the gate, full frame | Official pages (React Paris via web.archive.org); ECB rate 11 Sep 2026. JSNation left out (prices like React Summit). JSWorld left out: price no longer published. CHECK CHF 295. | keep |
+| 41 | `value-grid` | ✓/✗ grid | What the ticket gets you · ZurichJS Conf vs React Day Berlin, React Summit, React Paris, JSWorld Amsterdam | Departures board at the gate, full frame | Dash = not listed on their official pages. CHECK: JSWorld 2026 price. | new |
+| 42 | `workshop-compare` | Bar chart | Workshops at Paris prices, in Zurich · ZurichJS 4h 250, React Paris 4h 236, ZurichJS 4h VIP 200, ZurichJS 2h 150 | Departures board at the gate, full frame | React Paris: Dominik Dorfmeister, €250, 4h. | new |
+| 43 | `vip-vs-standard` | ✓/✗ grid | Standard CHF 295 or VIP CHF 495: after-party, limited-edition goodies, 20% off workshops | Departures board at the gate, full frame | | new |
+| 44 | `vip-business-class` | Statement | Why VIP · Business class pays for economy. | Departures board at the gate, full frame | Sunk cost: VIPs went on to buy workshops and merch. | new |
+| 45 | `vip-funds` | Number tiles | 46 VIP tickets · CHF 14.4k workshop sales · 33 student and unemployed tickets | Departures board at the gate, full frame | DATA GAP: VIPs who bought a workshop; after-party cost. | new |
 
 ### Venue flyover (optional)
 
