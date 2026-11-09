@@ -178,7 +178,8 @@ export type Visual = Base &
         kicker?: string
         unit: string
         total: number
-        people: readonly { name: string; value: number }[]
+        /** Team-level figures, never per person: a value (number, or number with %) and what it means. */
+        stats: readonly { value: string; label: string }[]
         channels: readonly { label: string; value: number }[]
         note?: string
       }
@@ -284,6 +285,12 @@ export interface Slide {
   fill?: number
   /** Medium effect dial, 0 = clean passthrough, 1 = full effect. Defaults to 0. */
   effect?: number
+  /**
+   * How the camera arrives at this slide's cue. Default: one move (walk, glide
+   * or crane). `curtain`: a short fade to black, the camera is already there
+   * when it lifts (chapter openers, so the deck does not fly out and back in).
+   */
+  transition?: 'curtain'
   /** Speaker notes. Shown in ?presenter, never painted on the frame. */
   notes?: string
 }

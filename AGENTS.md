@@ -172,7 +172,10 @@ Copied into `PALETTE`; never import across repos.
   height (1.65 m) through the portals between rooms (booth window, back door,
   hallway), eyes level and looking ahead, turning to the subject on arrival;
   or a crane shot to and from the `map`. Height is a separate monotone ramp
-  (no bobbing). Roofs hide only while the camera is above them. No cuts.
+  (no bobbing). Roofs hide only while the camera is above them. No cuts,
+  with one exception from the 9 Nov 2026 review (to confirm): a slide with
+  `transition: 'curtain'` (chapter openers ch3 to ch8) fades to black, cuts,
+  and fades up at its cue, instead of flying out and back in.
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·

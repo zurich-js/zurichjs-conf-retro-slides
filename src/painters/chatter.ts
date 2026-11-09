@@ -4,10 +4,11 @@ import { type Ctx, enter, label, SAFE, text, window01 } from './kit'
 
 /**
  * The `chatter` painter: a year of Slack. Message bubbles pour into a
- * channel on the left, faster and faster, each tagged with its sender's
- * initial; on the right each person's count runs up to their total, and a
- * bar splits the total into private channels, DMs and public. No timeline:
- * the export gives volumes, not when. `p` is linear (see drawTiming).
+ * channel on the left, faster and faster, coloured by where they were sent;
+ * on the right the total runs up, a few team-level figures land, and a bar
+ * splits the total into private channels, DMs and public. Never per person:
+ * a count by name reads as a ranking of effort. No timeline: the export
+ * gives volumes, not when. `p` is linear (see drawTiming).
  */
 
 type ChatterVisual = Extract<Visual, { kind: 'chatter' }>
@@ -32,11 +33,12 @@ export function paintChatter(ctx: Ctx, v: ChatterVisual, p: number, r: Roles) {
   ctx.restore()
 
   // The channel: bubbles stacking up from the bottom and scrolling, newest at the bottom.
-  const total = v.people.reduce((a, q) => a + q.value, 0)
+  const all = v.channels.reduce((a, c) => a + c.value, 0)
+  const seg = (i: number) => (i === 0 ? r.tone('neutral') : i === 1 ? r.textSoft : r.accent)
   const pick = (k: number) => {
-    let x = noise(k + 41) * total
-    for (let i = 0; i < v.people.length; i++) { x -= v.people[i]!.value; if (x < 0) return i }
-    return v.people.length - 1
+    let x = noise(k + 41) * all
+    for (let i = 0; i < v.channels.length; i++) { x -= v.channels[i]!.value; if (x < 0) return i }
+    return v.channels.length - 1
   }
   const shown = g * BUBBLES
   const rowH = 96
@@ -55,10 +57,9 @@ export function paintChatter(ctx: Ctx, v: ChatterVisual, p: number, r: Roles) {
     const x = PANE.x + 40
     ctx.save()
     ctx.globalAlpha *= a * ca
-    ctx.fillStyle = who === 0 ? r.accent : r.tone(who === 1 ? 'neutral' : who === 2 ? 'good' : 'warn')
+    ctx.fillStyle = seg(who)
     ctx.beginPath(); ctx.arc(x + 28, y, 28, 0, Math.PI * 2); ctx.fill()
     ctx.restore()
-    text(ctx, v.people[who]!.name[0]!, x + 28, y + 14, { size: 40, weight: TYPE.weight.black, color: r.bg, align: 'center', alpha: a * ca })
     const w = 200 + noise(k + 9) * 460
     ctx.save()
     ctx.globalAlpha *= a * ca
@@ -76,31 +77,21 @@ export function paintChatter(ctx: Ctx, v: ChatterVisual, p: number, r: Roles) {
   ctx.fillRect(PANE.x, PANE.y, PANE.w, 90)
   ctx.restore()
 
-  // The total, then each person running up to theirs.
+  // The total, then the team-level figures, landing one after another.
   const RX = PANE.x + PANE.w + 120
-  const colour = (i: number) => (i === 0 ? r.accent : r.tone(i === 1 ? 'neutral' : i === 2 ? 'good' : 'warn'))
   text(ctx, Math.round(v.total * g).toLocaleString('en-US'), RX, 530, { size: TYPE.size.stat * 0.6, weight: TYPE.weight.black, tracking: D, color: r.accent, alpha: ca })
   label(ctx, v.unit, RX + 6, 600, r.textSoft, { alpha: ca })
-  const max = Math.max(...v.people.map((q) => q.value))
-  const NX = RX + 240
-  const BW = SAFE.right - NX - 230
-  v.people.forEach((q, i) => {
-    const y = 680 + i * 80
-    const val = Math.round(q.value * g)
-    const w = Math.max(8, (val / max) * BW)
-    text(ctx, q.name, RX, y, { size: TYPE.size.label * 1.1, weight: TYPE.weight.bold, color: r.textSoft, alpha: ca })
-    ctx.save(); ctx.globalAlpha = ca
-    ctx.fillStyle = colour(i)
-    ctx.beginPath(); ctx.roundRect(NX, y - 36, w, 38, 12); ctx.fill()
-    ctx.restore()
-    label(ctx, val.toLocaleString('en-US'), NX + w + 18, y, r.text, { alpha: ca })
+  // One row each: the figure right-aligned in a column, what it means beside it.
+  v.stats.forEach((st, i) => {
+    const a = window01(p, FLOW.start + 0.15 + i * 0.14, FLOW.start + 0.27 + i * 0.14)
+    const y = 730 + i * 105 + (1 - a) * 40
+    text(ctx, st.value, RX + 300, y, { size: TYPE.size.label * 2, weight: TYPE.weight.black, tracking: D, color: r.text, align: 'right', alpha: a * ca })
+    label(ctx, st.label, RX + 340, y - 6, r.textSoft, { alpha: a * ca })
   })
 
   // Where they went: one bar split by channel kind, filling with the rest; legend in the same colours.
   const by = 1060
-  const all = v.channels.reduce((a, c) => a + c.value, 0)
   const W = SAFE.right - RX
-  const seg = (i: number) => (i === 0 ? r.tone('neutral') : i === 1 ? r.textSoft : r.accent)
   let x = RX
   v.channels.forEach((c, i) => {
     const w = (c.value / all) * W * g

@@ -98,6 +98,6 @@ export const MOMENTS: readonly Moment[] = [
 export const MOMENT_TOTALS = [
   { value: '70', label: 'Moments' },
   { value: '19', label: 'Cities' },
-  { value: '15', label: 'Countries' },
-  { value: '12', label: 'Months' },
+  { value: '15', label: 'Countries in the photos' },
+  { value: '12', label: 'Months with photos' },
 ] as const

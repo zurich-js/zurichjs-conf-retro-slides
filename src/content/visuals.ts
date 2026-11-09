@@ -48,19 +48,19 @@ export const VISUALS = {
   // ── Rolling back a year: the meetup's first year (Meetup.com group stats, 8 Nov 2026) ──
   'rollback': { kind: 'calendar', from: '2025-11-14', to: '2024-11-14', kicker: 'One year earlier', caption: 'The ZurichJS meetup relaunch' },
   'meetup-year': {
-    kind: 'growth', kicker: 'From the relaunch, 14 Nov 2024', title: "The meetup's first year", source: 'Meetup.com · cumulative · members counted from 0 at the relaunch',
+    kind: 'growth', kicker: 'From the relaunch, 14 Nov 2024', title: "The meetup's first year",
     x: MEETUP_X, series: MEETUP_SERIES, show: 14,
   },
   'meetup-year-2': {
-    kind: 'growth', kicker: 'And into 2026, to 8 Nov 2026', title: 'Two years of the meetup', source: 'Meetup.com · cumulative · members counted from 0 at the relaunch',
+    kind: 'growth', kicker: 'And into 2026, to 8 Nov 2026', title: 'Two years of the meetup',
     x: MEETUP_X, series: MEETUP_SERIES, show: 27, from: 13,
   },
   'meetup-rsvps': {
-    kind: 'heatmap', kicker: 'RSVPs per month', title: 'Year one: RSVPs peaked in spring', source: 'Meetup.com · whole months, Nov to Oct',
+    kind: 'heatmap', kicker: 'RSVPs per month', title: 'Year one: RSVPs peaked in spring',
     columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 1,
   },
   'meetup-rsvps-2': {
-    kind: 'heatmap', kicker: 'RSVPs per month', title: 'Year two: busier in 8 of 12 months', source: 'Meetup.com · whole months, Nov to Oct',
+    kind: 'heatmap', kicker: 'RSVPs per month', title: 'Year two: busier in 8 of 12 months',
     columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 2, from: 1,
   },
   'one-year': { kind: 'statement', ground: 'yellow', text: 'One year of ZurichJS. Ten months to the conference.', emphasis: 'Ten months' },
@@ -80,7 +80,7 @@ export const VISUALS = {
     kind: 'numbers', title: 'Where 359 comes from',
     items: [
       { value: '267', label: 'Paid tickets' },
-      { value: '63', label: 'Complimentary tickets', tone: 'neutral' },
+      { value: '63', label: 'Subsidised tickets', tone: 'neutral' },
       { value: '19', label: 'Speakers and MCs without a ticket', tone: 'neutral' },
       { value: '10', label: 'Staff and volunteers without a ticket', tone: 'neutral' },
     ],
@@ -223,18 +223,16 @@ export const VISUALS = {
   'year-slack': {
     kind: 'chatter', kicker: 'Four organisers', title: 'A year of Slack',
     unit: 'Messages', total: 53277,
-    people: [
-      { name: 'Faris', value: 20354 },
-      { name: 'Bogdan', value: 19954 },
-      { name: 'Nadja', value: 6979 },
-      { name: 'Colin', value: 3915 },
+    stats: [
+      { value: '836', label: 'Busiest day, 3 Sep' },
+      { value: '3', label: 'Days without a message' },
+      { value: '15%', label: 'Sent on weekends' },
     ],
     channels: [
       { label: 'Private', value: 46893 },
       { label: 'DMs', value: 5910 },
       { label: 'Public', value: 474 },
     ],
-    note: 'Busiest day 3 Sep: 836',
   },
   'year-flights': {
     kind: 'arrivals', kicker: '21 countries in the room', title: 'Who came to Zurich',
@@ -269,7 +267,7 @@ export const VISUALS = {
   'stakes-100k': { kind: 'stat', value: 'CHF 100k', label: 'The minimum it would cost to run ZurichJS Conf.' },
   'stakes-no-cancel': { kind: 'statement', kicker: 'The bookings', text: 'Signed with no way to cancel.', emphasis: 'no way to cancel.' },
   'stakes-split': { kind: 'stat', value: '÷ 3', tone: 'warn', label: 'If we fell short, three of us would cover the gap from our own pockets.' },
-  'stakes-covered': { kind: 'statement', text: 'Nobody had to pay it out of pocket.', emphasis: 'Nobody' },
+  'stakes-covered': { kind: 'statement', text: 'No shortfall to cover from our own pockets.', emphasis: 'No shortfall' },
   // The other idea: affordable, in Europe's most expensive city.
   // ── The gate: the pricing story as split-flap departure boards ──
   'affordable-idea': {
@@ -298,23 +296,23 @@ export const VISUALS = {
   },
   'value-grid': {
     kind: 'flapboard', title: 'What the ticket gets you',
-    source: 'Official sites and ticket pages, 2026 (JSWorld price: 2027) · dash: not listed',
+    source: 'Official sites and ticket pages, 2026 (JSWorld price: 2027) · ? not listed on their pages, NO not included',
     columns: [
       { label: 'Included', width: 18 }, { label: 'ZurichJS', width: 5 }, { label: 'Berlin', width: 5 },
       { label: 'Summit', width: 5 }, { label: 'Paris', width: 5 }, { label: 'JSWorld', width: 5 },
     ],
     rows: [
       { cells: ['TICKET, CHF', '295', '515', '567', '614', '377'], highlight: true },
-      { cells: ['LUNCH AND COFFEE', 'YES', 'YES', 'YES', 'YES', '-'] },
+      { cells: ['LUNCH AND COFFEE', 'YES', 'YES', 'YES', 'YES', 'YES'] },
       { cells: ['SAME-CALIBRE TALKS', 'YES', 'YES', 'YES', 'YES', 'YES'] },
-      { cells: ['T-SHIRT', 'YES', '-', '-', '-', '-'] },
-      { cells: ['GOODIE BAG, MERCH', 'YES', '-', '-', '-', '-'] },
-      { cells: ['TALK RECORDINGS', 'YES', '-', '-', 'YES', '-'] },
-      { cells: ['WARM-UP MEETUP', 'YES', '-', '-', 'YES', '-'] },
-      { cells: ['STUDENT TICKETS', 'YES', 'YES', '-', '-', '-'] },
+      { cells: ['T-SHIRT', 'YES', '?', '?', '?', '?'] },
+      { cells: ['GOODIE BAG, MERCH', 'YES', '?', '?', '?', '?'] },
+      { cells: ['TALK RECORDINGS', 'YES', 'YES', 'YES', 'YES', '?'] },
+      { cells: ['WARM-UP MEETUP', 'YES', '?', '?', 'YES', '?'] },
+      { cells: ['STUDENT TICKETS', 'YES', 'YES', '?', '?', '?'] },
       { cells: ['AFTER-PARTY', 'VIP', 'YES', 'YES', 'YES', 'YES'] },
-      { cells: ['REMOTE DAY', 'NO', 'YES', 'YES', '-', '-'] },
-      { cells: ['WORKSHOPS', 'EXTRA', 'EXTRA', 'EXTRA', 'EXTRA', '-'] },
+      { cells: ['REMOTE DAY', 'NO', 'YES', 'YES', '?', '?'] },
+      { cells: ['WORKSHOPS', 'EXTRA', 'EXTRA', 'EXTRA', 'EXTRA', '?'] },
     ],
   },
   'workshop-compare': {
@@ -349,7 +347,7 @@ export const VISUALS = {
     ],
   },
   'vip-invested': {
-    kind: 'flapboard', title: 'Once in, people went further',
+    kind: 'flapboard', title: 'VIP buyers took more workshops',
     source: 'Our analytics · tracked checkouts, matched by email · not every sale',
     columns: [{ label: 'Ticket', width: 15 }, { label: 'Buyers', width: 6, align: 'right' }, { label: 'Took a workshop', width: 15, align: 'right' }],
     rows: [
@@ -375,10 +373,8 @@ export const VISUALS = {
   'hardest-year': { kind: 'statement', text: 'One of the hardest years in a decade to run a JavaScript conference.', emphasis: 'hardest years in a decade' },
   'react-advanced': { kind: 'stat', value: '−50%', label: 'Ticket sales at React Advanced London', tone: 'bad' },
   'react-alicante': { kind: 'stat', value: '−200', label: 'Seats at React Alicante versus last year', tone: 'bad' },
-  'renamed-react-advanced': { kind: 'strike', kicker: 'Conferences renamed themselves', name: 'React Advanced London', to: 'Web Engineering London' },
-  'renamed-cityjs': { kind: 'strike', kicker: 'Conferences renamed themselves', name: 'CityJS', to: 'CityAI' },
+  'renamed-react-advanced': { kind: 'strike', kicker: 'Even the meetups renamed themselves', name: 'React Advanced London', to: 'Web Engineering London' },
   'last-react-india': { kind: 'strike', kicker: 'Or announced their last edition', name: 'React India', stamp: 'Deprecated', note: 'Last edition this year' },
-  'last-jsworld': { kind: 'strike', kicker: 'Or announced their last edition', name: 'JSWorld', stamp: 'Deprecated', note: '2027 is the last' },
   'last-devoxx-be': { kind: 'strike', kicker: 'Or announced their last edition', name: 'Devoxx Belgium', stamp: 'Deprecated', note: '2027 likely the last' },
   'last-front': { kind: 'strike', kicker: 'Or announced their last edition', name: 'Front Conference', stamp: 'Deprecated', note: 'Front 26 cancelled' },
   'layoffs': { kind: 'statement', text: 'Layoffs everywhere. Sponsorship budgets cut.', emphasis: 'budgets cut.' },
@@ -404,7 +400,7 @@ export const VISUALS = {
   },
   'sponsor-get': {
     kind: 'matrix', kicker: 'The top tier', title: 'What a sponsor gets for it',
-    source: 'Official sponsor pages and prospectuses, 2026 · dash: not listed',
+    source: 'Official sponsor pages and prospectuses, 2026 · ? not listed on their pages',
     columns: [
       { label: 'ZurichJS', sub: 'CHF 11k' },
       { label: 'React Summit', sub: 'CHF 21k' },
@@ -489,18 +485,9 @@ export const VISUALS = {
       { value: '13', label: 'Door staff', tone: 'neutral' },
     ],
   },
-  'slack-people': {
-    kind: 'bars', title: 'Four people, 51,202 messages', source: 'Active days: Faris 396 · Bogdan 382 · Nadja 327 · Colin 327',
-    bars: [
-      { label: 'Faris', value: 20354, tone: 'hero' },
-      { label: 'Bogdan', value: 19954, tone: 'neutral' },
-      { label: 'Nadja', value: 6979, tone: 'neutral' },
-      { label: 'Colin', value: 3915, tone: 'neutral' },
-    ],
-  },
   'slack-share': { kind: 'stat', value: '96%', label: 'Of all Slack messages came from the four of us. 51,202 of 53,277.' },
-  'slack-days-off': { kind: 'stat', value: '3', label: 'Days without a single message, out of 397.', tone: 'neutral' },
-  'slack-peak': { kind: 'stat', value: '836', label: 'Messages on 3 September. Our busiest day, a week before doors opened.' },
+  'story-volunteers': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Finding the volunteers.', emphasis: 'volunteers.' },
+  'story-comms': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Every email, every question.', emphasis: 'every question.' },
   'brand': { kind: 'statement', kicker: 'Data gap · M1', text: 'Brand and design.', emphasis: 'design.' },
   'timeline': {
     kind: 'numbers', title: 'Ten months from first commit to the door',
@@ -511,15 +498,6 @@ export const VISUALS = {
       { value: '3 Apr', label: '2026 · CFP closes', tone: 'neutral' },
       { value: '31 Aug', label: '2026 · Door check-in ships', tone: 'neutral' },
       { value: '9–12 Sep', label: '2026 · Conference week' },
-    ],
-  },
-  'commits': {
-    kind: 'bars', title: '1,336 commits', source: 'Commits per month · busiest week 27 Jul to 2 Aug, 91 commits',
-    bars: [
-      { label: 'Nov', value: 137, tone: 'neutral' }, { label: 'Dec', value: 87, tone: 'neutral' }, { label: 'Jan', value: 96, tone: 'neutral' },
-      { label: 'Feb', value: 116, tone: 'neutral' }, { label: 'Mar', value: 83, tone: 'neutral' }, { label: 'Apr', value: 158, tone: 'neutral' },
-      { label: 'May', value: 191, tone: 'hero' }, { label: 'Jun', value: 92, tone: 'neutral' }, { label: 'Jul', value: 173, tone: 'neutral' },
-      { label: 'Aug', value: 104, tone: 'neutral' }, { label: 'Sep', value: 99, tone: 'neutral' },
     ],
   },
   'agent-prs': { kind: 'stat', value: '58%', label: 'Of 281 PRs came from agent branches. 145 Claude · 11 Cursor · 8 Codex.' },
@@ -571,6 +549,7 @@ export const VISUALS = {
   'reviews': { kind: 'stat', value: '2,489', label: 'Reviews from 15 reviewers. About 166 each.' },
   'lesson-email': { kind: 'strike', kicker: 'A weird lesson: ask for a personal email', name: 'speaker@yourcompany.com', to: 'speaker@gmail.com', note: 'By the time we said yes or no, some had changed jobs or lost them. Ticket holders too.' },
   'accepted': { kind: 'stat', value: '9', label: 'Accepted from 434. 6 talks, 3 workshops, 5 waitlisted.' },
+  'story-workshops': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Running the workshops.', emphasis: 'workshops.' },
   'fundamentals': {
     kind: 'numbers', title: 'But attendees asked for fundamentals',
     items: [
@@ -659,8 +638,9 @@ export const VISUALS = {
   'ads': {
     kind: 'numbers', title: 'Ads brought traffic, not buyers',
     items: [
-      { value: '40%', label: 'Of all visitors came from an ad', tone: 'warn' },
-      { value: '4%', label: 'Of buyers found us through one: 8 of 180', tone: 'warn' },
+      { value: '40%', label: 'Of site visitors arrived from an ad', tone: 'warn' },
+      { value: '4%', label: 'Of ticket buyers first came from an ad: 8 of 180', tone: 'warn' },
+      { value: '0.09%', label: 'Of Google Ads visitors bought. Our own channels: 3.7%', tone: 'neutral' },
     ],
   },
   'buyers-from': {
@@ -719,21 +699,17 @@ export const VISUALS = {
   'hi-july': { kind: 'stat', value: '50', label: 'Tickets sold, our best month. High · July 2026.', tone: 'good' },
   'door-prs': { kind: 'stat', value: '14', label: 'Door check-in PRs merged in one day, 9 days before the event. Low and high · 31 Aug.', tone: 'warn' },
   'arrivals': {
-    kind: 'bars', title: 'Everyone arrives at once', source: 'Door scans per 10 minutes from 07:40, 11 Sep',
-    bars: [
-      { label: '07:40', value: 5, tone: 'neutral' }, { label: '07:50', value: 6, tone: 'neutral' }, { label: '08:00', value: 12, tone: 'neutral' },
-      { label: '08:10', value: 24, tone: 'neutral' }, { label: '08:20', value: 21, tone: 'neutral' }, { label: '08:30', value: 29, tone: 'hero' },
-      { label: '08:40', value: 20, tone: 'neutral' }, { label: '08:50', value: 11, tone: 'neutral' }, { label: '09:00', value: 5, tone: 'neutral' },
-      { label: '09:10', value: 8, tone: 'neutral' }, { label: '09:20', value: 2, tone: 'neutral' }, { label: '09:30', value: 2, tone: 'neutral' },
-    ],
+    kind: 'heatmap', kicker: 'Door scans, 11 Sep · people scanned in per 10 minutes', title: 'Busiest at 08:30: 29 people in 10 minutes', source: 'Door system scans, from 07:40',
+    columns: ['07:40', '', '08:00', '', '', '08:30', '', '', '09:00', '', '', '09:30'],
+    rows: [{ label: 'Scans', values: [5, 6, 12, 24, 21, 29, 20, 11, 5, 8, 2, 2] }],
   },
   'busiest-day': { kind: 'stat', value: '5,067', label: 'Pageviews: the busiest day of the year. 69% on mobile. /schedule opened 3,729 times over 4 days.' },
   'badge-frontload': {
     kind: 'numbers', kicker: 'The desk, front-loaded', title: 'We handed out badges the night before',
     items: [
-      { value: '49', label: 'Badges picked up at the warm-up meetup, 9 Sep: 1 in 5' },
-      { value: '48', label: 'Of them never needed the check-in desk on the day', tone: 'good' },
-      { value: '139', label: 'Badges in the busiest hour on the day, 08:00', tone: 'neutral' },
+      { value: '19%', label: 'Of all 253 badges went out the night before: 49' },
+      { value: '48', label: 'Of those 49 never needed the check-in desk on the day', tone: 'good' },
+      { value: '68%', label: 'Of the 204 on the day came in one hour: 139', tone: 'neutral' },
     ],
   },
   'door-rhythm': {
@@ -753,6 +729,8 @@ export const VISUALS = {
       { value: '204', label: 'Goodie bags', tone: 'neutral' },
     ],
   },
+  'story-space': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Designing the space, the week before.', emphasis: 'the week before.' },
+  'story-control-room': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Inside the control room.', emphasis: 'control room.' },
   'not-in-data': { kind: 'statement', kicker: 'Data gap · R1', text: 'The ones not in the data.', emphasis: 'not in the data.' },
 
   // ── 7 · What we learned ────────────────────────────────────────────────
@@ -764,16 +742,18 @@ export const VISUALS = {
   // ── 8 · The final numbers ──────────────────────────────────────────────
   'ch8': { kind: 'section', number: '08 · Did it add up?', title: 'The final numbers' },
   'income': {
-    kind: 'bars', title: 'Where the money came from', unit: 'k', source: 'CHF · roughly 170k in · about 2.4k Stripe fees',
+    kind: 'bars', title: 'Where the money came from', unit: '%', source: 'Share of income',
     bars: [
-      { label: 'Sponsorship', value: 81, tone: 'hero' }, { label: 'Tickets', value: 75, tone: 'neutral' },
-      { label: 'Workshops', value: 14, tone: 'neutral' }, { label: 'VIP upgrades', value: 1, tone: 'neutral' },
+      { label: 'Sponsorship', value: 47, tone: 'hero' }, { label: 'Tickets', value: 44, tone: 'neutral' },
+      { label: 'Workshops', value: 8, tone: 'neutral' }, { label: 'VIP upgrades', value: 1, tone: 'neutral' },
     ],
   },
   'add-up-q': { kind: 'statement', text: 'Did it add up?', emphasis: 'add up?' },
-  'add-up-a': { kind: 'statement', ground: 'yellow', text: 'Just over break even, on roughly CHF 170k of income.', emphasis: 'Just over break even' },
+  'add-up-a': { kind: 'statement', ground: 'yellow', text: 'Just over break even.', emphasis: 'Just over break even' },
   'rating': { kind: 'stat', value: '4.6', label: 'Out of 5 overall. 112 survey responses, 110 rated 4 or 5.', tone: 'good' },
   'come-back': { kind: 'stat', ground: 'yellow', value: '88%', label: 'Of survey respondents want to come back. 99 of 112.' },
+  'feedback-heard': { kind: 'statement', kicker: 'Slot · attendee feedback', text: 'What you told us.', emphasis: 'told us.' },
+  'next-edition': { kind: 'statement', kicker: 'Slot · next edition, to decide', text: 'What comes next.', emphasis: 'next.' },
   'thanks': {
     kind: 'numbers', title: 'Thank you',
     items: [

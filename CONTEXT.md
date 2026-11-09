@@ -14,6 +14,11 @@ The visual a slide shows. Every slide has exactly one: the deck is arrows
 only, so a build is a sequence of slides, not Enter presses. (The engine
 still models steps; `defineSlides` holds each slide to one.)
 
+## Curtain
+A slide's `transition: 'curtain'`: a short fade to black, the camera cuts to
+the slide's cue behind it, then fades up. Used on chapter openers; every
+other cue change is still one continuous move.
+
 ## Fill
 How full the auditorium is on a slide (`fill`, 0–1). Carries forward from the
 last slide that set it; a change fills or empties the seats in sales order.
@@ -39,7 +44,7 @@ departures board: columns of flaps that spin and land), `atm` (one screen of
 a cash machine: prompt, touch options, a tapped choice; its `step` drives the
 machine in the set: card in, cash out), `strike` (one name: struck through and
 renamed, or stamped, e.g. Deprecated), `badgetest` (a caption whose `rig`
-drives the badge-hole test stand; see Badge test), `inbox` (the call for papers: one envelope per submission flying into a server on the day it came in, a daily histogram and topic bars), `pipeline` (commits running through CI stages month by month, shipped features called out), `chatter` (a year of Slack: a filling channel, messages per person, the private / DM / public split), `arrivals` (flights into Zurich on a zoomed globe, one per origin, with a tally), `journey` (the road-to-Zurich globe:
+drives the badge-hole test stand; see Badge test), `inbox` (the call for papers: one envelope per submission flying into a server on the day it came in, a daily histogram and topic bars), `pipeline` (commits running through CI stages month by month, shipped features called out), `chatter` (a year of Slack: a filling channel, team-level figures (never per person), the private / DM / public split), `arrivals` (flights into Zurich on a zoomed globe, one per origin, with a tally), `journey` (the road-to-Zurich globe:
 one leg per step, or with `play` every leg in one autoplaying draw-in). Each
 kind has exactly one painter. Adding a kind is a deliberate act (type +
 painter + doc), never a one-off.

@@ -8,8 +8,9 @@ import { type Ctx, enter, font, label, SAFE, text, window01 } from './kit'
  * each on its own flap. On entry every flap spins through letters and lands,
  * row by row, left to right. `p` is linear (see drawTiming); at 1 all landed.
  *
- * Cell colour: a highlighted row is accent; YES is the good tone; NO and the
- * dash are muted; everything else is text.
+ * Cell colour: a highlighted row is accent; YES is the good tone; NO (known
+ * not included) is text; the dash and ? (not known, not listed) are muted, so
+ * an unknown never reads as a no.
  */
 
 type FlapVisual = Extract<Visual, { kind: 'flapboard' }>
@@ -97,7 +98,7 @@ export function paintFlapboard(ctx: Ctx, v: FlapVisual, p: number, r: Roles) {
       const padded = c.align === 'right' ? raw.padStart(c.width).slice(-c.width) : raw.padEnd(c.width).slice(0, c.width)
       const tone = row.highlight ? r.accent
         : raw === 'YES' ? r.tone('good')
-          : raw === 'NO' || raw === '-' || raw === '—' ? r.textMuted
+          : raw === '?' || raw === '-' || raw === '—' ? r.textMuted
             : r.text
       for (let k = 0; k < c.width; k++, gi++) {
         const ch = padded[k]!

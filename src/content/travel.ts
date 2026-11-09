@@ -84,7 +84,7 @@ export const ROAD_TO_ZURICH: Journey = {
   stats: [
     { value: '16', label: 'Trips' },
     { value: '31', label: 'Events' },
-    { value: '13', label: 'Countries' },
+    { value: '13', label: 'Countries visited' },
     { value: '~110k', label: 'Km travelled' },
     { value: '4', label: 'Team trips' },
   ],
