@@ -263,6 +263,7 @@ export const VISUALS = {
     ],
   },
   'sponsor-talks': { kind: 'statement', kicker: 'Elsewhere', text: 'A 20-minute sponsor talk costs €7,000. Our technical talks were not for sale.', emphasis: 'not for sale.' },
+  'lesson-diamond': { kind: 'strike', kicker: 'A weird lesson: sponsors are people', name: 'Diamond sponsor', stamp: 'Laid off', note: 'A week of research and pitching, then the contact was laid off or bailed.' },
   'no-diamond': { kind: 'stat', value: '0', label: 'Diamond sponsors. One cancelled, one never left draft.', tone: 'warn' },
   'money-late': {
     kind: 'bars', title: 'And the money came late', source: 'Sponsor deals paid per month, 2026',
@@ -408,6 +409,7 @@ export const VISUALS = {
     ],
   },
   'reviews': { kind: 'stat', value: '2,489', label: 'Reviews from 15 reviewers. About 166 each.' },
+  'lesson-email': { kind: 'strike', kicker: 'A weird lesson: ask for a personal email', name: 'speaker@yourcompany.com', to: 'speaker@gmail.com', note: 'By the time we said yes or no, some had changed jobs or lost them. Ticket holders too.' },
   'accepted': { kind: 'stat', value: '9', label: 'Accepted from 434. 6 talks, 3 workshops, 5 waitlisted.' },
   'fundamentals': {
     kind: 'numbers', title: 'But attendees asked for fundamentals',
