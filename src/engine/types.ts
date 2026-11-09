@@ -275,7 +275,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
  * Named camera destinations. `screen` is solved in src/renderers/Stage.tsx;
  * the rest are measured poses in src/scene/venue.ts (CUES).
  */
-export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats', 'lanyards', 'laptop', 'shuttle'] as const
+export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats', 'lanyards', 'laptop', 'shuttle', 'seat-full'] as const
 export type CameraCue = (typeof CAMERA_CUES)[number]
 
 export interface Slide {

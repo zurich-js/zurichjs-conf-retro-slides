@@ -179,7 +179,7 @@ Copied into `PALETTE`; never import across repos.
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·
-  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle`. Poses
+  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle` · `seat-full`. Poses
   live in `CUES` (venue.ts). Each cue has a `space` (`hall` | `booth` |
   `foyer` | `atrium` | `map`); moves inside a room glide, so a new cue needs
   a clear line to its neighbours in that room.
