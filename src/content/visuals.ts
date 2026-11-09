@@ -535,6 +535,14 @@ export const VISUALS = {
     ],
   },
   'busiest-day': { kind: 'stat', value: '5,067', label: 'Pageviews: the busiest day of the year. 69% on mobile. /schedule opened 3,729 times over 4 days.' },
+  'door-rhythm': {
+    kind: 'heatmap', kicker: 'Conference day, per hour', title: 'Doors first, goodies later', source: 'Door system events, 11 Sep · goodies: 200 of 204 logged',
+    columns: ['07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17'],
+    rows: [
+      { label: 'Check-ins', values: [14, 118, 21, 3, 2, 0, 0, 0, 0, 0, 0], tone: 'neutral' },
+      { label: 'Goodies', values: [0, 0, 0, 30, 40, 24, 55, 16, 14, 4, 17], tone: 'hero' },
+    ],
+  },
   'badges': {
     kind: 'numbers', title: 'On the day',
     items: [

@@ -171,6 +171,7 @@ export const slides = defineSlides(VISUALS, [
   { id: 'arrivals', beat: 'rollercoaster', steps: ['arrivals'] },
   { id: 'busiest-day', beat: 'rollercoaster', steps: ['busiest-day'] },
   { id: 'badges', beat: 'rollercoaster', steps: ['badges'], camera: 'foyer', effect: 1, notes: 'CHECK: badges (253) or door scans (156) as the attendance number.' },
+  { id: 'door-rhythm', beat: 'rollercoaster', steps: ['door-rhythm'], camera: 'foyer', effect: 1, notes: 'From the door system\'s event log (admin API, read 9 Nov 2026). The door only scanned; goodie bags came later at a separate table (the code notes it saved about 3.5 s per person at the door). Check-ins: 118 between 08:00 and 09:00, 158 on the day, 15 workshop seats on 10 Sep. Goodies: from 10:30, in waves at the breaks (13:30 busiest), 16 at 17:30; 200 T-shirts, 33 hoodies handed, 48 owed. No pickups were logged on 9 or 10 Sep: if any happened, they were outside the system.' },
   { id: 'not-in-data', beat: 'rollercoaster', steps: ['not-in-data'], notes: 'DATA GAP R1: personal highs and lows.' },
 
   // ── 7 · What we learned ────────────────────────────────────────────────
