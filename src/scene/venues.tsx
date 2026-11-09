@@ -8,21 +8,22 @@ import type { Space } from './venue'
  * every visible light, so lights far away cost as much as near ones. The
  * camera rig flips visibility; nothing is created or destroyed.
  */
-export type VenueName = 'technopark' | 'foifi' | 'airport'
-export const VENUES: readonly VenueName[] = ['technopark', 'foifi', 'airport']
+export type VenueName = 'technopark' | 'foifi' | 'airport' | 'lake'
+export const VENUES: readonly VenueName[] = ['technopark', 'foifi', 'airport', 'lake']
 
 export const VENUE_OF: Readonly<Record<Space, VenueName>> = {
   hall: 'technopark', booth: 'technopark', foyer: 'technopark', atrium: 'technopark', map: 'technopark',
-  foifi: 'foifi', plane: 'airport', gate: 'airport', city: 'technopark',
+  foifi: 'foifi', plane: 'airport', gate: 'airport', city: 'technopark', lake: 'lake',
 }
 
 const groups: Partial<Record<VenueName, THREE.Object3D>> = {}
 
 /** Show exactly these venues (no allocation: three flags). */
-export function showVenues(technopark: boolean, foifi: boolean, airport: boolean) {
+export function showVenues(technopark: boolean, foifi: boolean, airport: boolean, lake = false) {
   if (groups.technopark) groups.technopark.visible = technopark
   if (groups.foifi) groups.foifi.visible = foifi
   if (groups.airport) groups.airport.visible = airport
+  if (groups.lake) groups.lake.visible = lake
 }
 
 /** Show the venues of these spaces (and nothing else). */
@@ -31,7 +32,7 @@ export function showSpaces(a: Space, b: Space = a) {
   const vb = VENUE_OF[b]
   // The city view sees Technopark and the airport at once.
   const city = a === 'city' || b === 'city'
-  showVenues(va === 'technopark' || vb === 'technopark', va === 'foifi' || vb === 'foifi', city || va === 'airport' || vb === 'airport')
+  showVenues(va === 'technopark' || vb === 'technopark', va === 'foifi' || vb === 'foifi', city || va === 'airport' || vb === 'airport', va === 'lake' || vb === 'lake')
 }
 
 export function Venue({ name, children }: { name: VenueName; children: ReactNode }) {

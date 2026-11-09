@@ -17,7 +17,7 @@ import {
   BACKDROP, CHECKIN, DOORS, FLOOR, FOYER, LANYARD_RIG, LIGHTS, M, MERCH, SURFACES as S,
 } from './venue'
 import {
-  BADGE_SIZE, backdropFace, badgeBack, badgeFace, type BadgeRole, checkinSign, cupEngraving, hash, concreteTile, entranceSheet, floorTile, totePrint, wallLettering,
+  BADGE_SIZE, backdropFace, badgeBack, badgeFace, type BadgeRole, checkinSign, cupEngraving, hash, concreteTile, entranceSheet, floorTile, logoWall, signingWall, totePrint, wallLettering,
 } from './textures'
 
 export const FOYER_ASSETS = { skyline: '/brand/skyline.svg' } as const
@@ -662,6 +662,29 @@ function Lights() {
   )
 }
 
+/**
+ * Two walls from the aftermovie: the signing wall (black skyline mural that
+ * attendees signed in white marker) on the left, and the white framework-logo
+ * backdrop used for interviews on the right. Both part of the dressing.
+ */
+function EventWalls() {
+  const skyline = useTexture(FOYER_ASSETS.skyline)
+  const sign = useMemo(() => signingWall(skyline.image as HTMLImageElement), [skyline])
+  const logosWall = useMemo(() => logoWall(), [])
+  return (
+    <group>
+      <mesh position={[-HALF + 0.03, FLOOR + 1.35, Z0 + 7.6]} rotation-y={Math.PI / 2}>
+        <planeGeometry args={[5.6, 2.1]} />
+        <meshStandardMaterial map={sign} roughness={0.9} />
+      </mesh>
+      <mesh position={[HALF - 0.03, FLOOR + 1.45, Z0 + 8.6]} rotation-y={-Math.PI / 2}>
+        <planeGeometry args={[3.4, 2.1]} />
+        <meshStandardMaterial map={logosWall} roughness={0.8} />
+      </mesh>
+    </group>
+  )
+}
+
 export function Foyer({ frame }: { frame: THREE.Material }) {
   const badges = useBadgeFaces()
   return (
@@ -675,6 +698,7 @@ export function Foyer({ frame }: { frame: THREE.Material }) {
       <Volunteers {...badges} />
       <Dressing order={1}><Queue /></Dressing>
       <Dressing order={4}><Balloons /></Dressing>
+      <Dressing order={5}><EventWalls /></Dressing>
       <Dressing order={2}><Merch /></Dressing>
       <Cutaway>
         <Pendants />

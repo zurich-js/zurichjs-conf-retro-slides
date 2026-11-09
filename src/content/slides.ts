@@ -137,6 +137,7 @@ export const slides = defineSlides(VISUALS, [
   { id: 'ch4', transition: 'curtain', beat: 'programme', steps: ['ch4'], camera: 'stage', effect: 1, notes: '3 of the 6 workshops were AI topics.' },
   { id: 'reviews', beat: 'programme', steps: ['reviews'], notes: '267 speakers applied, about 1.6 submissions each.' },
   { id: 'accepted', beat: 'programme', steps: ['accepted'], notes: 'About 2%. The rest of the programme was invited.' },
+  { id: 'panel', beat: 'programme', steps: ['panel'], camera: 'stage', action: 'panel', notes: 'The e18e & friends panel, live on stage (Ask the panel: questions by QR). It ran over lunch; several survey answers asked for its own slot next time.' },
   { id: 'lesson-email', beat: 'programme', steps: ['lesson-email'], notes: 'FARIS: speakers submitted with their work email, then changed jobs or were laid off before acceptance or rejection went out, so the email bounced or reached a dead inbox. Same for attendees who bought with a work email. Lesson: ask for a personal email (or a second contact) at submission and checkout. The addresses on the slide are placeholders.' },
   { id: 'workshops', beat: 'programme', steps: ['workshops'], notes: 'Registrations: 17, 10, 9, 16, 22, 6. CONFIRM workshop day was 10 Sep.' },
   { id: 'story-workshops', beat: 'programme', steps: ['story-workshops'], notes: 'SLOT: the underestimated work of running workshops across two days. Organiser material only. CHECK: workshops on one day (10 Sep) or two?' },
@@ -195,6 +196,8 @@ export const slides = defineSlides(VISUALS, [
   { id: 'precision', beat: 'rollercoaster', steps: ['precision'], notes: 'Faris: near-zero delays all day; at worst around 3 to 5 minutes behind. That only works with seconds of precision at every transition, and Bogdan in the booth all day. CHECK the worst slip.' },
   { id: 'speaker-runner', beat: 'rollercoaster', steps: ['speaker-runner'], notes: 'Nadja: we needed one person whose job was to find each speaker and get them to the stage on time.' },
   { id: 'merch-guess', beat: 'rollercoaster', steps: ['merch-guess'], notes: 'Nadja: deciding how many T-shirts in which sizes, and which lanyard card material, means spending a lot of money without leftovers or anyone going home empty-handed. Counts from the door system export (goodies station). CHECK the hoodie numbers before saying them.' },
+  { id: 'signing-wall', beat: 'countdown', steps: ['signing-wall'], camera: 'signing', notes: 'The black skyline wall in the foyer that everyone signed in white marker (aftermovie). The signatures in the set are scribbles, not real names.' },
+  { id: 'after-party', beat: 'countdown', steps: ['after-party'], camera: 'lake', notes: 'The VIP after-party at a lakeside bath on Lake Zurich: dinner under string lights, and people jumping off the raft at dusk (aftermovie). VIP only, not every attendee. CHECK the venue name before saying it.' },
 
   // ── 8 · What we learned ────────────────────────────────────────────────
   { id: 'ch8', transition: 'curtain', beat: 'learned', steps: ['ch8'], camera: 'stage', effect: 1 },
@@ -211,6 +214,7 @@ export const slides = defineSlides(VISUALS, [
   { id: 'rating', camera: 'stage', beat: 'final', steps: ['rating'] },
   { id: 'come-back', camera: 'stage', beat: 'final', steps: ['come-back'], notes: '61 Absolutely, 38 "I’ll try".' },
   { id: 'feedback-heard', beat: 'final', steps: ['feedback-heard'], camera: 'stage', notes: 'SLOT: attendee feedback we actually received (survey free text; 12 respondents agreed to be named). Keep separate from ideas for next time.' },
+  { id: 'group-photo', beat: 'final', steps: ['group-photo'], camera: 'stage', action: 'group-photo', notes: 'The group photo at the end of the day: everyone on stage, the foam letters held up at the front (aftermovie).' },
   { id: 'thanks', beat: 'final', steps: ['thanks'], camera: 'stage', effect: 1, notes: 'CHECK: 13 door staff vs 14 volunteers on the dashboard.' },
   { id: 'next-edition', beat: 'final', steps: ['next-edition'], camera: 'stage', effect: 1, notes: 'SLOT: what comes next. Proposed, not decided: a two-day format with a community and a technical angle. No name: TBDConf was floated, not chosen.' },
   { id: 'come-2028', beat: 'final', steps: ['come-2028'], camera: 'stage', effect: 1, notes: 'DATA GAP O5: next edition date. Optional movie. HANDOFF (to confirm): Faris suggested speaking last.' },

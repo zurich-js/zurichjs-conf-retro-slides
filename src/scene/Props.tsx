@@ -8,6 +8,7 @@ import { BENCH, FLOOR, HALL, M, PODIUM, PODIUM_TILT, podiumTop, ROLLUP, STAGE, S
 import { keepAwake } from '../engine/activity'
 import { currentAction, sinceReveal, smoothstep } from './beats'
 import { WalkOn } from './WalkOn'
+import { StagePieces } from './StagePieces'
 import { benchTile, carpetTile, flagFace } from './textures'
 
 export const PROP_ASSETS = {
@@ -243,8 +244,16 @@ function Letters() {
   const gx = x0 - 31 * s
   const xStart = x0 - 0.45 - 0.36
   const xEnd = gx + geometry.boundingBox!.max.x * s + 0.04
+  // In the group photo the letters are held up at the front of the stage.
+  const held = useRef<THREE.Group>(null)
+  useFrame(() => {
+    const g = held.current
+    if (!g) return
+    const up = currentAction() === 'group-photo'
+    g.position.set(0, up ? 0.75 : 0, up ? STAGE_FRONT - 0.55 - z0 : 0)
+  })
   return (
-    <group>
+    <group ref={held}>
       {/* Negative y scale flips SVG (y-down) to world (y-up); three fixes winding. */}
       <mesh geometry={geometry} material={foam} position={[gx, STAGE_TOP + 23 * s, z0]} scale={[s, -s, s]} />
       <mesh position={[x0 - 0.45, STAGE_TOP + 0.36, z0 + 0.15]} rotation-y={0.08} material={[foam, foam, foam, foam, face, foam]}>
@@ -398,6 +407,7 @@ export function Props({ frame }: { frame: THREE.Material }) {
       <FloorBox />
       <RollUp />
       <WalkOn />
+      <StagePieces />
     </group>
   )
 }

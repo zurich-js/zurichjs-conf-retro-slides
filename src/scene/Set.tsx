@@ -4,6 +4,7 @@ import { useLoader } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 import { Airport } from './Airport'
+import { Lake } from './Lake'
 import { Exterior } from './Exterior'
 import { Roads, SPEAKER_PHOTOS } from './Roads'
 import { Atm } from './Atm'
@@ -60,6 +61,9 @@ export function Set({ frame }: { frame: THREE.Material }) {
       </Venue>
       <Venue name="airport">
         <Airport frame={frame} />
+      </Venue>
+      <Venue name="lake">
+        <Lake />
       </Venue>
     </group>
   )
