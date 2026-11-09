@@ -34,7 +34,7 @@ export type Visual = Base &
         /** Outline part of the image in accent: x, y, w, h as fractions of the image. */
         mark?: { x: number; y: number; w: number; h: number }
       }
-    | { kind: 'code'; title?: string; lines: readonly string[]; highlight?: readonly number[] }
+    | { kind: 'code'; title?: string; lines: readonly string[]; highlight?: readonly number[]; /** Bigger type, for a short block that must read from the back of the room. */ large?: boolean }
     | {
         kind: 'growth'
         title: string
@@ -48,6 +48,8 @@ export type Visual = Base &
         show?: number
         /** Point index where the draw-in starts; earlier points are already drawn. */
         from?: number
+        /** Values are shares (0–100): end values get a %, and no growth multiple is shown. */
+        percent?: boolean
       }
     | {
         kind: 'heatmap'
@@ -114,9 +116,13 @@ export type Visual = Base &
         options?: readonly { label: string; value?: string }[]
         /** Options lit as pressed. */
         selected?: readonly number[]
+        /** Colour of the pressed keys (default accent); `bad` for a refused choice. */
+        selectedTone?: Tone
         message?: string
         /** Message tone (default accent). */
         tone?: Tone
+        /** A smaller second line under the message (e.g. the reason for a decline). */
+        detail?: string
         /** Small, bottom right: a source or a footnote. */
         note?: string
         /** What the machine does in the set: take the card, or hand it back and pay out. */
@@ -197,6 +203,26 @@ export type Visual = Base &
         note?: string
       }
     | {
+        kind: 'split'
+        title: string
+        kicker?: string
+        source?: string
+        /** Shares of one whole, in order; values are normalised to 100%. No tone → series order. */
+        segments: readonly { label: string; value: number; tone?: Tone }[]
+        /** One line under the legend: the takeaway. */
+        note?: string
+      }
+    | {
+        kind: 'timeline'
+        title: string
+        kicker?: string
+        source?: string
+        /** Dated moments along a schematic line; `at` is 0–1 along it (order and rough spacing, not to scale). */
+        marks: readonly { at: number; when: string; what: string; tone?: Tone }[]
+        /** A shaded stretch of the line with its own label. */
+        span?: { from: number; to: number; label: string; tone?: Tone }
+      }
+    | {
         kind: 'video'
         /** A rendered clip in public/video (H.264 MP4, 16:9), played full frame with its sound. */
         src: string
@@ -269,6 +295,8 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   matrix: 'dark',
   journey: 'dark',
   video: 'dark',
+  split: 'dark',
+  timeline: 'dark',
 }
 
 /**

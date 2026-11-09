@@ -152,3 +152,19 @@ export function chrome(ctx: Ctx, r: Roles) {
   ctx.drawImage(mark, SAFE.left, FRAME.height - 96 - h, w, h)
   ctx.restore()
 }
+
+/** Split a mono uppercase label into lines no wider than `max` (tracking included). */
+export function labelLines(ctx: Ctx, value: string, max: number, size: number): string[] {
+  ctx.save()
+  ctx.font = `${TYPE.weight.medium} ${size}px ${TYPE.mono}`
+  ctx.letterSpacing = `${TYPE.tracking.label * size}px`
+  const lines: string[] = []
+  let line = ''
+  for (const word of value.toUpperCase().split(' ')) {
+    const next = line ? `${line} ${word}` : word
+    if (line && ctx.measureText(next).width > max) { lines.push(line); line = word } else line = next
+  }
+  lines.push(line)
+  ctx.restore()
+  return lines
+}

@@ -1,6 +1,6 @@
 import { DEFAULT_GROUND, type Visual, type VisualKind } from '../engine/types'
 import { FRAME, GROUNDS, MOTION, type Roles, SERIES, TYPE } from '../brand/tokens'
-import { type Ctx, chrome, clear, enter, image, label, markVideoBusy, pauseVideos, SAFE, text, video, window01, wrap } from './kit'
+import { type Ctx, chrome, clear, enter, image, label, labelLines, markVideoBusy, pauseVideos, SAFE, text, video, window01, wrap } from './kit'
 import { journeySeconds, paintJourney } from './journey'
 import { CALENDAR_SECS, paintCalendar } from './calendar'
 import { paintGrowth } from './growth'
@@ -15,6 +15,8 @@ import { PIPELINE_SECS, paintPipeline } from './pipeline'
 import { CHATTER_SECS, paintChatter } from './chatter'
 import { ARRIVALS_SECS, paintArrivals } from './arrivals'
 import { paintMatrix } from './matrix'
+import { paintSplit, SPLIT_SECS } from './split'
+import { paintTimeline, TIMELINE_SECS } from './timeline'
 
 type Painter<K extends VisualKind> = (ctx: Ctx, v: Extract<Visual, { kind: K }>, p: number, r: Roles) => void
 
@@ -104,19 +106,30 @@ const statement: Painter<'statement'> = (ctx, v, p, r) => {
 }
 
 const stat: Painter<'stat'> = (ctx, v, p, r) => {
-  const base = FRAME.height / 2 + TYPE.size.stat * 0.2
+  // Centre the whole block (value, label, source) vertically, so long labels never sink to the wordmark.
+  const lines = wrap(ctx, v.label, SAFE.width * 0.7, TYPE.size.body, TYPE.weight.medium)
+  const lh = TYPE.size.body * TYPE.bodyLineHeight
+  const srcLines = v.source ? labelLines(ctx, v.source, SAFE.width * 0.8, TYPE.size.label) : []
+  const cap = TYPE.size.stat * 0.72
+  const block = cap + 130 + (lines.length - 1) * lh + 20 + (srcLines.length ? 30 + srcLines.length * TYPE.size.label * 1.35 : 0)
+  const base = Math.min(FRAME.height / 2 + TYPE.size.stat * 0.2, (FRAME.height - block) / 2 - 30 + cap)
   ctx.save(); enter(ctx, window01(p, 0, 0.7), 80)
   text(ctx, v.value, SAFE.left - TYPE.size.stat * 0.04, base, {
     size: TYPE.size.stat, weight: TYPE.weight.black, tracking: D, color: r.tone(v.tone ?? 'hero'),
   })
   ctx.restore()
   ctx.save(); enter(ctx, window01(p, 0.3, 1))
-  wrap(ctx, v.label, SAFE.width * 0.7, TYPE.size.body, TYPE.weight.medium).forEach((l, i) =>
-    text(ctx, l, SAFE.left, base + 130 + i * TYPE.size.body * TYPE.bodyLineHeight, {
+  lines.forEach((l, i) =>
+    text(ctx, l, SAFE.left, base + 130 + i * lh, {
       size: TYPE.size.body, weight: TYPE.weight.medium, color: r.textSoft,
     }),
   )
-  if (v.source) label(ctx, v.source, SAFE.right, SAFE.bottom + FRAME.safe.y / 2 - 30, r.textMuted, { align: 'right' })
+  // A source or footnote sits under the label, wrapped, clear of the wordmark.
+  if (v.source) {
+    const y0 = base + 130 + lines.length * lh + 30
+    srcLines.forEach((l, i) =>
+      label(ctx, l, SAFE.left, y0 + i * TYPE.size.label * 1.35, r.textMuted))
+  }
   ctx.restore()
 }
 
@@ -232,14 +245,22 @@ const img: Painter<'image'> = (ctx, v, p, r) => {
 }
 
 const code: Painter<'code'> = (ctx, v, p, r) => {
-  const size = TYPE.size.code
+  // `large`: as big as the longest line allows (up to 1.9×), for a short block read from the back of the room.
+  let size: number = TYPE.size.code
+  if (v.large) {
+    ctx.save()
+    ctx.font = `${TYPE.weight.regular} ${size}px ${TYPE.mono}`
+    const widest = Math.max(...v.lines.map((l) => ctx.measureText(l).width))
+    ctx.restore()
+    size = Math.min(size * 1.9, (size * (SAFE.width - 160)) / widest)
+  }
   const lh = size * 1.6
   const h = v.lines.length * lh + 120
   const y0 = (FRAME.height - h) / 2
   ctx.save(); enter(ctx, window01(p, 0, 0.6))
   ctx.fillStyle = r.surface
   ctx.beginPath(); ctx.roundRect(SAFE.left, y0, SAFE.width, h, FRAME.radius); ctx.fill()
-  if (v.title) label(ctx, v.title, SAFE.left, y0 - 40, r.accent)
+  if (v.title) label(ctx, v.title, SAFE.left, y0 - 40, r.accent, v.large ? { size: TYPE.size.label * 1.4 } : {})
   ctx.restore()
   v.lines.forEach((line, i) => {
     const hot = v.highlight?.includes(i + 1) ?? false
@@ -281,8 +302,13 @@ const numbers: Painter<'numbers'> = (ctx, v, p, r) => {
   if (widest > colW * 0.9) vsize *= (colW * 0.9) / widest
   // Row heights from their tallest label; the whole grid centres vertically.
   const lines = v.items.map((it) => wrap(ctx, it.label, colW * 0.86, TYPE.size.body, TYPE.weight.medium))
-  const rowH = Array.from({ length: rows }, (_, k) =>
-    vsize + 70 + Math.max(...lines.slice(k * cols, k * cols + cols).map((l) => l.length)) * lh + 70)
+  const rowHeights = (vs: number) => Array.from({ length: rows }, (_, k) =>
+    vs + 70 + Math.max(...lines.slice(k * cols, k * cols + cols).map((l) => l.length)) * lh + 70)
+  // Shrink the values until the whole grid fits above the wordmark.
+  let rowH = rowHeights(vsize)
+  const fit = avail - 60
+  const over = rowH.reduce((a, b) => a + b, 0) - 70 - fit
+  if (over > 0) { vsize = Math.max(TYPE.size.h2 * 0.6, vsize - over / rows); rowH = rowHeights(vsize) }
   const total = rowH.reduce((a, b) => a + b, 0) - 70
   let ry = top + Math.max(0, (avail - total) / 2)
   const rowTop = rowH.map((h) => { const y = ry; ry += h; return y })
@@ -342,8 +368,10 @@ const inbox: Painter<'inbox'> = paintInbox
 const pipeline: Painter<'pipeline'> = paintPipeline
 const chatter: Painter<'chatter'> = paintChatter
 const arrivals: Painter<'arrivals'> = paintArrivals
+const split: Painter<'split'> = paintSplit
+const timeline: Painter<'timeline'> = paintTimeline
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals, video: vid }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals, video: vid, split, timeline }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear
@@ -351,6 +379,8 @@ const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement,
  */
 export function drawTiming(visual: Visual | undefined): { secs: number; linear: boolean } {
   if (visual?.kind === 'video') return { secs: visual.seconds, linear: true }
+  if (visual?.kind === 'split') return { secs: SPLIT_SECS, linear: false }
+  if (visual?.kind === 'timeline') return { secs: TIMELINE_SECS, linear: false }
   if (visual?.kind === 'journey') return { secs: journeySeconds(visual), linear: true }
   if (visual?.kind === 'inbox') return { secs: INBOX_SECS, linear: true }
   if (visual?.kind === 'pipeline') return { secs: PIPELINE_SECS, linear: true }

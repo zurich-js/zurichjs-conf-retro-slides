@@ -88,22 +88,23 @@ export function paintGrowth(ctx: Ctx, v: GrowthVisual, p: number, r: Roles) {
     ctx.beginPath(); ctx.arc(hx, hy, 14, 0, Math.PI * 2); ctx.fill()
     ctx.restore()
     // Start value, when the line does not start at zero.
-    if (s.values[0]! > 0) label(ctx, fmt(s.values[0]!), X(0) + 26, Y(s.values[0]!) - 26, colour, { alpha: ga, size: TYPE.size.label * 1.2 })
+    if (s.values[0]! > 0 && !v.percent) label(ctx, fmt(s.values[0]!), X(0) + 26, Y(s.values[0]!) - 26, colour, { alpha: ga, size: TYPE.size.label * 1.2 })
     const v0 = s.values[0]!
     const v1 = s.values[shown - 1]!
     ends.push({
-      y: Y(v1), colour, value: fmt(v1),
-      text: v0 > 0 ? `${s.label} · ${(v1 / v0).toFixed(1)}×` : s.label,
+      y: Y(v1), colour, value: v.percent ? `${fmt(v1)}%` : fmt(v1),
+      // Shares have no meaningful growth multiple: just name the series.
+      text: v0 > 0 && !v.percent ? `${s.label} · ${(v1 / v0).toFixed(1)}×` : s.label,
     })
   })
 
   // End labels, nudged apart so they never overlap.
   const ea = window01(p, 0.86, 1)
-  const gap = 150
+  const gap = 175
   const sorted = [...ends].sort((a, b) => a.y - b.y)
   for (let k = 1; k < sorted.length; k++) sorted[k]!.y = Math.max(sorted[k]!.y, sorted[k - 1]!.y + gap)
   // The lowest label (value + caption, ~80px tall) must stay above the x axis labels.
-  const overflow = sorted.length ? sorted[sorted.length - 1]!.y + 70 - plot.b : 0
+  const overflow = sorted.length ? sorted[sorted.length - 1]!.y + 120 - plot.b : 0
   if (overflow > 0) sorted.forEach((e) => { e.y -= overflow })
   const lx = X(shown - 1) + 50
   for (const e of sorted) {

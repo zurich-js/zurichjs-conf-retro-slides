@@ -256,7 +256,7 @@ Copied into `PALETTE`; never import across repos.
   no slop). Then a cash machine at Foifi plays it screen by screen (`atm` kind,
   `atm` / `atm-wide` cues): card in, the options, declined, re-pitch, card and
   cash out. Survey and CFP numbers are sourced; the rest is Faris's account.
-- After the meetup numbers, still at Foifi: the agenda, chapter 1 (why on
+- After the meetup numbers, still at Foifi (the agenda slide was cut, 9 Nov): chapter 1 (why on
   earth) and chapter 2 (the hard market, our three problems), then **ZurichJS
   on the road** (the globe) as the answer; then the camera flies to Technopark.
 
@@ -290,7 +290,7 @@ Copied into `PALETTE`; never import across repos.
   videos a week before until Jonny Burger made them with Remotion, the podium
   setup (one USB-C cable to the dock: screen, sound, wired internet;
   `action: 'plug-in'` on the `laptop` cue), Wi-Fi priced by concurrent
-  devices (300 quoted, 120 in budget, 250 bought, about CHF 1,000), Bogdan
+  devices (300 quoted, 120 in budget, 250 bought), Bogdan
   in the booth all day, airport runs (`shuttle` cue: cars on a road from
   Technopark to the airport, not to scale), and Nadja's line closing chapter 7.
 - **Airport chaos and transitions (Faris, 9 Nov 2026):** speaker portraits
@@ -307,6 +307,22 @@ Copied into `PALETTE`; never import across repos.
 - **The repo is public.** Organisers' raw messages, complaints about people,
   vendor contacts, network names and passwords stay out of slides, notes,
   commits and PR descriptions. Say it neutrally or not at all.
+
+## Revision batches (Faris, 9 Nov 2026)
+- **Money on slides:** shares and counts only. The only CHF amounts shown are
+  the minimums (CHF 100k bare-minimum budget, about CHF 33k each) and public
+  list prices. Spend, revenue and cost amounts stay off the slides, out of
+  the notes and out of this public repo.
+- **Chapter 1:** why a conference (fresh life, bring the circuit home, Front
+  passed the baton, Zurich deserved an international web conference); the
+  stakes as 100k* minimum, spend shares, a commitments timeline, 33k each,
+  and the worst case.
+- **Chapter 2:** sponsorship as a hard sell (half at the smallest tier), the
+  pipeline and how deals die, verified sponsor packages, talks not for sale,
+  the CHF 15k offer we refused; the ATM plays empty, options, the talk slot
+  in red, TRANSACTION DECLINED, then pitch time, then the AI request; top-down
+  vs bottom-up pressure; companies' value doubts; speakers, the CFP (171 of
+  428), attendees (AI, yes; AI slop, no); four value propositions.
 
 ## Open decisions
 Track here; resolve with Faris, then update code and move the line above.

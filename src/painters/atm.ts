@@ -45,10 +45,10 @@ export function paintAtm(ctx: Ctx, v: AtmVisual, p: number, r: Roles) {
     const on = chosen.has(i) && press > 0
     ctx.save()
     ctx.globalAlpha *= a
-    ctx.fillStyle = on ? r.accent : r.card
+    ctx.fillStyle = on ? (v.selectedTone ? r.tone(v.selectedTone) : r.accent) : r.card
     ctx.beginPath(); ctx.roundRect(x, oy, colW, rowH, 28); ctx.fill()
     ctx.restore()
-    const ink = on ? r.bg : r.text
+    const ink = on ? (v.selectedTone === 'bad' || v.selectedTone === 'neutral' ? r.text : r.bg) : r.text
     const ls = TYPE.size.body * 1.1
     text(ctx, o.label, x + 48, oy + rowH / 2 + ls * 0.36, { size: ls, weight: TYPE.weight.bold, color: ink, alpha: a })
     if (o.value) {
@@ -66,6 +66,13 @@ export function paintAtm(ctx: Ctx, v: AtmVisual, p: number, r: Roles) {
     ml.forEach((l, i) => text(ctx, l, SAFE.left, y + ms * 0.9 + i * ms * TYPE.lineHeight, {
       size: ms, weight: TYPE.weight.black, tracking: D, color: colour, alpha: ma,
     }))
+    y += ms * TYPE.lineHeight * ml.length + 30
+    if (v.detail) {
+      const ds = TYPE.size.body * 1.1
+      wrap(ctx, v.detail, SAFE.width, ds, TYPE.weight.bold).forEach((l, i) => text(ctx, l, SAFE.left, y + ds + i * ds * TYPE.bodyLineHeight, {
+        size: ds, weight: TYPE.weight.bold, color: r.textSoft, alpha: window01(p, 0.6, 0.9),
+      }))
+    }
   }
 
   // Note: bottom right, clear of the wordmark.
