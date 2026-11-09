@@ -112,6 +112,10 @@ export const slides = defineSlides(VISUALS, [
   { id: 'people-359', beat: 'open', steps: ['people-359'], camera: 'room', effect: 1, fill: 1, notes: '330 ticket holders, plus 19 speakers and MCs without a ticket, plus 10 staff without a ticket.' },
   { id: 'people-split', beat: 'open', steps: ['people-split'], notes: '21 people on stage, 2 of whom also held a ticket. 13 door staff, 3 of whom held a ticket.' },
   { id: 'year-numbers', beat: 'open', steps: ['year-numbers'] },
+  { id: 'year-cfp', beat: 'open', steps: ['year-cfp'], notes: '434 submissions (428 with a date), 29 Dec 2025 to 3 Apr 2026: 347 talks, 47 lightning, 40 workshops. Half of everything came in the last week. Topics are tags; a submission can have several.' },
+  { id: 'year-commits', beat: 'open', steps: ['year-commits'], notes: '1,336 commits and 281 merged PRs, Nov 2025 to Sep 2026. Busiest month May (191). Security fix: 25 May.' },
+  { id: 'year-slack', beat: 'open', steps: ['year-slack'], notes: '53,277 messages from four organisers, about 129 a day. 88% in private channels.' },
+  { id: 'year-flights', beat: 'open', steps: ['year-flights'], notes: 'Attendees by billing country (paid tickets, top 8), speakers by departure country. 81 international paid tickets, 18 speakers flew in, 21 countries in the room. A billing country is not proof of a flight.' },
 
 
 

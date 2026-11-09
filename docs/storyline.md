@@ -193,104 +193,108 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | 73 | `people-359` | Big number | 359 · People in the room | Hall, back corner | 330 ticket holders, plus 19 speakers and MCs without a ticket, plus 10 staff without a ticket. | |
 | 74 | `people-split` | Number tiles | Where 359 comes from · 267 (Paid tickets) · 63 (Complimentary tickets) · 19 (Speakers and MCs without a ticket) · 10 (Staff and volunteers without a ticket) | Screen (full frame) | 21 people on stage, 2 of whom also held a ticket. 13 door staff, 3 of whom held a ticket. | |
 | 75 | `year-numbers` | Number tiles | A year in numbers · 434 (Talk submissions) · 1,336 (Commits) · 21 (Countries in the room) · 53,277 (Slack messages) | Screen (full frame) |  | |
+| 76 | `year-cfp` | Inbox | Call for papers · every submission flies into our server on the day it came in · 428 dated, 40 on 31 March · top 10 topics fill | Screen (full frame) |  | |
+| 77 | `year-commits` | Pipeline | Every commit, shipped · 1,336 commits and 281 PRs through commit, build, test, deploy · features called out by month | Screen (full frame) |  | |
+| 78 | `year-slack` | Chatter | A year of Slack · 53,277 messages · per organiser · private 46,893, DMs 5,910, public 474 | Screen (full frame) |  | |
+| 79 | `year-flights` | Arrivals | Who came to Zurich · flights in from the top origins · attending and speaking per country | Screen (full frame) |  | |
 
 ### 3 · The machine · *Four people, day jobs, one app*
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 76 | `ch3` | Section | 03 · Four people, day jobs, one app · The machine | Control booth | Camera in the control booth: the crew behind the glass. | |
-| 77 | `small-team` | Number tiles | A small team, and an admin that did the rest · 4 (Organisers) · 15 (CFP reviewers) · 13 (Door staff) | Screen (full frame) | Admin areas: tickets, workshops, CFP and reviewers, speaker travel, sponsorships, partnerships, company invoices, VIP perks, apparel, door check-in. CONFIRM organisers: Faris, Bogdan, Nadja, Colin. | |
-| 78 | `slack-people` | Bar chart | Four people, 51,202 messages · Active days: Faris 396 · Bogdan 382 · Nadja 327 · Colin 327 · Faris 20,354 · Bogdan 19,954 · Nadja 6,979 · Colin 3,915 | Screen (full frame) | About 129 messages a day. | |
-| 79 | `slack-share` | Big number | 96% · Of all Slack messages came from the four of us. 51,202 of 53,277. | Screen (full frame) | 88% were in private channels. | |
-| 80 | `slack-days-off` | Big number | 3 · Days without a single message, out of 397. | Screen (full frame) | 15% of messages were sent on weekends. | |
-| 81 | `slack-peak` | Big number | 836 · Messages on 3 September. Our busiest day, a week before doors opened. | Screen (full frame) | August was the busiest month at 8,265. Top days: 3 Sep 836, 1 Sep 744, 4 Aug 705. | |
-| 82 | `brand` | Statement | Data gap · M1 · Brand and design. | Screen (full frame) | DATA GAP M1: Faris writes this. | |
-| 83 | `timeline` | Number tiles | Ten months from first commit to the door · 3 Nov (2025 · First commit) · 13 Nov (2025 · First ticket sold) · 29 Dec (2025 · CFP opens) · 3 Apr (2026 · CFP closes) · 31 Aug (2026 · Door check-in ships) · 9–12 Sep (2026 · Conference week) | Screen (full frame) | Old deck revealed these one per click; one slide in this draft. | |
-| 84 | `commits` | Bar chart | 1,336 commits · Commits per month · busiest week 27 Jul to 2 Aug, 91 commits · Nov 137 · Dec 87 · Jan 96 · Feb 116 · Mar 83 · Apr 158 · May 191 · Jun 92 · Jul 173 · Aug 104 · Sep 99 | Screen (full frame) |  | |
-| 85 | `agent-prs` | Big number | 58% · Of 281 PRs came from agent branches. 145 Claude · 11 Cursor · 8 Codex. | Screen (full frame) | The first PR (5 Nov 2025) was already from a claude/ branch. | |
-| 86 | `agent-share` | Bar chart | From helper to default · Agent share of merged PRs · Nov 12% · Dec 50% · Jan 0% · Feb 53% · Mar 55% · Apr 47% · May 28% · Jun 68% · Jul 89% · Aug 85% · Sep 71% | Screen (full frame) |  | |
-| 87 | `my-job` | Number tiles | My job changed · 56 → 1 (My own commits, May to August) · 119 (Agent commits in July) | Screen (full frame) |  | |
-| 88 | `app-grew` | Number tiles | What the app grew into · 1 → 133 (Test files) · 266 (API route files) · 108 (Database migrations) | Screen (full frame) |  | |
+| 80 | `ch3` | Section | 03 · Four people, day jobs, one app · The machine | Control booth | Camera in the control booth: the crew behind the glass. | |
+| 81 | `small-team` | Number tiles | A small team, and an admin that did the rest · 4 (Organisers) · 15 (CFP reviewers) · 13 (Door staff) | Screen (full frame) | Admin areas: tickets, workshops, CFP and reviewers, speaker travel, sponsorships, partnerships, company invoices, VIP perks, apparel, door check-in. CONFIRM organisers: Faris, Bogdan, Nadja, Colin. | |
+| 82 | `slack-people` | Bar chart | Four people, 51,202 messages · Active days: Faris 396 · Bogdan 382 · Nadja 327 · Colin 327 · Faris 20,354 · Bogdan 19,954 · Nadja 6,979 · Colin 3,915 | Screen (full frame) | About 129 messages a day. | |
+| 83 | `slack-share` | Big number | 96% · Of all Slack messages came from the four of us. 51,202 of 53,277. | Screen (full frame) | 88% were in private channels. | |
+| 84 | `slack-days-off` | Big number | 3 · Days without a single message, out of 397. | Screen (full frame) | 15% of messages were sent on weekends. | |
+| 85 | `slack-peak` | Big number | 836 · Messages on 3 September. Our busiest day, a week before doors opened. | Screen (full frame) | August was the busiest month at 8,265. Top days: 3 Sep 836, 1 Sep 744, 4 Aug 705. | |
+| 86 | `brand` | Statement | Data gap · M1 · Brand and design. | Screen (full frame) | DATA GAP M1: Faris writes this. | |
+| 87 | `timeline` | Number tiles | Ten months from first commit to the door · 3 Nov (2025 · First commit) · 13 Nov (2025 · First ticket sold) · 29 Dec (2025 · CFP opens) · 3 Apr (2026 · CFP closes) · 31 Aug (2026 · Door check-in ships) · 9–12 Sep (2026 · Conference week) | Screen (full frame) | Old deck revealed these one per click; one slide in this draft. | |
+| 88 | `commits` | Bar chart | 1,336 commits · Commits per month · busiest week 27 Jul to 2 Aug, 91 commits · Nov 137 · Dec 87 · Jan 96 · Feb 116 · Mar 83 · Apr 158 · May 191 · Jun 92 · Jul 173 · Aug 104 · Sep 99 | Screen (full frame) |  | |
+| 89 | `agent-prs` | Big number | 58% · Of 281 PRs came from agent branches. 145 Claude · 11 Cursor · 8 Codex. | Screen (full frame) | The first PR (5 Nov 2025) was already from a claude/ branch. | |
+| 90 | `agent-share` | Bar chart | From helper to default · Agent share of merged PRs · Nov 12% · Dec 50% · Jan 0% · Feb 53% · Mar 55% · Apr 47% · May 28% · Jun 68% · Jul 89% · Aug 85% · Sep 71% | Screen (full frame) |  | |
+| 91 | `my-job` | Number tiles | My job changed · 56 → 1 (My own commits, May to August) · 119 (Agent commits in July) | Screen (full frame) |  | |
+| 92 | `app-grew` | Number tiles | What the app grew into · 1 → 133 (Test files) · 266 (API route files) · 108 (Database migrations) | Screen (full frame) |  | |
 
 ### 4 · Building the programme · *434 ideas, 9 picked*
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 89 | `ch4` | Section | 04 · 434 ideas, 9 picked · Building the programme | Stage, from the seats | 3 of the 6 workshops were AI topics. | |
-| 90 | `submissions` | Number tiles | 434 talk submissions · 347 (Talks) · 47 (Lightning talks) · 40 (Workshops) | Screen (full frame) |  | |
-| 91 | `final-week` | Bar chart | A quarter arrived in the final week · CFP submissions per week, 29 Dec to 3 Apr · Week 1 44 · Week 2 33 · Week 3 30 · Week 4 18 · Week 5 8 · Week 6 23 · Week 7 6 · Week 8 12 · Week 9 14 · Week 10 9 · Week 11 18 · Week 12 38 · Week 13 60 · Week 14 121 | Screen (full frame) | 121 of 434 (28%). | |
-| 92 | `reviews` | Big number | 2,489 · Reviews from 15 reviewers. About 166 each. | Screen (full frame) | 267 speakers applied, about 1.6 submissions each. | |
-| 93 | `accepted` | Big number | 9 · Accepted from 434. 6 talks, 3 workshops, 5 waitlisted. | Screen (full frame) | About 2%. The rest of the programme was invited. | |
-| 94 | `fundamentals` | Number tiles | But attendees asked for fundamentals · 75 (Want more JS and TS deep dives) · 48 (Want more AI) | Screen (full frame) | Case studies 71, performance 66. | |
-| 95 | `speakers-flew` | Bar chart | 18 of 21 speakers flew in · 5 from North America · 9 countries · 3 did not fly · USA 3 · Germany 3 · Canada 2 · Netherlands 2 · Austria 2 · UK 2 · Spain 2 · Czechia 1 · Portugal 1 | Screen (full frame) | Departure airport country, not home country. | |
-| 96 | `workshops` | Big number | 6 · Workshops, 80 seats. Workshop day, 10 September. | Screen (full frame) | Registrations: 17, 10, 9, 16, 22, 6. CONFIRM workshop day was 10 Sep. | |
+| 93 | `ch4` | Section | 04 · 434 ideas, 9 picked · Building the programme | Stage, from the seats | 3 of the 6 workshops were AI topics. | |
+| 94 | `submissions` | Number tiles | 434 talk submissions · 347 (Talks) · 47 (Lightning talks) · 40 (Workshops) | Screen (full frame) |  | |
+| 95 | `final-week` | Bar chart | A quarter arrived in the final week · CFP submissions per week, 29 Dec to 3 Apr · Week 1 44 · Week 2 33 · Week 3 30 · Week 4 18 · Week 5 8 · Week 6 23 · Week 7 6 · Week 8 12 · Week 9 14 · Week 10 9 · Week 11 18 · Week 12 38 · Week 13 60 · Week 14 121 | Screen (full frame) | 121 of 434 (28%). | |
+| 96 | `reviews` | Big number | 2,489 · Reviews from 15 reviewers. About 166 each. | Screen (full frame) | 267 speakers applied, about 1.6 submissions each. | |
+| 97 | `accepted` | Big number | 9 · Accepted from 434. 6 talks, 3 workshops, 5 waitlisted. | Screen (full frame) | About 2%. The rest of the programme was invited. | |
+| 98 | `fundamentals` | Number tiles | But attendees asked for fundamentals · 75 (Want more JS and TS deep dives) · 48 (Want more AI) | Screen (full frame) | Case studies 71, performance 66. | |
+| 99 | `speakers-flew` | Bar chart | 18 of 21 speakers flew in · 5 from North America · 9 countries · 3 did not fly · USA 3 · Germany 3 · Canada 2 · Netherlands 2 · Austria 2 · UK 2 · Spain 2 · Czechia 1 · Portugal 1 | Screen (full frame) | Departure airport country, not home country. | |
+| 100 | `workshops` | Big number | 6 · Workshops, 80 seats. Workshop day, 10 September. | Screen (full frame) | Registrations: 17, 10, 9, 16, 22, 6. CONFIRM workshop day was 10 Sep. | |
 
 ### 5 · Filling the room · *Price, channels, people*
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 97 | `ch5` | Section | 05 · Price, channels, people · Filling the room | Hovering over the empty rows (seats), check-in | Camera in the foyer: this slide is projected on the wall above check-in. | |
-| 98 | `price-stages` | Bar chart | Five price stages · Paid tickets per stage · Blind bird 20 · Early bird 81 · General 110 · Late bird 37 · Last minute 19 | Screen (full frame) |  | |
-| 99 | `when-bought` | Bar chart | When people bought · Paid tickets per month · Nov 3 · Dec 16 · Jan 10 · Feb 22 · Mar 35 · Apr 21 · May 11 · Jun 34 · Jul 50 · Aug 39 · Sep 26 | Screen (full frame) |  | |
-| 100 | `last-100-days` | Big number (yellow) | 56% · Of paid tickets sold in the last 100 days. 149 of 267, from 1 June. | Screen (full frame) | FARIS: add the deadline lesson. | |
-| 101 | `ways-in` | Number tiles | So we built ways in · 96 (Tickets with a discount code) · 33 (Student and unemployed tickets) · 41 (Via community partner codes) | Screen (full frame) |  | |
-| 102 | `invoices` | Big number | 30 · Company tickets, all paid by invoice. 9 invoices, all bank transfer. | Screen (full frame) | About a tenth of ticket revenue. | |
-| 103 | `currencies` | Big number | 1 in 5 · Tickets paid in EUR, GBP or USD. 55 EUR · 5 GBP · 4 USD. | Screen (full frame) |  | |
-| 104 | `heard-from` | Bar chart | 1 in 3 heard from a friend or colleague · How survey respondents heard about it (106 answered) · Friend or colleague 38 · Meetup 20 · Web search 17 · Social 16 · Speakers 9 | Screen (full frame) |  | |
-| 105 | `partners` | Big number | 80 · Community partners. 41 tickets, 24 of them from outside Switzerland. | Screen (full frame) | 62 communities, 13 companies, 5 individuals. Top: WarsawJS 5, ReactJS Barcelona 4. | |
-| 106 | `august-traffic` | Bar chart | One month looked huge · visitors per month, August 10,385 | Screen | PostHog. | changed |
-| 107 | `ads-when` | Number tiles | We barely ran ads · none before June · Reddit 9 days (919 visitors, 0 tickets) · Google Ads 1 Aug to 6 Sep | Screen | PostHog, entry click ids. | changed |
-| 108 | `august-without-ads` | Number tiles | Take the ads out, and August looks like July · 7,531 from Google Ads (72%) · 2,854 without · July 3,193 | Screen | PostHog. | changed |
-| 109 | `newsletter` | Big number | 1,215 · visitors in one day from Kevin Powell's newsletter. A friend, not an ad. | Screen | Unpaid; newsletters brought reach, not buyers either. | changed |
-| 110 | `ads` | Number tiles | Ads brought traffic, not buyers · 40% of visitors · 4% of buyers (8 of 180) | Screen | PostHog first touch. | changed |
-| 111 | `buyers-from` | Bar chart | Buyers came from people who already knew us · direct 72, own channels 38, search 27 … Google Ads 8, newsletters 1, Reddit 0 | Screen | PostHog first touch, 180 buyers with a web visit. | changed |
-| 112 | `cart` | Big number | 1 in 4 · Cart viewers went on to check out. Most dropped off at the details step. | Screen (full frame) | 631 viewed the cart, 162 entered an email, 156 completed checkout. | |
-| 113 | `countries` | Big number | 21 · Countries. 2 in 3 paid tickets from Switzerland. | Screen (full frame) |  | |
-| 114 | `abroad` | Bar chart | Germany first, then everyone · Paid tickets from outside Switzerland · Germany 26 · Austria 10 · UK 7 · Spain 7 · USA 7 · Netherlands 5 · Poland 5 · Croatia 4 | Screen (full frame) |  | |
-| 115 | `swiss-early` | Bar chart | Swiss bought early, everyone else later · International share of paid tickets by stage · Blind bird 6% · Early bird 22% · General 44% · Late bird 38% · Last minute 26% | Screen (full frame) | Inference: locals trust the meetup; travellers wait for the lineup. | |
-| 116 | `vip-travel` | Big number | 3× · More likely to buy VIP if travelling. 35% of international vs 11% of Swiss. | Screen (full frame) |  | |
-| 117 | `company-types` | Bar chart | Product companies and agencies · Paid tickets by company type (keyword classification, rough) · Product 94 · Agency 81 · Indie 27 · Enterprise 25 · Finance 21 · Other 16 · Education 3 | Screen (full frame) | CHECK the company-type classification. | |
-| 118 | `agencies-local` | Number tiles | Agencies were local, product teams travelled · 74% (Of agency tickets from Switzerland) · 43% (Of product-company tickets from abroad) | Screen (full frame) |  | |
+| 101 | `ch5` | Section | 05 · Price, channels, people · Filling the room | Hovering over the empty rows (seats), check-in | Camera in the foyer: this slide is projected on the wall above check-in. | |
+| 102 | `price-stages` | Bar chart | Five price stages · Paid tickets per stage · Blind bird 20 · Early bird 81 · General 110 · Late bird 37 · Last minute 19 | Screen (full frame) |  | |
+| 103 | `when-bought` | Bar chart | When people bought · Paid tickets per month · Nov 3 · Dec 16 · Jan 10 · Feb 22 · Mar 35 · Apr 21 · May 11 · Jun 34 · Jul 50 · Aug 39 · Sep 26 | Screen (full frame) |  | |
+| 104 | `last-100-days` | Big number (yellow) | 56% · Of paid tickets sold in the last 100 days. 149 of 267, from 1 June. | Screen (full frame) | FARIS: add the deadline lesson. | |
+| 105 | `ways-in` | Number tiles | So we built ways in · 96 (Tickets with a discount code) · 33 (Student and unemployed tickets) · 41 (Via community partner codes) | Screen (full frame) |  | |
+| 106 | `invoices` | Big number | 30 · Company tickets, all paid by invoice. 9 invoices, all bank transfer. | Screen (full frame) | About a tenth of ticket revenue. | |
+| 107 | `currencies` | Big number | 1 in 5 · Tickets paid in EUR, GBP or USD. 55 EUR · 5 GBP · 4 USD. | Screen (full frame) |  | |
+| 108 | `heard-from` | Bar chart | 1 in 3 heard from a friend or colleague · How survey respondents heard about it (106 answered) · Friend or colleague 38 · Meetup 20 · Web search 17 · Social 16 · Speakers 9 | Screen (full frame) |  | |
+| 109 | `partners` | Big number | 80 · Community partners. 41 tickets, 24 of them from outside Switzerland. | Screen (full frame) | 62 communities, 13 companies, 5 individuals. Top: WarsawJS 5, ReactJS Barcelona 4. | |
+| 110 | `august-traffic` | Bar chart | One month looked huge · visitors per month, August 10,385 | Screen | PostHog. | changed |
+| 111 | `ads-when` | Number tiles | We barely ran ads · none before June · Reddit 9 days (919 visitors, 0 tickets) · Google Ads 1 Aug to 6 Sep | Screen | PostHog, entry click ids. | changed |
+| 112 | `august-without-ads` | Number tiles | Take the ads out, and August looks like July · 7,531 from Google Ads (72%) · 2,854 without · July 3,193 | Screen | PostHog. | changed |
+| 113 | `newsletter` | Big number | 1,215 · visitors in one day from Kevin Powell's newsletter. A friend, not an ad. | Screen | Unpaid; newsletters brought reach, not buyers either. | changed |
+| 114 | `ads` | Number tiles | Ads brought traffic, not buyers · 40% of visitors · 4% of buyers (8 of 180) | Screen | PostHog first touch. | changed |
+| 115 | `buyers-from` | Bar chart | Buyers came from people who already knew us · direct 72, own channels 38, search 27 … Google Ads 8, newsletters 1, Reddit 0 | Screen | PostHog first touch, 180 buyers with a web visit. | changed |
+| 116 | `cart` | Big number | 1 in 4 · Cart viewers went on to check out. Most dropped off at the details step. | Screen (full frame) | 631 viewed the cart, 162 entered an email, 156 completed checkout. | |
+| 117 | `countries` | Big number | 21 · Countries. 2 in 3 paid tickets from Switzerland. | Screen (full frame) |  | |
+| 118 | `abroad` | Bar chart | Germany first, then everyone · Paid tickets from outside Switzerland · Germany 26 · Austria 10 · UK 7 · Spain 7 · USA 7 · Netherlands 5 · Poland 5 · Croatia 4 | Screen (full frame) |  | |
+| 119 | `swiss-early` | Bar chart | Swiss bought early, everyone else later · International share of paid tickets by stage · Blind bird 6% · Early bird 22% · General 44% · Late bird 38% · Last minute 26% | Screen (full frame) | Inference: locals trust the meetup; travellers wait for the lineup. | |
+| 120 | `vip-travel` | Big number | 3× · More likely to buy VIP if travelling. 35% of international vs 11% of Swiss. | Screen (full frame) |  | |
+| 121 | `company-types` | Bar chart | Product companies and agencies · Paid tickets by company type (keyword classification, rough) · Product 94 · Agency 81 · Indie 27 · Enterprise 25 · Finance 21 · Other 16 · Education 3 | Screen (full frame) | CHECK the company-type classification. | |
+| 122 | `agencies-local` | Number tiles | Agencies were local, product teams travelled · 74% (Of agency tickets from Switzerland) · 43% (Of product-company tickets from abroad) | Screen (full frame) |  | |
 
 ### 6 · The rollercoaster · *Highs and lows*
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 119 | `ch6` | Section | 06 · Highs and lows · The rollercoaster | Up in the lighting rig |  | |
-| 120 | `hi-final-week` | Big number | 121 · Submissions in the final week. High · 30 Mar to 3 Apr 2026. | Screen (full frame) |  | |
-| 121 | `lo-1000-rows` | Big number | 1,000 · Rows: a silent limit hid CFP reviews. Fixed days before the CFP closed. Low · 31 Mar 2026. | Screen (full frame) |  | |
-| 122 | `lo-178` | Big number | #178 · Removed an obfuscated malicious payload hidden in a build config. Low · 25 May 2026. | Screen (full frame) |  | |
-| 123 | `hi-july` | Big number | 50 · Tickets sold, our best month. High · July 2026. | Screen (full frame) |  | |
-| 124 | `door-prs` | Big number | 14 · Door check-in PRs merged in one day, 9 days before the event. Low and high · 31 Aug. | Foyer, check-in | Camera at the door: this is where check-in ran. | |
-| 125 | `arrivals` | Bar chart | Everyone arrives at once · Door scans per 10 minutes from 07:40, 11 Sep · 07:40 5 · 07:50 6 · 08:00 12 · 08:10 24 · 08:20 21 · 08:30 29 · 08:40 20 · 08:50 11 · 09:00 5 · 09:10 8 · 09:20 2 · 09:30 2 | Screen (full frame) |  | |
-| 126 | `busiest-day` | Big number | 5,067 · Pageviews: the busiest day of the year. 69% on mobile. /schedule opened 3,729 times over 4 days. | Screen (full frame) |  | |
-| 127 | `badges` | Number tiles | On the day · 253 (Badges picked up of 330 tickets) · 222 (T-shirts) · 204 (Goodie bags) | Foyer, check-in | CHECK: badges (253) or door scans (156) as the attendance number. | |
-| 128 | `badge-frontload` | Number tiles | We handed out badges the night before · 49 at the warm-up meetup (1 in 5) · 48 of them never needed the desk on the day · 139 in the busiest hour | Foyer, projected | Door system export. | new |
-| 129 | `door-rhythm` | Heatmap | Doors first, goodies later · check-ins per hour (118 at 08:00) vs goodie bags (from 10:30, waves at the breaks) | Foyer, projected | Door system event log, 11 Sep. No pickups logged on 9 or 10 Sep. | new |
-| 130 | `not-in-data` | Statement | Data gap · R1 · The ones not in the data. | Screen (full frame) | DATA GAP R1: personal highs and lows. | |
+| 123 | `ch6` | Section | 06 · Highs and lows · The rollercoaster | Up in the lighting rig |  | |
+| 124 | `hi-final-week` | Big number | 121 · Submissions in the final week. High · 30 Mar to 3 Apr 2026. | Screen (full frame) |  | |
+| 125 | `lo-1000-rows` | Big number | 1,000 · Rows: a silent limit hid CFP reviews. Fixed days before the CFP closed. Low · 31 Mar 2026. | Screen (full frame) |  | |
+| 126 | `lo-178` | Big number | #178 · Removed an obfuscated malicious payload hidden in a build config. Low · 25 May 2026. | Screen (full frame) |  | |
+| 127 | `hi-july` | Big number | 50 · Tickets sold, our best month. High · July 2026. | Screen (full frame) |  | |
+| 128 | `door-prs` | Big number | 14 · Door check-in PRs merged in one day, 9 days before the event. Low and high · 31 Aug. | Foyer, check-in | Camera at the door: this is where check-in ran. | |
+| 129 | `arrivals` | Bar chart | Everyone arrives at once · Door scans per 10 minutes from 07:40, 11 Sep · 07:40 5 · 07:50 6 · 08:00 12 · 08:10 24 · 08:20 21 · 08:30 29 · 08:40 20 · 08:50 11 · 09:00 5 · 09:10 8 · 09:20 2 · 09:30 2 | Screen (full frame) |  | |
+| 130 | `busiest-day` | Big number | 5,067 · Pageviews: the busiest day of the year. 69% on mobile. /schedule opened 3,729 times over 4 days. | Screen (full frame) |  | |
+| 131 | `badges` | Number tiles | On the day · 253 (Badges picked up of 330 tickets) · 222 (T-shirts) · 204 (Goodie bags) | Foyer, check-in | CHECK: badges (253) or door scans (156) as the attendance number. | |
+| 132 | `badge-frontload` | Number tiles | We handed out badges the night before · 49 at the warm-up meetup (1 in 5) · 48 of them never needed the desk on the day · 139 in the busiest hour | Foyer, projected | Door system export. | new |
+| 133 | `door-rhythm` | Heatmap | Doors first, goodies later · check-ins per hour (118 at 08:00) vs goodie bags (from 10:30, waves at the breaks) | Foyer, projected | Door system event log, 11 Sep. No pickups logged on 9 or 10 Sep. | new |
+| 134 | `not-in-data` | Statement | Data gap · R1 · The ones not in the data. | Screen (full frame) | DATA GAP R1: personal highs and lows. | |
 
 ### 7 · What we learned · *For anyone who wants to organise something*
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 131 | `ch7` | Section | 07 · For anyone who wants to organise something · What we learned | Hall, back corner |  | |
-| 132 | `execution` | Statement | Execution · The plan only counts at the door. | Screen (full frame) | Best-rated: organisation and logistics, 3.7 of 4. Weakest: food and drinks, 3.2 of 4. | |
-| 133 | `distribution` | Statement | Distribution · Reach people where they buy. | Screen (full frame) |  | |
-| 134 | `pragmatism` | Statement | Pragmatism · One app, a boring stack, agents for the grind. | Screen (full frame) |  | |
+| 135 | `ch7` | Section | 07 · For anyone who wants to organise something · What we learned | Hall, back corner |  | |
+| 136 | `execution` | Statement | Execution · The plan only counts at the door. | Screen (full frame) | Best-rated: organisation and logistics, 3.7 of 4. Weakest: food and drinks, 3.2 of 4. | |
+| 137 | `distribution` | Statement | Distribution · Reach people where they buy. | Screen (full frame) |  | |
+| 138 | `pragmatism` | Statement | Pragmatism · One app, a boring stack, agents for the grind. | Screen (full frame) |  | |
 
 ### 8 · The final numbers · *Did it add up?*
 
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
-| 135 | `ch8` | Section | 08 · Did it add up? · The final numbers | Stage, from the seats |  | |
-| 136 | `income` | Bar chart | Where the money came from · CHF · roughly 170k in · about 2.4k Stripe fees · Sponsorship 81k · Tickets 75k · Workshops 14k · VIP upgrades 1k | Screen (full frame) | Admin income may be off by up to about 5%. Costs are not in the admin. | |
-| 137 | `add-up` | Statement | Did it add up? | Screen (full frame) | Pause. The next slide is the answer. | |
-| 138 | `add-up-answer` | Statement (yellow) | Just over break even, on roughly CHF 170k of income. | Screen (full frame) |  | |
-| 139 | `stakes-covered` | Statement | Nobody had to pay it out of pocket. | Screen (full frame) | Pays off the stakes in chapter 1. CHECK. | keep |
-| 140 | `rating` | Big number | 4.6 · Out of 5 overall. 112 survey responses, 110 rated 4 or 5. | Screen (full frame) |  | |
-| 141 | `come-back` | Big number (yellow) | 88% · Of survey respondents want to come back. 99 of 112. | Screen (full frame) | 61 Absolutely, 38 "I'll try". | |
-| 142 | `thanks` | Number tiles | Thank you · 24 (Sponsors) · 80 (Community partners) · 21 (Speakers and MCs) · 13 (Door staff and volunteers) | Stage, from the seats | CHECK: 13 door staff vs 14 volunteers on the dashboard. | |
-| 143 | `come-2028` | Number tiles | Data gap · O5 · next edition date · Come in 2028 · Come back (As an attendee or speaker) · Volunteer (Help us run the next one) · Start your own (Execution, distribution, pragmatism) | Hall, back corner | DATA GAP O5: next edition date. Optional movie. | |
+| 139 | `ch8` | Section | 08 · Did it add up? · The final numbers | Stage, from the seats |  | |
+| 140 | `income` | Bar chart | Where the money came from · CHF · roughly 170k in · about 2.4k Stripe fees · Sponsorship 81k · Tickets 75k · Workshops 14k · VIP upgrades 1k | Screen (full frame) | Admin income may be off by up to about 5%. Costs are not in the admin. | |
+| 141 | `add-up` | Statement | Did it add up? | Screen (full frame) | Pause. The next slide is the answer. | |
+| 142 | `add-up-answer` | Statement (yellow) | Just over break even, on roughly CHF 170k of income. | Screen (full frame) |  | |
+| 143 | `stakes-covered` | Statement | Nobody had to pay it out of pocket. | Screen (full frame) | Pays off the stakes in chapter 1. CHECK. | keep |
+| 144 | `rating` | Big number | 4.6 · Out of 5 overall. 112 survey responses, 110 rated 4 or 5. | Screen (full frame) |  | |
+| 145 | `come-back` | Big number (yellow) | 88% · Of survey respondents want to come back. 99 of 112. | Screen (full frame) | 61 Absolutely, 38 "I'll try". | |
+| 146 | `thanks` | Number tiles | Thank you · 24 (Sponsors) · 80 (Community partners) · 21 (Speakers and MCs) · 13 (Door staff and volunteers) | Stage, from the seats | CHECK: 13 door staff vs 14 volunteers on the dashboard. | |
+| 147 | `come-2028` | Number tiles | Data gap · O5 · next edition date · Come in 2028 · Come back (As an attendee or speaker) · Volunteer (Help us run the next one) · Start your own (Execution, distribution, pragmatism) | Hall, back corner | DATA GAP O5: next edition date. Optional movie. | |
 
 ## Open questions to resolve
 

@@ -10,6 +10,10 @@ import { flapSeconds, paintFlapboard } from './flapboard'
 import { ATM_SECS, paintAtm } from './atm'
 import { paintStrike, STRIKE_SECS } from './strike'
 import { paintBadgeTest } from './badgetest'
+import { INBOX_SECS, paintInbox } from './inbox'
+import { PIPELINE_SECS, paintPipeline } from './pipeline'
+import { CHATTER_SECS, paintChatter } from './chatter'
+import { ARRIVALS_SECS, paintArrivals } from './arrivals'
 import { paintMatrix } from './matrix'
 
 type Painter<K extends VisualKind> = (ctx: Ctx, v: Extract<Visual, { kind: K }>, p: number, r: Roles) => void
@@ -305,8 +309,12 @@ const atm: Painter<'atm'> = paintAtm
 const strike: Painter<'strike'> = paintStrike
 const badgetest: Painter<'badgetest'> = paintBadgeTest
 const matrix: Painter<'matrix'> = paintMatrix
+const inbox: Painter<'inbox'> = paintInbox
+const pipeline: Painter<'pipeline'> = paintPipeline
+const chatter: Painter<'chatter'> = paintChatter
+const arrivals: Painter<'arrivals'> = paintArrivals
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear
@@ -314,6 +322,10 @@ const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement,
  */
 export function drawTiming(visual: Visual | undefined): { secs: number; linear: boolean } {
   if (visual?.kind === 'journey') return { secs: journeySeconds(visual), linear: true }
+  if (visual?.kind === 'inbox') return { secs: INBOX_SECS, linear: true }
+  if (visual?.kind === 'pipeline') return { secs: PIPELINE_SECS, linear: true }
+  if (visual?.kind === 'chatter') return { secs: CHATTER_SECS, linear: true }
+  if (visual?.kind === 'arrivals') return { secs: ARRIVALS_SECS, linear: true }
   if (visual?.kind === 'strike') return { secs: STRIKE_SECS, linear: true }
   if (visual?.kind === 'atm') return { secs: ATM_SECS, linear: false }
   if (visual?.kind === 'flapboard') return { secs: flapSeconds(visual), linear: true }

@@ -149,6 +149,53 @@ export type Visual = Base &
         items: readonly { value: string; label: string; tone?: Tone }[]
       }
     | {
+        kind: 'inbox'
+        title: string
+        kicker?: string
+        /** What the counter counts, e.g. "Submissions". */
+        unit: string
+        /** The label under the server. */
+        server: string
+        /** Submissions per day (ISO date), in date order. */
+        days: readonly { date: string; n: number }[]
+        topicsLabel: string
+        topics: readonly { label: string; value: number; tone?: Tone }[]
+        /** Called out over the last days once they land. */
+        peak?: string
+      }
+    | {
+        kind: 'pipeline'
+        title: string
+        kicker?: string
+        stages: readonly string[]
+        months: readonly { label: string; commits: number; prs: number }[]
+        /** Shipped features, by month index into `months`. */
+        features: readonly { month: number; label: string }[]
+      }
+    | {
+        kind: 'chatter'
+        title: string
+        kicker?: string
+        unit: string
+        total: number
+        people: readonly { name: string; value: number }[]
+        channels: readonly { label: string; value: number }[]
+        note?: string
+      }
+    | {
+        kind: 'arrivals'
+        title: string
+        kicker?: string
+        /** What the running total counts. */
+        unit: string
+        home: Place
+        /** Where the globe faces: [lon, lat]. */
+        centre: [number, number]
+        /** One flight per origin, in landing order. */
+        origins: readonly { place: Place; attendees?: number; speakers?: number }[]
+        note?: string
+      }
+    | {
         kind: 'journey'
         title: string
         journey: Journey
@@ -205,6 +252,10 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   atm: 'dark',
   strike: 'dark',
   badgetest: 'dark',
+  inbox: 'dark',
+  pipeline: 'dark',
+  chatter: 'dark',
+  arrivals: 'dark',
   matrix: 'dark',
   journey: 'dark',
 }

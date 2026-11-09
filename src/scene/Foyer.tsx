@@ -422,10 +422,12 @@ function BadgeLab({ faces, back }: ReturnType<typeof useBadgeFaces>) {
 function Volunteers({ faces }: ReturnType<typeof useBadgeFaces>) {
   return (
     <>
-      <StandingAvatar x={-3.0} y={FLOOR} z={Z0 + 0.42} badge={faces.volunteer} />
-      <StandingAvatar x={-0.7} y={FLOOR} z={Z0 + 0.42} yaw={0.15} badge={faces.volunteer} />
-      <StandingAvatar x={1.9} y={FLOOR} z={Z0 + 0.42} yaw={-0.2} badge={faces.organizer} />
-      <StandingAvatar x={MERCH.x + 0.75} y={FLOOR} z={MERCH.z + 0.3} yaw={-Math.PI / 2} badge={faces.organizer} />
+      {/* All on the left of the counter: the lanyards cue and the projection are on the right. */}
+      <StandingAvatar x={-3.4} y={FLOOR} z={Z0 + 0.42} badge={faces.volunteer} />
+      <StandingAvatar x={-2.3} y={FLOOR} z={Z0 + 0.42} yaw={0.15} badge={faces.volunteer} />
+      <StandingAvatar x={-1.25} y={FLOOR} z={Z0 + 0.42} yaw={-0.2} badge={faces.organizer} />
+      {/* Beside the merch table, out of the merch cue's sightline. */}
+      <StandingAvatar x={MERCH.x + 0.75} y={FLOOR} z={MERCH.z - 1.4} yaw={-Math.PI / 2} badge={faces.organizer} />
     </>
   )
 }
