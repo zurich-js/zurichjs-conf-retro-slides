@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
+import { Dressing } from './Dressing'
 import { useDeck } from '../engine/store'
 import { STILL } from '../engine/params'
 import { revealedAt } from '../engine/frame'
@@ -667,14 +668,14 @@ export function Foyer({ frame }: { frame: THREE.Material }) {
     <group>
       <Room />
       <Doors />
-      <Backdrop />
+      <Dressing order={0}><Backdrop /></Dressing>
       <CheckIn frame={frame} />
-      <Badges {...badges} />
+      <Dressing order={3}><Badges {...badges} /></Dressing>
       <BadgeLab {...badges} />
       <Volunteers {...badges} />
-      <Queue />
-      <Balloons />
-      <Merch />
+      <Dressing order={1}><Queue /></Dressing>
+      <Dressing order={4}><Balloons /></Dressing>
+      <Dressing order={2}><Merch /></Dressing>
       <Cutaway>
         <Pendants />
       </Cutaway>

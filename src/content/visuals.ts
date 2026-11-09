@@ -486,7 +486,7 @@ export const VISUALS = {
     ],
   },
   'slack-share': { kind: 'stat', value: '96%', label: 'Of all Slack messages came from the four of us. 51,202 of 53,277.' },
-  'story-volunteers': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Finding the volunteers.', emphasis: 'volunteers.' },
+  'story-volunteers': { kind: 'statement', kicker: 'Volunteers', text: 'We started recruiting volunteers far too late.', emphasis: 'far too late.' },
   'story-comms': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Every email, every question.', emphasis: 'every question.' },
   'brand': { kind: 'statement', kicker: 'Data gap · M1', text: 'Brand and design.', emphasis: 'design.' },
   'timeline': {
@@ -697,6 +697,30 @@ export const VISUALS = {
   'lo-1000-rows': { kind: 'stat', value: '1,000', label: 'Rows: a silent limit hid CFP reviews. Fixed days before the CFP closed. Low · 31 Mar 2026.', tone: 'bad' },
   'lo-178': { kind: 'stat', value: '#178', label: 'Removed an obfuscated malicious payload hidden in a build config. Low · 25 May 2026.', tone: 'bad' },
   'hi-july': { kind: 'stat', value: '50', label: 'Tickets sold, our best month. High · July 2026.', tone: 'good' },
+  'mail-inbox': {
+    kind: 'numbers', kicker: 'The inbox · Jul 2025 to Nov 2026', title: 'A year of email',
+    items: [
+      { value: '6,857', label: 'Messages in the ZurichJS mailbox' },
+      { value: '1,449', label: 'Sent by us, about 1 in 5', tone: 'neutral' },
+    ],
+  },
+  'mail-sponsors': {
+    kind: 'numbers', kicker: 'Seven cash sponsors · median', title: 'A quick hello, a slow yes',
+    items: [
+      { value: '3 days', label: 'To a first reply', tone: 'good' },
+      { value: '21 days', label: 'From first email to a signature', tone: 'warn' },
+      { value: '55 days', label: 'The longest', tone: 'warn' },
+    ],
+  },
+  'mail-after-yes': { kind: 'statement', kicker: 'High, then low · the inbox', text: 'Much of the work came after the yes.', emphasis: 'after the yes.' },
+  'mail-speed': {
+    kind: 'numbers', kicker: 'Speakers and attendees', title: 'Answered in minutes, paid in weeks',
+    items: [
+      { value: '87 min', label: 'Median first reply to attendees', tone: 'good' },
+      { value: '9 min', label: 'Slowest first reply on speaker expenses', tone: 'good' },
+      { value: '25 days', label: 'Longest from claim to payout', tone: 'warn' },
+    ],
+  },
   'door-prs': { kind: 'stat', value: '14', label: 'Door check-in PRs merged in one day, 9 days before the event. Low and high · 31 Aug.', tone: 'warn' },
   'arrivals': {
     kind: 'heatmap', kicker: 'Door scans, 11 Sep · people scanned in per 10 minutes', title: 'Busiest at 08:30: 29 people in 10 minutes', source: 'Door system scans, from 07:40',
@@ -729,8 +753,34 @@ export const VISUALS = {
       { value: '204', label: 'Goodie bags', tone: 'neutral' },
     ],
   },
-  'story-space': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Designing the space, the week before.', emphasis: 'the week before.' },
-  'story-control-room': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Inside the control room.', emphasis: 'control room.' },
+  'space-empty': { kind: 'statement', kicker: 'Two weeks out', text: 'The space was still in boxes.', emphasis: 'in boxes.' },
+  'space-dressed': { kind: 'statement', kicker: 'Delivery times, then a rush', text: 'It all arrived just in time.', emphasis: 'just in time.' },
+  'videos-late': { kind: 'statement', kicker: 'One week before', text: 'We had no videos for the stage.', emphasis: 'no videos' },
+  'opening-video': { kind: 'video', src: '/video/conference-opening.mp4', seconds: 60.65 },
+  'speaker-intro': { kind: 'video', src: '/video/speaker-intro.mp4', seconds: 20.18, rest: 18 },
+  'thanks-jonny': { kind: 'statement', ground: 'yellow', kicker: 'Made with Remotion, in a week', text: 'Thank you, Jonny Burger.', emphasis: 'Jonny Burger.' },
+  'letters-cut': { kind: 'statement', kicker: 'Three days before', text: 'We cut the stage letters by hand.', emphasis: 'by hand.' },
+  'lo-last-payment': { kind: 'stat', value: '1 day', label: 'Before the conference: a sponsor payment and video ad finally arrived. Low · Sep 2026.', tone: 'bad' },
+  'podium-plug': { kind: 'statement', kicker: 'On the podium', text: 'One USB-C cable: screen, sound and wired internet.', emphasis: 'One USB-C cable:' },
+  'wifi': {
+    kind: 'numbers', kicker: 'Internet at Technopark', title: 'Priced by devices online at once',
+    items: [
+      { value: '300', label: 'Devices in the first quote' },
+      { value: '120', label: 'What fit our budget', tone: 'warn' },
+      { value: '250', label: 'What we bought, about CHF 1,000', tone: 'good' },
+    ],
+  },
+  'control-room': { kind: 'statement', kicker: 'Conference day', text: 'Bogdan ran the booth all day, with the technician.', emphasis: 'all day,' },
+  'airport-runs': { kind: 'statement', kicker: 'Airport runs', text: 'Flights moved. Plans changed. We kept driving.', emphasis: 'We kept driving.' },
+  'speaker-runner': { kind: 'statement', kicker: 'Learned on the day', text: 'Someone had to bring every speaker to the stage, on time.', emphasis: 'on time.' },
+  'merch-guess': {
+    kind: 'numbers', kicker: 'Ordering merch', title: 'Sizes for people we had not met yet',
+    items: [
+      { value: '222', label: 'T-shirts handed out' },
+      { value: '33', label: 'Hoodies handed out on the day', tone: 'neutral' },
+      { value: '48', label: 'Hoodies still owed after the day', tone: 'warn' },
+    ],
+  },
   'not-in-data': { kind: 'statement', kicker: 'Data gap · R1', text: 'The ones not in the data.', emphasis: 'not in the data.' },
 
   // ── 7 · What we learned ────────────────────────────────────────────────
@@ -738,6 +788,7 @@ export const VISUALS = {
   'execution': { kind: 'statement', kicker: 'Execution', text: 'The plan only counts at the door.', emphasis: 'at the door.' },
   'distribution': { kind: 'statement', kicker: 'Distribution', text: 'Reach people where they buy.', emphasis: 'where they buy.' },
   'pragmatism': { kind: 'statement', kicker: 'Pragmatism', text: 'One app, a boring stack, agents for the grind.', emphasis: 'agents for the grind.' },
+  'plan-people': { kind: 'quote', text: 'You can plan every tiny logistical detail, but you can\'t plan people.', author: 'Nadja', role: 'ZurichJS Conf organiser' },
 
   // ── 8 · The final numbers ──────────────────────────────────────────────
   'ch8': { kind: 'section', number: '08 · Did it add up?', title: 'The final numbers' },

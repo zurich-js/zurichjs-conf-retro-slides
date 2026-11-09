@@ -1,6 +1,6 @@
 import { DEFAULT_GROUND, type Visual, type VisualKind } from '../engine/types'
 import { FRAME, GROUNDS, MOTION, type Roles, SERIES, TYPE } from '../brand/tokens'
-import { type Ctx, chrome, clear, enter, image, label, SAFE, text, window01, wrap } from './kit'
+import { type Ctx, chrome, clear, enter, image, label, markVideoBusy, pauseVideos, SAFE, text, video, window01, wrap } from './kit'
 import { journeySeconds, paintJourney } from './journey'
 import { CALENDAR_SECS, paintCalendar } from './calendar'
 import { paintGrowth } from './growth'
@@ -299,6 +299,35 @@ const numbers: Painter<'numbers'> = (ctx, v, p, r) => {
   })
 }
 
+/**
+ * A rendered clip, full frame. Progress is playback: 0 → 1 over `seconds`.
+ * The element plays on its own (smooth, with sound) and is only nudged back
+ * when it drifts from progress; at 1 it rests on its `rest` frame, so a deep
+ * link with ?still lands on the same picture every time.
+ */
+const vid: Painter<'video'> = (ctx, v, p) => {
+  const el = video(v.src)
+  const t = p * v.seconds
+  if (p >= 1) {
+    if (!el.paused) el.pause()
+    const end = v.rest ?? Math.max(0, v.seconds - 0.05)
+    if (Math.abs(el.currentTime - end) > 0.1 && !el.seeking) el.currentTime = end
+  } else if (el.paused) {
+    if (Math.abs(el.currentTime - t) > 0.05) el.currentTime = t
+    // Autoplay with sound needs a user gesture; arrow keys count. If refused, play muted.
+    el.play().catch(() => { el.muted = true; void el.play().catch(() => {}) })
+  } else if (Math.abs(el.currentTime - t) > 0.4) {
+    el.currentTime = t
+  }
+  markVideoBusy(el.readyState < 2 || el.seeking)
+  if (el.readyState < 2) return
+  const r = el.videoWidth / el.videoHeight
+  let w = FRAME.width
+  let h = w / r
+  if (h < FRAME.height) { h = FRAME.height; w = h * r }
+  ctx.drawImage(el, (FRAME.width - w) / 2, (FRAME.height - h) / 2, w, h)
+}
+
 const journey: Painter<'journey'> = paintJourney
 const calendar: Painter<'calendar'> = paintCalendar
 const growth: Painter<'growth'> = paintGrowth
@@ -314,13 +343,14 @@ const pipeline: Painter<'pipeline'> = paintPipeline
 const chatter: Painter<'chatter'> = paintChatter
 const arrivals: Painter<'arrivals'> = paintArrivals
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals, video: vid }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear
  * progress (it eases its own sub-timelines). Everything else: MOTION, eased.
  */
 export function drawTiming(visual: Visual | undefined): { secs: number; linear: boolean } {
+  if (visual?.kind === 'video') return { secs: visual.seconds, linear: true }
   if (visual?.kind === 'journey') return { secs: journeySeconds(visual), linear: true }
   if (visual?.kind === 'inbox') return { secs: INBOX_SECS, linear: true }
   if (visual?.kind === 'pipeline') return { secs: PIPELINE_SECS, linear: true }
@@ -341,10 +371,13 @@ export function drawTiming(visual: Visual | undefined): { secs: number; linear: 
 export function paintVisual(ctx: Ctx, visual: Visual | undefined, p: number) {
   const r = GROUNDS[visual ? (visual.ground ?? DEFAULT_GROUND[visual.kind]) : 'dark']
   clear(ctx, r)
+  markVideoBusy(false)
+  pauseVideos(visual?.kind === 'video' ? visual.src : undefined)
   if (visual) {
     ctx.save()
     ;(PAINTERS[visual.kind] as Painter<VisualKind>)(ctx, visual as never, p, r)
     ctx.restore()
   }
-  chrome(ctx, r)
+  // A clip carries its own branding; everything else gets the wordmark.
+  if (visual?.kind !== 'video') chrome(ctx, r)
 }

@@ -197,6 +197,15 @@ export type Visual = Base &
         note?: string
       }
     | {
+        kind: 'video'
+        /** A rendered clip in public/video (H.264 MP4, 16:9), played full frame with its sound. */
+        src: string
+        /** Its length in seconds: the slide's draw-in plays it once, then holds a frame. */
+        seconds: number
+        /** The frame (seconds) held once it has played, and under ?still. Default: the last frame. */
+        rest?: number
+      }
+    | {
         kind: 'journey'
         title: string
         journey: Journey
@@ -259,13 +268,14 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   arrivals: 'dark',
   matrix: 'dark',
   journey: 'dark',
+  video: 'dark',
 }
 
 /**
  * Named camera destinations. `screen` is solved in src/renderers/Stage.tsx;
  * the rest are measured poses in src/scene/venue.ts (CUES).
  */
-export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats', 'lanyards'] as const
+export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats', 'lanyards', 'laptop', 'shuttle'] as const
 export type CameraCue = (typeof CAMERA_CUES)[number]
 
 export interface Slide {
@@ -291,6 +301,18 @@ export interface Slide {
    * when it lifts (chapter openers, so the deck does not fly out and back in).
    */
   transition?: 'curtain'
+  /**
+   * How dressed the venue is, 0–1 (booths, backdrop, balloons, signs, merch).
+   * Carries forward like `fill`; the deck starts dressed (1). Changing it
+   * builds (or strips) the dressing while the slide draws in.
+   */
+  dressed?: number
+  /**
+   * A choreographed set action played once as the slide draws in:
+   * `cut-letters` carves the foam letters out of a block with a hot wire;
+   * `plug-in` plugs the speaker's laptop into the podium dock.
+   */
+  action?: 'cut-letters' | 'plug-in'
   /** Speaker notes. Shown in ?presenter, never painted on the frame. */
   notes?: string
 }

@@ -1,4 +1,7 @@
 import { FRAME, MOTION, type Roles, TYPE } from '../brand/tokens'
+import { INDEX, PRESENTER, STILL } from '../engine/params'
+
+const MUTED = PRESENTER || STILL || INDEX
 
 /** Shared drawing primitives. Painters compose these; nothing here knows about slides. */
 
@@ -105,6 +108,37 @@ export function image(src: string): HTMLImageElement | null {
 }
 export function preloadImages(srcs: Iterable<string>): Promise<unknown> {
   return Promise.all([...srcs].map((s) => { const i = new Image(); i.src = s; images.set(s, i); return i.decode().catch(() => {}) }))
+}
+
+const videos = new Map<string, HTMLVideoElement>()
+/**
+ * One <video> per clip, never in the DOM: the `video` painter draws its
+ * current frame onto the frame canvas. Muted in ?presenter and ?still (the
+ * audience window carries the sound).
+ */
+export function video(src: string): HTMLVideoElement {
+  let el = videos.get(src)
+  if (!el) {
+    el = document.createElement('video')
+    el.src = src
+    el.preload = 'auto'
+    el.playsInline = true
+    el.muted = MUTED
+    videos.set(src, el)
+  }
+  return el
+}
+let videoBusy = false
+/** A painter drew a clip that has no frame yet (loading or seeking): keep repainting. */
+export const markVideoBusy = (busy: boolean) => { videoBusy = busy }
+export const videoPending = () => videoBusy
+
+/** Pause every clip except `keep` (navigation away from a video slide stops it). */
+export function pauseVideos(keep?: string) {
+  for (const [src, el] of videos) if (src !== keep && !el.paused) el.pause()
+}
+export function preloadVideos(srcs: Iterable<string>) {
+  for (const s of srcs) video(s).load()
 }
 
 /** Persistent chrome: the conf wordmark bottom-left, matched to the ground. Nothing else. */

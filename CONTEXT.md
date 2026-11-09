@@ -19,6 +19,17 @@ A slide's `transition: 'curtain'`: a short fade to black, the camera cuts to
 the slide's cue behind it, then fades up. Used on chapter openers; every
 other cue change is still one continuous move.
 
+## Dressed
+How dressed the venue is on a slide (`dressed`, 0–1): booths, cocktail
+tables, backdrop, queue posts, balloons, badges, merch. Carries forward like
+fill; the deck starts dressed. Building rises each piece out of the floor;
+stripping is instant. Bare, the atrium holds delivery boxes.
+
+## Action
+A choreographed set action a slide plays once as it draws in (`action`):
+`cut-letters` (a hot wire carves the foam letters out of a block) or
+`plug-in` (the speaker's laptop is cabled into the podium dock). Closed list.
+
 ## Fill
 How full the auditorium is on a slide (`fill`, 0–1). Carries forward from the
 last slide that set it; a change fills or empties the seats in sales order.
@@ -44,7 +55,7 @@ departures board: columns of flaps that spin and land), `atm` (one screen of
 a cash machine: prompt, touch options, a tapped choice; its `step` drives the
 machine in the set: card in, cash out), `strike` (one name: struck through and
 renamed, or stamped, e.g. Deprecated), `badgetest` (a caption whose `rig`
-drives the badge-hole test stand; see Badge test), `inbox` (the call for papers: one envelope per submission flying into a server on the day it came in, a daily histogram and topic bars), `pipeline` (commits running through CI stages month by month, shipped features called out), `chatter` (a year of Slack: a filling channel, team-level figures (never per person), the private / DM / public split), `arrivals` (flights into Zurich on a zoomed globe, one per origin, with a tally), `journey` (the road-to-Zurich globe:
+drives the badge-hole test stand; see Badge test), `inbox` (the call for papers: one envelope per submission flying into a server on the day it came in, a daily histogram and topic bars), `pipeline` (commits running through CI stages month by month, shipped features called out), `chatter` (a year of Slack: a filling channel, team-level figures (never per person), the private / DM / public split), `arrivals` (flights into Zurich on a zoomed globe, one per origin, with a tally), `video` (a rendered clip, e.g. a Remotion render in `public/video`, played full frame with its sound, then held on its `rest` frame), `journey` (the road-to-Zurich globe:
 one leg per step, or with `play` every leg in one autoplaying draw-in). Each
 kind has exactly one painter. Adding a kind is a deliberate act (type +
 painter + doc), never a one-off.
@@ -99,12 +110,13 @@ like `screen`), `foifi` /
 `gate-full` (the departures board filling the frame; solved), `apron` (the
 plane at the gate, from outside), `atm` (close on the cash machine's screen in
 Foifi), `atm-wide` (the whole machine: card slot, keypad, cash), `aerial` (Technopark
-at night from above, roofs on), `seats` (hovering low over the auditorium's rows). Cues describe destinations, never timelines. `?cue=<name>`
+at night from above, roofs on), `laptop` (over the speaker's shoulder at the podium: laptop, dock, cables), `shuttle` (high over the city: Technopark, the road and the airport, cars shuttling), `seats` (hovering low over the auditorium's rows). Cues describe destinations, never timelines. `?cue=<name>`
 previews one.
 
 ## Space
 Which room a camera cue is in: `hall`, `booth`, `foyer`, `atrium`, `foifi`,
-`plane` (the 777 cabin), `gate` (the airport lounge and apron), or `map`
+`plane` (the 777 cabin), `gate` (the airport lounge and apron), `city`
+(Technopark and the airport at once, for the airport runs) or `map`
 (the overview).
 
 ## Foifi

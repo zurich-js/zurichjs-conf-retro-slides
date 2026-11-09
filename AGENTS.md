@@ -179,7 +179,7 @@ Copied into `PALETTE`; never import across repos.
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·
-  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats`. Poses
+  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle`. Poses
   live in `CUES` (venue.ts). Each cue has a `space` (`hall` | `booth` |
   `foyer` | `atrium` | `map`); moves inside a room glide, so a new cue needs
   a clear line to its neighbours in that room.
@@ -282,6 +282,23 @@ Copied into `PALETTE`; never import across repos.
 - **Seats fill** with the slide's `fill` (0–1, carried forward): empty over
   the auditorium (`empty-seats`, `ch5`), filling to 267 of 330 paid tickets on
   `price-stages`, full on `people-359`.
+
+## The week before (Nadja and Faris, 9 Nov 2026)
+- Chapter 6 tells what was underestimated, from Nadja's account: the venue
+  still in boxes two weeks out (`dressed` 0, then built back), the stage
+  letters cut by hand three days before (`action: 'cut-letters'`), no stage
+  videos a week before until Jonny Burger made them with Remotion, the podium
+  setup (one USB-C cable to the dock: screen, sound, wired internet;
+  `action: 'plug-in'` on the `laptop` cue), Wi-Fi priced by concurrent
+  devices (300 quoted, 120 in budget, 250 bought, about CHF 1,000), Bogdan
+  in the booth all day, airport runs (`shuttle` cue: cars on a road from
+  Technopark to the airport, not to scale), and Nadja's line closing chapter 7.
+- **Videos** come from github.com/JonnyBurger/zurichjs-scenes, rendered at
+  1280×720 H.264 into `public/video/` (`ConferenceOpening`, one speaker intro).
+  ZurichJS owns them; the stock footage inside is licensed to ZurichJS.
+- **The repo is public.** Organisers' raw messages, complaints about people,
+  vendor contacts, network names and passwords stay out of slides, notes,
+  commits and PR descriptions. Say it neutrally or not at all.
 
 ## Open decisions
 Track here; resolve with Faris, then update code and move the line above.

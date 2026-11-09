@@ -43,6 +43,17 @@ From the retrospective review. Not a redesign: the journey stays (Foifi, a year 
 | `stakes-covered` | "No shortfall to cover from our own pockets." The old line implied there were no costs. |
 | `income` to `come-back` | The final numbers stay in the crowd (`stage` view) instead of flying to the screen. |
 | `feedback-heard`, `next-edition` | **New slots** near the end (see below). |
+| `mail-inbox`, `mail-sponsors`, `mail-after-yes`, `mail-speed` | **New**, ch 6 after `hi-july`: the email audit (6,857 messages, 1,449 sent; sponsors 3 days to a reply, 21 to sign, 55 the longest; much of the work after the yes; attendees answered in a median 87 min, speaker expenses in minutes, paid in up to 25 days). Sponsors and people stay unnamed. |
+| `lo-last-payment` | **New**, ch 6 after `door-prs`: a sponsor payment and video ad arrived one day before the conference. |
+| `space-empty`, `space-dressed` | **New**, ch 6 (Nadja): the atrium bare with delivery boxes two weeks out, then the dressing builds back, just in time. Replaces the `story-space` slot. |
+| `videos-late`, `opening-video`, `speaker-intro`, `thanks-jonny` | **New**, ch 6: a week before there were no stage videos; the Remotion opener plays on the main screen (60 s, sound), a speaker walk-on video plays from the booth (20 s), then "Thank you, Jonny Burger." |
+| `letters-cut` | **New**, ch 6 (Nadja): a hot wire cuts the foam stage letters out of a block, three days before. A reconstruction; no photos exist. |
+| `podium-plug`, `wifi` | **New**, ch 6: the podium close-up, laptop to dock with one USB-C cable (screen, sound, wired internet), cables plugging in; Wi-Fi priced by concurrent devices: 300 quoted, 120 in budget, 250 bought, about CHF 1,000. |
+| `control-room` | **New**, ch 6 (Nadja): Bogdan in the booth all day with the technician. Replaces the `story-control-room` slot. |
+| `airport-runs` | **New**, ch 6 (Nadja): cars shuttling between Technopark and the airport. |
+| `speaker-runner`, `merch-guess` | **New**, ch 6 (Nadja): one person to bring every speaker to the stage on time; merch sizes for people we had not met (222 T-shirts, 33 hoodies on the day, 48 owed). |
+| `story-volunteers` | Filled (Nadja): "We started recruiting volunteers far too late." |
+| `plan-people` | **New**, ch 7: Nadja's quote, "You can plan every tiny logistical detail, but you can't plan people." |
 | Notes | HANDOFF markers on `cover`, `ch3`, `brand`, `ch5` and `come-2028` (all to confirm). |
 
 ### Slots for organiser material (do not fill with drafted prose)
@@ -51,11 +62,9 @@ Nadja and Bogdan send voice notes or written points; Faris turns them into the s
 
 | Slot | Slide | Where |
 |---|---|---|
-| Finding and coordinating volunteers | `story-volunteers` | Ch 3, after `small-team` |
+| Finding and coordinating volunteers (filled from Nadja's notes; add more if wanted) | `story-volunteers` | Ch 3, after `small-team` |
 | Communications with sponsors, speakers and attendees; recurring problems from the correspondence analysis | `story-comms` | Ch 3 |
 | Workshops: the work of running them (one day or two? see decisions) | `story-workshops` | Ch 4, after `workshops` |
-| Last-minute space design and preparation | `story-space` | Ch 6, at the foyer |
-| Control-room pressure on the day; stage and video transitions; what was skipped or changed | `story-control-room` | Ch 6, in the booth |
 | Attendee feedback we actually received (kept apart from ideas for next time) | `feedback-heard` | Ch 8, after `come-back` |
 | What comes next: the proposed two-day format, its community and technical angles. No name ("TBDConf" was floated, not chosen) | `next-edition` | Ch 8, after `thanks` |
 
@@ -71,7 +80,7 @@ The opening note on burnout and the workload stays off the slides: it is said ou
 
 ### Runtime
 
-152 slides. At about 15 s a slide, plus the globe (35 s), the photos (48 s) and the curtains, that is about 38 minutes before the seven slots get any content. With the slots filled, it runs past 40. Places that repeat or run long:
+165 slides (152, the five email slides, and Nadja's week-before run). At about 15 s a slide, plus the globe (35 s), the photos (48 s), the two videos (80 s) and the curtains, that is about 41 minutes with four slots still empty. It needs trimming to fit 40. Places that repeat or run long:
 
 - Chapter 5 traffic run, six slides (`august-traffic` to `buyers-from`): could be two.
 - The CFP is told three times: `year-cfp`, `final-week`, `hi-final-week`.
@@ -106,6 +115,11 @@ What to say while things animate: `year-cfp` (12 s), the globe (35 s) and `road-
 | 19% and 68% badge shares | `badge-frontload` | From the door export; recheck. |
 | Door scans: 145 from 07:40 | `arrivals` | Vs 156 door scans and 158 check-ins elsewhere; pick one definition. |
 | Feature months on the pipeline (VIP in Jul, travel in Aug) | `year-commits` | Check. |
+| Email timings: 3 / 21 / 55 days (sponsors), 87 min (attendees), 3 to 9 min and up to 25 days (expenses) | `mail-sponsors`, `mail-speed` | From selected, traceable threads (7 sponsors, 10 attendee threads, 3 expense threads), not mailbox-wide rates. Personal Gmail holds more ZurichJS mail, so 6,857 undercounts. |
+| Sponsor payment one day before the conference | `lo-last-payment` | From the audit; check the date. |
+| Wi-Fi: 300 / 120 / 250 concurrent devices, about CHF 1,000 | `wifi` | Provider emails (Aug 2026); the total is Faris's figure. |
+| Hoodies: 33 handed out, 48 owed | `merch-guess` | Door system export; check before saying it. |
+| Airport runs | `airport-runs` | No count yet: how many runs, who drove. |
 | Travel totals: 16 trips, 13 countries visited (globe); 70 photos, 19 cities, 15 countries, 12 months (photos) | `road`, `road-moments` | Different scopes, now labelled. km about 110k per Faris (great-circle gives about 89k). |
 
 ### Decisions needed before Thursday
@@ -120,8 +134,9 @@ What to say while things animate: `year-cfp` (12 s), the globe (35 s) and `road-
 8. **Next edition:** two days? Which date for "Come in 2028"? (No name until one is chosen.)
 9. **Feedback slot:** which quotes, from the 12 respondents who agreed to be named?
 10. **Workshops:** one day (10 Sep) or two?
-11. **Spelling:** Nadja (deck) or Nadia (review notes)?
+11. ~~**Spelling:** Nadja or Nadia?~~ Nadja (her own message, 9 Nov).
 12. **Trims to get under 40 minutes** (see Runtime).
+13. **Email slides:** keep all five, or fold them into `story-comms` (ch 3), which asks for exactly this? Keep sponsors unnamed?
 
 ## How to use this document
 
@@ -392,6 +407,11 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | 133 | `badges` | Number tiles | On the day · 253 (Badges picked up of 330 tickets) · 222 (T-shirts) · 204 (Goodie bags) | Foyer, check-in | CHECK: badges (253) or door scans (156) as the attendance number. | |
 | 134 | `badge-frontload` | Number tiles | We handed out badges the night before · 49 at the warm-up meetup (1 in 5) · 48 of them never needed the desk on the day · 139 in the busiest hour | Foyer, projected | Door system export. | new |
 | 135 | `door-rhythm` | Heatmap | Doors first, goodies later · check-ins per hour (118 at 08:00) vs goodie bags (from 10:30, waves at the breaks) | Foyer, projected | Door system event log, 11 Sep. No pickups logged on 9 or 10 Sep. | new |
+| new | `mail-inbox` | Number tiles | The inbox · A year of email · 6,857 (Messages in the ZurichJS mailbox) · 1,449 (Sent by us, about 1 in 5) | Screen (full frame) | Email audit, 21 Jul 2025 to 8 Nov 2026. | new |
+| new | `mail-sponsors` | Number tiles | A quick hello, a slow yes · 3 days (To a first reply) · 21 days (From first email to a signature) · 55 days (The longest) | Screen (full frame) | Seven cash sponsors, medians. | new |
+| new | `mail-after-yes` | Statement | Much of the work came after the yes. | Screen (full frame) | Unnamed examples in the notes. | new |
+| new | `mail-speed` | Number tiles | Answered in minutes, paid in weeks · 87 min · 9 min · 25 days | Screen (full frame) | Selected threads only. | new |
+| new | `lo-last-payment` | Big number | 1 day · Before the conference: a sponsor payment and video ad finally arrived. Low · Sep 2026. | Screen (full frame) | Check the date. | new |
 | 136 | `not-in-data` | Statement | Data gap · R1 · The ones not in the data. | Screen (full frame) | DATA GAP R1: personal highs and lows. | |
 
 ### 7 · What we learned · *For anyone who wants to organise something*

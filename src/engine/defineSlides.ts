@@ -76,6 +76,11 @@ export function defineSlides(
         for (const i of v.selected ?? []) if (!(i >= 0 && i < n)) throw new Error(`Visual "${id}": selected ${i} is not an option`)
       }
       if (v?.kind === 'strike' && !v.to === !v.stamp) throw new Error(`Visual "${id}": a strike has either \`to\` (a rename) or \`stamp\`, not both or neither`)
+      if (v?.kind === 'video') {
+        if (!/^\/video\/[a-z0-9-]+\.mp4$/.test(v.src)) throw new Error(`Visual "${id}": video src "${v.src}" must be /video/<name>.mp4 (local, offline-safe)`)
+        if (!(v.seconds > 0 && v.seconds < 600)) throw new Error(`Visual "${id}": video seconds must be its length (0 to 600)`)
+        if (v.rest !== undefined && !(v.rest >= 0 && v.rest <= v.seconds)) throw new Error(`Visual "${id}": rest must be a time inside the clip`)
+      }
       if (v?.kind === 'growth') {
         for (const series of v.series) {
           if (series.values.length !== v.x.length) throw new Error(`Visual "${id}": series "${series.label}" has ${series.values.length} values for ${v.x.length} x labels`)
@@ -84,6 +89,12 @@ export function defineSlides(
     }
     if (s.fill !== undefined && !(s.fill >= 0 && s.fill <= 1)) {
       throw new Error(`Slide "${s.id}" fill must be between 0 and 1`)
+    }
+    if (s.dressed !== undefined && !(s.dressed >= 0 && s.dressed <= 1)) {
+      throw new Error(`Slide "${s.id}" dressed must be between 0 and 1`)
+    }
+    if (s.action !== undefined && !['cut-letters', 'plug-in'].includes(s.action)) {
+      throw new Error(`Slide "${s.id}" action "${s.action}" is not cut-letters or plug-in`)
     }
     if (s.effect !== undefined && !(s.effect >= 0 && s.effect <= 1)) {
       throw new Error(`Slide "${s.id}" effect must be between 0 and 1`)

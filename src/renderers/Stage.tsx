@@ -196,8 +196,8 @@ function Prewarm() {
   useEffect(() => {
     if (DEBUG) (window as unknown as { __deck: unknown }).__deck = { gl, scene, camera }
     const id = setTimeout(() => {
-      // The only combinations a move can show: one venue (walks inside it), or all three (crane shots).
-      for (const [t, f, a] of [[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 1]] as const) {
+      // The only combinations a move can show: one venue (walks inside it), Technopark + airport (the city view), or all three (crane shots).
+      for (const [t, f, a] of [[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 1], [1, 1, 1]] as const) {
         showVenues(!!t, !!f, !!a)
         gl.compile(scene, camera)
       }
@@ -296,7 +296,7 @@ function moveSeconds(a: CameraCue, b: CameraCue, aspect: number, curtain = false
   for (let k = 1; k < pts.length; k++) {
     acc += Math.hypot(pts[k]!.x - pts[k - 1]!.x, pts[k]!.z - pts[k - 1]!.z) + Math.abs(pts[k]!.y - pts[k - 1]!.y) * 0.5
   }
-  const crane = fromSpace === 'map' || cb.space === 'map' || pts.some((p) => p.y > (FLOOR + 12) * M)
+  const crane = fromSpace === 'map' || cb.space === 'map' || fromSpace === 'city' || cb.space === 'city' || pts.some((p) => p.y > (FLOOR + 12) * M)
   return moveDuration(acc / M, crane, false)
 }
 
@@ -338,7 +338,7 @@ function CameraRig() {
       mv.xz = acc > 1e-6 ? new THREE.CatmullRomCurve3(flat, false, 'centripetal') : null
       const metres = acc / M
       // A crane shot whenever the route leaves the rooftops (to/from the map, or Foifi ↔ Technopark).
-      mv.crane = from === 'map' || c.space === 'map' || pts.some((p) => p.y > (FLOOR + 12) * M)
+      mv.crane = from === 'map' || c.space === 'map' || from === 'city' || c.space === 'city' || pts.some((p) => p.y > (FLOOR + 12) * M)
       mv.walk = !mv.reveal && !mv.crane && (pts.length > 2 || metres > 8)
       mv.curtain = !first && !STILL && slides[index]?.transition === 'curtain'
       mv.dur = first || STILL ? 0 : mv.curtain ? CURTAIN : moveDuration(metres, mv.crane, mv.reveal)
@@ -390,7 +390,7 @@ function CameraRig() {
     // Roofs vanish only once the camera is above them (crane shots to and from the map).
     const above = cam.position.y > ROOF
     // Arriving at the birds-eye view keeps the roofs on: it is the outside we came to see.
-    cam.layers.mask = name === 'map' && t >= 1 ? MASK.map : mv.crane && above && name !== 'aerial' ? MASK.travel : MASK.normal
+    cam.layers.mask = name === 'map' && t >= 1 ? MASK.map : mv.crane && above && name !== 'aerial' && name !== 'shuttle' ? MASK.travel : MASK.normal
   })
   return null
 }
@@ -408,6 +408,7 @@ export function Stage() {
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       camera={{ position: [0, 0, 20], fov: 35, near: 0.1, far: 1400 }}
       flat
+      onCreated={({ gl }) => { gl.localClippingEnabled = true }}
     >
       <color attach="background" args={[GROUNDS.dark.bg]} />
       <Scene />

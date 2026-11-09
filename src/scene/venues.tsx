@@ -13,7 +13,7 @@ export const VENUES: readonly VenueName[] = ['technopark', 'foifi', 'airport']
 
 export const VENUE_OF: Readonly<Record<Space, VenueName>> = {
   hall: 'technopark', booth: 'technopark', foyer: 'technopark', atrium: 'technopark', map: 'technopark',
-  foifi: 'foifi', plane: 'airport', gate: 'airport',
+  foifi: 'foifi', plane: 'airport', gate: 'airport', city: 'technopark',
 }
 
 const groups: Partial<Record<VenueName, THREE.Object3D>> = {}
@@ -29,7 +29,9 @@ export function showVenues(technopark: boolean, foifi: boolean, airport: boolean
 export function showSpaces(a: Space, b: Space = a) {
   const va = VENUE_OF[a]
   const vb = VENUE_OF[b]
-  showVenues(va === 'technopark' || vb === 'technopark', va === 'foifi' || vb === 'foifi', va === 'airport' || vb === 'airport')
+  // The city view sees Technopark and the airport at once.
+  const city = a === 'city' || b === 'city'
+  showVenues(va === 'technopark' || vb === 'technopark', va === 'foifi' || vb === 'foifi', city || va === 'airport' || vb === 'airport')
 }
 
 export function Venue({ name, children }: { name: VenueName; children: ReactNode }) {
