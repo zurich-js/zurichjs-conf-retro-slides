@@ -11,7 +11,7 @@ import { ATM, foifi, M, SURFACES as S } from './venue'
 import { atmKeypad, atmLabel, atmSign, franc100, zurichCard } from './textures'
 
 /**
- * A free-standing cash machine in Foifi, where the AI-pressure screens play.
+ * A Zürcher Kantonalbank (ZKB) cash machine in Foifi, where the AI-pressure screens play.
  * The live frame is its screen. Its card and cash follow the slides:
  *   before the ATM slides   the card waits in front of the slot
  *   `step: 'insert'`        the card slides in
@@ -115,6 +115,11 @@ export function Atm({ frame }: { frame: THREE.Material }) {
         <mesh position={[0, -0.012, 0.04]} material={ledStrip}><boxGeometry args={[CAVE.x * 1.4, 0.004, 0.012]} /></mesh>
         <mesh position={[-0.26, -0.02, -0.02]} material={dark}><sphereGeometry args={[0.025, 16, 10, 0, Math.PI * 2, 0, Math.PI / 2]} /></mesh>
       </group>
+      {/* ZKB blue band round the top of the pillar. */}
+      <mesh position={[0, H - 0.09, 0]}>
+        <boxGeometry args={[W + 0.004, 0.18, ATM.depth + 0.004]} />
+        <meshStandardMaterial color={S.zkbBlue} roughness={0.5} />
+      </mesh>
       {/* Lit header box above the cave. */}
       <mesh position={[0, CAVE.y1 + 0.13, FRONT + 0.012]} material={steel}><boxGeometry args={[0.66, 0.2, 0.024]} /></mesh>
       <mesh position={[0, CAVE.y1 + 0.13, FRONT + 0.025]}>
