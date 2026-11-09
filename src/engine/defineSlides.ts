@@ -36,6 +36,16 @@ export function defineSlides(
         }
         if (v.highlight !== undefined && !(v.highlight >= 0 && v.highlight < v.columns.length)) throw new Error(`Visual "${id}": highlight ${v.highlight} is not a column`)
       }
+      if (v?.kind === 'moments') {
+        if (v.moments.length === 0) throw new Error(`Visual "${id}": no moments`)
+        let prev = ''
+        for (const m of v.moments) {
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(m.date)) throw new Error(`Visual "${id}": moment ${m.src} date "${m.date}" is not YYYY-MM-DD`)
+          if (m.date < prev) throw new Error(`Visual "${id}": moment ${m.src} is out of date order`)
+          if (m.date.slice(0, 7) < v.from || m.date.slice(0, 7) > v.to) throw new Error(`Visual "${id}": moment ${m.src} is outside ${v.from} to ${v.to}`)
+          prev = m.date
+        }
+      }
       if (v?.kind === 'growth') {
         for (const series of v.series) {
           if (series.values.length !== v.x.length) throw new Error(`Visual "${id}": series "${series.label}" has ${series.values.length} values for ${v.x.length} x labels`)

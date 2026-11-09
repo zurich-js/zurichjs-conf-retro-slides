@@ -75,6 +75,16 @@ export type Visual = Base &
         highlight?: number
       }
     | {
+        kind: 'moments'
+        kicker: string
+        /** Timeline months, 'YYYY-MM', inclusive. */
+        from: string
+        to: string
+        /** In date order. Plays one by one, then settles into a wall with the totals. */
+        moments: readonly Moment[]
+        totals: readonly { value: string; label: string }[]
+      }
+    | {
         kind: 'numbers'
         title?: string
         kicker?: string
@@ -94,6 +104,8 @@ export type Visual = Base &
 
 /** A great-circle route on the `journey` globe. Data lives in src/content/travel.ts. */
 export interface Place { name: string; lat: number; lon: number }
+/** One photo on the road: when (ISO date), where (city), and what (event). */
+export interface Moment { src: string; date: string; place?: string; what?: string }
 export interface Leg {
   from: Place
   to: Place
@@ -131,6 +143,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   calendar: 'dark',
   growth: 'dark',
   heatmap: 'dark',
+  moments: 'dark',
   matrix: 'dark',
   journey: 'dark',
 }

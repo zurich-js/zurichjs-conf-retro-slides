@@ -1,4 +1,5 @@
 import type { Visual } from '../engine/types'
+import { MOMENTS, MOMENT_TOTALS } from './moments'
 import { ROAD_TO_ZURICH } from './travel'
 
 /**
@@ -336,6 +337,7 @@ export const VISUALS = {
   // ── 5 · Filling the room ───────────────────────────────────────────────
   'ch5': { kind: 'section', number: '05 · Price, channels, people', title: 'Filling the room' },
   // The road: one globe that flies every trip in date order by itself, then lands on the totals.
+  'road-moments': { kind: 'moments', kicker: 'On the road, in pictures', from: '2025-09', to: '2026-09', moments: MOMENTS, totals: MOMENT_TOTALS },
   'road': { kind: 'journey', title: 'Taking ZurichJS on the road', journey: ROAD_TO_ZURICH, step: 0, play: true },
   'price-stages': {
     kind: 'bars', title: 'Five price stages', source: 'Paid tickets per stage',
