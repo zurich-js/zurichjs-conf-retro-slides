@@ -30,6 +30,8 @@ BroadcastChannel) · `?still` no animation + camera snaps (screenshots) ·
 `?step=<n>` open the linked slide at step n.
 
 Keys: `→`/`←` slides · `0–9` jump · `f` fullscreen. Enter and Space are unbound.
+Touch: swipe left/right, or tap the right two thirds (next) / left third (previous).
+`?debug` exposes the renderer as `window.__deck` (timing, draw calls).
 Space is intentionally unbound.
 
 ## Layout
@@ -98,6 +100,13 @@ public/models/        .glb files for the set
    pixels at 0, so a `screen` slide is indistinguishable from a flat deck.
 9. **Navigation allocates nothing.** No new textures, materials, geometry or
    shaders on slide change. Mutate uniforms/refs; preload in `main.tsx`.
+   **Draw only what moves** (`engine/activity.ts`): the stage renders on
+   demand; anything that animates calls `keepAwake`. **Only the current venue
+   is drawn** (`scene/venues.tsx`): Technopark, Foifi or the airport, with its
+   lights; crane shots draw all three. A new room goes in a `<Venue>`; its
+   lights stay inside it. Shader combinations are prewarmed at load.
+12. **Works on phones.** Touch navigation; in portrait, solved cues widen the lens to fit the
+   frame from the same spot (never backing into the room) and poses keep their 16:9 horizontal view.
 10. **Offline-safe.** Fonts, images, models are local. No CDN at runtime —
     conference Wi-Fi is not real.
 11. `defineSlides()` validates at module load; keep it strict. A bad deck
