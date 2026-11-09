@@ -232,6 +232,37 @@ export const VISUALS = {
       { label: 'Supporter', value: 12, tone: 'hero' },
     ],
   },
+  'sponsor-prices': {
+    kind: 'bars', title: 'Our top tier: about half of React Summit’s', unit: ' CHF', source: 'Top in-person tier, 2026 · official sponsor pages · ECB 11 Sep 2026',
+    bars: [
+      { label: 'React Summit Amsterdam', value: 20792, tone: 'neutral' },
+      { label: 'React Advanced, React Day Berlin', value: 15121, tone: 'neutral' },
+      { label: 'React Norway', value: 13231, tone: 'neutral' },
+      { label: 'ZurichJS Conf', value: 11000, tone: 'hero' },
+      { label: 'DevOpsDays Zurich', value: 8000, tone: 'neutral' },
+    ],
+  },
+  'sponsor-get': {
+    kind: 'matrix', kicker: 'The top tier', title: 'What a sponsor gets for it',
+    source: 'Official sponsor pages and prospectuses, 2026 · dash: not listed',
+    columns: [
+      { label: 'ZurichJS', sub: 'CHF 11k' },
+      { label: 'React Summit', sub: 'CHF 21k' },
+      { label: 'React Norway', sub: 'CHF 13k' },
+      { label: 'DevOpsDays ZH', sub: 'CHF 8k' },
+    ],
+    highlight: 0,
+    rows: [
+      { label: 'Conference tickets', values: ['8', '6 + 4', '4', '4'] },
+      { label: 'Booth', values: ['Add-on', 'yes', 'yes', 'yes'] },
+      { label: 'Lead scanning', values: ['no', 'yes', '-', 'no'] },
+      { label: 'Workshop seats', values: ['3', '3 h online', '-', '-'] },
+      { label: 'Video ad', values: ['30 s', '30 s', '-', '-'] },
+      { label: 'Pitch time on stage', values: ['2 min', '-', '-', '1 min'] },
+      { label: 'A technical talk', values: ['no', 'Add-on', 'yes', 'no'] },
+    ],
+  },
+  'sponsor-talks': { kind: 'statement', kicker: 'Elsewhere', text: 'A 20-minute sponsor talk costs €7,000. Our technical talks were not for sale.', emphasis: 'not for sale.' },
   'no-diamond': { kind: 'stat', value: '0', label: 'Diamond sponsors. One cancelled, one never left draft.', tone: 'warn' },
   'money-late': {
     kind: 'bars', title: 'And the money came late', source: 'Sponsor deals paid per month, 2026',
@@ -250,12 +281,12 @@ export const VISUALS = {
   'atm-insert': { kind: 'atm', kicker: 'Funding ZurichJS Conf', title: 'Please insert your card.', step: 'insert' },
   'atm-sponsors': {
     kind: 'atm', kicker: 'From the top · Sponsors', title: 'What would you like to fund?',
-    options: [{ label: 'A booth' }, { label: 'A sponsored talk slot' }, { label: 'Your logo' }, { label: 'Only AI on the agenda' }],
+    options: [{ label: 'A booth' }, { label: 'A technical talk slot' }, { label: 'Your logo' }, { label: 'Only AI on the agenda' }],
     selected: [1, 3],
   },
   'atm-declined': {
-    kind: 'atm', kicker: 'From the top · Sponsors', title: 'Sponsored talk slot',
-    message: 'Declined. Talks are not for sale.', tone: 'bad', note: 'It broke against our values',
+    kind: 'atm', kicker: 'From the top · Sponsors', title: 'A technical talk slot',
+    message: 'Declined. Technical talks are not for sale.', tone: 'bad', note: 'The compromise: two minutes of pitch time on stage',
   },
   'atm-companies': {
     kind: 'atm', kicker: 'From the top · Companies', title: 'Fund a ticket for your team?',
