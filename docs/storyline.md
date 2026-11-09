@@ -4,6 +4,13 @@ Working document for the team. It captures the storyline **as it is in the deck 
 
 > The 3D venue and the slide building blocks are in good shape. **The storyline is not.** Rework the story here; leave the visuals to the deck.
 
+## Cuts, merges and the chapter 6 split, 9 Nov 2026
+
+- **Cut (pure repeats):** `year-numbers`, `submissions`, `final-week`, `hi-final-week`, `countries`, `abroad`, `speakers-flew`, `hi-july`, `last-100-days`, `badges`, `timeline`, `fundamentals`, `last-front`, `stakes-covered`, `lo-1000-rows`.
+- **Merged:** `meetup-rsvps` into `meetup-rsvps-2026` (both rows draw in); `slack-share` into `year-slack`; `agent-prs` into `agent-share`; `ads-when` into `august-without-ads`; `buyers-from` into `ads`; `atm-companies` into `pressure-top`; `value-room` into `atm-value` (its line is now the ATM message); `dying` into `why-missing` (now yellow: "Zurich deserved another international web conference. So we started one.").
+- **Chapter 6 split:** 6 · The rollercoaster (the year's highs and lows, the inbox) and a new 7 · The week and the day (the space, the stage videos, the letters, Wi-Fi, the airport, the doors, the booth, transitions). What we learned is now 8, The final numbers 9.
+- **Last slide:** "Start your own" became "Bring your team"; the data-gap kicker is off the screen.
+
 ## Revision batches 1 and 2, 9 Nov 2026
 
 Shares and counts only on slides; the only CHF amounts are the minimums and public list prices.
