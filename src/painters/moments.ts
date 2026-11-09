@@ -19,7 +19,7 @@ type MomentsVisual = Extract<Visual, { kind: 'moments' }>
 
 /** Seconds per photo, and for the wall at the end. */
 const PACE = { photo: 0.62, wall: 4.2 } as const
-export const momentsSeconds = (v: MomentsVisual) => v.moments.length * PACE.photo + PACE.wall
+export const momentsSeconds = (v: MomentsVisual) => (v.hold ?? 0) + v.moments.length * PACE.photo + PACE.wall
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 const SHORT = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
@@ -108,7 +108,8 @@ export function paintMoments(ctx: Ctx, v: MomentsVisual, p: number, r: Roles) {
   const ms = v.moments
   const n = ms.length
   const total = momentsSeconds(v)
-  const t = p * total
+  // Hold first (the camera may still be travelling), then play.
+  const t = Math.max(0, p * total - (v.hold ?? 0))
   const flowEnd = n * PACE.photo
   // Conveyor position: photo k glides in (c from k − 1 to k) over the first 70% of its slot, then holds.
   const k = Math.min(n - 1, Math.floor(t / PACE.photo))

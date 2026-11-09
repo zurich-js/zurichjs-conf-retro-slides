@@ -83,6 +83,18 @@ export type Visual = Base &
         /** In date order. Plays one by one, then settles into a wall with the totals. */
         moments: readonly Moment[]
         totals: readonly { value: string; label: string }[]
+        /** Seconds to hold on the opening before the first photo moves (e.g. while the camera travels). */
+        hold?: number
+      }
+    | {
+        kind: 'flapboard'
+        /** In accent beside a plane glyph, like "Departures". */
+        title: string
+        source?: string
+        /** Widths in characters; one blank cell between columns. */
+        columns: readonly { label?: string; width: number; align?: 'left' | 'right' }[]
+        /** One string per column. YES is good, NO and '-' are muted; a highlighted row is accent. */
+        rows: readonly { cells: readonly string[]; highlight?: boolean }[]
       }
     | {
         kind: 'numbers'
@@ -144,6 +156,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   growth: 'dark',
   heatmap: 'dark',
   moments: 'dark',
+  flapboard: 'dark',
   matrix: 'dark',
   journey: 'dark',
 }
@@ -152,7 +165,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
  * Named camera destinations. `screen` is solved in src/renderers/Stage.tsx;
  * the rest are measured poses in src/scene/venue.ts (CUES).
  */
-export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake'] as const
+export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron'] as const
 export type CameraCue = (typeof CAMERA_CUES)[number]
 
 export interface Slide {

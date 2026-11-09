@@ -8,7 +8,7 @@ import { CUE, STILL } from '../engine/params'
 import { slides } from '../content/slides'
 import { CAMERA_CUES, type CameraCue } from '../engine/types'
 import { Set } from '../scene/Set'
-import { CUES, FLOOR, FOIFI_IMAGE, HALL, PROJECTOR_PANEL, M, routeBetween, SCREEN, type SolvedCue, type Space } from '../scene/venue'
+import { CUES, FLOOR, FOIFI_IMAGE, GATE_IMAGE, HALL, PROJECTOR_PANEL, M, routeBetween, SCREEN, type SolvedCue, type Space } from '../scene/venue'
 import { MASK } from '../scene/layers'
 
 export { SCREEN }
@@ -47,7 +47,19 @@ interface Pose { pos: THREE.Vector3; target: THREE.Vector3; fov: number; space: 
 const PROJECTOR_POSE: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'foifi' }
 const FOIFI_FULL: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'foifi' }
 
+const GATE_FULL: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'gate' }
+
+/** Fill the viewport with an image facing +z (facing = 1) or −z (facing = −1). */
+function fill(pose: Pose, img: { width: number; centre: readonly [number, number, number] }, facing: 1 | -1, aspect: number) {
+  pose.target.set(...img.centre).multiplyScalar(M)
+  pose.pos.copy(pose.target)
+  pose.pos.z += facing * coverDistance(pose.fov, aspect, img.width * M)
+  return pose
+}
+
 function cue(name: CameraCue, aspect: number) {
+  // The departures board faces into the lounge (+z).
+  if (name === 'gate-full') return fill(GATE_FULL, GATE_IMAGE, 1, aspect)
   if (name === 'foifi-full') {
     // Foifi's projector screen fills the viewport, like 'screen' does in the hall.
     const [x, y, z] = FOIFI_IMAGE.centre
@@ -151,7 +163,11 @@ const smooth = (a: number, b: number, x: number) => {
   const t = Math.min(1, Math.max(0, (x - a) / (b - a)))
   return t * t * (3 - 2 * t)
 }
-const spaceOf = (name: CameraCue): Space => (name === 'screen' ? 'hall' : name === 'projector' || name === 'foifi-full' ? 'foifi' : (CUES[name].space ?? 'hall'))
+const spaceOf = (name: CameraCue): Space =>
+  name === 'screen' ? 'hall'
+  : name === 'projector' || name === 'foifi-full' ? 'foifi'
+  : name === 'gate-full' ? 'gate'
+  : (CUES[name].space ?? 'hall')
 const ROOF = (FLOOR + HALL.ridge + 0.3) * M
 
 interface Move {

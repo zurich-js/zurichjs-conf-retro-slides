@@ -78,12 +78,16 @@ cups and totes), `badges` (the four badge designs on the counter), `atrium`
 AG Grid), `map` (the whole venue as a labelled cutaway), `projector`
 (looking into Foifi's projector lens, the slide filling the frame; solved
 like `screen`), `foifi` /
-`foifi-screen` (Pause im Foifi), `deploy` (the launch laptop), `cake`. Cues describe destinations, never timelines. `?cue=<name>`
+`foifi-screen` (Pause im Foifi), `deploy` (the launch laptop), `cake`, `cabin`
+(down the 777's aisle), `seat` (seat 15C, looking straight at the seat-back screen), `gate` (the Zurich Airport gate lounge, departures board ahead),
+`gate-full` (the departures board filling the frame; solved), `apron` (the
+plane at the gate, from outside). Cues describe destinations, never timelines. `?cue=<name>`
 previews one.
 
 ## Space
 Which room a camera cue is in: `hall`, `booth`, `foyer`, `atrium`, `foifi`,
-or `map` (the overview).
+`plane` (the 777 cabin), `gate` (the airport lounge and apron), or `map`
+(the overview).
 
 ## Foifi
 Pause im Foifi, the Digitec Galaxus event space of the ZurichJS 1st
@@ -103,6 +107,12 @@ event at home: a pulse, no flight.
 ## Moment
 One photo on the road (`content/moments.ts`): date, city, event. Shown by the
 `moments` kind. Files in `public/moments/` are 720px with all metadata (GPS) stripped.
+
+## Airport
+Zurich Airport at night (`scene/Airport.tsx`): a gate lounge, a SWISS 777-300ER
+parked nose-in, and the jet bridge between them. Far east of Technopark. The
+camera boards from Foifi through the open front-right door; it leaves through
+the jet bridge into the lounge.
 
 ## Cutaway
 Set geometry that hides in the `map` cue so the overview can see inside:
