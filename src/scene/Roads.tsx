@@ -20,7 +20,7 @@ import { currentAction, sinceReveal, smoothstep } from './beats'
  *
  * The portraits are illustrative (speakers who flew in), not a record of who
  * rode in which car. Car 0 is Arnau Gómez Farell: on a slide with
- * `action: 'rush'` it races from the airport to Technopark (landed 06:00,
+ * `action: 'rush'` it races from the airport to Technopark (landed 08:00,
  * workshop at 09:00).
  */
 export const SPEAKER_PHOTOS = [

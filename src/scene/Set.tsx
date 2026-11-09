@@ -28,6 +28,7 @@ useTexture.preload(PROP_ASSETS.rollup)
 useTexture.preload(FOYER_ASSETS.skyline)
 useTexture.preload(SPONSOR_ASSETS as string[])
 useTexture.preload(SPEAKER_PHOTOS as unknown as string[])
+useTexture.preload('/team/nadja.png')
 
 /**
  * The physical set around the screen: Technopark Zürich Auditorium, ZurichJS

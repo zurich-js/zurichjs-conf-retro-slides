@@ -297,7 +297,7 @@ Copied into `PALETTE`; never import across repos.
   float over the shuttling cars (illustrative, not a log of who rode when),
   delayed planes hold over the airport with status tags; an arrivals board
   tells Arnau Gómez Farell's night (UK radar disruption, missed connection
-  in Düsseldorf, landed 06:00) and his car races to a 09:00 workshop. Every
+  in Düsseldorf, the 06:00 flight, landed 08:00) and his car races to a 09:00 workshop. Every
   transition: an organiser mics up the next speaker in the wings, the
   camera follows them on stage, the laptop is plugged in; near-zero delays
   all day, 3 to 5 minutes at worst.
