@@ -174,17 +174,28 @@ export const VISUALS = {
       { cells: ['20% OFF WORKSHOPS', 'NO', 'YES'] },
     ],
   },
-  'vip-business-class': {
-    kind: 'flapboard', title: 'Why VIP',
-    columns: [{ width: 18 }],
+  'vip-tiers': {
+    kind: 'flapboard', title: 'Tiers, not barriers',
+    columns: [{ width: 24 }],
     rows: [
-      { cells: ['BUSINESS CLASS'] },
-      { cells: ['PAYS FOR ECONOMY.'], highlight: true },
+      { cells: ['A TIER FOR EVERY BUDGET,'] },
+      { cells: ['SO THE FLOOR STAYS LOW.'], highlight: true },
+    ],
+  },
+  'vip-invested': {
+    kind: 'flapboard', title: 'Once in, people went further',
+    source: 'Our analytics · tracked checkouts, matched by email · not every sale',
+    columns: [{ label: 'Ticket', width: 15 }, { label: 'Buyers', width: 6, align: 'right' }, { label: 'Took a workshop', width: 15, align: 'right' }],
+    rows: [
+      { cells: ['STANDARD', '171', '5%'] },
+      { cells: ['STUDENT', '20', '10%'] },
+      { cells: ['VIP', '32', '19%'], highlight: true },
+      { cells: ['UPGRADED TO VIP', '8', ''] },
     ],
   },
   'vip-funds': {
-    kind: 'flapboard', title: 'Business class funds economy',
-    columns: [{ label: 'The extra spend', width: 20 }, { label: 'Total', width: 9, align: 'right' }],
+    kind: 'flapboard', title: 'Spend more if you can, so everyone can come',
+    columns: [{ label: 'What the tiers paid for', width: 23 }, { label: 'Total', width: 9, align: 'right' }],
     rows: [
       { cells: ['VIP TICKETS', '46'] },
       { cells: ['WORKSHOP SALES', 'CHF 14.4K'], highlight: true },
