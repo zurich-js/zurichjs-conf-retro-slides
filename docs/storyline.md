@@ -4,6 +4,20 @@ Working document for the team. It captures the storyline **as it is in the deck 
 
 > The 3D venue and the slide building blocks are in good shape. **The storyline is not.** Rework the story here; leave the visuals to the deck.
 
+## Current state (9 Nov 2026, end of day)
+
+165 slides: the Foifi opening (10) and nine chapters: 1 Why on earth (12), 2 A hard year (61, with the road, the airport pricing, the venue flyover and the year in motion), 3 The machine (8), 4 Building the programme (7), 5 Filling the room (17), 6 The rollercoaster (7), 7 The week and the day (27), 8 What we learned (5), 9 The final numbers (11). Chapter openers 3 to 9 use the curtain.
+
+Since the sections below were written:
+- Cuts and merges (see below), and chapter 6 split into 6 and 7.
+- New set pieces from the aftermovie: Proton booth, CopilotKit and PrimeUI tables, crowd, signing wall, logo backdrop, e18e panel (`panel`), group photo (`group-photo`). The after-party was built and then removed.
+- `when-bought` now animates card payments by day and currency (`checkout`).
+- Arnau: 06:00 flight from Düsseldorf, landed 08:00, workshop at 09:00 (`arrivals-board`, `arnau-rush`, `gate-to-room`).
+- Nadja miked up every speaker (`mic-up`, her portrait over the organiser).
+- Readability: slides on in-scene screens use close cues; the `stage` view moved closer.
+
+Still open: the placeholder slides (`brand`, `not-in-data`, `story-comms`, `story-workshops`, `feedback-heard`, `next-edition`), the unverified figures below, and the decisions list. The tables further down are the history of each pass; slide numbers in them are out of date.
+
 ## Cuts, merges and the chapter 6 split, 9 Nov 2026
 
 - **Cut (pure repeats):** `year-numbers`, `submissions`, `final-week`, `hi-final-week`, `countries`, `abroad`, `speakers-flew`, `hi-july`, `last-100-days`, `badges`, `timeline`, `fundamentals`, `last-front`, `stakes-covered`, `lo-1000-rows`.
@@ -119,7 +133,7 @@ The opening note on burnout and the workload stays off the slides: it is said ou
 
 ### Runtime
 
-171 slides (152, the five email slides, Nadja's week-before run, the airport chaos and the transitions). At about 15 s a slide, plus the globe (35 s), the photos (48 s), the two videos (80 s) and the curtains, that is about 41 minutes with four slots still empty. It needs trimming to fit 40. Places that repeat or run long:
+165 slides after the cuts and merges (171 before). At about 15 s a slide, plus the globe (35 s), the photos (48 s), the two videos (80 s) and the curtains, that is about 41 minutes with four slots still empty. It needs trimming to fit 40. Places that repeat or run long:
 
 - Chapter 5 traffic run, six slides (`august-traffic` to `buyers-from`): could be two.
 - The CFP is told three times: `year-cfp`, `final-week`, `hi-final-week`.
@@ -161,6 +175,7 @@ What to say while things animate: `year-cfp` (12 s), the globe (35 s) and `road-
 | Airport runs | `airport-runs` | No count yet: how many runs, who drove. |
 | Arnau: UK radar disruption, missed connection in Düsseldorf, 06:00 flight, landed 08:00, workshop at 09:00 on time | `arrivals-board`, `gate-to-room` | Faris's account; check that the workshop started on time. |
 | Delays: about 0 min, 3 to 5 min at worst | `precision` | Faris's account. |
+| Card payments 253 (CHF 190, EUR 53, USD 6, GBP 4) | `when-bought` | Stripe export, 25 Nov 2025 to 3 Sep 2026: misses the first ticket and the last days; payments, not tickets. |
 | Travel totals: 16 trips, 13 countries visited (globe); 70 photos, 19 cities, 15 countries, 12 months (photos) | `road`, `road-moments` | Different scopes, now labelled. km about 110k per Faris (great-circle gives about 89k). |
 
 ### Decisions needed before Thursday

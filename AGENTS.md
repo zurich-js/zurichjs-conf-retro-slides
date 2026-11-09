@@ -44,7 +44,8 @@ src/
   content/travel.ts   road-to-Zurich trips (journey globe data)
   content/moments.ts  the road in pictures (photo, date, city, event) for `moments`
   engine/             types, validation, store, keys, URL params, frame loop
-  painters/           kit.ts primitives + one painter per Kind (journey.ts: the globe)
+  painters/           kit.ts primitives + one painter per Kind (journey.ts: the globe; inbox.ts: CFP;
+                      checkout.ts: card payments; split.ts, timeline.ts; atm.ts; video in index.ts)
   renderers/          FlatScreen, Stage (R3F + medium shader + camera rig), SlideIndex, Presenter
   scene/venue.ts      Technopark auditorium in METRES: dims, surfaces, lights, CUES
   scene/textures.ts   procedural, deterministic canvas textures (built once)
@@ -63,7 +64,13 @@ src/
   scene/sponsors.ts     sponsor manifest (slug, tier) → public/sponsors/<slug>[-color].png
   scene/useSponsorLogos.ts  all logos as loaded images (suspends; preloaded in Set.tsx)
   scene/layers.tsx      render layers: set / cutaway (hidden in `map`) / map (labels only)
-  scene/Avatar.tsx      standing volunteer avatar (booth operators are seated, in Booth.tsx)
+  scene/Avatar.tsx      standing volunteer avatar, ORGANIZING TEAM print on yellow shirts (booth operators: Booth.tsx)
+  scene/venues.tsx      which venue is drawn (Technopark, Foifi, airport); crane shots draw all three
+  scene/beats.ts        per-slide set state derived from the deck: `dressed` (carried forward), current `action`
+  scene/Dressing.tsx    wraps event dressing: rises out of the floor as `dressed` goes 0 → 1, strips instantly
+  scene/WalkOn.tsx      the wings: an organiser (Nadja) mics up the speaker; the speaker walks to the podium
+  scene/StagePieces.tsx drawing table, e18e panel (`panel`), group photo crowd (`group-photo`)
+  scene/Roads.tsx       Technopark ↔ airport road, cars with speaker portraits, delayed planes holding (`shuttle`)
 public/brand/         conf logos (copied from zurichjs-conf/public/images/logo),
                       technopark.png (venue logo, technopark-allianz.ch),
                       rollup.svg (ZurichJS community roll-up art, 1000×2000, all vector),
@@ -72,7 +79,9 @@ public/sponsors/      sponsor logos from conf.zurichjs.com (white mono + -color)
 public/moments/       road photos, 720px, metadata (GPS) stripped
 public/team/          organiser photos from conf.zurichjs.com/about (320px), for the journey
 public/fonts/         Figtree variable TTFs (copied from zurichjs-conf)
-public/models/        .glb files for the set
+public/speakers/      speaker portraits (from github.com/JonnyBurger/zurichjs-scenes), 256px, for the cars
+public/video/         Remotion renders: conference-opening.mp4, speaker-intro.mp4 (1280×720 H.264)
+public/models/        .glb files for the set (none so far: everything is procedural)
 ```
 
 ## Rules (non-negotiable)
@@ -173,16 +182,24 @@ Copied into `PALETTE`; never import across repos.
   hallway), eyes level and looking ahead, turning to the subject on arrival;
   or a crane shot to and from the `map`. Height is a separate monotone ramp
   (no bobbing). Roofs hide only while the camera is above them. No cuts,
-  with one exception from the 9 Nov 2026 review (to confirm): a slide with
-  `transition: 'curtain'` (chapter openers ch3 to ch8) fades to black, cuts,
-  and fades up at its cue, instead of flying out and back in.
+  with one exception from the 9 Nov 2026 review: a slide with
+  `transition: 'curtain'` (chapter openers ch3 to ch9) fades to black, cuts,
+  and fades up at its cue, instead of flying out and back in. A choreographed
+  entrance (`enter` on a cue) can `follow` someone: the camera looks down its
+  path instead of back (the `walk-on` cue).
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·
   `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle` · `seat-full` · `wings` · `walk-on` · `signing`. Poses
   live in `CUES` (venue.ts). Each cue has a `space` (`hall` | `booth` |
-  `foyer` | `atrium` | `map`); moves inside a room glide, so a new cue needs
-  a clear line to its neighbours in that room.
+  `foyer` | `atrium` | `map` | `foifi` | `plane` | `gate` | `city`); moves
+  inside a room glide, so a new cue needs a clear line to its neighbours in
+  that room. `city` draws Technopark and the airport together.
+- **Text must be readable from the camera.** A slide whose text sits on a
+  screen in the set uses a close cue (`stage`, `foifi-screen`, `atm`,
+  `laptop`) or a solved full-frame cue. Views with no screen in shot
+  (atrium, airport, booth, walk-on) are visual moments: the presenter says
+  the line.
 - **`map` cue** = the whole venue as a labelled cutaway from above. Anything
   overhead (roofs, ceilings, rig, galleries) goes inside `<Cutaway>`; map-only
   labels inside `<MapOnly>`. The camera switches its layer mask per cue.
@@ -197,7 +214,8 @@ Copied into `PALETTE`; never import across repos.
   (Volunteer or Organizer), behind check-in and at the merch table.
 - **Atrium** beyond the foyer: ground + three gallery levels, glass lift tower
   with the Technopark sign, bell pendants, cocktail tables, sponsor booths
-  (namespace wall, AG Grid table + roll-ups, PrimeUI, CopilotKit, ZurichJS).
+  (namespace wall, AG Grid table + roll-ups, PrimeUI, CopilotKit, Proton,
+  ZurichJS).
 - **Sponsor logos** come from conf.zurichjs.com, stored locally. The backdrop's
   dark band and the booth's sponsor-loop monitor share one layout
   (`drawSponsorBand`). Third-party logos that are not sponsors (namespace's
@@ -206,8 +224,9 @@ Copied into `PALETTE`; never import across repos.
   set up for registration: backdrop, check-in counter with the live slide
   projected on the concrete, queue posts, A–K / L–S / T–Z signs, balloons,
   volunteer merch table (cups, totes). The booth sits above it.
-- **People** in the booth are simple avatars (seen from behind); attendees
-  are not modelled.
+- **People** are simple avatars: booth operators, volunteers, the speaker and
+  Nadja in the wings, instanced attendees in the seats (`fill`), in the
+  atrium (part of the dressing) and in the group photo.
 - **Show lighting**: house down and warm, stage wash, podium pin. No shadows.
 - Group/team photos belong on the frame (`image`), not in the set.
 
@@ -254,17 +273,28 @@ Copied into `PALETTE`; never import across repos.
   from the top (sponsors wanting talk slots or AI, companies only funding AI
   tickets) and from the bottom (speakers pivoting, attendees wanting less AI,
   no slop). Then a cash machine at Foifi plays it screen by screen (`atm` kind,
-  `atm` / `atm-wide` cues): card in, the options, declined, re-pitch, card and
-  cash out. Survey and CFP numbers are sourced; the rest is Faris's account.
+  `atm` / `atm-wide` cues): card in, the empty screen, the options, the talk
+  slot in red, TRANSACTION DECLINED, pitch time, the AI request, top-down
+  pressure, companies, speakers, the CFP, attendees, four value propositions,
+  card and cash out (see Revision batches). Survey and CFP numbers are
+  sourced; the rest is Faris's account.
 - After the meetup numbers, still at Foifi (the agenda slide was cut, 9 Nov): chapter 1 (why on
   earth) and chapter 2 (the hard market, our three problems), then **ZurichJS
   on the road** (the globe) as the answer; then the camera flies to Technopark.
 
-## Deck content (draft, 2026-11-08)
-- The talk is the **ZurichJS Conf retrospective**, scaffolded 1:1 from
-  `zurichjs-conf-retro-handoff.md` (87 slides) plus the road-to-Zurich globe
-  and an optional 5-slide venue flyover. About 24 minutes as drafted, for a
-  40-minute talk; the story is reworked in `docs/storyline.md`. Notes carry UNVERIFIED / CHECK / DATA GAP flags from the handoff.
+## Deck content (current, 9 Nov 2026)
+- The talk is the **ZurichJS Conf retrospective**: 165 slides for a 40-minute
+  slot, first scaffolded from `zurichjs-conf-retro-handoff.md` and reworked
+  through the review passes logged in `docs/storyline.md`.
+- **Running order:** the opening at Foifi (10: cover to the meetup years) ·
+  1 Why on earth (12) · 2 A hard year (61, including the road globe and
+  photos, the airport pricing block, the venue flyover, badges, people and
+  the year in motion) · 3 The machine (8) · 4 Building the programme (7) ·
+  5 Filling the room (17) · 6 The rollercoaster (7) · 7 The week and the day
+  (27) · 8 What we learned (5) · 9 The final numbers (11).
+- Notes carry CHECK / DATA GAP / SLOT flags; placeholder slides still on
+  screen are listed under Open decisions. Notes are public: no names of
+  vendors or private people, no internal money figures.
 - Handoff house rules kept: no em dashes, never "boundary", never invent
   facts. Visible text is sentence case (this deck's brand), not Start Case.
 - **Road to Zurich** (`journey` kind, `play: true`): one slide that plays by
@@ -284,7 +314,7 @@ Copied into `PALETTE`; never import across repos.
   `price-stages`, full on `people-359`.
 
 ## The week before (Nadja and Faris, 9 Nov 2026)
-- Chapter 6 tells what was underestimated, from Nadja's account: the venue
+- Chapter 7 (The week and the day) tells what was underestimated, from Nadja's account: the venue
   still in boxes two weeks out (`dressed` 0, then built back), the stage
   letters cut by hand three days before (`action: 'cut-letters'`), no stage
   videos a week before until Jonny Burger made them with Remotion, the podium
@@ -292,13 +322,13 @@ Copied into `PALETTE`; never import across repos.
   `action: 'plug-in'` on the `laptop` cue), Wi-Fi priced by concurrent
   devices (300 quoted, 120 in budget, 250 bought), Bogdan
   in the booth all day, airport runs (`shuttle` cue: cars on a road from
-  Technopark to the airport, not to scale), and Nadja's line closing chapter 7.
+  Technopark to the airport, not to scale), and Nadja's line closing chapter 8.
 - **Airport chaos and transitions (Faris, 9 Nov 2026):** speaker portraits
   float over the shuttling cars (illustrative, not a log of who rode when),
   delayed planes hold over the airport with status tags; an arrivals board
   tells Arnau Gómez Farell's night (UK radar disruption, missed connection
   in Düsseldorf, the 06:00 flight, landed 08:00) and his car races to a 09:00 workshop. Every
-  transition: an organiser mics up the next speaker in the wings, the
+  transition: Nadja mics up the next speaker in the wings (her portrait over the avatar), the
   camera follows them on stage, the laptop is plugged in; near-zero delays
   all day, 3 to 5 minutes at worst.
 - **Videos** come from github.com/JonnyBurger/zurichjs-scenes, rendered at
@@ -324,6 +354,13 @@ Copied into `PALETTE`; never import across repos.
   vs bottom-up pressure; companies' value doubts; speakers, the CFP (171 of
   428), attendees (AI, yes; AI slop, no); four value propositions.
 
+- **Cuts, merges and the split (9 Nov 2026):** 15 repeat slides cut, 8
+  merged; chapter 6 split into the year (6) and the week and the day (7).
+  The last slide asks people to come back, volunteer or bring their team.
+- **`when-bought`** is the `checkout` kind: 253 card payments by day and
+  currency into a terminal, a by-month histogram (Stripe export, 25 Nov 2025
+  to 3 Sep 2026; payments, not tickets).
+
 ## From the aftermovie (Faris, 9 Nov 2026)
 - **Booths:** Proton's curved navy wall ("Build an internet where you're not
   the product"), blue sofa with pink and white cushions, side table with the
@@ -339,6 +376,8 @@ Copied into `PALETTE`; never import across repos.
 - **Stage:** the tall drawing table with an iPad; the e18e panel
   (`action: 'panel'`); the group photo with the letters held up
   (`action: 'group-photo'`).
+- **No after-party** (removed by Faris, 9 Nov): the lake venue was built and
+  then taken out; the after-party only appears as data (spend, value grid, VIP).
 
 ## Open decisions
 Track here; resolve with Faris, then update code and move the line above.
@@ -348,3 +387,11 @@ Track here; resolve with Faris, then update code and move the line above.
       the sponsors share them.
 - [ ] **Real dimensions** — the exterior follows OSM and the 1993 drawings; the
       rooms inside are still estimated from photos (`scene/venue.ts`).
+- [ ] **Placeholders on screen**: `brand`, `not-in-data`, `story-comms`,
+      `story-workshops`, `feedback-heard`, `next-edition` still show Slot or
+      Data gap. Fill or cut before the talk.
+- [ ] **Facts to confirm** (see `docs/storyline.md`, Unverified figures):
+      three vs four organisers on the hook; first ticket 13 Nov (Stripe
+      export starts 25 Nov); Arnau's workshop started on time; the 3 to 5
+      minute worst delay; which sponsor gave out the hot sauce; venue hire
+      missing from the spend estimate.

@@ -133,7 +133,7 @@ the city.
 ## Portal
 A doorway between two spaces (booth window, back door, hallway, the map's
 crane path): waypoints the camera walks through. Every cue change walks the
-portal chain; there are no cuts.
+portal chain; there are no cuts, except a slide's curtain (see Curtain).
 
 ## Journey
 Trips on the globe: legs (from, to, when, what, team), periods for the
