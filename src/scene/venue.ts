@@ -111,6 +111,38 @@ export const ATRIUM_HALF = ATRIUM.void / 2 + ATRIUM.gallery
 export const ATRIUM_TOP = FLOOR + ATRIUM.storey * (ATRIUM.levels + 1)
 
 /**
+ * Technopark Zürich from outside (Itten+Brechbühl with Ruggero Tropeano,
+ * 1993). A comb: three office "fingers" each side of a cross "spine" (the
+ * hall the deck calls the atrium), low corrugated-aluminium "Werkhallen"
+ * between the fingers. The auditorium sits in the Werkhalle between the first
+ * two north fingers; foyer → auditorium runs straight off the spine, as the
+ * deck's rooms already do. Footprint from OpenStreetMap (145 × 106 m) and the
+ * official event-room plan; heights scaled from the 1993 elevation (ground
+ * 4.8 m, five storeys of 3.5 m, a roof storey to ~25.7 m). Deck z runs from
+ * the Giessereistrasse end (−z) to Pfingstweidstrasse (+z); x runs along the
+ * spine to the main entrance on Technoparkstrasse (+x). Estimates flagged in
+ * the research notes.
+ */
+export const TP = {
+  /** The three finger bands across x (each ~20 m deep). */
+  bands: [[-33, -13], [10, 30], [53, 73]] as const,
+  north: { z0: -12.5 },
+  spine: { x0: -33, x1: 73, head: 58, z0: ATRIUM.start, z1: ATRIUM.start + ATRIUM.length },
+  south: { z1: ATRIUM.start + ATRIUM.length + 77, cantilever: 9.6 },
+  /** Werkhallen between the bands: north ones hold the auditorium; south ones after the light courts. */
+  werkSouth: { z0: ATRIUM.start + ATRIUM.length + 9, z1: ATRIUM.start + ATRIUM.length + 62 },
+  ground: 4.8,
+  storey: 3.5,
+  storeys: 5,
+  eave: 4.8 + 5 * 3.5,
+  roof: 25.7,
+  headRoof: 29,
+  werk: 10.5,
+  /** Streets: Technoparkstrasse along x, Pfingstweidstrasse and Giessereistrasse along z. */
+  streets: { technopark: 86, pfingstweid: ATRIUM.start + ATRIUM.length + 92, giesserei: -26 },
+} as const
+
+/**
  * Pause im Foifi, the Digitec Galaxus event space where ZurichJS turned one
  * (14 Nov 2025) and conf.zurichjs.com went live. A separate room west of
  * Technopark (they are neighbours in Zurich); the camera flies between them.
@@ -302,6 +334,8 @@ export const SURFACES = {
   hotSauce: '#c2461a',
   toteBlue: '#1f5fd6',
   atmSteel: '#a9aaa6',
+  zinc: '#6c7176',
+  attendeeSkin: '#c9a88c',
   atmFascia: '#c5c9cc',
   atmShade: '#8e9398',
   atmGreen: '#39e34a',
@@ -394,7 +428,7 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
    * (layer `cutaway`) and each space is labelled (layer `map`). Its own space,
    * so arriving or leaving is always a cut.
    */
-  map: { pos: [-40, FLOOR + 50, 4], target: [0, FLOOR, 29], fov: 42, space: 'map' },
+  map: { pos: [-14, FLOOR + 78, -6], target: [0, FLOOR, 30], fov: 42, space: 'map' },
   /** Pause im Foifi, from a back-row seat: screen, vines, the room. */
   foifi: {
     pos: foifi(8.6, 1.35, 10.8), target: foifi(7.4, 1.9, 0.9), fov: 54, space: 'foifi',
@@ -420,6 +454,10 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
   gate: { pos: airport(1.2, GATE_LEVEL + 1.7, 7.4), target: airport(-1.7, GATE_LEVEL + 2.75, 2.2), fov: 44, space: 'gate' },
   /** Out on the apron at night: the 777 at the gate, the jet bridge on its front door. */
   apron: { pos: airport(-62, 15, -78), target: airport(-5, 6, -38), fov: 50, space: 'gate' },
+  /** Birds-eye over Technopark at night, from above the Giessereistrasse corner: the comb, the sawtooth roofs, the lit entrance. */
+  aerial: { pos: [132, FLOOR + 88, -70], target: [18, FLOOR + 2, 58], fov: 46, space: 'map' },
+  /** Hovering low over the auditorium's rows, the screen ahead: the seats we had to fill. */
+  seats: { pos: [3.2, FLOOR + 2.6, 15.6], target: [-0.6, FLOOR + 2.2, 1.0], fov: 52 },
   /** From the bridge above the atrium entrance, down the hall to the lift tower. */
   atrium: { pos: [0.5, FLOOR + 9.0, ATRIUM.start + 0.8], target: [0, FLOOR + 1.2, ATRIUM.start + 21], fov: 58, space: 'atrium' },
   /** Ground level among the cocktail tables, facing the AG Grid booth. */

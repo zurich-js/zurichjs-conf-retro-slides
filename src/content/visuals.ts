@@ -69,6 +69,7 @@ export const VISUALS = {
   'badge-two-holes': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Two holes, and it stays put.', note: 'Two clips on a V of lanyard: the name faces out all day.', rig: 'two-holes' },
   'badge-stress': { kind: 'badgetest', kicker: 'So we stress-tested the holes', title: 'Would they snap?', note: 'Weight on, pulled hard. A single hole tears through; two holes share the load.', rig: 'stress' },
   'badge-held': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Two holes. Tested. Held.', rig: 'held' },
+  'empty-seats': { kind: 'statement', kicker: 'The auditorium, ten months out', text: 'Every one of these seats had to be sold.', emphasis: 'had to be sold.' },
   'venue-map': { kind: 'statement', kicker: 'Ten months later · Technopark Zürich', text: 'One building, one week, one conference.', emphasis: 'one conference.' },
   'venue-atrium': { kind: 'statement', kicker: 'The atrium', text: 'Sponsors, coffee, and every hallway conversation.', emphasis: 'hallway' },
   'venue-booths': { kind: 'statement', kicker: 'Sponsor booths', text: 'The people who paid for the room.', emphasis: 'paid for the room.' },
@@ -437,7 +438,7 @@ export const VISUALS = {
   },
   'partners': { kind: 'stat', value: '80', label: 'Community partners. 41 tickets, 24 of them from outside Switzerland.' },
   'august-traffic': {
-    kind: 'bars', title: 'Ads made August look huge', source: 'Visitors per month · about 7,500 of August came from ads',
+    kind: 'bars', title: 'One month looked huge', source: 'Visitors per month · our analytics',
     bars: [
       { label: 'Dec', value: 565, tone: 'neutral' }, { label: 'Jan', value: 1618, tone: 'neutral' }, { label: 'Feb', value: 862, tone: 'neutral' },
       { label: 'Mar', value: 1048, tone: 'neutral' }, { label: 'Apr', value: 1072, tone: 'neutral' }, { label: 'May', value: 1324, tone: 'neutral' },
@@ -445,12 +446,41 @@ export const VISUALS = {
       { label: 'Sep', value: 4408, tone: 'neutral' },
     ],
   },
-  'newsletter': { kind: 'stat', value: '1,215', label: 'Visitors from one newsletter on 28 July. One of the busiest days before the event.' },
+  'ads-when': {
+    kind: 'numbers', title: 'We barely ran ads',
+    items: [
+      { value: 'None', label: 'Before June. Everything else was organic.' },
+      { value: '9 days', label: 'Reddit, June: 919 visitors, 0 tickets', tone: 'warn' },
+      { value: '5 weeks', label: 'Google Ads, 1 August to 6 September', tone: 'warn' },
+    ],
+  },
+  'august-without-ads': {
+    kind: 'numbers', title: 'Take the ads out, and August looks like July',
+    items: [
+      { value: '7,531', label: 'August visitors from Google Ads (72%)', tone: 'warn' },
+      { value: '2,854', label: 'August without ads' },
+      { value: '3,193', label: 'July, no ads at all', tone: 'neutral' },
+    ],
+  },
+  'newsletter': { kind: 'stat', value: '1,215', label: 'Visitors in one day from Kevin Powell’s newsletter. A friend, not an ad.' },
   'ads': {
     kind: 'numbers', title: 'Ads brought traffic, not buyers',
     items: [
-      { value: '0.28%', label: '25 of 8,901 ad visitors bought', tone: 'warn' },
-      { value: '0.85%', label: '131 of 15,364 everyone else', tone: 'good' },
+      { value: '40%', label: 'Of all visitors came from an ad', tone: 'warn' },
+      { value: '4%', label: 'Of buyers found us through one: 8 of 180', tone: 'warn' },
+    ],
+  },
+  'buyers-from': {
+    kind: 'bars', title: 'Buyers came from people who already knew us', source: 'Where each buyer first came from · our analytics · 180 buyers',
+    bars: [
+      { label: 'Typed it in, bookmarks', value: 72, tone: 'hero' },
+      { label: 'Our own channels', value: 38, tone: 'hero' },
+      { label: 'Search', value: 27, tone: 'neutral' },
+      { label: 'Social', value: 13, tone: 'neutral' },
+      { label: 'Community sites', value: 10, tone: 'neutral' },
+      { label: 'Google Ads', value: 8, tone: 'warn' },
+      { label: 'Newsletters', value: 1, tone: 'neutral' },
+      { label: 'Reddit Ads', value: 0, tone: 'warn' },
     ],
   },
   'cart': { kind: 'stat', value: '1 in 4', label: 'Cart viewers went on to check out. Most dropped off at the details step.', tone: 'warn' },

@@ -14,6 +14,10 @@ The visual a slide shows. Every slide has exactly one: the deck is arrows
 only, so a build is a sequence of slides, not Enter presses. (The engine
 still models steps; `defineSlides` holds each slide to one.)
 
+## Fill
+How full the auditorium is on a slide (`fill`, 0–1). Carries forward from the
+last slide that set it; a change fills or empties the seats in sales order.
+
 ## Beat
 Narrative metadata grouping slides (`open`, `evidence`, `close`…). No input,
 no index, no runtime behaviour.
@@ -24,14 +28,21 @@ addressed by id. The data lives here once; every renderer reads it.
 
 ## Kind
 The closed set of visual forms: `title`, `section`, `statement`, `stat`,
-`bars`, `quote`, `image`, `code`, `numbers` (2–6 number tiles), `calendar`
-(a split-flap calendar rolling month by month between two dates), `growth`
-(lines growing from their start; `show`/`from` continue it across steps),
-`heatmap` (rows of value-shaded cells, e.g. RSVPs per month per year), `matrix`
-(a ✓/✗ feature grid: what each option includes, one column highlighted), `journey`
-(the road-to-Zurich globe: one leg per step, or with `play` every leg in
-one autoplaying draw-in). Each kind has exactly one painter. Adding a kind is a
-deliberate act (type + painter + doc), never a one-off.
+`bars`, `quote`, `image` (optionally titled, with a `mark` outline), `code`,
+`numbers` (2–6 number tiles), `calendar` (a split-flap calendar rolling month
+by month between two dates), `growth` (lines growing from their start;
+`show`/`from` continue it across steps), `heatmap` (rows of value-shaded
+cells, e.g. RSVPs per month per year), `matrix` (a ✓/✗ feature grid, one
+column highlighted), `moments` (photos in date order flowing past a month
+timeline, then a wall with totals), `flapboard` (an airport split-flap
+departures board: columns of flaps that spin and land), `atm` (one screen of
+a cash machine: prompt, touch options, a tapped choice; its `step` drives the
+machine in the set: card in, cash out), `strike` (one name: struck through and
+renamed, or stamped, e.g. Deprecated), `badgetest` (a caption whose `rig`
+drives the badge-hole test stand; see Badge test), `journey` (the road-to-Zurich globe:
+one leg per step, or with `play` every leg in one autoplaying draw-in). Each
+kind has exactly one painter. Adding a kind is a deliberate act (type +
+painter + doc), never a one-off.
 
 ## Painter
 A pure function `(ctx, visual, progress, roles) → void` that draws one kind
@@ -81,9 +92,9 @@ like `screen`), `foifi` /
 `foifi-screen` (Pause im Foifi), `deploy` (the launch laptop), `cake`, `cabin`
 (down the 777's aisle), `seat` (seat 15C, looking straight at the seat-back screen), `gate` (the Zurich Airport gate lounge, departures board ahead),
 `gate-full` (the departures board filling the frame; solved), `apron` (the
-plane at the gate, from outside), `strike` (one name: struck through and renamed, or
-stamped, e.g. Deprecated), `atm` (close on the cash machine's screen in
-Foifi), `atm-wide` (the whole machine: card slot, keypad, cash). Cues describe destinations, never timelines. `?cue=<name>`
+plane at the gate, from outside), `atm` (close on the cash machine's screen in
+Foifi), `atm-wide` (the whole machine: card slot, keypad, cash), `aerial` (Technopark
+at night from above, roofs on), `seats` (hovering low over the auditorium's rows). Cues describe destinations, never timelines. `?cue=<name>`
 previews one.
 
 ## Space

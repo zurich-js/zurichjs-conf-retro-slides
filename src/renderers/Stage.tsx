@@ -290,7 +290,8 @@ function CameraRig() {
     cam.lookAt(look)
     // Roofs vanish only once the camera is above them (crane shots to and from the map).
     const above = cam.position.y > ROOF
-    cam.layers.mask = name === 'map' && t >= 1 ? MASK.map : mv.crane && above ? MASK.travel : MASK.normal
+    // Arriving at the birds-eye view keeps the roofs on: it is the outside we came to see.
+    cam.layers.mask = name === 'map' && t >= 1 ? MASK.map : mv.crane && above && name !== 'aerial' ? MASK.travel : MASK.normal
   })
   return null
 }
@@ -304,7 +305,7 @@ export function Stage() {
     <Canvas
       dpr={[1, 1.5]}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
-      camera={{ position: [0, 0, 20], fov: 35, near: 0.1, far: 500 }}
+      camera={{ position: [0, 0, 20], fov: 35, near: 0.1, far: 1400 }}
       flat
     >
       <color attach="background" args={[GROUNDS.dark.bg]} />
