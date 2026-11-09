@@ -81,7 +81,8 @@ like `screen`), `foifi` /
 `foifi-screen` (Pause im Foifi), `deploy` (the launch laptop), `cake`, `cabin`
 (down the 777's aisle), `seat` (seat 15C, looking straight at the seat-back screen), `gate` (the Zurich Airport gate lounge, departures board ahead),
 `gate-full` (the departures board filling the frame; solved), `apron` (the
-plane at the gate, from outside). Cues describe destinations, never timelines. `?cue=<name>`
+plane at the gate, from outside), `atm` (close on the cash machine's screen in
+Foifi), `atm-wide` (the whole machine: card slot, keypad, cash). Cues describe destinations, never timelines. `?cue=<name>`
 previews one.
 
 ## Space

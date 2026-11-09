@@ -117,13 +117,14 @@ export const VISUALS = {
   },
   'price-compare': {
     kind: 'flapboard', title: 'Half the price of London',
-    source: 'Regular ticket, 2026 · official pages · ECB, 11 Sep 2026',
+    source: 'Regular ticket, 2026 (JSWorld: 2027) · official pages · ECB, 11 Sep 2026',
     columns: [{ label: 'Destination', width: 22 }, { label: 'Ticket', width: 7, align: 'right' }],
     rows: [
       { cells: ['REACT PARIS', 'CHF 614'] },
       { cells: ['REACT ADVANCED LONDON', 'CHF 595'] },
       { cells: ['REACT SUMMIT AMSTERDAM', 'CHF 567'] },
       { cells: ['REACT DAY BERLIN', 'CHF 515'] },
+      { cells: ['JSWORLD AMSTERDAM', 'CHF 377'] },
       { cells: ['VOXXED DAYS ZURICH', 'CHF 360'] },
       { cells: ['ZURICHJS CONF', 'CHF 295'], highlight: true },
       { cells: ['JSHEROES CLUJ', 'CHF 198'] },
@@ -131,13 +132,13 @@ export const VISUALS = {
   },
   'value-grid': {
     kind: 'flapboard', title: 'What the ticket gets you',
-    source: 'Official sites and ticket pages, 2026 · dash: not listed',
+    source: 'Official sites and ticket pages, 2026 (JSWorld price: 2027) · dash: not listed',
     columns: [
       { label: 'Included', width: 18 }, { label: 'ZurichJS', width: 5 }, { label: 'Berlin', width: 5 },
       { label: 'Summit', width: 5 }, { label: 'Paris', width: 5 }, { label: 'JSWorld', width: 5 },
     ],
     rows: [
-      { cells: ['TICKET, CHF', '295', '515', '567', '614', '-'], highlight: true },
+      { cells: ['TICKET, CHF', '295', '515', '567', '614', '377'], highlight: true },
       { cells: ['LUNCH AND COFFEE', 'YES', 'YES', 'YES', 'YES', '-'] },
       { cells: ['SAME-CALIBRE TALKS', 'YES', 'YES', 'YES', 'YES', 'YES'] },
       { cells: ['T-SHIRT', 'YES', '-', '-', '-', '-'] },
@@ -173,17 +174,28 @@ export const VISUALS = {
       { cells: ['20% OFF WORKSHOPS', 'NO', 'YES'] },
     ],
   },
-  'vip-business-class': {
-    kind: 'flapboard', title: 'Why VIP',
-    columns: [{ width: 18 }],
+  'vip-tiers': {
+    kind: 'flapboard', title: 'Tiers, not barriers',
+    columns: [{ width: 24 }],
     rows: [
-      { cells: ['BUSINESS CLASS'] },
-      { cells: ['PAYS FOR ECONOMY.'], highlight: true },
+      { cells: ['A TIER FOR EVERY BUDGET,'] },
+      { cells: ['SO THE FLOOR STAYS LOW.'], highlight: true },
+    ],
+  },
+  'vip-invested': {
+    kind: 'flapboard', title: 'Once in, people went further',
+    source: 'Our analytics · tracked checkouts, matched by email · not every sale',
+    columns: [{ label: 'Ticket', width: 15 }, { label: 'Buyers', width: 6, align: 'right' }, { label: 'Took a workshop', width: 15, align: 'right' }],
+    rows: [
+      { cells: ['STANDARD', '171', '5%'] },
+      { cells: ['STUDENT', '20', '10%'] },
+      { cells: ['VIP', '32', '19%'], highlight: true },
+      { cells: ['UPGRADED TO VIP', '8', ''] },
     ],
   },
   'vip-funds': {
-    kind: 'flapboard', title: 'Business class funds economy',
-    columns: [{ label: 'The extra spend', width: 20 }, { label: 'Total', width: 9, align: 'right' }],
+    kind: 'flapboard', title: 'Spend more if you can, so everyone can come',
+    columns: [{ label: 'What the tiers paid for', width: 23 }, { label: 'Total', width: 9, align: 'right' }],
     rows: [
       { cells: ['VIP TICKETS', '46'] },
       { cells: ['WORKSHOP SALES', 'CHF 14.4K'], highlight: true },
@@ -237,7 +249,47 @@ export const VISUALS = {
   'expensive': { kind: 'stat', value: '14', label: 'Of 112 survey respondents found it expensive. 98 said good, excellent or just right.', tone: 'neutral' },
   'ai-changed': { kind: 'statement', text: 'AI changed what people submitted.', emphasis: 'AI' },
   'ai-share': { kind: 'stat', value: '40%', label: 'Of CFP submissions mentioned AI. 171 of 428 analysed.' },
-  'three-problems': { kind: 'statement', ground: 'yellow', text: 'Three problems. Each forced a decision.', emphasis: 'Each forced a decision.' },
+  'three-problems': { kind: 'statement', ground: 'yellow', text: 'Three problems, and AI pressed on every one: from the top and from the bottom.', emphasis: 'from the top and from the bottom.' },
+  // ── The AI squeeze, as a cash machine: who would pay, and for what ──
+  'atm-insert': { kind: 'atm', kicker: 'Funding ZurichJS Conf', title: 'Please insert your card.', step: 'insert' },
+  'atm-sponsors': {
+    kind: 'atm', kicker: 'From the top · Sponsors', title: 'What would you like to fund?',
+    options: [{ label: 'A booth' }, { label: 'A sponsored talk slot' }, { label: 'Your logo' }, { label: 'Only AI on the agenda' }],
+    selected: [1, 3],
+  },
+  'atm-declined': {
+    kind: 'atm', kicker: 'From the top · Sponsors', title: 'Sponsored talk slot',
+    message: 'Declined. Talks are not for sale.', tone: 'bad', note: 'It broke against our values',
+  },
+  'atm-companies': {
+    kind: 'atm', kicker: 'From the top · Companies', title: 'Fund a ticket for your team?',
+    options: [{ label: 'An AI conference', value: 'YES' }, { label: 'Anything else', value: 'NO BUDGET' }],
+    selected: [0],
+  },
+  'atm-speakers': {
+    kind: 'atm', kicker: 'From the bottom · Speakers', title: 'Which talk will get picked?',
+    options: [{ label: 'The one about AI' }, { label: 'The one you know best' }],
+    selected: [0], note: 'CFP: 171 of 428 analysed submissions mentioned AI',
+  },
+  'atm-attendees': {
+    kind: 'atm', kicker: 'From the bottom · Attendees', title: 'What do you want next year?',
+    options: [
+      { label: 'JS and TS deep dives', value: '75' }, { label: 'Real-world case studies', value: '71' },
+      { label: 'Performance', value: '66' }, { label: 'AI', value: '48' },
+    ],
+    selected: [0], note: 'Survey, topics wanted next year · 112 responses · pick several',
+  },
+  'atm-taste': {
+    kind: 'atm', kicker: 'From the bottom · Attendees', title: 'And if it is AI?',
+    options: [{ label: 'AI slop', value: 'NO' }, { label: 'Grounded engineering', value: 'YES' }],
+    selected: [1], message: 'Mature and tasteful, blended with the fundamentals.',
+  },
+  'atm-repitch': {
+    kind: 'atm', kicker: 'So we changed how we asked', title: 'New language for every stream.',
+    options: [{ label: 'Sponsors' }, { label: 'Companies' }, { label: 'Speakers' }, { label: 'Attendees' }],
+    selected: [0, 1, 2, 3],
+  },
+  'atm-dispense': { kind: 'atm', kicker: 'Funding ZurichJS Conf', title: 'Please take your card and your cash.', step: 'dispense' },
 
   // ── 3 · The machine ────────────────────────────────────────────────────
   'ch3': { kind: 'section', number: '03 · Four people, day jobs, one app', title: 'The machine' },
@@ -350,7 +402,7 @@ export const VISUALS = {
   // ── 5 · Filling the room ───────────────────────────────────────────────
   'ch5': { kind: 'section', number: '05 · Price, channels, people', title: 'Filling the room' },
   // The road: one globe that flies every trip in date order by itself, then lands on the totals.
-  'road-moments': { kind: 'moments', kicker: 'On the road, in pictures', from: '2025-09', to: '2026-09', moments: MOMENTS, totals: MOMENT_TOTALS, hold: 5.5 },
+  'road-moments': { kind: 'moments', kicker: 'On the road, in pictures', from: '2025-09', to: '2026-09', moments: MOMENTS, totals: MOMENT_TOTALS, hold: 3 },
   'road': { kind: 'journey', title: 'Taking ZurichJS on the road', journey: ROAD_TO_ZURICH, step: 0, play: true },
   'price-stages': {
     kind: 'bars', title: 'Five price stages', source: 'Paid tickets per stage',
