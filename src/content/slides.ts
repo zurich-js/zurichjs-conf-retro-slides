@@ -197,7 +197,6 @@ export const slides = defineSlides(VISUALS, [
   { id: 'speaker-runner', beat: 'rollercoaster', steps: ['speaker-runner'], notes: 'Nadja: we needed one person whose job was to find each speaker and get them to the stage on time.' },
   { id: 'merch-guess', beat: 'rollercoaster', steps: ['merch-guess'], notes: 'Nadja: deciding how many T-shirts in which sizes, and which lanyard card material, means spending a lot of money without leftovers or anyone going home empty-handed. Counts from the door system export (goodies station). CHECK the hoodie numbers before saying them.' },
   { id: 'signing-wall', beat: 'countdown', steps: ['signing-wall'], camera: 'signing', notes: 'The black skyline wall in the foyer that everyone signed in white marker (aftermovie). The signatures in the set are scribbles, not real names.' },
-  { id: 'after-party', beat: 'countdown', steps: ['after-party'], camera: 'lake', notes: 'The VIP after-party at a lakeside bath on Lake Zurich: dinner under string lights, and people jumping off the raft at dusk (aftermovie). VIP only, not every attendee. CHECK the venue name before saying it.' },
 
   // ── 8 · What we learned ────────────────────────────────────────────────
   { id: 'ch8', transition: 'curtain', beat: 'learned', steps: ['ch8'], camera: 'stage', effect: 1 },

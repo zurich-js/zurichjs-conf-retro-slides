@@ -913,7 +913,6 @@ export const VISUALS = {
   'speaker-runner': { kind: 'statement', kicker: 'Learned on the day', text: 'Someone had to bring every speaker to the stage, on time.', emphasis: 'on time.' },
   'panel': { kind: 'statement', kicker: 'On stage', text: 'e18e & friends, live.', emphasis: 'live.' },
   'signing-wall': { kind: 'statement', kicker: 'In the foyer', text: 'Everyone signed the wall.', emphasis: 'signed the wall.' },
-  'after-party': { kind: 'statement', kicker: 'VIP after-party', text: 'And then, the lake.', emphasis: 'the lake.' },
   'group-photo': { kind: 'statement', kicker: 'The end of the day', text: 'Everyone who made it, on one stage.', emphasis: 'on one stage.' },
   'merch-guess': {
     kind: 'numbers', kicker: 'Ordering merch', title: 'Sizes for people we had not met yet',
