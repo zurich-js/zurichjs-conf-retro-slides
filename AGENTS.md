@@ -105,8 +105,8 @@ public/models/        .glb files for the set
    is drawn** (`scene/venues.tsx`): Technopark, Foifi or the airport, with its
    lights; crane shots draw all three. A new room goes in a `<Venue>`; its
    lights stay inside it. Shader combinations are prewarmed at load.
-12. **Works on phones.** Touch navigation; in portrait, solved cues contain the
-   frame (never crop it) and poses keep their 16:9 horizontal view.
+12. **Works on phones.** Touch navigation; in portrait, solved cues widen the lens to fit the
+   frame from the same spot (never backing into the room) and poses keep their 16:9 horizontal view.
 10. **Offline-safe.** Fonts, images, models are local. No CDN at runtime —
     conference Wi-Fi is not real.
 11. `defineSlides()` validates at module load; keep it strict. A bad deck

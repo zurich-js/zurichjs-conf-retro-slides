@@ -25,11 +25,15 @@ const FORCED: CameraCue | undefined = CAMERA_CUES.find((c) => c === CUE)
 function coverDistance(fovDeg: number, aspect: number, width = SCREEN.width) {
   const t = Math.tan(THREE.MathUtils.degToRad(fovDeg) / 2)
   const height = width * (SCREEN.height / SCREEN.width)
-  // Wider than the frame: cover (crop a sliver top and bottom). Narrower (portrait phones): contain, so nothing is cut.
-  const cover = Math.min(height / (2 * t), width / (2 * t * aspect))
-  const contain = Math.max(height / (2 * t), width / (2 * t * aspect))
-  return aspect >= SCREEN.width / SCREEN.height ? cover : contain
+  // Wider than the frame: cover (crop a sliver top and bottom). Narrower (portrait phones): stay at the
+  // 16:9 distance and widen the lens instead (solvedFov), so the camera never backs into the room and
+  // nothing (seats, people, the booth) can come between it and the screen.
+  if (aspect >= SCREEN.width / SCREEN.height) return Math.min(height / (2 * t), width / (2 * t * aspect))
+  return height / (2 * t)
 }
+
+/** The lens for a solved cue: its own fov down to 16:9, wider below so the whole frame fits. */
+const solvedFov = (fov: number, aspect: number) => fovFor(fov, aspect)
 
 /** Keep a pose's horizontal view on screens narrower than 16:9: widen the vertical fov (capped). */
 function fovFor(fov: number, aspect: number) {
@@ -65,9 +69,10 @@ const GATE_FULL: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(),
 
 /** Fill the viewport with an image facing +z (facing = 1) or −z (facing = −1). */
 function fill(pose: Pose, img: { width: number; centre: readonly [number, number, number] }, facing: 1 | -1, aspect: number) {
+  pose.fov = solvedFov(35, aspect)
   pose.target.set(...img.centre).multiplyScalar(M)
   pose.pos.copy(pose.target)
-  pose.pos.z += facing * coverDistance(pose.fov, aspect, img.width * M)
+  pose.pos.z += facing * coverDistance(35, aspect, img.width * M)
   return pose
 }
 
@@ -79,7 +84,8 @@ function cue(name: CameraCue, aspect: number) {
     const [x, y, z] = FOIFI_IMAGE.centre
     FOIFI_FULL.target.set(x, y, z).multiplyScalar(M)
     FOIFI_FULL.pos.copy(FOIFI_FULL.target)
-    FOIFI_FULL.pos.z += coverDistance(FOIFI_FULL.fov, aspect, FOIFI_IMAGE.width * M)
+    FOIFI_FULL.pos.z += coverDistance(35, aspect, FOIFI_IMAGE.width * M)
+    FOIFI_FULL.fov = solvedFov(35, aspect)
     return FOIFI_FULL
   }
   if (name === 'projector') {
@@ -87,7 +93,8 @@ function cue(name: CameraCue, aspect: number) {
     const [x, y, z] = PROJECTOR_PANEL.centre
     PROJECTOR_POSE.target.set(x, y, z).multiplyScalar(M)
     PROJECTOR_POSE.pos.copy(PROJECTOR_POSE.target)
-    PROJECTOR_POSE.pos.z -= coverDistance(PROJECTOR_POSE.fov, aspect, PROJECTOR_PANEL.width * M)
+    PROJECTOR_POSE.pos.z -= coverDistance(35, aspect, PROJECTOR_PANEL.width * M)
+    PROJECTOR_POSE.fov = solvedFov(35, aspect)
     return PROJECTOR_POSE
   }
   if (name !== 'screen') {
@@ -95,7 +102,8 @@ function cue(name: CameraCue, aspect: number) {
     p.fov = fovFor(p.base ?? p.fov, aspect)
     return p
   }
-  SCREEN_POSE.pos.set(0, 0, coverDistance(SCREEN_POSE.fov, aspect))
+  SCREEN_POSE.pos.set(0, 0, coverDistance(35, aspect))
+  SCREEN_POSE.fov = solvedFov(35, aspect)
   return SCREEN_POSE
 }
 
