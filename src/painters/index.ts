@@ -16,6 +16,7 @@ import { CHATTER_SECS, paintChatter } from './chatter'
 import { ARRIVALS_SECS, paintArrivals } from './arrivals'
 import { paintMatrix } from './matrix'
 import { paintSplit, SPLIT_SECS } from './split'
+import { CHECKOUT_SECS, paintCheckout } from './checkout'
 import { paintTimeline, TIMELINE_SECS } from './timeline'
 
 type Painter<K extends VisualKind> = (ctx: Ctx, v: Extract<Visual, { kind: K }>, p: number, r: Roles) => void
@@ -369,9 +370,10 @@ const pipeline: Painter<'pipeline'> = paintPipeline
 const chatter: Painter<'chatter'> = paintChatter
 const arrivals: Painter<'arrivals'> = paintArrivals
 const split: Painter<'split'> = paintSplit
+const checkout: Painter<'checkout'> = paintCheckout
 const timeline: Painter<'timeline'> = paintTimeline
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals, video: vid, split, timeline }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals, video: vid, split, timeline, checkout }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear
@@ -380,6 +382,7 @@ const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement,
 export function drawTiming(visual: Visual | undefined): { secs: number; linear: boolean } {
   if (visual?.kind === 'video') return { secs: visual.seconds, linear: true }
   if (visual?.kind === 'split') return { secs: SPLIT_SECS, linear: false }
+  if (visual?.kind === 'checkout') return { secs: CHECKOUT_SECS, linear: true }
   if (visual?.kind === 'timeline') return { secs: TIMELINE_SECS, linear: false }
   if (visual?.kind === 'journey') return { secs: journeySeconds(visual), linear: true }
   if (visual?.kind === 'inbox') return { secs: INBOX_SECS, linear: true }

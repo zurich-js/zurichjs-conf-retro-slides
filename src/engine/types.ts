@@ -203,6 +203,20 @@ export type Visual = Base &
         note?: string
       }
     | {
+        kind: 'checkout'
+        title: string
+        kicker?: string
+        /** What the live count counts, e.g. "Card payments". */
+        unit: string
+        /** The label under the card terminal. */
+        terminal: string
+        /** Card payments per day (ISO date) by currency, in date order. */
+        days: readonly { date: string; chf?: number; eur?: number; usd?: number; gbp?: number }[]
+        monthsLabel: string
+        /** Called out over the last days once they land. */
+        peak?: string
+      }
+    | {
         kind: 'split'
         title: string
         kicker?: string
@@ -296,6 +310,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   journey: 'dark',
   video: 'dark',
   split: 'dark',
+  checkout: 'dark',
   timeline: 'dark',
 }
 
