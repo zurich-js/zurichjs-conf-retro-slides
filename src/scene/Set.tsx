@@ -16,6 +16,7 @@ import { Seats } from './Seats'
 import { SPONSOR_ASSETS } from './sponsors'
 import { ATRIUM, ATRIUM_TOP, CUES, FLOOR, FOYER, HALL_BACK, LIGHTS, M, STAGE_FRONT, STAGE_TOP } from './venue'
 import { MapOnly } from './layers'
+import { Venue } from './venues'
 import { mapLabel, nightGround } from './textures'
 
 // Load set assets with the module, not on first navigation to a set cue.
@@ -36,21 +37,27 @@ useTexture.preload(SPONSOR_ASSETS as string[])
 export function Set({ frame }: { frame: THREE.Material }) {
   return (
     <group scale={M}>
-      <Lights />
-      <MapLabels />
-      <Hall frame={frame} />
-      <Seats />
-      <Foifi frame={frame} />
-      <Airport frame={frame} />
-      <Atm frame={frame} />
       <Ground />
-      <Exterior />
-      <Suspense fallback={null}>
-        <Booth frame={frame} />
-        <Props frame={frame} />
-        <Foyer frame={frame} />
-        <Atrium />
-      </Suspense>
+      <Venue name="technopark">
+        <Lights />
+        <MapLabels />
+        <Hall frame={frame} />
+        <Seats />
+        <Exterior />
+        <Suspense fallback={null}>
+          <Booth frame={frame} />
+          <Props frame={frame} />
+          <Foyer frame={frame} />
+          <Atrium />
+        </Suspense>
+      </Venue>
+      <Venue name="foifi">
+        <Foifi frame={frame} />
+        <Atm frame={frame} />
+      </Venue>
+      <Venue name="airport">
+        <Airport frame={frame} />
+      </Venue>
     </group>
   )
 }

@@ -1,10 +1,12 @@
 import { useEffect, useMemo } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { isAwake, keepAwake, setContinuous } from '../engine/activity'
+import { showSpaces, showVenues } from '../scene/venues'
 import { GROUNDS } from '../brand/tokens'
 import { createFrameCanvas, paintCurrent, setHoldPolicy } from '../engine/frame'
 import { useDeck } from '../engine/store'
-import { CUE, STILL } from '../engine/params'
+import { CUE, DEBUG, STILL } from '../engine/params'
 import { slides } from '../content/slides'
 import { CAMERA_CUES, type CameraCue } from '../engine/types'
 import { Set } from '../scene/Set'
@@ -23,7 +25,18 @@ const FORCED: CameraCue | undefined = CAMERA_CUES.find((c) => c === CUE)
 function coverDistance(fovDeg: number, aspect: number, width = SCREEN.width) {
   const t = Math.tan(THREE.MathUtils.degToRad(fovDeg) / 2)
   const height = width * (SCREEN.height / SCREEN.width)
-  return Math.min(height / (2 * t), width / (2 * t * aspect))
+  // Wider than the frame: cover (crop a sliver top and bottom). Narrower (portrait phones): contain, so nothing is cut.
+  const cover = Math.min(height / (2 * t), width / (2 * t * aspect))
+  const contain = Math.max(height / (2 * t), width / (2 * t * aspect))
+  return aspect >= SCREEN.width / SCREEN.height ? cover : contain
+}
+
+/** Keep a pose's horizontal view on screens narrower than 16:9: widen the vertical fov (capped). */
+function fovFor(fov: number, aspect: number) {
+  const wide = SCREEN.width / SCREEN.height
+  if (aspect >= wide) return fov
+  const t = Math.tan(THREE.MathUtils.degToRad(fov) / 2) * (wide / aspect)
+  return Math.min(100, THREE.MathUtils.radToDeg(2 * Math.atan(t)))
 }
 
 /** Resolved poses in world units, built once (navigation allocates nothing). */
@@ -34,6 +47,7 @@ const POSES = Object.fromEntries(
       pos: new THREE.Vector3(...c.pos).multiplyScalar(M),
       target: new THREE.Vector3(...c.target).multiplyScalar(M),
       fov: c.fov,
+      base: c.fov,
       space: c.space ?? 'hall',
       enter: c.enter && { from: c.enter.from, via: c.enter.via.map((w) => new THREE.Vector3(...w).multiplyScalar(M)) },
     },
@@ -41,7 +55,7 @@ const POSES = Object.fromEntries(
 ) as Record<Exclude<CameraCue, SolvedCue>, Pose>
 const SCREEN_POSE: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'hall' }
 
-interface Pose { pos: THREE.Vector3; target: THREE.Vector3; fov: number; space: Space; enter?: { from: CameraCue; via: THREE.Vector3[] } }
+interface Pose { pos: THREE.Vector3; target: THREE.Vector3; fov: number; base?: number; space: Space; enter?: { from: CameraCue; via: THREE.Vector3[] } }
 
 /** 'screen' is solved per aspect; every other cue is a measured pose in the venue. */
 const PROJECTOR_POSE: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'foifi' }
@@ -76,7 +90,11 @@ function cue(name: CameraCue, aspect: number) {
     PROJECTOR_POSE.pos.z -= coverDistance(PROJECTOR_POSE.fov, aspect, PROJECTOR_PANEL.width * M)
     return PROJECTOR_POSE
   }
-  if (name !== 'screen') return POSES[name]
+  if (name !== 'screen') {
+    const p = POSES[name]
+    p.fov = fovFor(p.base ?? p.fov, aspect)
+    return p
+  }
   SCREEN_POSE.pos.set(0, 0, coverDistance(SCREEN_POSE.fov, aspect))
   return SCREEN_POSE
 }
@@ -126,15 +144,62 @@ function useFrameMaterial() {
     if (state.animating) {
       state.animating = paintCurrent(ctx, performance.now())
       texture.needsUpdate = true
+      if (state.animating) keepAwake(120)
     }
     const target = slides[useDeck.getState().index]?.effect ?? 0
     uniforms.uEffect.value = THREE.MathUtils.damp(uniforms.uEffect.value, target, 4, dt)
+    if (Math.abs(uniforms.uEffect.value - target) > 0.002) keepAwake(120)
   })
 
   return useMemo(
     () => new THREE.ShaderMaterial({ vertexShader: vertex, fragmentShader: fragment, uniforms, toneMapped: false }),
     [uniforms],
   )
+}
+
+/**
+ * Draw only while something moves: a requestAnimationFrame loop asks R3F for a
+ * frame while the stage is awake (navigation, camera moves, draw-ins, props).
+ * A settled slide costs nothing.
+ */
+function Pump() {
+  const invalidate = useThree((s) => s.invalidate)
+  useEffect(() => {
+    keepAwake(3000)
+    const unsub = useDeck.subscribe(() => keepAwake(9000))
+    let raf = 0
+    const tick = (now: number) => {
+      if (isAwake(now)) invalidate()
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => { cancelAnimationFrame(raf); unsub() }
+  }, [invalidate])
+  return null
+}
+
+/**
+ * Compile every venue combination's shaders up front. Hiding a venue hides its
+ * lights, which changes the light count three.js compiles for; doing it here
+ * means no program is ever compiled mid-move.
+ */
+function Prewarm() {
+  const { gl, scene, camera } = useThree()
+  useEffect(() => {
+    if (DEBUG) (window as unknown as { __deck: unknown }).__deck = { gl, scene, camera }
+    const id = setTimeout(() => {
+      // The only combinations a move can show: one venue (walks inside it), or all three (crane shots).
+      for (const [t, f, a] of [[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 1]] as const) {
+        showVenues(!!t, !!f, !!a)
+        gl.compile(scene, camera)
+      }
+      const name = FORCED ?? slides[useDeck.getState().index]?.camera ?? 'screen'
+      showSpaces(spaceOf(name))
+      keepAwake(500)
+    }, 0)
+    return () => clearTimeout(id)
+  }, [gl, scene, camera])
+  return null
 }
 
 function Scene() {
@@ -146,6 +211,8 @@ function Scene() {
       </mesh>
       <Set frame={frame} />
       <CameraRig />
+      <Pump />
+      <Prewarm />
     </>
   )
 }
@@ -183,6 +250,8 @@ interface Move {
   reveal: boolean
   fromLook: THREE.Vector3
   fromFov: number
+  /** Arrived: only the destination venue is drawn. */
+  settled: boolean
 }
 
 function heightAt(m: Move, s: number) {
@@ -228,7 +297,7 @@ function CameraRig() {
   const look = useMemo(() => new THREE.Vector3(), [])
   const tmp = useMemo(() => ({ a: new THREE.Vector3(), b: new THREE.Vector3(), walkLook: new THREE.Vector3() }), [])
   const mv = useMemo<Move>(() => ({
-    name: '', xz: null, hs: [], ss: [], t0: 0, dur: 0, walk: false, crane: false, reveal: false, fromLook: new THREE.Vector3(), fromFov: 35,
+    name: '', xz: null, hs: [], ss: [], t0: 0, dur: 0, walk: false, crane: false, reveal: false, fromLook: new THREE.Vector3(), fromFov: 35, settled: false,
   }), [])
   useFrame(() => {
     const name = FORCED ?? slides[useDeck.getState().index]?.camera ?? 'screen'
@@ -259,9 +328,16 @@ function CameraRig() {
       mv.fromFov = first ? c.fov : cam.fov
       mv.t0 = now
       mv.name = name
+      mv.settled = false
+      // Draw where we are and where we are going; a crane shot passes over everything.
+      if (mv.crane) showVenues(true, true, true)
+      else showSpaces(from, c.space)
+      setContinuous(name === 'lanyards' || name === 'badges' || name === 'foyer')
     }
 
     const t = mv.dur > 0 ? Math.min(1, (now - mv.t0) / mv.dur) : 1
+    if (t < 1) keepAwake(120)
+    else if (!mv.settled) { mv.settled = true; showSpaces(c.space) }
     if (t >= 1 || !mv.xz) {
       cam.position.copy(c.pos)
       look.copy(c.target)
@@ -304,6 +380,7 @@ export function Stage() {
   return (
     <Canvas
       dpr={[1, 1.5]}
+      frameloop="demand"
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       camera={{ position: [0, 0, 20], fov: 35, near: 0.1, far: 1400 }}
       flat

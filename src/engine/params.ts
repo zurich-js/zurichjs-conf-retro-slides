@@ -10,3 +10,6 @@ export const PRESENTER = params.has('presenter')
 export const CUE = params.get('cue')
 /** ?still — skip draw-in animation; every step lands settled. For screenshots. */
 export const STILL = params.has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches
+
+/** ?debug: expose the renderer on window.__deck (timing, draw calls). */
+export const DEBUG = params.has('debug')
