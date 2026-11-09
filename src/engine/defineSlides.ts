@@ -76,6 +76,16 @@ export function defineSlides(
         for (const i of v.selected ?? []) if (!(i >= 0 && i < n)) throw new Error(`Visual "${id}": selected ${i} is not an option`)
       }
       if (v?.kind === 'strike' && !v.to === !v.stamp) throw new Error(`Visual "${id}": a strike has either \`to\` (a rename) or \`stamp\`, not both or neither`)
+      if (v?.kind === 'split' && (v.segments.length < 2 || v.segments.length > 6 || v.segments.some((s) => !(s.value >= 0)))) throw new Error(`Visual "${id}": a split has 2 to 6 non-negative segments`)
+      if (v?.kind === 'timeline') {
+        if (v.marks.length < 2 || v.marks.length > 5) throw new Error(`Visual "${id}": a timeline has 2 to 5 marks`)
+        let prev = -1
+        for (const m of v.marks) {
+          if (!(m.at >= 0 && m.at <= 1) || m.at < prev) throw new Error(`Visual "${id}": marks need \`at\` in 0–1, in order`)
+          prev = m.at
+        }
+        if (v.span && !(v.span.from >= 0 && v.span.from < v.span.to && v.span.to <= 1)) throw new Error(`Visual "${id}": span must sit inside 0–1`)
+      }
       if (v?.kind === 'video') {
         if (!/^\/video\/[a-z0-9-]+\.mp4$/.test(v.src)) throw new Error(`Visual "${id}": video src "${v.src}" must be /video/<name>.mp4 (local, offline-safe)`)
         if (!(v.seconds > 0 && v.seconds < 600)) throw new Error(`Visual "${id}": video seconds must be its length (0 to 600)`)

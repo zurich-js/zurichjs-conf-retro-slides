@@ -1,6 +1,6 @@
 import { FRAME, type Roles, TYPE } from '../brand/tokens'
 import type { Moment, Visual } from '../engine/types'
-import { type Ctx, image, label, SAFE, text, window01 } from './kit'
+import { type Ctx, image, label, labelLines, SAFE, text, window01 } from './kit'
 
 /**
  * The `moments` painter: the road in pictures. One autoplaying draw-in:
@@ -208,18 +208,3 @@ export function paintMoments(ctx: Ctx, v: MomentsVisual, p: number, r: Roles) {
   }
 }
 
-/** Split a mono uppercase label into lines no wider than `max` (tracking included). */
-function labelLines(ctx: Ctx, value: string, max: number, size: number): string[] {
-  ctx.save()
-  ctx.font = `${TYPE.weight.medium} ${size}px ${TYPE.mono}`
-  ctx.letterSpacing = `${TYPE.tracking.label * size}px`
-  const lines: string[] = []
-  let line = ''
-  for (const word of value.toUpperCase().split(' ')) {
-    const next = line ? `${line} ${word}` : word
-    if (line && ctx.measureText(next).width > max) { lines.push(line); line = word } else line = next
-  }
-  lines.push(line)
-  ctx.restore()
-  return lines
-}

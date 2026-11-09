@@ -33,15 +33,15 @@ export const VISUALS = {
   // ── Opening ────────────────────────────────────────────────────────────
   cover: { kind: 'title', kicker: 'The ZurichJS team', title: 'ZurichJS Conf retrospective', subtitle: '9 to 12 September 2026, Zurich' },
   // ── Where it started: the 1st anniversary at Pause im Foifi ─────────────
-  'anniversary': { kind: 'statement', kicker: '14 November 2025 · Pause im Foifi', text: 'ZurichJS turned one. Digitec Galaxus gave us the room.', emphasis: 'turned one.' },
+  'anniversary': { kind: 'statement', kicker: '14 November 2025 · Pause im Foifi', text: 'When ZurichJS turned one, Digitec Galaxus kindly offered us their venue: the very place where Bogdan and Faris first met.', emphasis: 'where Bogdan and Faris first met.' },
   'go-live': {
-    kind: 'code', title: 'conf.zurichjs.com · anniversary night',
+    kind: 'code', title: 'conf.zurichjs.com · anniversary night', large: true,
     lines: ['T−5 min   conf.zurichjs.com goes live', 'T−5 min   ticket sales open', 'T−0       the anniversary meetup starts'],
     highlight: [1, 2],
   },
   'first-ticket': { kind: 'stat', value: '#1', label: 'The first ticket: Jonny Burger.' },
   'tshirt-bug': {
-    kind: 'code', title: 'Our first funny bug',
+    kind: 'code', title: 'Our first funny bug', large: true,
     lines: ['Someone buys a t-shirt', '→ the payment hits the same webhook as tickets', '→ the webhook issues them a ticket'],
     highlight: [3],
   },
@@ -60,7 +60,7 @@ export const VISUALS = {
     columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 1,
   },
   'meetup-rsvps-2': {
-    kind: 'heatmap', kicker: 'RSVPs per month', title: 'Year two: busier in 8 of 12 months',
+    kind: 'heatmap', kicker: 'RSVPs per month, November to October', title: 'Year two beat year one in 8 of 12 months',
     columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 2, from: 1,
   },
   'one-year': { kind: 'statement', ground: 'yellow', text: 'One year of ZurichJS. Ten months to the conference.', emphasis: 'Ten months' },
@@ -252,21 +252,43 @@ export const VISUALS = {
     ],
     note: 'Top origins · 81 tickets from abroad',
   },
-  chapters: {
-    kind: 'code', title: 'Eight chapters',
-    lines: ['1  Why on earth', '2  A hard year', '3  The machine', '4  Building the programme', '5  Filling the room', '6  The rollercoaster', '7  What we learned', '8  The final numbers'],
-  },
 
   // ── 1 · Why on earth ───────────────────────────────────────────────────
   'ch1': { kind: 'section', number: '01 · Where it came from', title: 'Why on earth' },
-  'meetup-itch': { kind: 'statement', kicker: 'Data gap · W1', text: 'It started at the meetup. Your story: the itch.', emphasis: 'Your story: the itch.' },
+  'why-fresh': { kind: 'statement', kicker: 'Why a conference', text: 'We wanted to breathe fresh life into Zurich’s tech community.', emphasis: 'fresh life' },
+  'why-home': { kind: 'statement', kicker: 'Why a conference', text: 'And bring home what we found on stages abroad: the speakers, the friends, the ideas.', emphasis: 'bring home' },
   'front-cancel': { kind: 'image', src: '/front/front-cancel.png', title: 'Zurich’s Front Conference cancelled Front 26.' },
-  'front-book': { kind: 'image', src: '/front/front-book.png', title: 'And told everyone to book ZurichJS Conf.', mark: { x: 0.0, y: 0.37, w: 0.53, h: 0.1 } },
+  'front-book': { kind: 'image', src: '/front/front-book.png', title: 'Its organisers passed the baton to us.', mark: { x: 0.0, y: 0.37, w: 0.53, h: 0.1 } },
+  'why-missing': { kind: 'statement', kicker: 'Not a bigger meetup', text: 'Zurich deserved another international web conference.', emphasis: 'international web conference.' },
   'dying': { kind: 'statement', ground: 'yellow', text: 'Everyone said tech events were dying. So we started one.', emphasis: 'So we started one.' },
   // The stakes: what starting one actually meant.
-  'stakes-100k': { kind: 'stat', value: 'CHF 100k', label: 'The minimum it would cost to run ZurichJS Conf.' },
-  'stakes-no-cancel': { kind: 'statement', kicker: 'The bookings', text: 'Signed with no way to cancel.', emphasis: 'no way to cancel.' },
-  'stakes-split': { kind: 'stat', value: '÷ 3', tone: 'warn', label: 'If we fell short, three of us would cover the gap from our own pockets.' },
+  'stakes-100k': { kind: 'stat', value: 'CHF 100k*', label: 'The bare minimum to run ZurichJS Conf.', source: '*Bare-minimum operating budget. The actual conference budget was substantially higher.' },
+  'spend': {
+    kind: 'split', kicker: 'Where the money went · reconstructed estimate', title: 'You pay for the whole experience, not just a stage',
+    source: 'Share of conference spend, organisers’ estimate',
+    segments: [
+      { label: 'Hospitality and events', value: 44.46, tone: 'hero' },
+      { label: 'Speaker travel and hotels', value: 20.67, tone: 'neutral' },
+      { label: 'Production and operations', value: 20.67, tone: 'good' },
+      { label: 'Merch and gifts', value: 9.52, tone: 'warn' },
+      { label: 'Workshop payouts', value: 3.12, tone: 'neutral' },
+      { label: 'Other', value: 1.56, tone: 'neutral' },
+    ],
+    note: 'Nearly two thirds went to hospitality, speaker travel and hotels.',
+  },
+  'stakes-no-cancel': {
+    kind: 'timeline', kicker: 'Signed. No way out.', title: 'You’re committed 12 months ahead. You find out if you can afford it 1 to 3 months before.',
+    source: 'Our experience, not a contract template',
+    marks: [
+      { at: 0, when: '12 months out', what: 'Venue and suppliers signed', tone: 'hero' },
+      { at: 0.33, when: 'Soon after', what: 'Penalty-free exits expire', tone: 'warn' },
+      { at: 0.67, when: '1 to 3 months out', what: 'Viability becomes clear', tone: 'neutral' },
+      { at: 1, when: 'Conference day', what: 'Deliver, whatever happened', tone: 'good' },
+    ],
+    span: { from: 0.33, to: 0.67, label: 'Committed, not yet viable', tone: 'warn' },
+  },
+  'stakes-split': { kind: 'stat', value: 'CHF 33k', tone: 'warn', label: 'At least, each. Three organisers, no financial safety net: the minimum split three ways.' },
+  'stakes-worst': { kind: 'statement', kicker: 'If it failed after signing', text: 'Refunds, fees, penalties: the worst case was about double the minimum.', emphasis: 'about double the minimum.' },
   'stakes-covered': { kind: 'statement', text: 'No shortfall to cover from our own pockets.', emphasis: 'No shortfall' },
   // The other idea: affordable, in Europe's most expensive city.
   // ── The gate: the pricing story as split-flap departure boards ──
@@ -362,11 +384,17 @@ export const VISUALS = {
     columns: [{ label: 'What the tiers paid for', width: 23 }, { label: 'Total', width: 9, align: 'right' }],
     rows: [
       { cells: ['VIP TICKETS', '46'] },
-      { cells: ['WORKSHOP SALES', 'CHF 14.4K'], highlight: true },
+      { cells: ['WORKSHOP SEATS', '80'], highlight: true },
       { cells: ['STUDENT, UNEMPLOYED', '33'] },
     ],
   },
-  'first-commit': { kind: 'stat', value: '3 Nov 2025', label: 'First commit. First ticket sold ten days later.' },
+  'first-commit': {
+    kind: 'timeline', kicker: 'From code to a customer', title: 'Ten days from the first commit to the first ticket',
+    marks: [
+      { at: 0, when: '3 Nov 2025', what: 'First commit to our conference platform', tone: 'neutral' },
+      { at: 1, when: '13 Nov 2025', what: 'First ticket sold, at the anniversary', tone: 'hero' },
+    ],
+  },
 
   // ── 2 · A hard year ────────────────────────────────────────────────────
   'ch2': { kind: 'section', number: '02 · Three problems', title: 'A hard year' },
@@ -379,7 +407,7 @@ export const VISUALS = {
   'last-front': { kind: 'strike', kicker: 'Or announced their last edition', name: 'Front Conference', stamp: 'Deprecated', note: 'Front 26 cancelled' },
   'layoffs': { kind: 'statement', text: 'Layoffs everywhere. Sponsorship budgets cut.', emphasis: 'budgets cut.' },
   'sponsor-tiers': {
-    kind: 'bars', title: 'Half our sponsors were the smallest tier', source: 'Paid sponsor deals by tier',
+    kind: 'bars', title: 'Your first conference is a hard sell', source: 'Half our sponsors (12 of 24) backed us at the smallest tier',
     bars: [
       { label: 'Platinum', value: 2, tone: 'neutral' },
       { label: 'Gold', value: 2, tone: 'neutral' },
@@ -389,7 +417,7 @@ export const VISUALS = {
     ],
   },
   'sponsor-prices': {
-    kind: 'bars', title: 'Our top tier: about half of React Summit’s', unit: ' CHF', source: 'Top in-person tier, 2026 · official sponsor pages · ECB 11 Sep 2026',
+    kind: 'bars', title: 'Our top tier: about half of React Summit’s', unit: ' CHF',
     bars: [
       { label: 'React Summit Amsterdam', value: 20792, tone: 'neutral' },
       { label: 'React Advanced, React Day Berlin', value: 15121, tone: 'neutral' },
@@ -400,7 +428,7 @@ export const VISUALS = {
   },
   'sponsor-get': {
     kind: 'matrix', kicker: 'The top tier', title: 'What a sponsor gets for it',
-    source: 'Official sponsor pages and prospectuses, 2026 · ? not listed on their pages',
+    source: '? not listed in their 2026 packages',
     columns: [
       { label: 'ZurichJS', sub: 'CHF 11k' },
       { label: 'React Summit', sub: 'CHF 21k' },
@@ -411,26 +439,52 @@ export const VISUALS = {
     rows: [
       { label: 'Conference tickets', values: ['8', '6 + 4', '4', '4'] },
       { label: 'Booth', values: ['Add-on', 'yes', 'yes', 'yes'] },
-      { label: 'Lead scanning', values: ['no', 'yes', '-', 'no'] },
-      { label: 'Workshop seats', values: ['3', '3 h online', '-', '-'] },
+      { label: 'Lead capture', values: ['no', 'yes', '-', '-'] },
+      { label: 'Workshop', values: ['3 seats', 'Online', '-', '-'] },
       { label: 'Video ad', values: ['30 s', '30 s', '-', '-'] },
-      { label: 'Pitch time on stage', values: ['2 min', '-', '-', '1 min'] },
-      { label: 'A technical talk', values: ['no', 'Add-on', 'yes', 'no'] },
+      { label: 'Pitch time on stage', values: ['2 min', '-', 'yes', '1 min'] },
+      { label: 'A talk on stage', values: ['no', 'Add-on', 'yes', 'no'] },
     ],
   },
-  'sponsor-talks': { kind: 'statement', kicker: 'Elsewhere', text: 'A 20-minute sponsor talk costs €7,000. Our technical talks were not for sale.', emphasis: 'not for sale.' },
-  'lesson-diamond': { kind: 'strike', kicker: 'A weird lesson: sponsors are people', name: 'Diamond sponsor', stamp: 'Laid off', note: 'A week of research and pitching, then the contact was laid off or bailed.' },
-  'no-diamond': { kind: 'stat', value: '0', label: 'Diamond sponsors. One cancelled, one never left draft.', tone: 'warn' },
+  'sponsor-talks': { kind: 'statement', kicker: 'Elsewhere: a 20-minute sponsor talk, about CHF 6,600', text: 'At ZurichJS Conf, speaking slots were not for sale.', emphasis: 'not for sale.' },
+  'refuse-talks': { kind: 'statement', kicker: 'An offer for speaking slots, about CHF 15,000', text: 'CHF 15,000 today. What does it cost us tomorrow?', emphasis: 'cost us tomorrow?' },
+  'sponsor-pipeline': {
+    kind: 'numbers', kicker: 'Sponsorship, 2025 to 2026', title: 'The sponsors you see are the survivors',
+    items: [
+      { value: 'Hundreds', label: 'Of sponsor conversations', tone: 'neutral' },
+      { value: '24', label: 'Signed', tone: 'hero' },
+    ],
+  },
+  'deal-fails': {
+    kind: 'numbers', kicker: 'How a promising deal dies', title: 'Weeks of work, no revenue',
+    items: [
+      { value: 'Withdrew', label: 'After weeks of proposals and contracts', tone: 'warn' },
+      { value: 'Laid off', label: 'The person championing the deal', tone: 'warn' },
+      { value: 'Pivoted', label: 'Priorities changed, budget cut', tone: 'warn' },
+      { value: '+20%', label: 'Penalty on top of full repayment', tone: 'bad' },
+    ],
+  },
   'money-late': {
-    kind: 'bars', title: 'And the money came late', source: 'Sponsor deals paid per month, 2026',
-    bars: [
-      { label: 'Feb', value: 1, tone: 'neutral' }, { label: 'Mar', value: 0, tone: 'neutral' }, { label: 'Apr', value: 0, tone: 'neutral' },
-      { label: 'May', value: 7, tone: 'neutral' }, { label: 'Jun', value: 1, tone: 'hero' }, { label: 'Jul', value: 5, tone: 'hero' },
-      { label: 'Aug', value: 7, tone: 'hero' }, { label: 'Sep', value: 3, tone: 'hero' },
+    kind: 'growth', kicker: 'Cumulative, by count · the committed line is conceptual', title: 'Committed up front. Paid for at the end.',
+    source: 'Share of the final count, by month', percent: true,
+    x: ['Nov', '', 'Jan', '', 'Mar', '', 'May', '', 'Jul', '', 'Sep'],
+    series: [
+      { label: 'Committed', values: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100], tone: 'warn' },
+      { label: 'Tickets', values: [1, 7, 11, 19, 32, 40, 44, 57, 76, 90, 100], tone: 'neutral' },
+      { label: 'Sponsors', values: [0, 0, 0, 4, 4, 4, 33, 38, 58, 88, 100], tone: 'hero' },
     ],
   },
-  'price-sensitive': { kind: 'statement', kicker: 'Faris adds what he saw', text: 'Buyers were price-sensitive.', emphasis: 'price-sensitive.' },
-  'expensive': { kind: 'stat', value: '14', label: 'Of 112 survey respondents found it expensive. 98 said good, excellent or just right.', tone: 'neutral' },
+  'expensive': {
+    kind: 'split', kicker: 'Survey · 112 of 330 ticket holders answered', title: 'How attendees rated the price and value',
+    segments: [
+      { label: 'Too expensive', value: 3, tone: 'bad' },
+      { label: 'Slightly expensive', value: 11, tone: 'warn' },
+      { label: 'Just right', value: 27, tone: 'neutral' },
+      { label: 'Good', value: 41, tone: 'hero' },
+      { label: 'Excellent', value: 30, tone: 'good' },
+    ],
+    note: '98 of 112 said just right, good or excellent. 14 found it expensive.',
+  },
   'ai-changed': { kind: 'statement', text: 'AI changed what people submitted.', emphasis: 'AI' },
   'ai-share': { kind: 'stat', value: '40%', label: 'Of CFP submissions mentioned AI. 171 of 428 analysed.' },
   'three-problems': { kind: 'statement', ground: 'yellow', text: 'Three problems, and AI pressed on every one: from the top and from the bottom.', emphasis: 'from the top and from the bottom.' },
@@ -767,7 +821,7 @@ export const VISUALS = {
     items: [
       { value: '300', label: 'Devices in the first quote' },
       { value: '120', label: 'What fit our budget', tone: 'warn' },
-      { value: '250', label: 'What we bought, about CHF 1,000', tone: 'good' },
+      { value: '250', label: 'What we bought', tone: 'good' },
     ],
   },
   'control-room': { kind: 'statement', kicker: 'Conference day', text: 'Bogdan ran the booth all day, with the technician.', emphasis: 'all day,' },

@@ -39,7 +39,7 @@ From the retrospective review. Not a redesign: the journey stays (Foifi, a year 
 | `badge-frontload` | Percentages with their denominators: 19% (49 of all 253 badges), 68% (139 of the 204 picked up on the day). |
 | `badges`, `badge-frontload`, `door-rhythm` | Moved from the foyer wall to the full screen (unreadable on the wall). |
 | `income` | Shares only (47 / 44 / 8 / 1%); the amounts are in the notes. |
-| `add-up-answer` | "Just over break even." (dropped "on roughly CHF 170k of income"). |
+| `add-up-answer` | "Just over break even." (dropped the income total). |
 | `stakes-covered` | "No shortfall to cover from our own pockets." The old line implied there were no costs. |
 | `income` to `come-back` | The final numbers stay in the crowd (`stage` view) instead of flying to the screen. |
 | `feedback-heard`, `next-edition` | **New slots** near the end (see below). |
@@ -48,7 +48,7 @@ From the retrospective review. Not a redesign: the journey stays (Foifi, a year 
 | `space-empty`, `space-dressed` | **New**, ch 6 (Nadja): the atrium bare with delivery boxes two weeks out, then the dressing builds back, just in time. Replaces the `story-space` slot. |
 | `videos-late`, `opening-video`, `speaker-intro`, `thanks-jonny` | **New**, ch 6: a week before there were no stage videos; the Remotion opener plays on the main screen (60 s, sound), a speaker walk-on video plays from the booth (20 s), then "Thank you, Jonny Burger." |
 | `letters-cut` | **New**, ch 6 (Nadja): a hot wire cuts the foam stage letters out of a block, three days before. A reconstruction; no photos exist. |
-| `podium-plug`, `wifi` | **New**, ch 6: the podium close-up, laptop to dock with one USB-C cable (screen, sound, wired internet), cables plugging in; Wi-Fi priced by concurrent devices: 300 quoted, 120 in budget, 250 bought, about CHF 1,000. |
+| `podium-plug`, `wifi` | **New**, ch 6: the podium close-up, laptop to dock with one USB-C cable (screen, sound, wired internet), cables plugging in; Wi-Fi priced by concurrent devices: 300 quoted, 120 in budget, 250 bought. |
 | `control-room` | **New**, ch 6 (Nadja): Bogdan in the booth all day with the technician. Replaces the `story-control-room` slot. |
 | `airport-runs` | **New**, ch 6 (Nadja): cars shuttling between Technopark and the airport. |
 | `speaker-runner`, `merch-guess` | **New**, ch 6 (Nadja): one person to bring every speaker to the stage on time; merch sizes for people we had not met (222 T-shirts, 33 hoodies on the day, 48 owed). |
@@ -103,7 +103,7 @@ What to say while things animate: `year-cfp` (12 s), the globe (35 s) and `road-
 | Devoxx Belgium 2027 likely the last | `last-devoxx-be` | No public source; their FAQ plans 2027 normally. |
 | CHF 100k minimum; three organisers liable (about 33k each) | `stakes-100k`, `stakes-split` | Faris's account. Currency to confirm. "Three of us" vs four organisers in ch 3. |
 | "Just over break even", no shortfall | `add-up-answer`, `stakes-covered` | Cost total not in the data. Confirm before saying it. |
-| Income shares 47 / 44 / 8 / 1% | `income` | From the rounded admin income (81k, 75k, 14k, 1k), which may be off by up to 5%. |
+| Income shares 47 / 44 / 8 / 1% | `income` | From the rounded admin income totals (amounts kept out of the repo), which may be off by up to 5%. |
 | Workshop revenue allocation | not shown | No verified breakdown; the split mentioned in the review was only an illustration. |
 | 63 "subsidised" tickets | `people-split` | Check that the word fits all 63 (sponsor allocations, speakers, volunteers). |
 | React Summit regular ticket €600 (2026) | `price-compare`, `value-grid` | The live page shows 2027 tiers (€600 is the 2027 2nd batch). Needs a 2026 source. |
@@ -121,7 +121,7 @@ What to say while things animate: `year-cfp` (12 s), the globe (35 s) and `road-
 | Feature months on the pipeline (VIP in Jul, travel in Aug) | `year-commits` | Check. |
 | Email timings: 3 / 21 / 55 days (sponsors), 87 min (attendees), 3 to 9 min and up to 25 days (expenses) | `mail-sponsors`, `mail-speed` | From selected, traceable threads (7 sponsors, 10 attendee threads, 3 expense threads), not mailbox-wide rates. Personal Gmail holds more ZurichJS mail, so 6,857 undercounts. |
 | Sponsor payment one day before the conference | `lo-last-payment` | From the audit; check the date. |
-| Wi-Fi: 300 / 120 / 250 concurrent devices, about CHF 1,000 | `wifi` | Provider emails (Aug 2026); the total is Faris's figure. |
+| Wi-Fi: 300 / 120 / 250 concurrent devices | `wifi` | Provider emails (Aug 2026). |
 | Hoodies: 33 handed out, 48 owed | `merch-guess` | Door system export; check before saying it. |
 | Airport runs | `airport-runs` | No count yet: how many runs, who drove. |
 | Arnau: UK radar disruption, missed connection in Düsseldorf, landed 06:00, workshop at 09:00 on time | `arrivals-board`, `six-to-nine` | Faris's account; check the order and the origin of the 06:00 flight. |
@@ -275,7 +275,7 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | 30 | `last-devoxx-be` | Strike | Devoxx Belgium · DEPRECATED · 2027 likely the last | Foifi screen, full frame | UNVERIFIED. | new |
 | 31 | `last-front` | Strike | Front Conference · DEPRECATED · Front 26 cancelled | Foifi screen, full frame | Sourced: frontconference.com. | new |
 | 32 | `layoffs` | Statement | Layoffs everywhere. Sponsorship budgets cut. | Foifi screen, full frame | Netflix, Google, Microsoft, Canva, Smallpdf. Smallpdf was our Gold sponsor: decide whether to name companies. | |
-| 33 | `sponsor-tiers` | Bar chart | Half our sponsors were the smallest tier · Paid sponsor deals by tier · Platinum 2 · Gold 2 · Silver 3 · Bronze 5 · Supporter 12 | Foifi screen, full frame | Platinum alone brought about CHF 27k. | |
+| 33 | `sponsor-tiers` | Bar chart | Half our sponsors were the smallest tier · Paid sponsor deals by tier · Platinum 2 · Gold 2 · Silver 3 · Bronze 5 · Supporter 12 | Foifi screen, full frame | Half the deals at the smallest tier. | |
 | 34 | `sponsor-prices` | Bar chart | Our top tier: about half of React Summit's · React Summit 20,792 · React Advanced / Day Berlin 15,121 · React Norway 13,231 · ZurichJS 11,000 · DevOpsDays Zurich 8,000 (CHF) | Foifi screen, full frame | Official sponsor pages; per-head figures in the notes. | new |
 | 35 | `sponsor-get` | ✓/✗ grid | What a sponsor gets for the top tier: tickets, booth, leads, workshops, video, pitch time on stage, a technical talk | Foifi screen, full frame | | new |
 | 36 | `sponsor-talks` | Statement | Elsewhere · A 20-minute sponsor talk costs €7,000. Our technical talks were not for sale. | Foifi screen, full frame | React Summit add-on. | new |
@@ -310,7 +310,7 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | 60 | `vip-vs-standard` | Flap board | Standard CHF 295 or VIP CHF 495: after-party, limited-edition goodies, 20% off workshops | Departures board at the gate, full frame | | new |
 | 61 | `vip-tiers` | Flap board | Tiers, not barriers: a tier for every budget, so the floor stays low. | Departures board at the gate, full frame |  | new |
 | 62 | `vip-invested` | Flap board | Once in, people went further: took a workshop: standard 5% (of 171), student 10% (of 20), VIP 19% (of 32); 8 upgraded to VIP | Departures board at the gate, full frame | PostHog, tracked checkouts only; correlation, not proof. | new |
-| 63 | `vip-funds` | Flap board | Spend more if you can, so everyone can come: VIP tickets 46, workshop sales CHF 14.4k, student and unemployed 33 | Departures board at the gate, full frame | DATA GAP: VIPs who bought a workshop; after-party cost. | new |
+| 63 | `vip-funds` | Flap board | Spend more if you can, so everyone can come: VIP tickets 46, workshop seats 80, student and unemployed 33 | Departures board at the gate, full frame | DATA GAP: VIPs who bought a workshop; after-party cost. | new |
 
 ### Venue flyover (optional)
 
@@ -434,9 +434,9 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | # | Slide | Block | On screen | View | Notes | Team decision |
 |---|---|---|---|---|---|---|
 | 141 | `ch8` | Section | 08 · Did it add up? · The final numbers | Stage, from the seats |  | |
-| 142 | `income` | Bar chart | Where the money came from · CHF · roughly 170k in · about 2.4k Stripe fees · Sponsorship 81k · Tickets 75k · Workshops 14k · VIP upgrades 1k | Screen (full frame) | Admin income may be off by up to about 5%. Costs are not in the admin. | |
+| 142 | `income` | Bar chart | Where the money came from · share of income · Sponsorship 47% · Tickets 44% · Workshops 8% · VIP upgrades 1% | Screen (full frame) | Admin income may be off by up to about 5%. Costs are not in the admin. | |
 | 143 | `add-up` | Statement | Did it add up? | Screen (full frame) | Pause. The next slide is the answer. | |
-| 144 | `add-up-answer` | Statement (yellow) | Just over break even, on roughly CHF 170k of income. | Screen (full frame) |  | |
+| 144 | `add-up-answer` | Statement (yellow) | Just over break even. | Screen (full frame) |  | |
 | 145 | `stakes-covered` | Statement | Nobody had to pay it out of pocket. | Screen (full frame) | Pays off the stakes in chapter 1. CHECK. | keep |
 | 146 | `rating` | Big number | 4.6 · Out of 5 overall. 112 survey responses, 110 rated 4 or 5. | Screen (full frame) |  | |
 | 147 | `come-back` | Big number (yellow) | 88% · Of survey respondents want to come back. 99 of 112. | Screen (full frame) | 61 Absolutely, 38 "I'll try". | |

@@ -290,7 +290,7 @@ Copied into `PALETTE`; never import across repos.
   videos a week before until Jonny Burger made them with Remotion, the podium
   setup (one USB-C cable to the dock: screen, sound, wired internet;
   `action: 'plug-in'` on the `laptop` cue), Wi-Fi priced by concurrent
-  devices (300 quoted, 120 in budget, 250 bought, about CHF 1,000), Bogdan
+  devices (300 quoted, 120 in budget, 250 bought), Bogdan
   in the booth all day, airport runs (`shuttle` cue: cars on a road from
   Technopark to the airport, not to scale), and Nadja's line closing chapter 7.
 - **Airport chaos and transitions (Faris, 9 Nov 2026):** speaker portraits

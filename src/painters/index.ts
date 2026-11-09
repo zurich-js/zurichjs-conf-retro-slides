@@ -1,6 +1,6 @@
 import { DEFAULT_GROUND, type Visual, type VisualKind } from '../engine/types'
 import { FRAME, GROUNDS, MOTION, type Roles, SERIES, TYPE } from '../brand/tokens'
-import { type Ctx, chrome, clear, enter, image, label, markVideoBusy, pauseVideos, SAFE, text, video, window01, wrap } from './kit'
+import { type Ctx, chrome, clear, enter, image, label, labelLines, markVideoBusy, pauseVideos, SAFE, text, video, window01, wrap } from './kit'
 import { journeySeconds, paintJourney } from './journey'
 import { CALENDAR_SECS, paintCalendar } from './calendar'
 import { paintGrowth } from './growth'
@@ -15,6 +15,8 @@ import { PIPELINE_SECS, paintPipeline } from './pipeline'
 import { CHATTER_SECS, paintChatter } from './chatter'
 import { ARRIVALS_SECS, paintArrivals } from './arrivals'
 import { paintMatrix } from './matrix'
+import { paintSplit, SPLIT_SECS } from './split'
+import { paintTimeline, TIMELINE_SECS } from './timeline'
 
 type Painter<K extends VisualKind> = (ctx: Ctx, v: Extract<Visual, { kind: K }>, p: number, r: Roles) => void
 
@@ -111,12 +113,18 @@ const stat: Painter<'stat'> = (ctx, v, p, r) => {
   })
   ctx.restore()
   ctx.save(); enter(ctx, window01(p, 0.3, 1))
-  wrap(ctx, v.label, SAFE.width * 0.7, TYPE.size.body, TYPE.weight.medium).forEach((l, i) =>
+  const lines = wrap(ctx, v.label, SAFE.width * 0.7, TYPE.size.body, TYPE.weight.medium)
+  lines.forEach((l, i) =>
     text(ctx, l, SAFE.left, base + 130 + i * TYPE.size.body * TYPE.bodyLineHeight, {
       size: TYPE.size.body, weight: TYPE.weight.medium, color: r.textSoft,
     }),
   )
-  if (v.source) label(ctx, v.source, SAFE.right, SAFE.bottom + FRAME.safe.y / 2 - 30, r.textMuted, { align: 'right' })
+  // A source or footnote sits under the label, wrapped, clear of the wordmark.
+  if (v.source) {
+    const y0 = base + 130 + lines.length * TYPE.size.body * TYPE.bodyLineHeight + 30
+    labelLines(ctx, v.source, SAFE.width * 0.8, TYPE.size.label).forEach((l, i) =>
+      label(ctx, l, SAFE.left, y0 + i * TYPE.size.label * 1.35, r.textMuted))
+  }
   ctx.restore()
 }
 
@@ -232,14 +240,22 @@ const img: Painter<'image'> = (ctx, v, p, r) => {
 }
 
 const code: Painter<'code'> = (ctx, v, p, r) => {
-  const size = TYPE.size.code
+  // `large`: as big as the longest line allows (up to 1.9×), for a short block read from the back of the room.
+  let size: number = TYPE.size.code
+  if (v.large) {
+    ctx.save()
+    ctx.font = `${TYPE.weight.regular} ${size}px ${TYPE.mono}`
+    const widest = Math.max(...v.lines.map((l) => ctx.measureText(l).width))
+    ctx.restore()
+    size = Math.min(size * 1.9, (size * (SAFE.width - 160)) / widest)
+  }
   const lh = size * 1.6
   const h = v.lines.length * lh + 120
   const y0 = (FRAME.height - h) / 2
   ctx.save(); enter(ctx, window01(p, 0, 0.6))
   ctx.fillStyle = r.surface
   ctx.beginPath(); ctx.roundRect(SAFE.left, y0, SAFE.width, h, FRAME.radius); ctx.fill()
-  if (v.title) label(ctx, v.title, SAFE.left, y0 - 40, r.accent)
+  if (v.title) label(ctx, v.title, SAFE.left, y0 - 40, r.accent, v.large ? { size: TYPE.size.label * 1.4 } : {})
   ctx.restore()
   v.lines.forEach((line, i) => {
     const hot = v.highlight?.includes(i + 1) ?? false
@@ -342,8 +358,10 @@ const inbox: Painter<'inbox'> = paintInbox
 const pipeline: Painter<'pipeline'> = paintPipeline
 const chatter: Painter<'chatter'> = paintChatter
 const arrivals: Painter<'arrivals'> = paintArrivals
+const split: Painter<'split'> = paintSplit
+const timeline: Painter<'timeline'> = paintTimeline
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals, video: vid }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals, video: vid, split, timeline }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear
@@ -351,6 +369,8 @@ const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement,
  */
 export function drawTiming(visual: Visual | undefined): { secs: number; linear: boolean } {
   if (visual?.kind === 'video') return { secs: visual.seconds, linear: true }
+  if (visual?.kind === 'split') return { secs: SPLIT_SECS, linear: false }
+  if (visual?.kind === 'timeline') return { secs: TIMELINE_SECS, linear: false }
   if (visual?.kind === 'journey') return { secs: journeySeconds(visual), linear: true }
   if (visual?.kind === 'inbox') return { secs: INBOX_SECS, linear: true }
   if (visual?.kind === 'pipeline') return { secs: PIPELINE_SECS, linear: true }

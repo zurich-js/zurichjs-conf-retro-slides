@@ -483,7 +483,7 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
   /** Pause im Foifi, close on the projector screen under the hanging plants. */
   'foifi-screen': { pos: foifi(8.0, 1.5, 5.6), target: foifi(8.0, 2.05, 0.9), fov: 46, space: 'foifi' },
   /** Over the laptop where conf.zurichjs.com went live, screen beyond. */
-  deploy: { pos: foifi(5.42, 1.04, 2.82), target: foifi(5.4, 0.9, 2.2), fov: 40, space: 'foifi' },
+  deploy: { pos: foifi(5.4, 0.95, 2.52), target: foifi(5.4, 0.885, 2.22), fov: 40, space: 'foifi' },
   /** The anniversary cake on the "new Date()" flyer. */
   cake: { pos: foifi(10.75, 1.12, 3.75), target: foifi(10.45, 0.8, 3.2), fov: 34, space: 'foifi' },
   /** Down the 777's left aisle from the forward galley, seats and bins either side. */
