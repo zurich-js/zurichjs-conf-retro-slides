@@ -888,18 +888,20 @@ export const VISUALS = {
       { cells: ['', 'UK AIRSPACE', 'RADAR DISRUPTION'] },
       { cells: ['', 'DUSSELDORF', 'DELAYED'] },
       { cells: ['', 'DUSSELDORF', 'MISSED CONNECTION'], highlight: true },
-      { cells: ['06:00', 'DUSSELDORF', 'LANDED'], highlight: true },
+      { cells: ['06:00', 'DUSSELDORF', 'DEPARTED'] },
+      { cells: ['08:00', 'DUSSELDORF', 'LANDED'], highlight: true },
     ],
   },
-  'arnau-rush': { kind: 'statement', kicker: 'Arnau Gómez Farell, workshop day', text: 'Landed at six. Teaching at nine.', emphasis: 'Teaching at nine.' },
-  'six-to-nine': {
-    kind: 'numbers', kicker: 'Workshop day', title: 'From the gate to the room',
+  'arnau-rush': { kind: 'statement', kicker: 'Arnau Gómez Farell, workshop day', text: 'Landed at eight. Teaching at nine.', emphasis: 'Teaching at nine.' },
+  'gate-to-room': {
+    kind: 'numbers', kicker: 'Workshop day', title: 'One hour from the gate to the room',
     items: [
-      { value: '06:00', label: 'Arnau lands in Zurich, after a missed connection in Düsseldorf', tone: 'warn' },
+      { value: '06:00', label: 'Takes off from Düsseldorf, after a missed connection', tone: 'warn' },
+      { value: '08:00', label: 'Lands in Zurich', tone: 'neutral' },
       { value: '09:00', label: 'His workshop starts at Technopark, on time', tone: 'good' },
     ],
   },
-  'mic-up': { kind: 'statement', kicker: 'Every transition', text: 'Mic on. Checked. Next speaker ready.', emphasis: 'Checked.' },
+  'mic-up': { kind: 'statement', kicker: 'Every transition', text: 'Nadja miked up every speaker. Checked. Ready.', emphasis: 'Checked.' },
   'walk-on': { kind: 'statement', kicker: 'Every transition', text: 'Walk on, plug in, start. In seconds.', emphasis: 'In seconds.' },
   'precision': {
     kind: 'numbers', kicker: 'Running order, conference day', title: 'Seconds of precision kept the day on time',

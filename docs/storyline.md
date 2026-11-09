@@ -90,7 +90,7 @@ From the retrospective review. Not a redesign: the journey stays (Foifi, a year 
 | `story-volunteers` | Filled (Nadja): "We started recruiting volunteers far too late." |
 | `plan-people` | **New**, ch 7: Nadja's quote, "You can plan every tiny logistical detail, but you can't plan people." |
 | `airport-runs` | Speaker portraits over the cars (illustrative); delayed planes holding over the airport with DELAYED / HOLDING / MISSED CONNECTION tags. |
-| `arrivals-board`, `arnau-rush`, `six-to-nine` | **New**, ch 6: Arnau's night on the airport board, his car racing to Technopark, landed 06:00 and teaching at 09:00. |
+| `arrivals-board`, `arnau-rush`, `gate-to-room` | **New**, ch 6: Arnau's night on the airport board, his car racing to Technopark; took off 06:00, landed 08:00, teaching at 09:00. |
 | `mic-up`, `walk-on`, `precision` | **New**, ch 6: an organiser mics up the next speaker in the wings, the camera follows them on stage to the podium, `podium-plug` plugs the laptop in, then "Seconds of precision kept the day on time" (about 0 minutes behind, 3 to 5 at worst). |
 | Ch 6 order | Workshop day (airport, Arnau) now comes before conference day (doors, booth, transitions). |
 | Notes | HANDOFF markers on `cover`, `ch3`, `brand`, `ch5` and `come-2028` (all to confirm). |
@@ -159,7 +159,7 @@ What to say while things animate: `year-cfp` (12 s), the globe (35 s) and `road-
 | Wi-Fi: 300 / 120 / 250 concurrent devices | `wifi` | Provider emails (Aug 2026). |
 | Hoodies: 33 handed out, 48 owed | `merch-guess` | Door system export; check before saying it. |
 | Airport runs | `airport-runs` | No count yet: how many runs, who drove. |
-| Arnau: UK radar disruption, missed connection in Düsseldorf, landed 06:00, workshop at 09:00 on time | `arrivals-board`, `six-to-nine` | Faris's account; check the order and the origin of the 06:00 flight. |
+| Arnau: UK radar disruption, missed connection in Düsseldorf, 06:00 flight, landed 08:00, workshop at 09:00 on time | `arrivals-board`, `gate-to-room` | Faris's account; check that the workshop started on time. |
 | Delays: about 0 min, 3 to 5 min at worst | `precision` | Faris's account. |
 | Travel totals: 16 trips, 13 countries visited (globe); 70 photos, 19 cities, 15 countries, 12 months (photos) | `road`, `road-moments` | Different scopes, now labelled. km about 110k per Faris (great-circle gives about 89k). |
 

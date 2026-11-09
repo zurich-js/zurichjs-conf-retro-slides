@@ -1427,3 +1427,27 @@ export const logoWall = () =>
     ctx.textAlign = 'center'
     ctx.fillText('Zurich JS Conf 2026', w / 2, 70 + 2 * 180 + 90)
   })
+
+/**
+ * A team member's face in a yellow ring with their name under it, for a
+ * sprite over an avatar. `crop` is the head circle (x, y as fractions of the
+ * photo, r of its width), as in content/travel.ts.
+ */
+export function namedPortrait(img: HTMLImageElement, crop: { x: number; y: number; r: number }, name: string) {
+  return canvasTexture(320, 400, (ctx, w) => {
+    const R = w / 2
+    ctx.fillStyle = S.foifiYellow
+    ctx.beginPath(); ctx.arc(R, R, R, 0, Math.PI * 2); ctx.fill()
+    ctx.save()
+    ctx.beginPath(); ctx.arc(R, R, R - 16, 0, Math.PI * 2); ctx.clip()
+    const sr = crop.r * img.naturalWidth
+    ctx.drawImage(img, crop.x * img.naturalWidth - sr, crop.y * img.naturalHeight - sr, sr * 2, sr * 2, 16, 16, w - 32, w - 32)
+    ctx.restore()
+    ctx.fillStyle = S.ink
+    ctx.beginPath(); ctx.roundRect(R - 110, w + 14, 220, 64, 32); ctx.fill()
+    ctx.fillStyle = S.foifiYellow
+    ctx.font = `${TYPE.weight.bold} 40px ${TYPE.mono}`
+    ctx.textAlign = 'center'
+    ctx.fillText(name.toUpperCase(), R, w + 60)
+  })
+}

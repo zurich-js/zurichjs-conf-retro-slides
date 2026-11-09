@@ -7,6 +7,11 @@ import { keepAwake } from '../engine/activity'
 import { currentAction, sinceReveal, smoothstep } from './beats'
 import { FLOOR, PODIUM, podium, STAGE_TOP, SURFACES as S } from './venue'
 import { useTeamPrint } from './Avatar'
+import { useTexture } from '@react-three/drei'
+import { namedPortrait } from './textures'
+
+/** Nadja miked up every speaker (Faris): her face over the organiser in the wings. Crop as in content/travel.ts. */
+export const MIC_HANDLER = { name: 'Nadja', src: '/team/nadja.png', crop: { x: 0.47, y: 0.43, r: 0.27 } } as const
 
 /**
  * Stage transitions (Nadja): a speaker is fitted with a headset mic by an
@@ -107,6 +112,9 @@ export function WalkOn() {
   const led = useRef<THREE.MeshBasicMaterial>(null)
   const check = useRef<THREE.Sprite>(null)
   const checkMat = useMemo(() => new THREE.SpriteMaterial({ map: tick(), depthTest: false, toneMapped: false }), [])
+  const nadjaPhoto = useTexture(MIC_HANDLER.src)
+  const nadjaMat = useMemo(() => new THREE.SpriteMaterial({ map: namedPortrait(nadjaPhoto.image as HTMLImageElement, MIC_HANDLER.crop, MIC_HANDLER.name), depthTest: false, toneMapped: false }), [nadjaPhoto])
+  const nadja = useRef<THREE.Sprite>(null)
   const route = useMemo(() => new THREE.CatmullRomCurve3(ROUTE.map(([x, y, z]) => new THREE.Vector3(x, y, z)), false, 'centripetal', 0.2), [])
   const tmp = useMemo(() => ({ p: new THREE.Vector3(), t: new THREE.Vector3() }), [])
   useFrame(() => {
@@ -114,6 +122,7 @@ export function WalkOn() {
     const on = action === 'mic-up' || action === 'walk-on' || action === 'plug-in'
     if (speaker.current) speaker.current.visible = on
     if (handler.current) handler.current.visible = action === 'mic-up' || action === 'walk-on'
+    if (nadja.current) nadja.current.visible = action === 'mic-up'
     if (!on) return
     const s = speaker.current!
     // The organiser stands in front of the speaker for the fitting, then steps back against the wall.
@@ -194,6 +203,8 @@ export function WalkOn() {
       {/* The organiser who runs the stage door: team shirt. */}
       <group ref={handler} visible={false} position={[WINGS.handler[0], FLOOR, WINGS.handler[1]]} rotation-y={Math.PI}>
         <Figure tee={S.teamShirt} refs={hd} />
+        {/* Who it is: Nadja's face and name over her head (mic-up only). */}
+        <sprite ref={nadja} material={nadjaMat} position={[0, 1.98, 0]} scale={[0.32, 0.4, 1]} renderOrder={10} visible={false} />
       </group>
     </group>
   )
