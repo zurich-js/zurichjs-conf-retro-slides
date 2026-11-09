@@ -200,7 +200,26 @@ export function paintMoments(ctx: Ctx, v: MomentsVisual, p: number, r: Roles) {
       text(ctx, tot.value, x, 760 + (1 - a) * 40, {
         size: TYPE.size.stat * 0.7, weight: TYPE.weight.black, tracking: TYPE.tracking.display, color: r.accent, align: 'center', alpha: a,
       })
-      label(ctx, tot.label, x, 860 + (1 - a) * 40, r.text, { align: 'center', alpha: a, size: TYPE.size.label * 1.2 })
+      // Long labels wrap inside their column so neighbours never collide.
+      const size = TYPE.size.label * 1.2
+      labelLines(ctx, tot.label, w * 0.88, size).forEach((l, k) =>
+        label(ctx, l, x, 860 + k * size * 1.35 + (1 - a) * 40, r.text, { align: 'center', alpha: a, size }))
     })
   }
+}
+
+/** Split a mono uppercase label into lines no wider than `max` (tracking included). */
+function labelLines(ctx: Ctx, value: string, max: number, size: number): string[] {
+  ctx.save()
+  ctx.font = `${TYPE.weight.medium} ${size}px ${TYPE.mono}`
+  ctx.letterSpacing = `${TYPE.tracking.label * size}px`
+  const lines: string[] = []
+  let line = ''
+  for (const word of value.toUpperCase().split(' ')) {
+    const next = line ? `${line} ${word}` : word
+    if (line && ctx.measureText(next).width > max) { lines.push(line); line = word } else line = next
+  }
+  lines.push(line)
+  ctx.restore()
+  return lines
 }
