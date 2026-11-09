@@ -1,7 +1,10 @@
 html, body, #root { margin: 0; height: 100%; background: #0a0a0a; overflow: hidden; }
-canvas.flat { display: block; width: 100vw; height: 100vh; object-fit: contain; }
+/* Slides on touch screens: no pinch or double-tap zoom, no pull-to-refresh, no tap flash. */
+html.deck-touch, html.deck-touch body { touch-action: none; overscroll-behavior: none; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+#root { height: 100dvh; }
+canvas.flat { display: block; width: 100vw; height: 100dvh; object-fit: contain; }
 .index { height: 100%; overflow: auto; display: grid; gap: 24px; padding: 24px;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); box-sizing: border-box; }
+  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr)); box-sizing: border-box; }
 .card { color: #94a3b8; text-decoration: none; font: 14px ui-sans-serif, system-ui, sans-serif; }
 .card canvas { width: 100%; height: auto; display: block; border-radius: 12px; outline: 1px solid rgba(255,255,255,.12); }
 .card span { display: block; padding-top: 8px; }
@@ -17,3 +20,11 @@ canvas.flat { display: block; width: 100vw; height: 100vh; object-fit: contain; 
 .presenter figcaption { color: #94a3b8; font-size: 14px; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 8px; }
 .presenter .notes { flex: 1; overflow: auto; font-size: 26px; line-height: 1.4; white-space: pre-wrap; }
 .presenter .timer { all: unset; cursor: pointer; font: 600 56px "Geist Mono Variable", ui-monospace, monospace; color: #f1e271; }
+
+/* Narrow screens: the index tightens; the presenter stacks (slide, then notes, timer, next). */
+@media (max-width: 900px) {
+  .index { gap: 12px; padding: 12px; }
+  .presenter { grid-template-columns: 1fr; overflow: auto; height: 100%; padding: 12px; gap: 12px; }
+  .presenter .notes { font-size: 20px; }
+  .presenter .timer { font-size: 40px; }
+}
