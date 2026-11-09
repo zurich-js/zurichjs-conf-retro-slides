@@ -3,13 +3,13 @@ import * as THREE from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { Cutaway } from './layers'
 import {
-  AIRPORT, BRIDGE, FLOOR, GATE_IMAGE, GATE_LEVEL as L, HERO, LIGHTS, LOUNGE, M, PLANE as P, rowZ, SEAT_IMAGE, seatX, SURFACES as S,
+  AIRPORT, AISLES, BRIDGE, FLOOR, GATE_IMAGE, GATE_LEVEL as L, HERO, LIGHTS, LOUNGE, M, PLANE as P, rowZ, SEAT_SCREEN, seatX, SURFACES as S,
 } from './venue'
-import { cabinCarpet, cabinWindow, departuresHeader, gateSign, hash, loungeTiles, terminalWindows } from './textures'
+import { cabinCarpet, cabinWindow, departuresHeader, gateSign, hash, ifeWelcome, loungeTiles, terminalWindows } from './textures'
 
 /**
  * Zurich Airport at night: a gate lounge on the airside level, a SWISS
- * A220-300 parked nose-in outside the glass, and the jet bridge between them.
+ * 777-300ER parked nose-in outside the glass, and the jet bridge between them.
  * The road photos play on a seat-back screen inside the cabin; the pricing
  * slides play on the departures board in the lounge.
  *
@@ -31,7 +31,7 @@ function merge(parts: THREE.BufferGeometry[]) {
 
 /** A fuselage ring section from z0 to z1 (z0 > z1), optionally only between angles (θ: 0 bottom, π/2 left/+x, π top). */
 function ring(r: number, z0: number, z1: number, theta0 = 0, theta = Math.PI * 2) {
-  const g = new THREE.CylinderGeometry(r, r, z0 - z1, 48, 1, true, theta0, theta)
+  const g = new THREE.CylinderGeometry(r, r, z0 - z1, 72, 1, true, theta0, theta)
   // Cylinder axis y → z; angle 0 to the bottom.
   g.rotateX(Math.PI / 2)
   g.translate(0, 0, (z0 + z1) / 2)
@@ -80,107 +80,139 @@ function PlaneExterior() {
 
   const skin = useMemo(() => shell(P.r), [])
   const nose = useMemo(() => {
-    const g = new THREE.SphereGeometry(P.r, 48, 16, 0, Math.PI * 2, 0, Math.PI / 2)
+    const g = new THREE.SphereGeometry(P.r, 64, 32, 0, Math.PI * 2, 0, Math.PI / 2)
     g.rotateX(Math.PI / 2) // dome toward +z
     g.scale(1, 1, P.noseLen / P.r)
     g.translate(0, 0, P.nose - P.noseLen)
     return g
   }, [])
   const tail = useMemo(() => {
-    const g = new THREE.SphereGeometry(P.r, 48, 16, 0, Math.PI * 2, 0, Math.PI / 2)
+    const g = new THREE.SphereGeometry(P.r, 64, 32, 0, Math.PI * 2, 0, Math.PI / 2)
     g.rotateX(-Math.PI / 2) // dome toward −z
     g.scale(1, 1, P.tailLen / P.r)
     g.translate(0, 0, TAIL_START)
     return g
   }, [])
-  // Low swept wing, root at the belly: (x, z) planform, mirrored.
+  // Long swept wing (span ~65 m), root low on the fuselage: (x, z) planform, mirrored.
   const wings = useMemo(() => {
-    const half: [number, number][] = [[0, -15.2], [0, -21.4], [17.2, -25.6], [17.2, -23.6]]
+    const half: [number, number][] = [[0, -26], [0, -39], [31.5, -50.5], [31.5, -47.8]]
     return merge([
-      planform(half, 0.32),
-      planform(half.map(([x, z]) => [-x, z] as [number, number]).reverse(), 0.32),
-    ]).translate(0, -1.15, 0)
+      planform(half, 0.6),
+      planform(half.map(([x, z]) => [-x, z] as [number, number]).reverse(), 0.6),
+    ]).translate(0, -1.9, 0)
   }, [])
   const stabs = useMemo(() => {
-    const half: [number, number][] = [[0, -35.5], [0, -39.6], [6.2, -41.2], [6.2, -39.8]]
-    return merge([planform(half, 0.18), planform(half.map(([x, z]) => [-x, z] as [number, number]).reverse(), 0.18)]).translate(0, 0.6, 0)
+    const half: [number, number][] = [[0, -66], [0, -73.5], [10.6, -77.4], [10.6, -75]]
+    return merge([planform(half, 0.3), planform(half.map(([x, z]) => [-x, z] as [number, number]).reverse(), 0.3)]).translate(0, 0.8, 0)
   }, [])
   // Vertical fin in (z, y) above the tail, extruded thin in x.
   const fin = useMemo(() => {
-    const top = P.r - 0.1
+    const top = P.r - 0.25
     const shape = new THREE.Shape([
-      new THREE.Vector2(-33.6, top), new THREE.Vector2(-40.8, top), new THREE.Vector2(-42.2, top + 6.6), new THREE.Vector2(-39.0, top + 6.6),
+      new THREE.Vector2(-61.5, top), new THREE.Vector2(-74.5, top), new THREE.Vector2(-78, top + 9.2), new THREE.Vector2(-72.6, top + 9.2),
     ])
-    const g = new THREE.ExtrudeGeometry(shape, { depth: 0.36, bevelEnabled: false })
+    const g = new THREE.ExtrudeGeometry(shape, { depth: 0.6, bevelEnabled: false })
     g.rotateY(-Math.PI / 2) // shape x (world z) → z; extrusion → −x
-    g.translate(0.18, 0, 0)
+    g.translate(0.3, 0, 0)
     return g
   }, [])
   // The Swiss cross on both sides of the fin.
   const cross = useMemo(() => {
-    const cz = -39.2
-    const cy = P.r + 3.3
+    const cz = -72.2
+    const cy = P.r + 4.6
     const parts: THREE.BufferGeometry[] = []
     for (const side of [-1, 1]) {
-      const x = side * 0.19
-      parts.push(new THREE.BoxGeometry(0.02, 2.1, 0.62).translate(x, cy, cz))
-      parts.push(new THREE.BoxGeometry(0.02, 0.62, 2.1).translate(x, cy, cz))
+      const x = side * 0.32
+      parts.push(new THREE.BoxGeometry(0.03, 3.4, 1.0).translate(x, cy, cz))
+      parts.push(new THREE.BoxGeometry(0.03, 1.0, 3.4).translate(x, cy, cz))
     }
     return merge(parts)
   }, [])
-  // Engines under the wings: nacelle, pylon, dark intake.
+  // GE90-size engines under the wings: nacelle, pylon, dark intake.
+  const EX = 9.6
+  const EY = -3.75
+  const EZ = -31
   const engines = useMemo(() => {
     const parts: THREE.BufferGeometry[] = []
-    for (const x of [-5.7, 5.7]) {
-      const n = new THREE.CylinderGeometry(1.0, 0.82, 4.2, 32, 1, false)
+    for (const x of [-EX, EX]) {
+      const n = new THREE.CylinderGeometry(1.9, 1.5, 7, 40, 1, false)
       n.rotateX(Math.PI / 2)
-      parts.push(n.translate(x, -2.4, -15.0))
-      parts.push(new THREE.BoxGeometry(0.3, 1.0, 3.0).translate(x, -1.5, -16.4))
+      parts.push(n.translate(x, EY, EZ))
+      parts.push(new THREE.BoxGeometry(0.5, 1.6, 5).translate(x, -2.3, EZ - 2.2))
     }
     return merge(parts)
   }, [])
-  const intakes = useMemo(() => merge([-5.7, 5.7].map((x) => new THREE.CircleGeometry(0.9, 32).translate(x, -2.4, -12.89))), [])
-  // Passenger windows: a row each side, one per seat row.
+  const intakes = useMemo(() => merge([-EX, EX].map((x) => new THREE.CircleGeometry(1.75, 40).translate(x, EY, EZ + 3.51))), [])
+  // Passenger windows: rounded, lit warm from the cabin, a row each side, one per seat row.
   const windows = useMemo(() => {
     const parts: THREE.BufferGeometry[] = []
-    const y = 0.2
-    const x = Math.sqrt(P.r * P.r - y * y)
     for (let r = 0; r < P.rows.count; r++) {
-      for (const side of [-1, 1]) parts.push(new THREE.BoxGeometry(0.04, 0.34, 0.24).translate(side * x, y, rowZ(r) + 0.2))
+      for (const side of [-1, 1]) {
+        const g = new THREE.CylinderGeometry(0.14, 0.14, 0.04, 16)
+        g.scale(1, 1, 1.45) // taller than wide once turned
+        g.rotateX(Math.PI / 2)
+        g.rotateZ(Math.PI / 2)
+        // The disc's long axis is now y: round-cornered tall window on the skin.
+        parts.push(g.translate(side * (P.r + 0.005), 0, rowZ(r) + 0.3))
+      }
     }
     return merge(parts)
   }, [])
-  // Cockpit glazing: four panes across the top of the nose.
+  const lit = useMemo(() => new THREE.MeshBasicMaterial({ color: LIGHTS.cabin, toneMapped: false }), [])
+  // Cockpit: six windscreen panes on the upper front of the nose, each square to the surface.
+  // Direction on the unit sphere (azimuth a from dead ahead, elevation e), stretched onto the nose ellipsoid.
   const cockpit = useMemo(() => {
     const parts: THREE.BufferGeometry[] = []
-    for (const [a, w] of [[-0.62, 0.5], [-0.2, 0.42], [0.2, 0.42], [0.62, 0.5]] as const) {
-      const g = new THREE.BoxGeometry(w, 0.36, 0.05)
-      g.rotateX(-0.75)
-      g.rotateY(a * 0.9)
-      parts.push(g.translate(Math.sin(a) * 1.05, 0.72, P.nose - 2.2 + Math.cos(a) * 0.55))
+    const z0 = P.nose - P.noseLen
+    const m = new THREE.Matrix4()
+    const up = new THREE.Vector3(0, 1, 0)
+    for (const [deg, w, h] of [[-11, 0.9, 0.6], [11, 0.9, 0.6], [-33, 0.85, 0.56], [33, 0.85, 0.56], [-55, 0.7, 0.48], [55, 0.7, 0.48]] as const) {
+      const az = (deg * Math.PI) / 180
+      const el = (30 * Math.PI) / 180
+      const d = new THREE.Vector3(Math.cos(el) * Math.sin(az), Math.sin(el), Math.cos(el) * Math.cos(az))
+      const p = new THREE.Vector3(P.r * d.x, P.r * d.y, z0 + P.noseLen * d.z)
+      const n = new THREE.Vector3(d.x / P.r, d.y / P.r, d.z / P.noseLen).normalize()
+      const g = new THREE.BoxGeometry(w, h, 0.05)
+      m.lookAt(new THREE.Vector3(0, 0, 0), n.clone().negate(), up)
+      g.applyMatrix4(m)
+      parts.push(g.translate(p.x + n.x * 0.015, p.y + n.y * 0.015, p.z + n.z * 0.015))
     }
     return merge(parts)
   }, [])
-  // Gear: nose leg and two mains, with wheels on the apron.
+  // Door outlines on both sides (doors 1–4), and the lights: red left tip, green right tip, red beacons.
+  const outlines = useMemo(() => {
+    const parts: THREE.BufferGeometry[] = []
+    for (const z of [P.door.z, -27, -44, -58]) for (const side of [-1, 1]) {
+      if (z === P.door.z) continue // door 1 is open
+      const x = side * (P.r + 0.008)
+      for (const [dy, dz, hh, ww] of [[DOOR_TOP - P.centre, 0, 0.03, 1.1], [-P.centre + 0.02, 0, 0.03, 1.1], [(DOOR_TOP / 2) - P.centre, 0.55, DOOR_TOP, 0.03], [(DOOR_TOP / 2) - P.centre, -0.55, DOOR_TOP, 0.03]] as const) {
+        parts.push(new THREE.BoxGeometry(0.01, hh, ww).translate(x, dy, z + dz))
+      }
+    }
+    return merge(parts)
+  }, [])
+  const navRed = useMemo(() => new THREE.MeshBasicMaterial({ color: S.uiRed, toneMapped: false }), [])
+  const navGreen = useMemo(() => new THREE.MeshBasicMaterial({ color: S.uiGreen, toneMapped: false }), [])
+  // Gear: nose leg and two six-wheel mains, on the apron.
   const gear = useMemo(() => {
     const parts: THREE.BufferGeometry[] = []
-    const legTo = -YC
-    const leg = (x: number, z: number, top: number) => parts.push(new THREE.CylinderGeometry(0.09, 0.09, top - legTo - 0.4, 10).translate(x, (top + legTo + 0.4) / 2, z))
+    const ground = -YC
+    const leg = (x: number, z: number, top: number) => parts.push(new THREE.CylinderGeometry(0.16, 0.16, top - ground - 0.6, 10).translate(x, (top + ground + 0.6) / 2, z))
     const wheel = (x: number, z: number, r: number) => {
-      const w = new THREE.CylinderGeometry(r, r, 0.32, 20)
+      const w = new THREE.CylinderGeometry(r, r, 0.45, 20)
       w.rotateZ(Math.PI / 2)
-      parts.push(w.translate(x, legTo + r, z))
+      parts.push(w.translate(x, ground + r, z))
     }
-    leg(0, P.nose - 3.2, -P.r + 0.3)
-    wheel(-0.2, P.nose - 3.2, 0.36); wheel(0.2, P.nose - 3.2, 0.36)
-    for (const x of [-2.6, 2.6]) {
-      leg(x, -20.2, -1.3)
-      wheel(x - 0.25, -20.2, 0.55); wheel(x + 0.25, -20.2, 0.55)
+    leg(0, P.nose - 5, -P.r + 0.4)
+    wheel(-0.3, P.nose - 5, 0.55); wheel(0.3, P.nose - 5, 0.55)
+    for (const x of [-5.5, 5.5]) {
+      leg(x, -40, -2.0)
+      for (const dz of [-1.5, 0, 1.5]) { wheel(x - 0.35, -40 + dz, 0.65); wheel(x + 0.35, -40 + dz, 0.65) }
     }
     return merge(parts)
   }, [])
-  // The open front-right service door, swung forward against the skin.
-  const rightDoor = useMemo(() => new THREE.BoxGeometry(0.12, DOOR_TOP, P.door.width - 0.15).translate(-P.r - 0.12, DOOR_TOP / 2 - P.centre, P.door.z + P.door.width + 0.1), [])
+  // Door 1 right, open: swung forward against the skin.
+  const rightDoor = useMemo(() => new THREE.BoxGeometry(0.14, DOOR_TOP, P.door.width - 0.1).translate(-P.r - 0.14, DOOR_TOP / 2 - P.centre, P.door.z + P.door.width + 0.15), [])
 
   return (
     <group position={[P.x, YC, 0]}>
@@ -193,31 +225,53 @@ function PlaneExterior() {
       <mesh geometry={cross} material={white} />
       <mesh geometry={engines} material={grey} />
       <mesh geometry={intakes} material={dark} />
-      <mesh geometry={windows} material={glass} />
+      <mesh geometry={windows} material={lit} />
       <mesh geometry={cockpit} material={glass} />
+      <mesh geometry={outlines} material={dark} />
+      <mesh position={[31.5, -1.9, -49.2]} material={navRed}><sphereGeometry args={[0.16, 10, 8]} /></mesh>
+      <mesh position={[-31.5, -1.9, -49.2]} material={navGreen}><sphereGeometry args={[0.16, 10, 8]} /></mesh>
+      <mesh position={[0, P.r + 0.1, -30]} material={navRed}><sphereGeometry args={[0.14, 10, 8]} /></mesh>
+      <mesh position={[0, -P.r - 0.1, -34]} material={navRed}><sphereGeometry args={[0.14, 10, 8]} /></mesh>
       <mesh geometry={gear} material={dark} />
       <mesh geometry={rightDoor} material={white} />
     </group>
   )
 }
 
-/** One economy seat (faces +z): cushion, back, headrest, armrests, legs, a screen bezel on the back. Origin: back plane, floor. */
-function seatGeometry() {
-  const w = P.seat.width - 0.03
-  return merge([
-    new THREE.BoxGeometry(w, 0.13, 0.46).translate(0, 0.43, 0.26),
-    new THREE.BoxGeometry(w, 0.66, 0.09).translate(0, 0.79, 0.02),
-    new THREE.BoxGeometry(0.05, 0.05, 0.42).translate(w / 2 + 0.01, 0.64, 0.25),
-    new THREE.BoxGeometry(0.05, 0.05, 0.42).translate(-w / 2 - 0.01, 0.64, 0.25),
-    new THREE.BoxGeometry(0.05, 0.37, 0.05).translate(0, 0.18, 0.3),
-  ])
+/**
+ * One SWISS 777 economy seat, facing +z; origin on the floor at the back plane.
+ * Parts by material, so each is one instanced mesh: taupe check fabric (back,
+ * cushion, pocket), brown leather headrest, white headrest cover, beige back
+ * shell with a hood round the screen, light grey armrests and latch, black
+ * screen bezel and card slot, legs.
+ */
+const SW = P.seat.width - 0.02
+const SEAT = {
+  fabric: () => merge([
+    new THREE.BoxGeometry(SW - 0.02, 0.66, 0.08).translate(0, 0.83, 0.03), // backrest front
+    new THREE.BoxGeometry(SW - 0.02, 0.12, 0.46).translate(0, 0.46, 0.29), // cushion
+    new THREE.BoxGeometry(0.36, 0.13, 0.03).translate(0, 0.52, -0.095), // literature pocket on the back
+  ]),
+  leather: () => merge([
+    new THREE.BoxGeometry(SW - 0.06, 0.24, 0.13).translate(0, 1.25, 0.02), // headrest pad
+    new THREE.BoxGeometry(SW, 0.06, 0.12).translate(0, 1.135, 0.0), // leather top of the backrest
+  ]),
+  cover: () => new THREE.BoxGeometry(0.27, 0.3, 0.012).translate(0, 1.2, 0.092),
+  shell: () => merge([
+    new THREE.BoxGeometry(SW, 0.7, 0.07).translate(0, 0.77, -0.04), // back shell
+    new THREE.BoxGeometry(SW - 0.04, 0.05, 0.05).translate(0, 1.11, -0.06), // hood over the screen
+  ]),
+  grey: () => merge([
+    new THREE.BoxGeometry(0.05, 0.05, 0.46).translate(SW / 2 + 0.005, 0.66, 0.24),
+    new THREE.BoxGeometry(0.05, 0.05, 0.46).translate(-SW / 2 - 0.005, 0.66, 0.24),
+    new THREE.BoxGeometry(0.05, 0.05, 0.03).translate(0, 0.69, -0.085), // tray latch
+    new THREE.BoxGeometry(0.06, 0.4, 0.06).translate(0, 0.2, 0.3), // leg
+  ]),
+  bezel: () => merge([
+    new THREE.BoxGeometry(SEAT_SCREEN.width + 0.05, (SEAT_SCREEN.width * 9) / 16 + 0.065, 0.016).translate(0, SEAT_SCREEN.y - 0.008, -0.083),
+    new THREE.BoxGeometry(0.28, 0.025, 0.02).translate(0, 0.83, -0.08), // safety-card slot
+  ]),
 }
-
-/** The light headrest cover on top of each seat back. */
-const headrestGeometry = () => new THREE.BoxGeometry(P.seat.width - 0.07, 0.22, 0.11).translate(0, 1.22, 0.03)
-
-/** The bezel behind each seat-back screen. */
-const bezelGeometry = () => new THREE.BoxGeometry(SEAT_IMAGE.width + 0.05, (SEAT_IMAGE.width * 9) / 16 + 0.05, 0.03).translate(0, 0.98, -0.04)
 
 function Instanced({ geometry, material, at }: { geometry: THREE.BufferGeometry; material: THREE.Material; at: readonly V3[] }) {
   const ref = useRef<THREE.InstancedMesh>(null)
@@ -232,84 +286,96 @@ function Instanced({ geometry, material, at }: { geometry: THREE.BufferGeometry;
 
 function Cabin({ frame }: { frame: THREE.Material }) {
   const lining = useMemo(() => new THREE.MeshStandardMaterial({ color: S.cabinShell, roughness: 0.8, side: THREE.BackSide }), [])
-  const bin = useMemo(() => new THREE.MeshStandardMaterial({ color: S.cabinBin, roughness: 0.6 }), [])
-  const fabric = useMemo(() => new THREE.MeshStandardMaterial({ color: S.seatFabric, roughness: 0.9 }), [])
-  const shellMat = useMemo(() => new THREE.MeshStandardMaterial({ color: S.seatShell, roughness: 0.5 }), [])
-  const screenOff = useMemo(() => new THREE.MeshStandardMaterial({ color: S.ui, roughness: 0.2, metalness: 0.2, emissive: S.ui, emissiveIntensity: 0.4 }), [])
-  const glow = useMemo(() => new THREE.MeshBasicMaterial({ color: LIGHTS.cabin, toneMapped: false }), [])
+  const mats = useMemo(() => ({
+    fabric: new THREE.MeshStandardMaterial({ color: S.seatFabric, roughness: 0.95 }),
+    leather: new THREE.MeshStandardMaterial({ color: S.seatLeather, roughness: 0.55 }),
+    cover: new THREE.MeshStandardMaterial({ color: S.headCover, roughness: 0.9 }),
+    shell: new THREE.MeshStandardMaterial({ color: S.seatShell, roughness: 0.5 }),
+    grey: new THREE.MeshStandardMaterial({ color: S.armGrey, roughness: 0.5 }),
+    bezel: new THREE.MeshStandardMaterial({ color: S.bezel, roughness: 0.25, metalness: 0.3 }),
+    bin: new THREE.MeshStandardMaterial({ color: S.cabinBin, roughness: 0.6 }),
+    mauve: new THREE.MeshBasicMaterial({ color: S.aisleMauve }),
+    glow: new THREE.MeshBasicMaterial({ color: LIGHTS.cabin, toneMapped: false }),
+  }), [])
+  const parts = useMemo(() => ({
+    fabric: SEAT.fabric(), leather: SEAT.leather(), cover: SEAT.cover(), shell: SEAT.shell(), grey: SEAT.grey(), bezel: SEAT.bezel(),
+  }), [])
   const carpet = useMemo(cabinCarpet, [])
   const win = useMemo(cabinWindow, [])
+  const welcome = useMemo(ifeWelcome, [])
+  const welcomeMat = useMemo(() => new THREE.MeshBasicMaterial({ map: welcome, toneMapped: false }), [welcome])
 
   const lin = useMemo(() => shell(P.ri), [])
-  const seat = useMemo(seatGeometry, [])
-  const bezel = useMemo(bezelGeometry, [])
-  const headrest = useMemo(headrestGeometry, [])
-  const cover = useMemo(() => new THREE.MeshStandardMaterial({ color: S.cabinBin, roughness: 0.85 }), [])
-  const screen = useMemo(() => new THREE.PlaneGeometry(SEAT_IMAGE.width, (SEAT_IMAGE.width * 9) / 16).rotateY(Math.PI).translate(0, 0.98, -0.056), [])
+  const sh = (SEAT_SCREEN.width * 9) / 16
+  // Screens sit 8 mm proud of their bezel: never coplanar, so they cannot fight for depth.
+  const screen = useMemo(() => new THREE.PlaneGeometry(SEAT_SCREEN.width, sh).rotateY(Math.PI).translate(0, SEAT_SCREEN.y, SEAT_SCREEN.z), [sh])
   const z0 = P.nose - P.noseLen - 0.15
   const z1 = TAIL_START + 0.3
   const half = Math.sqrt(P.ri * P.ri - P.centre * P.centre)
 
   const seats = useMemo(() => {
     const out: V3[] = []
-    for (let r = 0; r < P.rows.count; r++) for (let k = 0; k < 5; k++) out.push([seatX(k) - P.x, -P.centre, rowZ(r)])
+    for (let r = 0; r < P.rows.count; r++) for (let k = 0; k < 10; k++) out.push([seatX(k) - P.x, -P.centre, rowZ(r)])
     return out
   }, [])
-  // Every seat back has a screen; the one in front of us shows the live frame instead.
+  // Every seat back has a screen on the welcome page; the one in front of us shows the live frame.
   const hero = seats.findIndex(([x, , z]) => Math.abs(x - (seatX(HERO.seat) - P.x)) < 1e-6 && Math.abs(z - rowZ(HERO.row - 1)) < 1e-6)
   const screens = useMemo(() => seats.filter((_, i) => i !== hero), [seats, hero])
-  const winAt = useMemo(() => {
-    const out: { p: V3; side: number }[] = []
-    const y = 0.2
-    const x = Math.sqrt(P.ri * P.ri - y * y) - 0.02
-    for (let r = 0; r < P.rows.count; r++) for (const side of [-1, 1]) out.push({ p: [side * x, y, rowZ(r) + 0.2], side })
-    return out
-  }, [])
+  // Big rounded window reveals, one per row each side, at the seated eye line.
   const winGeo = useMemo(() => {
-    const parts = winAt.map(({ p, side }) => new THREE.PlaneGeometry(0.3, 0.38).rotateY(-side * Math.PI / 2).translate(p[0], p[1], p[2]))
-    return merge(parts)
-  }, [winAt])
-  // Overhead bins either side, with a warm light strip under their lip.
-  const bins = useMemo(() => merge([-1, 1].map((side) => {
-    const g = new THREE.BoxGeometry(0.5, 0.42, z0 - z1 - 2.4)
-    g.rotateZ(side * 0.32)
-    return g.translate(side * (P.ri - 0.42), 1.02, (z0 + z1) / 2 - 1.2)
-  })), [z0, z1])
-  const strips = useMemo(() => merge([-1, 1].map((side) => new THREE.BoxGeometry(0.03, 0.03, z0 - z1 - 2.4).translate(side * (P.ri - 0.72), 0.8, (z0 + z1) / 2 - 1.2))), [z0, z1])
-  const ceiling = useMemo(() => new THREE.BoxGeometry(1.1, 0.04, z0 - z1).translate(0, 1.38, (z0 + z1) / 2), [z0, z1])
+    const out: THREE.BufferGeometry[] = []
+    const y = 0.05
+    const x = Math.sqrt(P.ri * P.ri - y * y) - 0.03
+    for (let r = 0; r < P.rows.count; r++) for (const side of [-1, 1]) {
+      out.push(new THREE.PlaneGeometry(0.44, 0.7).rotateY(-side * Math.PI / 2).translate(side * x, y, rowZ(r) + 0.3))
+    }
+    return merge(out)
+  }, [])
+  const L2 = z0 - z1 - 3
+  const zc = (z0 + z1) / 2 - 1.5
+  // Side bins over the windows, centre bins over the middle block; light strips under the side bins.
+  const bins = useMemo(() => merge([
+    ...[-1, 1].map((side) => new THREE.BoxGeometry(0.72, 0.5, L2).rotateZ(side * 0.28).translate(side * (P.ri - 0.62), 1.15, zc)),
+    ...[-1, 1].map((side) => new THREE.BoxGeometry(0.85, 0.42, L2).translate(side * 0.55 + (seatX(4.5) - P.x), 1.32, zc)),
+  ]), [L2, zc])
+  const strips = useMemo(() => merge([-1, 1].map((side) => new THREE.BoxGeometry(0.03, 0.03, L2).translate(side * (P.ri - 1.0), 0.88, zc))), [L2, zc])
+  const ceiling = useMemo(() => merge([-1, 1].map((side) => new THREE.BoxGeometry(0.75, 0.04, z0 - z1).translate(side * 1.12, 1.68, (z0 + z1) / 2))), [z0, z1])
+  const aisleLines = useMemo(() => merge(
+    [AISLES.left, AISLES.right].flatMap((ax) => [-1, 1].map((e) => new THREE.PlaneGeometry(0.03, z0 - z1 - 1).rotateX(-Math.PI / 2).translate(ax - P.x + e * 0.24, -P.centre + 0.008, (z0 + z1) / 2))),
+  ), [z0, z1])
 
   return (
     <group position={[P.x, YC, 0]}>
       <mesh geometry={lin} material={lining} />
-      {/* Cabin floor, carpeted, edge to edge at floor height. */}
-      <mesh rotation-x={-Math.PI / 2} position={[0, -P.centre + 0.005, (z0 + z1) / 2]}>
+      <mesh rotation-x={-Math.PI / 2} position={[0, -P.centre + 0.004, (z0 + z1) / 2]}>
         <planeGeometry args={[half * 2, z0 - z1]} />
         <meshStandardMaterial map={carpet} roughness={0.95} />
       </mesh>
-      {/* Front bulkhead (cockpit wall) and the aft galley wall. */}
+      <mesh geometry={aisleLines} material={mats.mauve} />
+      {/* Front bulkhead and the aft galley wall. */}
       <mesh position={[0, 0, z0 + 0.1]} rotation-y={Math.PI}>
-        <circleGeometry args={[P.ri, 40]} />
+        <circleGeometry args={[P.ri, 48]} />
         <meshStandardMaterial color={S.cabinShell} roughness={0.8} side={THREE.DoubleSide} />
       </mesh>
       <mesh position={[0, 0, z1]}>
-        <circleGeometry args={[P.ri, 40]} />
+        <circleGeometry args={[P.ri, 48]} />
         <meshStandardMaterial color={S.cabinShell} roughness={0.8} side={THREE.DoubleSide} />
       </mesh>
       <mesh geometry={winGeo}>
         <meshBasicMaterial map={win} />
       </mesh>
-      <mesh geometry={bins} material={bin} />
-      <mesh geometry={strips} material={glow} />
-      <mesh geometry={ceiling} material={bin} />
-      <Instanced geometry={seat} material={fabric} at={seats} />
-      <Instanced geometry={bezel} material={shellMat} at={seats} />
-      <Instanced geometry={headrest} material={cover} at={seats} />
-      <Instanced geometry={screen} material={screenOff} at={screens} />
+      <mesh geometry={bins} material={mats.bin} />
+      <mesh geometry={strips} material={mats.glow} />
+      <mesh geometry={ceiling} material={mats.glow} />
+      {(Object.keys(parts) as (keyof typeof parts)[]).map((k) => (
+        <Instanced key={k} geometry={parts[k]} material={mats[k]} at={seats} />
+      ))}
+      <Instanced geometry={screen} material={welcomeMat} at={screens} />
       {/* Our screen: the live frame. */}
       <mesh geometry={screen} material={frame} position={seats[hero] as unknown as [number, number, number]} />
-      <pointLight position={[0, 1.2, -14]} color={LIGHTS.cabin} intensity={0.9} decay={0} distance={7 * M} />
-      <pointLight position={[0, 1.2, -21]} color={LIGHTS.cabin} intensity={0.9} decay={0} distance={7 * M} />
-      <pointLight position={[0, 1.2, -28]} color={LIGHTS.cabin} intensity={0.8} decay={0} distance={7 * M} />
+      {[-20, -28, -36, -44, -52].map((z) => (
+        <pointLight key={z} position={[0, 1.4, z]} color={LIGHTS.cabin} intensity={0.7} decay={0} distance={9 * M} />
+      ))}
     </group>
   )
 }
@@ -331,15 +397,16 @@ function Board({ frame }: { frame: THREE.Material }) {
         <boxGeometry args={[w + 0.3, h + headH + 0.3, 0.14]} />
         <meshStandardMaterial color={S.chrome} metalness={0.8} roughness={0.32} />
       </mesh>
-      <mesh position={[0, headH / 2, -0.02]}>
+      <mesh position={[0, headH / 2, -0.03]}>
         <boxGeometry args={[w + 0.12, h + headH + 0.12, 0.04]} />
         <meshStandardMaterial color={S.ink} roughness={0.5} />
       </mesh>
-      <mesh position={[0, h / 2 + headH / 2, 0.002]}>
+      {/* Header and screen 1 cm proud of the black face, so they never z-fight with it. */}
+      <mesh position={[0, h / 2 + headH / 2, 0.012]}>
         <planeGeometry args={[w, headH]} />
         <meshBasicMaterial map={header} toneMapped={false} />
       </mesh>
-      <mesh position-z={0.002} material={frame}>
+      <mesh position-z={0.012} material={frame}>
         <planeGeometry args={[w, h]} />
       </mesh>
       {/* Two hanging rods to the ceiling. */}
@@ -517,7 +584,7 @@ function Apron() {
     new THREE.PlaneGeometry(0.2, 44).rotateX(-Math.PI / 2).translate(P.x, 0.02, -26),
     new THREE.PlaneGeometry(4, 0.25).rotateX(-Math.PI / 2).translate(P.x, 0.02, P.nose - 2.6),
   ]), [])
-  const masts = [[-34, -62], [22, -36]] as const
+  const masts = [[-46, -16], [26, -64]] as const
   // Kept east of x = −80 so it never reaches under Technopark.
   const ground = useMemo(() => new THREE.PlaneGeometry(220, 210).rotateX(-Math.PI / 2).translate(30, 0, -65), [])
   return (

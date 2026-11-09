@@ -165,7 +165,7 @@ Copied into `PALETTE`; never import across repos.
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·
-  `booths` · `map` · `cabin` · `seat-full` · `gate` · `gate-full` · `apron`. Poses
+  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron`. Poses
   live in `CUES` (venue.ts). Each cue has a `space` (`hall` | `booth` |
   `foyer` | `atrium` | `map`); moves inside a room glide, so a new cue needs
   a clear line to its neighbours in that room.
@@ -232,7 +232,7 @@ Copied into `PALETTE`; never import across repos.
 - **The flight (Faris, 2026-11-09):** after the globe, the camera rises out of
   Foifi and flies to a SWISS A220 at a Zurich Airport gate, boards through the
   open front-right door, and the road photos play on a seat-back screen
-  (`seat-full`; the `moments` slide holds 5.5 s for the trip). The next slide
+  (`seat`; the `moments` slide holds 5.5 s for the trip). The next slide
   walks off through the jet bridge into the gate lounge, where the pricing
   block (the other idea, price comparison, value grid, workshops, VIP) plays
   on the departures board (`gate-full`). Then a crane shot to the Technopark map.

@@ -133,7 +133,7 @@ export const FOIFI_IMAGE = {
 }
 
 /**
- * Zurich Airport: a gate lounge with a SWISS A220-300 parked nose-in outside
+ * Zurich Airport: a gate lounge with a SWISS 777-300ER parked nose-in outside
  * the glass, joined by a jet bridge to its front-left door. Far east of
  * Technopark, so the overview never sees it. Local frame (metres): origin on
  * the apron at the foot of the terminal's glass wall; x along the wall, z
@@ -141,46 +141,52 @@ export const FOIFI_IMAGE = {
  * Estimated from typical A220 and ZRH Dock gate dimensions.
  */
 export const AIRPORT = { x: 150, z: -40 } as const
-/** Lounge and cabin floor above the apron (the jet bridge is level). */
-export const GATE_LEVEL = 3.2
+/** Lounge and cabin floor above the apron (the jet bridge is level). A 777's door sill is ~5 m up. */
+export const GATE_LEVEL = 5.0
 export const LOUNGE = { x0: -20, x1: 20, depth: 18, height: 4.8 } as const
 /** The jet bridge: out of the glass at x, along −z to the door's z, then along −x to the door. */
 export const BRIDGE = { x: 4, width: 2.2, height: 2.4 } as const
-/** The A220-300, nose toward the terminal. Cabin floor at GATE_LEVEL. */
+/**
+ * SWISS Boeing 777-300ER, nose toward the terminal. Cabin floor at GATE_LEVEL.
+ * Economy 3-4-3 (ABC DEFG HJK), 31–32" pitch, 17.2" seats (SeatGuru, reviews).
+ */
 export const PLANE = {
-  x: -3,
+  x: -5,
   nose: -6,
   /** Outer and inner fuselage radius; centreline above the cabin floor. */
-  r: 1.85,
-  ri: 1.72,
-  centre: 0.85,
+  r: 3.1,
+  ri: 2.92,
+  centre: 1.05,
   /** Nose cone, constant section, tail cone (z lengths). */
-  noseLen: 4,
-  body: 22,
-  tailLen: 10,
-  /** Doors (front left at the jet bridge, front right open): centre z and width. */
-  door: { z: -11.1, width: 1.9 },
-  /** Economy rows: first row's seat-back z, pitch, count. Two seats left (+x), three right. */
-  rows: { first: -13, pitch: 0.79, count: 23 },
-  seat: { width: 0.48, aisle: 0.5 },
+  noseLen: 7,
+  body: 52,
+  tailLen: 14,
+  /** Doors 1 (left at the jet bridge, right open): centre z and opening width. */
+  door: { z: -14.6, width: 1.3 },
+  /** Economy rows: first row's seat-back z, pitch, count. */
+  rows: { first: -18, pitch: 0.8, count: 42 },
+  seat: { width: 0.44, aisle: 0.5 },
 } as const
 /** World metres from airport-local metres. */
 export const airport = (x: number, y: number, z: number): readonly [number, number, number] =>
   [AIRPORT.x + x, FLOOR + y, AIRPORT.z + z]
 /** Seat-back z of row r (0-based). The seat faces +z (toward the nose). */
 export const rowZ = (r: number) => PLANE.rows.first - r * PLANE.rows.pitch
-/** Centre x of seat k: 0–1 on the left (+x, window last), 2–4 on the right (window last). */
+/** Centre x of seat k, 0–9 = A B C | D E F G | H J K; A is the left window (+x). */
 export const seatX = (k: number) => {
   const { width: w, aisle } = PLANE.seat
-  const left0 = PLANE.x + aisle / 2 + 0.24
-  return k < 2 ? left0 + w / 2 + k * w : PLANE.x - aisle / 2 + 0.24 - w / 2 - (k - 2) * w
+  const half = (10 * w + 2 * aisle) / 2
+  return PLANE.x + half - w / 2 - k * w - (k >= 3 ? aisle : 0) - (k >= 7 ? aisle : 0)
 }
-/** Our seat: row 10, left window. Its screen is on the back of row 9's seat in front. */
-export const HERO = { row: 9, seat: 1 } as const
-/** The seat-back screen we watch the road photos on (world metres; faces −z, toward us). */
+/** The two aisles' centre x. */
+export const AISLES = { left: seatX(2) - PLANE.seat.width / 2 - PLANE.seat.aisle / 2, right: seatX(6) - PLANE.seat.width / 2 - PLANE.seat.aisle / 2 } as const
+/** Our seat: row 15, aisle C (left block). Its screen is on the back of the seat in front. */
+export const HERO = { row: 14, seat: 2 } as const
+/** Seat-back screen: ~12" 16:9, centre ~0.98 m up, on the back shell (faces −z, toward us). */
+export const SEAT_SCREEN = { width: 0.27, y: 0.98, z: -0.095 } as const
 export const SEAT_IMAGE = {
-  width: 0.26,
-  centre: airport(seatX(HERO.seat), GATE_LEVEL + 0.98, rowZ(HERO.row - 1) - 0.065),
+  width: SEAT_SCREEN.width,
+  centre: airport(seatX(HERO.seat), GATE_LEVEL + SEAT_SCREEN.y, rowZ(HERO.row - 1) + SEAT_SCREEN.z),
 }
 /** The departures board hanging in the lounge, facing into it (+z). Image width and centre. */
 export const GATE_IMAGE = {
@@ -189,7 +195,7 @@ export const GATE_IMAGE = {
 }
 
 /** Cues solved per aspect so an image exactly fills the viewport. */
-export type SolvedCue = 'screen' | 'projector' | 'foifi-full' | 'seat-full' | 'gate-full'
+export type SolvedCue = 'screen' | 'projector' | 'foifi-full' | 'gate-full'
 /** A point in Foifi's local frame (metres) → world metres. */
 export const foifi = (x: number, y: number, z: number): readonly [number, number, number] =>
   [FOIFI.x + x - FOIFI.width / 2, FLOOR + y, FOIFI.z + z]
@@ -285,11 +291,16 @@ export const SURFACES = {
   engineGrey: '#cfd2d6',
   intake: '#18191b',
   cockpit: '#11161d',
-  cabinShell: '#e4e2dd',
-  cabinBin: '#eeede9',
-  seatFabric: '#3a3e46',
-  seatShell: '#1b1c1f',
-  cabinCarpet: '#3b3e44',
+  cabinShell: '#e6e3dd',
+  cabinBin: '#dcd9d3',
+  seatFabric: '#8a7766',
+  seatLeather: '#6f5a47',
+  headCover: '#ecebe6',
+  seatShell: '#bdb29f',
+  armGrey: '#a8a49c',
+  bezel: '#1b1c20',
+  cabinCarpet: '#3a342e',
+  aisleMauve: '#a794a6',
   asphalt: '#26282c',
   apronYellow: '#e3c22b',
   loungeFloor: '#c8c4bb',
@@ -375,12 +386,14 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
   deploy: { pos: foifi(5.42, 1.04, 2.82), target: foifi(5.4, 0.9, 2.2), fov: 40, space: 'foifi' },
   /** The anniversary cake on the "new Date()" flyer. */
   cake: { pos: foifi(10.75, 1.12, 3.75), target: foifi(10.45, 0.8, 3.2), fov: 34, space: 'foifi' },
-  /** Down the A220's aisle from the front galley, seats and bins either side. */
-  cabin: { pos: airport(PLANE.x + 0.24, GATE_LEVEL + 1.65, -11.9), target: airport(PLANE.x + 0.1, GATE_LEVEL + 1.2, -26), fov: 58, space: 'plane' },
+  /** Down the 777's left aisle from the forward galley, seats and bins either side. */
+  cabin: { pos: airport(AISLES.left, GATE_LEVEL + 1.65, -16.6), target: airport(AISLES.left - 0.3, GATE_LEVEL + 1.2, -42), fov: 58, space: 'plane' },
+  /** In seat 15C, looking straight ahead: the seat back in front with its screen, neighbours either side, the window. */
+  seat: { pos: airport(seatX(HERO.seat), GATE_LEVEL + 1.12, rowZ(HERO.row) + 0.2), target: airport(seatX(HERO.seat), GATE_LEVEL + 1.04, rowZ(HERO.row - 1)), fov: 48, space: 'plane' },
   /** In the gate lounge, the departures board ahead, the plane through the glass behind it. */
-  gate: { pos: airport(2.6, GATE_LEVEL + 1.65, 9.6), target: airport(-1.6, GATE_LEVEL + 2.55, 1.2), fov: 52, space: 'gate' },
-  /** Out on the apron at night: the A220 at the gate, the jet bridge on its front door. */
-  apron: { pos: airport(-36, 9, -40), target: airport(-3, 4, -20), fov: 50, space: 'gate' },
+  gate: { pos: airport(1.2, GATE_LEVEL + 1.7, 7.4), target: airport(-1.7, GATE_LEVEL + 2.75, 2.2), fov: 44, space: 'gate' },
+  /** Out on the apron at night: the 777 at the gate, the jet bridge on its front door. */
+  apron: { pos: airport(-62, 15, -78), target: airport(-5, 6, -38), fov: 50, space: 'gate' },
   /** From the bridge above the atrium entrance, down the hall to the lift tower. */
   atrium: { pos: [0.5, FLOOR + 9.0, ATRIUM.start + 0.8], target: [0, FLOOR + 1.2, ATRIUM.start + 21], fov: 58, space: 'atrium' },
   /** Ground level among the cocktail tables, facing the AG Grid booth. */
@@ -412,20 +425,20 @@ export const PORTALS: readonly { a: Space; b: Space; via: readonly P3[] }[] = [
   { a: 'map', b: 'foyer', via: [[-14, FLOOR + 26, FOYER.start + 6], [2, FLOOR + 2.4, FOYER.start + 7]] },
   // Out of Foifi, up over Zurich, across to the Technopark overview.
   { a: 'map', b: 'foifi', via: [[-48, FLOOR + 40, 6], [FOIFI.x, FLOOR + 22, FOIFI.z + 7]] },
-  // Out of Foifi, up over Zurich to the airport, down to the A220's open front-right door, in and down the aisle.
+  // Out of Foifi, up over Zurich to the airport, down to the 777's open door 1 right, in, across and down the left aisle.
   { a: 'foifi', b: 'plane', via: [
     [FOIFI.x, FLOOR + 22, FOIFI.z + 7],
-    airport(-16, 18, -14),
-    airport(PLANE.x - 7, GATE_LEVEL + 1.75, PLANE.door.z),
-    airport(PLANE.x - 0.9, GATE_LEVEL + 1.7, PLANE.door.z),
-    airport(PLANE.x + 0.24, GATE_LEVEL + 1.65, -12.4),
-    airport(PLANE.x + 0.24, GATE_LEVEL + 1.3, rowZ(HERO.row) + 0.45),
+    airport(-34, 28, -24),
+    airport(PLANE.x - PLANE.r - 8, GATE_LEVEL + 1.75, PLANE.door.z),
+    airport(PLANE.x - PLANE.r + 0.9, GATE_LEVEL + 1.7, PLANE.door.z),
+    airport(AISLES.left, GATE_LEVEL + 1.65, PLANE.door.z),
+    airport(AISLES.left, GATE_LEVEL + 1.3, rowZ(HERO.row) + 0.3),
   ] },
-  // Up the aisle, out of the front-left door, along the jet bridge, into the lounge.
+  // Up the aisle, out of door 1 left, along the jet bridge, into the lounge.
   { a: 'plane', b: 'gate', via: [
-    airport(PLANE.x + 0.24, GATE_LEVEL + 1.4, rowZ(HERO.row) + 0.45),
-    airport(PLANE.x + 0.24, GATE_LEVEL + 1.65, -12.2),
-    airport(PLANE.x + 1.0, GATE_LEVEL + 1.65, PLANE.door.z),
+    airport(AISLES.left, GATE_LEVEL + 1.45, rowZ(HERO.row) + 0.3),
+    airport(AISLES.left, GATE_LEVEL + 1.65, PLANE.door.z - 0.6),
+    airport(PLANE.x + PLANE.r - 0.8, GATE_LEVEL + 1.65, PLANE.door.z),
     airport(BRIDGE.x, GATE_LEVEL + 1.65, PLANE.door.z),
     airport(BRIDGE.x, GATE_LEVEL + 1.65, -1),
     airport(BRIDGE.x, GATE_LEVEL + 1.65, 2.5),

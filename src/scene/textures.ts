@@ -1050,32 +1050,60 @@ export const gateSign = () =>
     ctx.fillText('A 52', w / 2, h / 2 + 6)
   })
 
-/** One cabin window from inside at night: rounded pane, pale bezel, a few apron lights. */
+/** A 777 window from inside at night: off-white rounded reveal, deep bevel, oval pane, apron lights. */
 export const cabinWindow = () =>
-  canvasTexture(128, 160, (ctx, w, h) => {
-    ctx.fillStyle = '#e8e6e1'
+  canvasTexture(176, 280, (ctx, w, h) => {
+    ctx.fillStyle = '#e6e3dd'
     ctx.fillRect(0, 0, w, h)
-    const pane = (x: number, y: number, pw: number, ph: number, r: number) => {
-      ctx.beginPath(); ctx.roundRect(x, y, pw, ph, r)
-    }
-    ctx.fillStyle = '#c9c6bf'
-    pane(14, 14, w - 28, h - 28, 40); ctx.fill()
-    const g = ctx.createLinearGradient(0, 24, 0, h - 24)
-    g.addColorStop(0, '#0c1220')
-    g.addColorStop(0.7, '#1a1a22')
-    g.addColorStop(1, '#3a2a18')
+    const rr = (x: number, y: number, rw: number, rh: number, r: number) => { ctx.beginPath(); ctx.roundRect(x, y, rw, rh, r) }
+    const bevel = ctx.createLinearGradient(0, 0, w, 0)
+    bevel.addColorStop(0, '#cfcbc3'); bevel.addColorStop(0.5, '#ddd9d2'); bevel.addColorStop(1, '#c6c2ba')
+    ctx.fillStyle = bevel
+    rr(10, 10, w - 20, h - 20, 70); ctx.fill()
+    const g = ctx.createLinearGradient(0, h * 0.25, 0, h * 0.8)
+    g.addColorStop(0, '#0b111e'); g.addColorStop(0.65, '#171820'); g.addColorStop(1, '#3a2a18')
     ctx.fillStyle = g
-    pane(24, 24, w - 48, h - 48, 32); ctx.fill()
-    for (let i = 0; i < 5; i++) {
+    ctx.beginPath(); ctx.ellipse(w / 2, h / 2, w * 0.3, h * 0.27, 0, 0, Math.PI * 2); ctx.fill()
+    for (let i = 0; i < 6; i++) {
       ctx.fillStyle = i % 2 ? '#ffd28a' : '#9fc0ff'
-      ctx.beginPath(); ctx.arc(36 + hash(i + 900) * (w - 72), h * 0.62 + hash(i + 910) * 18, 2.2, 0, Math.PI * 2); ctx.fill()
+      ctx.beginPath(); ctx.arc(w * 0.3 + hash(i + 900) * w * 0.4, h * 0.6 + hash(i + 910) * 14, 2.2, 0, Math.PI * 2); ctx.fill()
     }
+  })
+
+/**
+ * A seat-back screen on its welcome page, in the style of SWISS's IFE: pale
+ * sky, a red tail fin with the white cross, a dark panel with a red Start
+ * button, a navy bar along the bottom. No logo or wordmark.
+ */
+export const ifeWelcome = () =>
+  canvasTexture(320, 180, (ctx, w, h) => {
+    const sky = ctx.createLinearGradient(0, 0, w, h)
+    sky.addColorStop(0, '#eef0f2'); sky.addColorStop(1, '#c9ced4')
+    ctx.fillStyle = sky
+    ctx.fillRect(0, 0, w, h)
+    // Tail fin.
+    ctx.fillStyle = '#da291c'
+    ctx.beginPath(); ctx.moveTo(30, 150); ctx.lineTo(70, 40); ctx.lineTo(110, 40); ctx.lineTo(100, 150); ctx.closePath(); ctx.fill()
+    ctx.fillStyle = '#ffffff'
+    ctx.fillRect(78, 80, 8, 26); ctx.fillRect(69, 89, 26, 8)
+    // Panel and Start button.
+    ctx.fillStyle = 'rgba(60,62,68,0.85)'
+    ctx.fillRect(190, 40, 100, 90)
+    ctx.fillStyle = '#e2001a'
+    ctx.fillRect(198, 108, 84, 14)
+    ctx.fillStyle = 'rgba(255,255,255,0.75)'
+    ctx.fillRect(198, 52, 50, 4); ctx.fillRect(198, 64, 70, 4); ctx.fillRect(198, 90, 84, 10)
+    // Navy bar.
+    ctx.fillStyle = '#1e2238'
+    ctx.fillRect(0, h - 22, w, 22)
+    ctx.fillStyle = 'rgba(255,255,255,0.7)'
+    ctx.fillRect(120, h - 12, 80, 2)
   })
 
 /** Cabin carpet: dark grey with a faint fleck. */
 export const cabinCarpet = () =>
   canvasTexture(256, 256, (ctx, w, h) => {
-    ctx.fillStyle = '#3b3e44'
+    ctx.fillStyle = '#3a342e'
     ctx.fillRect(0, 0, w, h)
     speckle(ctx, w, h, 2400, 41, 'rgba(255,255,255,0.05)', 'rgba(0,0,0,0.12)')
   }, [2, 12])

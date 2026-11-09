@@ -118,15 +118,15 @@ export const VISUALS = {
   'price-compare': {
     kind: 'flapboard', title: 'Half the price of London',
     source: 'Regular ticket, 2026 · official pages · ECB, 11 Sep 2026',
-    columns: [{ label: 'Destination', width: 22 }, { label: 'Ticket', width: 7, align: 'right' }, { label: 'Remark', width: 9 }],
+    columns: [{ label: 'Destination', width: 22 }, { label: 'Ticket', width: 7, align: 'right' }],
     rows: [
-      { cells: ['REACT PARIS', 'CHF 614', ''] },
-      { cells: ['REACT ADVANCED LONDON', 'CHF 595', ''] },
-      { cells: ['REACT SUMMIT AMSTERDAM', 'CHF 567', ''] },
-      { cells: ['REACT DAY BERLIN', 'CHF 515', ''] },
-      { cells: ['VOXXED DAYS ZURICH', 'CHF 360', ''] },
-      { cells: ['ZURICHJS CONF', 'CHF 295', "THAT'S US"], highlight: true },
-      { cells: ['JSHEROES CLUJ', 'CHF 198', ''] },
+      { cells: ['REACT PARIS', 'CHF 614'] },
+      { cells: ['REACT ADVANCED LONDON', 'CHF 595'] },
+      { cells: ['REACT SUMMIT AMSTERDAM', 'CHF 567'] },
+      { cells: ['REACT DAY BERLIN', 'CHF 515'] },
+      { cells: ['VOXXED DAYS ZURICH', 'CHF 360'] },
+      { cells: ['ZURICHJS CONF', 'CHF 295'], highlight: true },
+      { cells: ['JSHEROES CLUJ', 'CHF 198'] },
     ],
   },
   'value-grid': {

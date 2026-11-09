@@ -112,6 +112,12 @@ export function paintFlapboard(ctx: Ctx, v: FlapVisual, p: number, r: Roles) {
         ctx.fillStyle = r.card
         ctx.beginPath(); ctx.roundRect(x, ry, tileW, tileH, tileW * 0.12); ctx.fill()
         ctx.restore()
+        // The split across the middle of the flap, behind the letter so it never cuts it.
+        ctx.save()
+        ctx.globalAlpha *= tile
+        ctx.fillStyle = r.bg
+        ctx.fillRect(x, ry + tileH / 2 - 1.5, tileW, 3)
+        ctx.restore()
         let shown = ch
         let flipping = false
         if (p < land && ch !== ' ') {
@@ -126,12 +132,6 @@ export function paintFlapboard(ctx: Ctx, v: FlapVisual, p: number, r: Roles) {
             size: fontSize, weight: TYPE.weight.bold, family: TYPE.mono, color: flipping ? r.textSoft : tone, align: 'center', alpha: tile,
           })
         }
-        // The split across the middle of every flap.
-        ctx.save()
-        ctx.globalAlpha *= tile
-        ctx.fillStyle = r.bg
-        ctx.fillRect(x, ry + tileH / 2 - 1.5, tileW, 3)
-        ctx.restore()
       }
     })
   })
