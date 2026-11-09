@@ -128,11 +128,13 @@ export const PROJECTOR_PANEL = {
 
 /**
  * A cash machine against Foifi's right-hand wall, facing into the room (−x),
- * by the bar. Local frame (metres): origin on the floor at the machine's
+ * by the bar: a brushed-steel pillar holding a Swiss through-the-wall unit
+ * (recessed fascia under a hood, lit header box, card column on the right,
+ * cash shutter under the screen, keypad on a shelf). From Swiss ATM photos. Local frame (metres): origin on the floor at the machine's
  * centre, +z out of its fascia toward the user, y up. Where the AI-pressure
  * screens play: card in, then cash out.
  */
-export const ATM = { x: 15.62, z: 9.2, depth: 0.6, screen: { width: 0.42, y: 1.42, tilt: 0.16 } } as const
+export const ATM = { x: 15.62, z: 9.2, depth: 0.45, screen: { width: 0.42, y: 1.36, tilt: 0.3 } } as const
 /** World metres of a point in the ATM's local frame. */
 export const atmPoint = (x: number, y: number, z: number) => foifi(ATM.x - z, y, ATM.z + x)
 
@@ -296,6 +298,11 @@ export const SURFACES = {
   clothBlack: '#141416',
   hotSauce: '#c2461a',
   toteBlue: '#1f5fd6',
+  atmSteel: '#a9aaa6',
+  atmFascia: '#c5c9cc',
+  atmShade: '#8e9398',
+  atmGreen: '#39e34a',
+  atmContactless: '#1f3a6e',
   fuselage: '#eef0f2',
   swissRed: '#da291c',
   engineGrey: '#cfd2d6',
@@ -391,9 +398,9 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
     enter: { from: 'projector', via: [foifi(8, 3.05, 5.2), foifi(10.9, 2.5, 8.2)] },
   },
   /** At the cash machine: close on its screen, straight on. */
-  atm: { pos: atmPoint(0, ATM.screen.y + 0.1, 0.78), target: atmPoint(0, ATM.screen.y - 0.005, 0.32), fov: 38, space: 'foifi' },
+  atm: { pos: atmPoint(-0.04, ATM.screen.y + 0.1, 0.82), target: atmPoint(-0.04, ATM.screen.y, 0.15), fov: 36, space: 'foifi' },
   /** At the cash machine, stepped back: screen, card slot, keypad and the cash slot. */
-  'atm-wide': { pos: atmPoint(0.2, 1.5, 1.2), target: atmPoint(0.08, 1.14, 0.3), fov: 56, space: 'foifi' },
+  'atm-wide': { pos: atmPoint(0.12, 1.56, 1.45), target: atmPoint(0.02, 1.32, 0.16), fov: 58, space: 'foifi' },
   /** Pause im Foifi, close on the projector screen under the hanging plants. */
   'foifi-screen': { pos: foifi(8.0, 1.5, 5.6), target: foifi(8.0, 2.05, 0.9), fov: 46, space: 'foifi' },
   /** Over the laptop where conf.zurichjs.com went live, screen beyond. */

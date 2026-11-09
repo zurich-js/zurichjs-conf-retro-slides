@@ -47,14 +47,6 @@ export function paintAtm(ctx: Ctx, v: AtmVisual, p: number, r: Roles) {
     ctx.globalAlpha *= a
     ctx.fillStyle = on ? r.accent : r.card
     ctx.beginPath(); ctx.roundRect(x, oy, colW, rowH, 28); ctx.fill()
-    // The notch toward the physical key on that side of the screen.
-    const nx = col === 0 ? x - 34 : x + colW + 34
-    ctx.beginPath()
-    ctx.moveTo(nx, oy + rowH / 2)
-    ctx.lineTo(col === 0 ? x - 6 : x + colW + 6, oy + rowH / 2 - 22)
-    ctx.lineTo(col === 0 ? x - 6 : x + colW + 6, oy + rowH / 2 + 22)
-    ctx.closePath()
-    ctx.fill()
     ctx.restore()
     const ink = on ? r.bg : r.text
     const ls = TYPE.size.body * 1.1

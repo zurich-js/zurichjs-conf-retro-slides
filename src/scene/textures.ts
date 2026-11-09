@@ -1018,16 +1018,13 @@ export const departuresHeader = () =>
     ctx.fillStyle = '#f5d000'
     ctx.font = `${TYPE.weight.bold} 52px ${TYPE.sans}`
     ctx.textBaseline = 'middle'
-    // A small departing-plane glyph.
+    // The plane glyph (same outline as the flap boards), nose up-right.
     ctx.save()
     ctx.translate(58, h / 2)
-    ctx.rotate(-0.35)
-    ctx.beginPath()
-    ctx.moveTo(-26, 4); ctx.lineTo(26, 4); ctx.lineTo(30, 0); ctx.lineTo(26, -4); ctx.lineTo(-26, -4); ctx.closePath()
-    ctx.moveTo(-2, -4); ctx.lineTo(10, -24); ctx.lineTo(16, -24); ctx.lineTo(10, -4); ctx.closePath()
-    ctx.moveTo(-2, 4); ctx.lineTo(10, 24); ctx.lineTo(16, 24); ctx.lineTo(10, 4); ctx.closePath()
-    ctx.moveTo(-26, -4); ctx.lineTo(-30, -14); ctx.lineTo(-24, -14); ctx.lineTo(-18, -4); ctx.closePath()
-    ctx.fill()
+    ctx.rotate(Math.PI / 4)
+    ctx.scale(2.4, 2.4)
+    ctx.translate(-11.5, -12)
+    ctx.fill(new Path2D('M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'))
     ctx.restore()
     ctx.fillText('Abflug', 110, h / 2 + 2)
     ctx.fillStyle = '#f2f2f2'
@@ -1137,43 +1134,65 @@ export const terminalWindows = () =>
     }
   })
 
-// ── The cash machine ────────────────────────────────────────────────────────
+// ── The cash machine (Swiss through-the-wall style, no bank) ────────────────
 
-/** The lit header over the ATM: a cash glyph and "Bargeld · Cash", no bank. */
+/** The lit header box: white light-box, the ATM pictogram (person at a keypad), "Bargeld · Cash". */
 export const atmSign = () =>
-  canvasTexture(512, 96, (ctx, w, h) => {
-    ctx.fillStyle = '#123a73'
+  canvasTexture(620, 160, (ctx, w, h) => {
+    ctx.fillStyle = '#f4f5f6'
     ctx.fillRect(0, 0, w, h)
-    ctx.fillStyle = '#ffffff'
-    ctx.fillRect(28, 30, 54, 34)
-    ctx.fillStyle = '#123a73'
-    ctx.beginPath(); ctx.arc(55, 47, 10, 0, Math.PI * 2); ctx.fill()
-    ctx.fillStyle = '#ffffff'
-    ctx.font = `${TYPE.weight.bold} 46px ${TYPE.sans}`
+    // Pictogram, line art: a person facing a machine with a card.
+    ctx.strokeStyle = '#1a1d22'
+    ctx.lineWidth = 7
+    ctx.lineCap = 'round'
+    ctx.beginPath(); ctx.arc(60, 42, 13, 0, Math.PI * 2); ctx.stroke()
+    ctx.beginPath(); ctx.moveTo(60, 58); ctx.lineTo(60, 112); ctx.moveTo(60, 70); ctx.lineTo(92, 82); ctx.moveTo(60, 112); ctx.lineTo(48, 140); ctx.moveTo(60, 112); ctx.lineTo(72, 140); ctx.stroke()
+    ctx.strokeRect(100, 30, 46, 110)
+    ctx.strokeRect(108, 42, 30, 24)
+    ctx.fillStyle = '#1a1d22'
+    ctx.font = `${TYPE.weight.bold} 60px ${TYPE.sans}`
     ctx.textBaseline = 'middle'
-    ctx.fillText('Bargeld · Cash', 104, h / 2 + 2)
+    ctx.fillText('Bargeld · Cash', 178, h / 2 + 4)
   })
 
-/** The keypad face: 0–9 in a 3×4 grid, and the red, yellow, green function keys. */
+/** A black label strip with white text (GELD, KARTE, QUITTUNG). */
+export const atmLabel = (text: string) =>
+  canvasTexture(256, 48, (ctx, w, h) => {
+    ctx.fillStyle = '#1a1d22'
+    ctx.fillRect(0, 0, w, h)
+    ctx.fillStyle = '#ffffff'
+    ctx.font = `${TYPE.weight.bold} 30px ${TYPE.sans}`
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.fillText(text, w / 2, h / 2 + 2)
+  })
+
+/** The PIN pad: brushed-steel 3×4 keys, then STOP, CORR, blank, OK down the right. */
 export const atmKeypad = () =>
-  canvasTexture(256, 256, (ctx, w, h) => {
-    ctx.fillStyle = '#2a2c30'
+  canvasTexture(320, 240, (ctx, w, h) => {
+    ctx.fillStyle = '#8e9398'
     ctx.fillRect(0, 0, w, h)
     const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '']
-    ctx.font = `${TYPE.weight.bold} 34px ${TYPE.sans}`
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     keys.forEach((k, i) => {
-      const x = 14 + (i % 3) * 58
-      const y = 12 + Math.floor(i / 3) * 60
-      ctx.fillStyle = '#c9ccd1'
-      ctx.beginPath(); ctx.roundRect(x, y, 50, 50, 8); ctx.fill()
-      ctx.fillStyle = '#1b1c1f'
-      if (k) ctx.fillText(k, x + 25, y + 27)
+      const x = 12 + (i % 3) * 64
+      const y = 10 + Math.floor(i / 3) * 56
+      const g = ctx.createLinearGradient(x, y, x + 56, y + 48)
+      g.addColorStop(0, '#d9dbdc'); g.addColorStop(1, '#a9aaa6')
+      ctx.fillStyle = g
+      ctx.beginPath(); ctx.roundRect(x, y, 56, 48, 6); ctx.fill()
+      ctx.fillStyle = '#1a1d22'
+      ctx.font = `${TYPE.weight.bold} 30px ${TYPE.sans}`
+      if (k) ctx.fillText(k, x + 28, y + 26)
     })
-    ;['#d0312d', '#e5c22a', '#2e9d4a'].forEach((c, i) => {
+    ;([['#d7262b', 'STOP'], ['#f2c200', 'CORR'], ['#c8cac8', ''], ['#2ba84a', 'OK']] as const).forEach(([c, t], i) => {
+      const y = 10 + i * 56
       ctx.fillStyle = c
-      ctx.beginPath(); ctx.roundRect(192, 12 + i * 80, 52, 70, 8); ctx.fill()
+      ctx.beginPath(); ctx.roundRect(212, y, 96, 48, 6); ctx.fill()
+      ctx.fillStyle = '#1a1d22'
+      ctx.font = `${TYPE.weight.bold} 22px ${TYPE.sans}`
+      if (t) ctx.fillText(t, 260, y + 26)
     })
   })
 
@@ -1191,16 +1210,21 @@ export const zurichCard = () =>
     ctx.fillText('CONF 2026', 34, 180)
   })
 
-/** A CHF 100 note, plain: blue with a lighter band and the value. */
+/** A CHF 100 note, 9th series look (70 × 144 mm): blue and cyan, an orange band on the left, a white strip with the value. */
 export const franc100 = () =>
-  canvasTexture(300, 148, (ctx, w, h) => {
-    ctx.fillStyle = '#3d6fb6'
+  canvasTexture(288, 140, (ctx, w, h) => {
+    const g = ctx.createLinearGradient(0, 0, w, h)
+    g.addColorStop(0, '#2e7fc1'); g.addColorStop(1, '#7cc6e0')
+    ctx.fillStyle = g
     ctx.fillRect(0, 0, w, h)
-    ctx.fillStyle = 'rgba(255,255,255,0.18)'
-    ctx.fillRect(w * 0.62, 0, w * 0.2, h)
-    ctx.fillStyle = '#e8eef8'
-    ctx.font = `${TYPE.weight.black} 48px ${TYPE.sans}`
-    ctx.fillText('100', 20, 58)
-    ctx.font = `${TYPE.weight.medium} 18px ${TYPE.mono}`
-    ctx.fillText('FRANKEN', 22, h - 22)
+    ctx.fillStyle = '#f39a3b'
+    ctx.fillRect(14, 0, 22, h)
+    ctx.fillStyle = 'rgba(255,255,255,0.92)'
+    ctx.fillRect(0, h - 30, w, 30)
+    ctx.fillStyle = '#1f4e7a'
+    ctx.font = `${TYPE.weight.black} 26px ${TYPE.sans}`
+    ctx.fillText('100', 44, h - 8)
+    ctx.strokeStyle = 'rgba(255,255,255,0.45)'
+    ctx.lineWidth = 3
+    ctx.beginPath(); ctx.arc(w * 0.66, h * 0.42, 34, 0, Math.PI * 2); ctx.stroke()
   })

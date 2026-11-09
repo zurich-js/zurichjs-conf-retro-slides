@@ -31,21 +31,21 @@ function fitLabel(ctx: Ctx, value: string, width: number, max: number) {
 /** Deterministic 0..1 noise. */
 const noise = (n: number) => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x) }
 
-/** A small departing-plane glyph, nose up-right, centred on (x, y), `s` across. */
+/**
+ * A plane seen from above, nose up-right, centred on (x, y), `s` across.
+ * Outline on a 24-unit grid (the common "flight" icon shape): fuselage,
+ * swept wings, tailplane.
+ */
+const PLANE = new Path2D('M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z')
 function plane(ctx: Ctx, x: number, y: number, s: number, color: string, alpha: number) {
   ctx.save()
   ctx.globalAlpha *= alpha
   ctx.translate(x, y)
-  ctx.rotate(-0.5)
-  ctx.scale(s / 64, s / 64)
+  ctx.rotate(Math.PI / 4)
+  ctx.scale(s / 24, s / 24)
+  ctx.translate(-11.5, -12)
   ctx.fillStyle = color
-  ctx.beginPath()
-  ctx.moveTo(-30, 4); ctx.lineTo(28, 4); ctx.quadraticCurveTo(34, 0, 28, -4); ctx.lineTo(-30, -4); ctx.closePath()
-  ctx.moveTo(-4, -4); ctx.lineTo(10, -28); ctx.lineTo(17, -28); ctx.lineTo(10, -4); ctx.closePath()
-  ctx.moveTo(-4, 4); ctx.lineTo(10, 28); ctx.lineTo(17, 28); ctx.lineTo(10, 4); ctx.closePath()
-  ctx.moveTo(-30, -4); ctx.lineTo(-34, -15); ctx.lineTo(-27, -15); ctx.lineTo(-20, -4); ctx.closePath()
-  ctx.moveTo(-30, 4); ctx.lineTo(-34, 15); ctx.lineTo(-27, 15); ctx.lineTo(-20, 4); ctx.closePath()
-  ctx.fill()
+  ctx.fill(PLANE)
   ctx.restore()
 }
 
