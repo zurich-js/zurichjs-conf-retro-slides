@@ -8,6 +8,7 @@ import { paintHeatmap } from './heatmap'
 import { momentsSeconds, paintMoments } from './moments'
 import { flapSeconds, paintFlapboard } from './flapboard'
 import { ATM_SECS, paintAtm } from './atm'
+import { paintStrike, STRIKE_SECS } from './strike'
 import { paintMatrix } from './matrix'
 
 type Painter<K extends VisualKind> = (ctx: Ctx, v: Extract<Visual, { kind: K }>, p: number, r: Roles) => void
@@ -187,16 +188,39 @@ const quote: Painter<'quote'> = (ctx, v, p, r) => {
 
 const img: Painter<'image'> = (ctx, v, p, r) => {
   const el = image(v.src)
-  const box = { x: SAFE.left, y: SAFE.top, w: SAFE.width, h: SAFE.height - (v.caption ? 120 : 0) }
-  ctx.save(); enter(ctx, window01(p, 0, 0.8), 30)
+  let top = SAFE.top
+  if (v.title) {
+    const size = TYPE.size.h2 * 0.8
+    const lines = wrap(ctx, v.title, SAFE.width, size, TYPE.weight.black)
+    ctx.save(); enter(ctx, window01(p, 0, 0.5))
+    lines.forEach((l, i) => text(ctx, l, SAFE.left, top + size * 0.85 + i * size * TYPE.lineHeight, { size, weight: TYPE.weight.black, tracking: D, color: r.text }))
+    ctx.restore()
+    top += size * TYPE.lineHeight * lines.length + 40
+  }
+  const box = { x: SAFE.left, y: top, w: SAFE.width, h: SAFE.bottom - 40 - top - (v.caption ? 120 : 0) }
+  ctx.save(); enter(ctx, window01(p, 0.1, 0.8), 30)
   if (el) {
     const ratio = el.naturalWidth / el.naturalHeight
     const cover = (v.fit ?? 'contain') === 'cover'
     let w = box.w
     let h = w / ratio
     if (cover ? h < box.h : h > box.h) { h = box.h; w = h * ratio }
-    ctx.beginPath(); ctx.roundRect(box.x, box.y, box.w, box.h, FRAME.radius); ctx.clip()
-    ctx.drawImage(el, box.x + (box.w - w) / 2, box.y + (box.h - h) / 2, w, h)
+    // A titled screenshot sits left-aligned under its title; otherwise centred.
+    const ix = v.title ? box.x : box.x + (box.w - w) / 2
+    const iy = box.y + (box.h - h) / 2
+    ctx.save()
+    ctx.beginPath(); ctx.roundRect(ix, iy, w, h, FRAME.radius); ctx.clip()
+    ctx.drawImage(el, ix, iy, w, h)
+    ctx.restore()
+    if (v.mark) {
+      const ma = window01(p, 0.7, 1)
+      ctx.save()
+      ctx.globalAlpha *= ma
+      ctx.strokeStyle = r.accent
+      ctx.lineWidth = 8
+      ctx.beginPath(); ctx.roundRect(ix + v.mark.x * w, iy + v.mark.y * h, v.mark.w * w, v.mark.h * h, 16); ctx.stroke()
+      ctx.restore()
+    }
   }
   ctx.restore()
   if (v.caption) label(ctx, v.caption, SAFE.left, SAFE.bottom, r.textMuted, { alpha: p })
@@ -277,9 +301,10 @@ const heatmap: Painter<'heatmap'> = paintHeatmap
 const moments: Painter<'moments'> = paintMoments
 const flapboard: Painter<'flapboard'> = paintFlapboard
 const atm: Painter<'atm'> = paintAtm
+const strike: Painter<'strike'> = paintStrike
 const matrix: Painter<'matrix'> = paintMatrix
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear
@@ -287,6 +312,7 @@ const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement,
  */
 export function drawTiming(visual: Visual | undefined): { secs: number; linear: boolean } {
   if (visual?.kind === 'journey') return { secs: journeySeconds(visual), linear: true }
+  if (visual?.kind === 'strike') return { secs: STRIKE_SECS, linear: true }
   if (visual?.kind === 'atm') return { secs: ATM_SECS, linear: false }
   if (visual?.kind === 'flapboard') return { secs: flapSeconds(visual), linear: true }
   if (visual?.kind === 'moments') return { secs: momentsSeconds(visual), linear: true }
