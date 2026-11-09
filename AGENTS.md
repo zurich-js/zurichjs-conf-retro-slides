@@ -55,6 +55,7 @@ src/
     Foyer.tsx           hallway through the back doors: registration, backdrop, merch table
     Atrium.tsx          open hall: galleries, lift tower, bells, cocktail tables, sponsor booths
     Foifi.tsx           Pause im Foifi (Digitec Galaxus): the 1st anniversary, where tickets went live
+    Atm.tsx             a cash machine in Foifi: the AI-squeeze screens; card in, cash out (driven by `atm` step)
     Airport.tsx         Zurich Airport: gate lounge + departures board, jet bridge, SWISS 777-300ER (cabin + exterior)
   scene/sponsors.ts     sponsor manifest (slug, tier) → public/sponsors/<slug>[-color].png
   scene/useSponsorLogos.ts  all logos as loaded images (suspends; preloaded in Set.tsx)
@@ -165,7 +166,7 @@ Copied into `PALETTE`; never import across repos.
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·
-  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron`. Poses
+  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide`. Poses
   live in `CUES` (venue.ts). Each cue has a `space` (`hall` | `booth` |
   `foyer` | `atrium` | `map`); moves inside a room glide, so a new cue needs
   a clear line to its neighbours in that room.
@@ -236,6 +237,12 @@ Copied into `PALETTE`; never import across repos.
   walks off through the jet bridge into the gate lounge, where the pricing
   block (the other idea, price comparison, value grid, workshops, VIP) plays
   on the departures board (`gate-full`). Then a crane shot to the Technopark map.
+- **The AI squeeze (Faris, 2026-11-09):** `three-problems` sets up AI pressing
+  from the top (sponsors wanting talk slots or AI, companies only funding AI
+  tickets) and from the bottom (speakers pivoting, attendees wanting less AI,
+  no slop). Then a cash machine at Foifi plays it screen by screen (`atm` kind,
+  `atm` / `atm-wide` cues): card in, the options, declined, re-pitch, card and
+  cash out. Survey and CFP numbers are sourced; the rest is Faris's account.
 - After the meetup numbers, still at Foifi: the agenda, chapter 1 (why on
   earth) and chapter 2 (the hard market, our three problems), then **ZurichJS
   on the road** (the globe) as the answer; then the camera flies to Technopark.

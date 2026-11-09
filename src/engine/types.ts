@@ -97,6 +97,23 @@ export type Visual = Base &
         rows: readonly { cells: readonly string[]; highlight?: boolean }[]
       }
     | {
+        kind: 'atm'
+        /** The prompt on the cash machine's screen. */
+        title: string
+        kicker?: string
+        /** Up to four soft-key options (0, 2 left; 1, 3 right); value is right-aligned (a count, a price). */
+        options?: readonly { label: string; value?: string }[]
+        /** Options lit as pressed. */
+        selected?: readonly number[]
+        message?: string
+        /** Message tone (default accent). */
+        tone?: Tone
+        /** Small, bottom right: a source or a footnote. */
+        note?: string
+        /** What the machine does in the set: take the card, or hand it back and pay out. */
+        step?: 'insert' | 'dispense'
+      }
+    | {
         kind: 'numbers'
         title?: string
         kicker?: string
@@ -157,6 +174,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   heatmap: 'dark',
   moments: 'dark',
   flapboard: 'dark',
+  atm: 'dark',
   matrix: 'dark',
   journey: 'dark',
 }
@@ -165,7 +183,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
  * Named camera destinations. `screen` is solved in src/renderers/Stage.tsx;
  * the rest are measured poses in src/scene/venue.ts (CUES).
  */
-export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron'] as const
+export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide'] as const
 export type CameraCue = (typeof CAMERA_CUES)[number]
 
 export interface Slide {

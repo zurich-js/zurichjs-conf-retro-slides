@@ -54,6 +54,11 @@ export function defineSlides(
           })
         }
       }
+      if (v?.kind === 'atm') {
+        const n = v.options?.length ?? 0
+        if (n > 4) throw new Error(`Visual "${id}": an ATM screen has at most four options`)
+        for (const i of v.selected ?? []) if (!(i >= 0 && i < n)) throw new Error(`Visual "${id}": selected ${i} is not an option`)
+      }
       if (v?.kind === 'growth') {
         for (const series of v.series) {
           if (series.values.length !== v.x.length) throw new Error(`Visual "${id}": series "${series.label}" has ${series.values.length} values for ${v.x.length} x labels`)

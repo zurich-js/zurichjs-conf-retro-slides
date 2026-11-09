@@ -1136,3 +1136,71 @@ export const terminalWindows = () =>
       }
     }
   })
+
+// ── The cash machine ────────────────────────────────────────────────────────
+
+/** The lit header over the ATM: a cash glyph and "Bargeld · Cash", no bank. */
+export const atmSign = () =>
+  canvasTexture(512, 96, (ctx, w, h) => {
+    ctx.fillStyle = '#123a73'
+    ctx.fillRect(0, 0, w, h)
+    ctx.fillStyle = '#ffffff'
+    ctx.fillRect(28, 30, 54, 34)
+    ctx.fillStyle = '#123a73'
+    ctx.beginPath(); ctx.arc(55, 47, 10, 0, Math.PI * 2); ctx.fill()
+    ctx.fillStyle = '#ffffff'
+    ctx.font = `${TYPE.weight.bold} 46px ${TYPE.sans}`
+    ctx.textBaseline = 'middle'
+    ctx.fillText('Bargeld · Cash', 104, h / 2 + 2)
+  })
+
+/** The keypad face: 0–9 in a 3×4 grid, and the red, yellow, green function keys. */
+export const atmKeypad = () =>
+  canvasTexture(256, 256, (ctx, w, h) => {
+    ctx.fillStyle = '#2a2c30'
+    ctx.fillRect(0, 0, w, h)
+    const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '']
+    ctx.font = `${TYPE.weight.bold} 34px ${TYPE.sans}`
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    keys.forEach((k, i) => {
+      const x = 14 + (i % 3) * 58
+      const y = 12 + Math.floor(i / 3) * 60
+      ctx.fillStyle = '#c9ccd1'
+      ctx.beginPath(); ctx.roundRect(x, y, 50, 50, 8); ctx.fill()
+      ctx.fillStyle = '#1b1c1f'
+      if (k) ctx.fillText(k, x + 25, y + 27)
+    })
+    ;['#d0312d', '#e5c22a', '#2e9d4a'].forEach((c, i) => {
+      ctx.fillStyle = c
+      ctx.beginPath(); ctx.roundRect(192, 12 + i * 80, 52, 70, 8); ctx.fill()
+    })
+  })
+
+/** The card: ZurichJS yellow, a gold chip, the wordmark in black. */
+export const zurichCard = () =>
+  canvasTexture(344, 216, (ctx, w, h) => {
+    ctx.fillStyle = '#f1e271'
+    ctx.beginPath(); ctx.roundRect(0, 0, w, h, 18); ctx.fill()
+    ctx.fillStyle = '#c9a646'
+    ctx.beginPath(); ctx.roundRect(34, 70, 56, 44, 8); ctx.fill()
+    ctx.fillStyle = '#0a0a0a'
+    ctx.font = `${TYPE.weight.black} 40px ${TYPE.sans}`
+    ctx.fillText('ZurichJS', 34, 48)
+    ctx.font = `${TYPE.weight.medium} 22px ${TYPE.mono}`
+    ctx.fillText('CONF 2026', 34, 180)
+  })
+
+/** A CHF 100 note, plain: blue with a lighter band and the value. */
+export const franc100 = () =>
+  canvasTexture(300, 148, (ctx, w, h) => {
+    ctx.fillStyle = '#3d6fb6'
+    ctx.fillRect(0, 0, w, h)
+    ctx.fillStyle = 'rgba(255,255,255,0.18)'
+    ctx.fillRect(w * 0.62, 0, w * 0.2, h)
+    ctx.fillStyle = '#e8eef8'
+    ctx.font = `${TYPE.weight.black} 48px ${TYPE.sans}`
+    ctx.fillText('100', 20, 58)
+    ctx.font = `${TYPE.weight.medium} 18px ${TYPE.mono}`
+    ctx.fillText('FRANKEN', 22, h - 22)
+  })

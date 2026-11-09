@@ -126,6 +126,16 @@ export const PROJECTOR_PANEL = {
   centre: [FOIFI.x + PROJECTOR.x - FOIFI.width / 2, FLOOR + PROJECTOR.y, FOIFI.z + PROJECTOR.panelZ] as const,
 }
 
+/**
+ * A cash machine against Foifi's right-hand wall, facing into the room (−x),
+ * by the bar. Local frame (metres): origin on the floor at the machine's
+ * centre, +z out of its fascia toward the user, y up. Where the AI-pressure
+ * screens play: card in, then cash out.
+ */
+export const ATM = { x: 15.62, z: 9.2, depth: 0.6, screen: { width: 0.42, y: 1.42, tilt: 0.16 } } as const
+/** World metres of a point in the ATM's local frame. */
+export const atmPoint = (x: number, y: number, z: number) => foifi(ATM.x - z, y, ATM.z + x)
+
 /** The image on Foifi's projector screen (metres): width and centre, facing +z. */
 export const FOIFI_IMAGE = {
   width: 3.0,
@@ -380,6 +390,10 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
     // projector, flip to face the screen the slide is projected on.
     enter: { from: 'projector', via: [foifi(8, 3.05, 5.2), foifi(10.9, 2.5, 8.2)] },
   },
+  /** At the cash machine: close on its screen, straight on. */
+  atm: { pos: atmPoint(0, ATM.screen.y + 0.1, 0.78), target: atmPoint(0, ATM.screen.y - 0.005, 0.32), fov: 38, space: 'foifi' },
+  /** At the cash machine, stepped back: screen, card slot, keypad and the cash slot. */
+  'atm-wide': { pos: atmPoint(0.2, 1.5, 1.2), target: atmPoint(0.08, 1.14, 0.3), fov: 56, space: 'foifi' },
   /** Pause im Foifi, close on the projector screen under the hanging plants. */
   'foifi-screen': { pos: foifi(8.0, 1.5, 5.6), target: foifi(8.0, 2.05, 0.9), fov: 46, space: 'foifi' },
   /** Over the laptop where conf.zurichjs.com went live, screen beyond. */

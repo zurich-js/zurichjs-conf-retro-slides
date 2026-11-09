@@ -61,7 +61,16 @@ export const slides = defineSlides(VISUALS, [
   { id: 'expensive', beat: 'hard-year', steps: ['expensive'], camera: 'foifi-full' },
   { id: 'ai-changed', beat: 'hard-year', steps: ['ai-changed'], camera: 'foifi-full', notes: 'FARIS: opinion to add.' },
   { id: 'ai-share', beat: 'hard-year', steps: ['ai-share'], camera: 'foifi-full', notes: 'Keyword-based.' },
-  { id: 'three-problems', beat: 'hard-year', steps: ['three-problems'], camera: 'foifi-full', notes: 'FARIS to confirm the links: sponsor budgets → ch3 (tiny team, one app); AI submissions → ch4 (programme picks); price-sensitive buyers → ch5 (discounts, partner codes, invoices, currencies).' },
+  { id: 'three-problems', beat: 'hard-year', steps: ['three-problems'], camera: 'foifi-full', notes: 'Smaller sponsor budgets, price-sensitive buyers, AI changing the topics. AI pressed on all three. From the top: who funds the event (sponsors, companies paying for tickets). From the bottom: who makes and attends it (speakers, attendees). The cash machine across the room shows it.' },
+  { id: 'atm-insert', beat: 'hard-year', steps: ['atm-insert'], camera: 'atm-wide', notes: 'The squeeze, as a cash machine. Every way money came in, and what it wanted in return.' },
+  { id: 'atm-sponsors', beat: 'hard-year', steps: ['atm-sponsors'], camera: 'atm', notes: 'FARIS: sponsors did not want to fund events where they could not buy a sponsored talk slot, or that did not have AI in the topic.' },
+  { id: 'atm-declined', beat: 'hard-year', steps: ['atm-declined'], camera: 'atm', notes: 'Selling talk slots broke against our values, so we said no. FARIS: say what that cost.' },
+  { id: 'atm-companies', beat: 'hard-year', steps: ['atm-companies'], camera: 'atm', notes: 'FARIS: companies did not want to pay for tickets to conferences without AI in the topic.' },
+  { id: 'atm-speakers', beat: 'hard-year', steps: ['atm-speakers'], camera: 'atm', notes: 'FARIS: speakers felt pressured to pivot their content to be AI-centric. 40% of analysed CFP submissions mentioned AI (171 of 428, keyword-based).' },
+  { id: 'atm-attendees', beat: 'hard-year', steps: ['atm-attendees'], camera: 'atm', notes: 'Yet attendees wanted even less AI than we programmed. Topics wanted next year (multi-select, 112 responses): JS/TS deep dives 75, real-world case studies 71, performance 66, AI 48. 3 of our 6 workshops were AI topics.' },
+  { id: 'atm-taste', beat: 'hard-year', steps: ['atm-taste'], camera: 'atm', notes: 'FARIS: no slop. If anything, mature, tasteful, grounded engineering-based AI, blended with traditional and foundational advanced engineering. (The yes/no is Faris\'s read of the feedback, not a survey question.)' },
+  { id: 'atm-repitch', beat: 'hard-year', steps: ['atm-repitch'], camera: 'atm', notes: 'Which meant we had to completely change the language and the streams of how we sold, for every single part of funding the event.' },
+  { id: 'atm-dispense', beat: 'hard-year', steps: ['atm-dispense'], camera: 'atm-wide', notes: 'Card back, cash out. Then back to the projector for the road.' },
 
   // ── ZurichJS on the road: the trips between the anniversary and the conference ──
   {
