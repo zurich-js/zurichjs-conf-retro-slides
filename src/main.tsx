@@ -11,6 +11,7 @@ import './index.css'
 const srcs = new Set<string>(ASSETS)
 for (const v of Object.values(VISUALS) as Visual[]) {
   if (v.kind === 'image') srcs.add(v.src)
+  if (v.kind === 'moments') for (const m of v.moments) srcs.add(m.src)
   if (v.kind === 'journey') for (const person of Object.values(v.journey.people)) srcs.add(person.src)
 }
 

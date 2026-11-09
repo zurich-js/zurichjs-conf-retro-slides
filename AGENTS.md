@@ -40,6 +40,7 @@ src/
   content/visuals.ts  catalog: id → Visual            ← authoring
   content/slides.ts   running order: defineSlides()   ← authoring
   content/travel.ts   road-to-Zurich trips (journey globe data)
+  content/moments.ts  the road in pictures (photo, date, city, event) for `moments`
   engine/             types, validation, store, keys, URL params, frame loop
   painters/           kit.ts primitives + one painter per Kind (journey.ts: the globe)
   renderers/          FlatScreen, Stage (R3F + medium shader + camera rig), SlideIndex, Presenter
@@ -63,6 +64,7 @@ public/brand/         conf logos (copied from zurichjs-conf/public/images/logo),
                       rollup.svg (ZurichJS community roll-up art, 1000×2000, all vector),
                       skyline.svg (the skyline layers extracted from rollup.svg)
 public/sponsors/      sponsor logos from conf.zurichjs.com (white mono + -color)
+public/moments/       road photos, 720px, metadata (GPS) stripped
 public/team/          organiser photos from conf.zurichjs.com/about (320px), for the journey
 public/fonts/         Figtree variable TTFs (copied from zurichjs-conf)
 public/models/        .glb files for the set

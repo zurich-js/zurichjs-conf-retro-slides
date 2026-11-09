@@ -80,12 +80,12 @@ export const ROAD_TO_ZURICH: Journey = {
     { label: 'May to June 2026', end: 17 },
     { label: 'July to August 2026', end: 19 },
   ],
-  // Derived from the legs above; km assumes great-circle return trips from Zurich.
+  // Derived from the legs above, except km: about 110k per Faris (2026-11-09; great-circle legs alone give ~89k).
   stats: [
     { value: '16', label: 'Trips' },
     { value: '31', label: 'Events' },
     { value: '13', label: 'Countries' },
-    { value: '~89k', label: 'Km travelled' },
+    { value: '~110k', label: 'Km travelled' },
     { value: '4', label: 'Team trips' },
   ],
 }

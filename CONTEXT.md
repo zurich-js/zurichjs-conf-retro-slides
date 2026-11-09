@@ -100,6 +100,10 @@ Trips on the globe: legs (from, to, when, what, team), periods for the
 kicker, totals, and the travellers' photos. A leg from home to home is an
 event at home: a pulse, no flight.
 
+## Moment
+One photo on the road (`content/moments.ts`): date, city, event. Shown by the
+`moments` kind. Files in `public/moments/` are 720px with all metadata (GPS) stripped.
+
 ## Cutaway
 Set geometry that hides in the `map` cue so the overview can see inside:
 roofs, ceilings, the rig, the galleries. Done with render layers, never by
