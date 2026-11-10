@@ -444,7 +444,6 @@ export const VISUALS = {
       { label: 'A talk on stage', values: ['no', 'Add-on', 'yes', 'no'] },
     ],
   },
-  'sponsor-talks': { kind: 'statement', kicker: 'Elsewhere: a 20-minute sponsor talk, about CHF 6,600', text: 'At ZurichJS Conf, speaking slots were not for sale.', emphasis: 'not for sale.' },
   'refuse-talks': { kind: 'statement', kicker: 'An offer we turned down', text: 'CHF 15,000 today. What does it cost us tomorrow?', emphasis: 'cost us tomorrow?' },
   'sponsor-pipeline': {
     kind: 'numbers', kicker: 'Sponsorship, 2025 to 2026', title: 'The sponsors you see are the survivors',
@@ -496,6 +495,7 @@ export const VISUALS = {
     kind: 'atm', kicker: 'Sponsors', title: 'What would you like to fund?',
     options: [{ label: 'A booth' }, { label: 'A technical talk slot' }, { label: 'Your logo' }, { label: 'An AI conference instead' }],
     selected: [1], selectedTone: 'bad',
+    note: 'Elsewhere: a 20-minute sponsor talk, about CHF 6,600',
   },
   'atm-declined': {
     kind: 'atm', kicker: 'Sponsors · A technical talk slot', title: 'TRANSACTION DECLINED',

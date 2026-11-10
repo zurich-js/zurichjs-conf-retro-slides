@@ -48,7 +48,7 @@ Shares and counts only on slides; the only CHF amounts are the minimums and publ
 | `sponsor-pipeline`, `deal-fails` | **New**: hundreds of conversations, 24 signed; withdrew, laid off, pivoted, +20% penalty (GDPR in notes). |
 | `sponsor-prices` | Source line removed (kept in notes). |
 | `sponsor-get` | Verified against 2026 packages: lead capture, workshop, talk rows corrected. |
-| `sponsor-talks`, `refuse-talks` | CHF conversions; speaking slots not for sale; the CHF 15k offer. |
+| `refuse-talks` | The CHF 15k offer. (`sponsor-talks` merged into `atm-talk`: the CHF 6,600 note.) |
 | `money-late` | 12 months committed; 15 of 24 sponsor deals paid in the last three months; 56% of tickets in the last 100 days. |
 | `expensive` | Survey split: too expensive 3, slightly 11, just right 27, good 41, excellent 30 (n = 112). |
 | ATM run | `atm-ask` (empty), `atm-sponsors` (options), `atm-talk` (red), `atm-declined` (TRANSACTION DECLINED), `pitch-time`, `atm-ai` (request received), `pressure-top`, `atm-companies`, `atm-value`, `value-room`, `pressure-bottom`, `atm-speakers`, `ai-share`, `atm-attendees`, `atm-taste`, `substance`, `value-props`. |
@@ -328,7 +328,7 @@ Colour has fixed meanings across the talk: yellow = the point, blue = context, g
 | 33 | `sponsor-tiers` | Bar chart | Half our sponsors were the smallest tier · Paid sponsor deals by tier · Platinum 2 · Gold 2 · Silver 3 · Bronze 5 · Supporter 12 | Foifi screen, full frame | Half the deals at the smallest tier. | |
 | 34 | `sponsor-prices` | Bar chart | Our top tier: about half of React Summit's · React Summit 20,792 · React Advanced / Day Berlin 15,121 · React Norway 13,231 · ZurichJS 11,000 · DevOpsDays Zurich 8,000 (CHF) | Foifi screen, full frame | Official sponsor pages; per-head figures in the notes. | new |
 | 35 | `sponsor-get` | ✓/✗ grid | What a sponsor gets for the top tier: tickets, booth, leads, workshops, video, pitch time on stage, a technical talk | Foifi screen, full frame | | new |
-| 36 | `sponsor-talks` | Statement | Elsewhere · A 20-minute sponsor talk costs €7,000. Our technical talks were not for sale. | Foifi screen, full frame | React Summit add-on. | new |
+| 36 | `sponsor-talks` | Statement | Elsewhere · A 20-minute sponsor talk costs €7,000. Our technical talks were not for sale. | Foifi screen, full frame | React Summit add-on. | merged into `atm-talk` (10 Nov) |
 | 37 | `no-diamond` | Big number | 0 · Diamond sponsors. One cancelled, one never left draft. | Foifi screen, full frame |  | |
 | 38 | `lesson-diamond` | Strike | A weird lesson: sponsors are people · Diamond sponsor · LAID OFF · A week of research and pitching, then the contact was laid off or bailed. | Foifi screen, full frame | Faris's account. | new |
 | 39 | `money-late` | Bar chart | And the money came late · Sponsor deals paid per month, 2026 · Feb 1 · Mar 0 · Apr 0 · May 7 · Jun 1 · Jul 5 · Aug 7 · Sep 3 | Foifi screen, full frame | 15 of 24 were paid in the last three months. | |
