@@ -40,7 +40,7 @@ Shares and counts only on slides; the only CHF amounts are the minimums and publ
 | `why-fresh`, `why-home`, `why-missing` | **New**: why a conference; Front passed the baton (`front-book` retitled). |
 | `stakes-100k` | CHF 100k* with the bare-minimum footnote. |
 | `spend` | **New**: share of spend by line (organisers' estimate). Includes the conference venue (11%, relabelled from tech partner, 10 Nov). |
-| `stakes-no-cancel` | Timeline: committed 12 months out, exits expire, viability 1 to 3 months out, conference day. |
+| `stakes-no-cancel` | Timeline: committed 12 months out, the point of no return (exits expire), viability 1 to 3 months out, show time. Labels on arrows (10 Nov). |
 | `stakes-split` | CHF 33k each, at least. |
 | `stakes-worst` | **New**: fees, refunds, lost payment fees, penalties; worst case about double the minimum. |
 | `first-commit` | **Cut** (10 Nov): did not fit the story at this point. |

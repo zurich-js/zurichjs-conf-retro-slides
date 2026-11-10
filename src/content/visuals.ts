@@ -270,11 +270,10 @@ export const VISUALS = {
     kind: 'timeline', kicker: 'Signed. No way out.', title: 'You’re committed 12 months ahead. You find out if you can afford it 1 to 3 months before.',
     marks: [
       { at: 0, when: '12 months out', what: 'Venue and suppliers signed', tone: 'hero' },
-      { at: 0.33, when: 'Soon after', what: 'Penalty-free exits expire', tone: 'warn' },
+      { at: 0.33, when: 'Point of no return', what: 'Penalty-free exits expire', tone: 'warn' },
       { at: 0.67, when: '1 to 3 months out', what: 'Viability becomes clear', tone: 'neutral' },
-      { at: 1, when: 'Conference day', what: 'Deliver, whatever happened', tone: 'good' },
+      { at: 1, when: 'Show time', what: 'Deliver, whatever happened', tone: 'good' },
     ],
-    span: { from: 0.33, to: 0.67, label: 'Committed, not yet viable', tone: 'warn' },
   },
   'stakes-split': { kind: 'stat', value: 'CHF 33k', tone: 'warn', label: 'At least, each. Three organisers, no financial safety net: the minimum split three ways.' },
   'stakes-worst': {
