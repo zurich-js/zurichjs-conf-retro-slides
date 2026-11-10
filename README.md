@@ -4,7 +4,7 @@ The slides for **ZurichJS Conf retrospective**, a 40-minute talk on how ZurichJS
 
 ![Walking from the foyer into the hall](docs/screenshots/walk.gif)
 
-> **Status: in review.** 166 slides in nine chapters, the 3D venue and its set pieces are in place. Open items and the review history live in [`docs/storyline.md`](docs/storyline.md).
+> **Status: in review.** 165 slides in nine chapters, the 3D venue and its set pieces are in place. Open items and the review history live in [`docs/storyline.md`](docs/storyline.md).
 
 ## Where it starts
 

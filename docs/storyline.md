@@ -6,7 +6,7 @@ Working document for the team. It captures the storyline **as it is in the deck 
 
 ## Current state (9 Nov 2026, end of day)
 
-166 slides: the Foifi opening (10) and nine chapters: 1 Why on earth (12), 2 A hard year (62, with the road, the airport pricing, the venue flyover and the year in motion), 3 The machine (8), 4 Building the programme (7), 5 Filling the room (17), 6 The rollercoaster (7), 7 The week and the day (27), 8 What we learned (5), 9 The final numbers (11). Chapter openers 3 to 9 use the curtain.
+165 slides: the Foifi opening (10) and nine chapters: 1 Why on earth (11), 2 A hard year (62, with the road, the airport pricing, the venue flyover and the year in motion), 3 The machine (8), 4 Building the programme (7), 5 Filling the room (17), 6 The rollercoaster (7), 7 The week and the day (27), 8 What we learned (5), 9 The final numbers (11). Chapter openers 3 to 9 use the curtain.
 
 Since the sections below were written:
 - Cuts and merges (see below), and chapter 6 split into 6 and 7.
@@ -39,11 +39,11 @@ Shares and counts only on slides; the only CHF amounts are the minimums and publ
 | `chapters`, `no-diamond`, `price-sensitive`, `meetup-itch`, `lesson-diamond`, `atm-repitch`, `ai-changed` | **Cut** or replaced. |
 | `why-fresh`, `why-home`, `why-missing` | **New**: why a conference; Front passed the baton (`front-book` retitled). |
 | `stakes-100k` | CHF 100k* with the bare-minimum footnote. |
-| `spend` | **New**: share of spend by line (organisers' estimate). Venue hire missing from the estimate. |
-| `stakes-no-cancel` | Timeline: committed 12 months out, exits expire, viability 1 to 3 months out, conference day. |
+| `spend` | **New**: share of spend by line (organisers' estimate). Includes the conference venue (11%, relabelled from tech partner, 10 Nov). |
+| `stakes-no-cancel` | Timeline: committed 12 months out, the point of no return (exits expire), viability 1 to 3 months out, show time. Labels on arrows (10 Nov). |
 | `stakes-split` | CHF 33k each, at least. |
 | `stakes-worst` | **New**: fees, refunds, lost payment fees, penalties; worst case about double the minimum. |
-| `first-commit` | Timeline: 3 Nov 2025 first commit, 13 Nov first ticket. |
+| `first-commit` | **Cut** (10 Nov): did not fit the story at this point. |
 | `sponsor-tiers` | "Your first conference is a hard sell"; 12 of 24 at the smallest tier. |
 | `sponsor-pipeline`, `deal-fails` | **New**: hundreds of conversations, 24 signed; withdrew, laid off, pivoted, +20% penalty (GDPR in notes). |
 | `sponsor-prices` | Source line removed (kept in notes). |

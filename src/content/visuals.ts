@@ -255,7 +255,7 @@ export const VISUALS = {
       { label: 'Catering', value: 23.4, tone: 'hero' },
       { label: 'Speaker travel', value: 20.7, tone: 'hero' },
       { label: 'After-party', value: 10.9, tone: 'hero' },
-      { label: 'Tech partner', value: 10.9, tone: 'neutral' },
+      { label: 'Conference venue', value: 10.9, tone: 'neutral' },
       { label: 'T-shirts', value: 9.4, tone: 'neutral' },
       { label: 'Speaker dinner', value: 6.2, tone: 'hero' },
       { label: 'Media team', value: 4.7, tone: 'neutral' },
@@ -270,11 +270,10 @@ export const VISUALS = {
     kind: 'timeline', kicker: 'Signed. No way out.', title: 'You’re committed 12 months ahead. You find out if you can afford it 1 to 3 months before.',
     marks: [
       { at: 0, when: '12 months out', what: 'Venue and suppliers signed', tone: 'hero' },
-      { at: 0.33, when: 'Soon after', what: 'Penalty-free exits expire', tone: 'warn' },
+      { at: 0.33, when: 'Point of no return', what: 'Penalty-free exits expire', tone: 'warn' },
       { at: 0.67, when: '1 to 3 months out', what: 'Viability becomes clear', tone: 'neutral' },
-      { at: 1, when: 'Conference day', what: 'Deliver, whatever happened', tone: 'good' },
+      { at: 1, when: 'Show time', what: 'Deliver, whatever happened', tone: 'good' },
     ],
-    span: { from: 0.33, to: 0.67, label: 'Committed, not yet viable', tone: 'warn' },
   },
   'stakes-split': { kind: 'stat', value: 'CHF 33k', tone: 'warn', label: 'At least, each. Three organisers, no financial safety net: the minimum split three ways.' },
   'stakes-worst': {
@@ -382,13 +381,6 @@ export const VISUALS = {
       { cells: ['VIP TICKETS', '46'] },
       { cells: ['WORKSHOP SEATS', '80'], highlight: true },
       { cells: ['STUDENT, UNEMPLOYED', '33'] },
-    ],
-  },
-  'first-commit': {
-    kind: 'timeline', kicker: 'From code to a customer', title: 'Ten days from the first commit to the first ticket',
-    marks: [
-      { at: 0, when: '3 Nov 2025', what: 'First commit to our conference platform', tone: 'neutral' },
-      { at: 1, when: '13 Nov 2025', what: 'First ticket sold, at the anniversary', tone: 'hero' },
     ],
   },
 

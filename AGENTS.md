@@ -293,11 +293,11 @@ Copied into `PALETTE`; never import across repos.
   on the road** (the globe) as the answer; then the camera flies to Technopark.
 
 ## Deck content (current, 9 Nov 2026)
-- The talk is the **ZurichJS Conf retrospective**: 166 slides for a 40-minute
+- The talk is the **ZurichJS Conf retrospective**: 165 slides for a 40-minute
   slot, first scaffolded from `zurichjs-conf-retro-handoff.md` and reworked
   through the review passes logged in `docs/storyline.md`.
 - **Running order:** the opening at Foifi (10: cover to the meetup years) ·
-  1 Why on earth (12) · 2 A hard year (62, including the road globe and
+  1 Why on earth (11) · 2 A hard year (62, including the road globe and
   photos, the airport pricing block, the venue flyover, badges, people and
   the year in motion) · 3 The machine (8) · 4 Building the programme (7) ·
   5 Filling the room (17) · 6 The rollercoaster (7) · 7 The week and the day
@@ -403,5 +403,4 @@ Track here; resolve with Faris, then update code and move the line above.
 - [ ] **Facts to confirm** (see `docs/storyline.md`, Unverified figures):
       three vs four organisers on the hook; first ticket 13 Nov (Stripe
       export starts 25 Nov); Arnau's workshop started on time; the 3 to 5
-      minute worst delay; which sponsor gave out the hot sauce; venue hire
-      missing from the spend estimate.
+      minute worst delay; which sponsor gave out the hot sauce.
