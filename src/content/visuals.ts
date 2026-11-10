@@ -309,7 +309,6 @@ export const VISUALS = {
   },
   'price-compare': {
     kind: 'flapboard', title: 'Half the price of London',
-    source: 'Regular ticket, 2026 (JSWorld: 2027) · official pages · ECB, 11 Sep 2026',
     columns: [{ label: 'Destination', width: 22 }, { label: 'Ticket', width: 7, align: 'right' }],
     rows: [
       { cells: ['REACT PARIS', 'CHF 614'] },
@@ -324,7 +323,6 @@ export const VISUALS = {
   },
   'value-grid': {
     kind: 'flapboard', title: 'What the ticket gets you',
-    source: 'Official sites and ticket pages, 2026 (JSWorld price: 2027) · ? not listed on their pages, NO not included',
     columns: [
       { label: 'Included', width: 18 }, { label: 'ZurichJS', width: 5 }, { label: 'Berlin', width: 5 },
       { label: 'Summit', width: 5 }, { label: 'Paris', width: 5 }, { label: 'JSWorld', width: 5 },
@@ -345,7 +343,6 @@ export const VISUALS = {
   },
   'workshop-compare': {
     kind: 'flapboard', title: 'Workshops at Paris prices, in Zurich',
-    source: 'List price · React Paris official site · ECB rate 11 Sep 2026',
     columns: [{ label: 'Workshop', width: 18 }, { label: 'Length', width: 6 }, { label: 'Price', width: 7, align: 'right' }],
     rows: [
       { cells: ['ZURICHJS CONF', '4H', 'CHF 250'], highlight: true },
@@ -376,7 +373,6 @@ export const VISUALS = {
   },
   'vip-invested': {
     kind: 'flapboard', title: 'VIP buyers took more workshops',
-    source: 'Our analytics · tracked checkouts, matched by email · not every sale',
     columns: [{ label: 'Ticket', width: 15 }, { label: 'Buyers', width: 6, align: 'right' }, { label: 'Took a workshop', width: 15, align: 'right' }],
     rows: [
       { cells: ['STANDARD', '171', '5%'] },
@@ -426,7 +422,6 @@ export const VISUALS = {
   },
   'sponsor-get': {
     kind: 'matrix', kicker: 'The top tier', title: 'What a sponsor gets for it',
-    source: '? not listed in their 2026 packages',
     columns: [
       { label: 'ZurichJS', sub: 'CHF 11k' },
       { label: 'React Summit', sub: 'CHF 21k' },
