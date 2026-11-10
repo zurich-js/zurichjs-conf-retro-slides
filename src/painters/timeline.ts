@@ -1,11 +1,13 @@
-import { type Roles, TYPE } from '../brand/tokens'
+import { type Roles, FRAME, TYPE } from '../brand/tokens'
 import type { Visual } from '../engine/types'
-import { type Ctx, enter, label, SAFE, text, window01, wrap } from './kit'
+import { type Ctx, enter, label, labelLines, SAFE, text, window01, wrap } from './kit'
 
 /**
  * The `timeline` painter: a horizontal line with dated marks (when above,
  * what below), drawn left to right. An optional `span` shades a stretch of
- * the line (e.g. the months committed but not yet viable) with its own label.
+ * the line (e.g. the months committed but not yet viable), its label inside.
+ * Each mark's date and description sit at the end of an arrow from its dot,
+ * alternating above and below the line so neighbours never crowd.
  * Positions (`at`) are 0–1 along the line, so the drawing is schematic: it
  * shows order and rough distance, not a measured scale.
  */
@@ -28,49 +30,77 @@ export function paintTimeline(ctx: Ctx, v: TimelineVisual, p: number, r: Roles) 
 
   const x0 = SAFE.left + 60
   const x1 = SAFE.left + SAFE.width - 60
-  const lineY = Math.max(y + 330, (SAFE.top + SAFE.bottom) / 2 + 90)
+  // The line sits midway between the title and the wordmark; labels alternate above and below it.
+  const lineY = Math.round((y + FRAME.height - 220) / 2) + 40
   const draw = window01(p, 0.1, 0.75)
   const at = (t: number) => x0 + (x1 - x0) * t
 
-  if (v.span) {
-    const a = window01(p, 0.55, 0.9)
-    const sx = at(v.span.from)
-    const sw = at(v.span.to) - sx
-    ctx.save()
-    ctx.globalAlpha *= a * 0.28
-    ctx.fillStyle = r.tone(v.span.tone ?? 'warn')
-    ctx.fillRect(sx, lineY - 30, sw, 60)
-    ctx.restore()
-    label(ctx, v.span.label, sx + sw / 2, lineY + 100, r.tone(v.span.tone ?? 'warn'), { align: 'center', alpha: a })
-  }
   ctx.save()
   ctx.strokeStyle = r.textMuted
   ctx.lineWidth = 6
   ctx.beginPath(); ctx.moveTo(x0, lineY); ctx.lineTo(x0 + (x1 - x0) * draw, lineY); ctx.stroke()
   ctx.restore()
 
+  if (v.span) {
+    // A tinted band between two marks, its label inside it (clear of the marks' labels).
+    const a = window01(p, 0.55, 0.9)
+    const color = r.tone(v.span.tone ?? 'warn')
+    const sx = at(v.span.from) + 50
+    const sw = at(v.span.to) - 50 - sx
+    const lines = labelLines(ctx, v.span.label, sw - 60, TYPE.size.label)
+    const h = lines.length * TYPE.size.label * 1.3 + 50
+    ctx.save()
+    ctx.globalAlpha *= a
+    ctx.fillStyle = r.bg
+    ctx.beginPath(); ctx.roundRect(sx, lineY - h / 2, sw, h, 24); ctx.fill()
+    ctx.globalAlpha *= 0.22
+    ctx.fillStyle = color
+    ctx.fill()
+    ctx.restore()
+    ctx.save(); ctx.globalAlpha *= a; ctx.strokeStyle = color; ctx.lineWidth = 4
+    ctx.beginPath(); ctx.roundRect(sx, lineY - h / 2, sw, h, 24); ctx.stroke(); ctx.restore()
+    lines.forEach((l, k) => label(ctx, l, sx + sw / 2, lineY - h / 2 + 25 + TYPE.size.label * 0.95 + k * TYPE.size.label * 1.3, color, { align: 'center', alpha: a }))
+  }
+
   const n = v.marks.length
-  const colW = (x1 - x0) / Math.max(1, n - 1)
+  // Labels on one side are two marks apart, so each may take most of that gap.
+  const gap = (x1 - x0) / Math.max(1, n - 1)
+  const maxW = Math.min(n > 2 ? gap * 1.6 : gap * 0.45, 760)
+  const whenSize = TYPE.size.body * 0.85
+  const whatSize = TYPE.size.body * 0.85
+  const ARM = 90
   v.marks.forEach((m, i) => {
     const mx = at(m.at)
     const a = window01(p, 0.15 + (m.at * 0.6), 0.35 + (m.at * 0.6))
     const color = r.tone(m.tone ?? 'hero')
+    const up = i % 2 === 0
+    const dir = up ? -1 : 1
     ctx.save()
     ctx.globalAlpha *= a
     ctx.fillStyle = color
     ctx.beginPath(); ctx.arc(mx, lineY, 22, 0, Math.PI * 2); ctx.fill()
+    // The arrow: from the dot out to its label.
+    const y0 = lineY + dir * 40
+    const tip = lineY + dir * (40 + ARM)
+    ctx.strokeStyle = color; ctx.lineWidth = 6; ctx.lineCap = 'round'
+    ctx.beginPath(); ctx.moveTo(mx, y0); ctx.lineTo(mx, tip - dir * 14); ctx.stroke()
+    ctx.beginPath(); ctx.moveTo(mx, tip); ctx.lineTo(mx - 16, tip - dir * 26); ctx.lineTo(mx + 16, tip - dir * 26); ctx.closePath(); ctx.fill()
     ctx.restore()
     // Ends align outward so their text stays inside the safe area.
     const align: CanvasTextAlign = i === 0 ? 'left' : i === n - 1 ? 'right' : 'center'
     const tx = i === 0 ? mx - 22 : i === n - 1 ? mx + 22 : mx
-    // Ends grow inward from the edge, middles are centred: each gets a width that cannot reach a neighbour.
-    const maxW = Math.min(n > 2 ? colW * (i === 0 || i === n - 1 ? 0.6 : 0.85) : colW * 0.45, 640)
-    const whenSize = TYPE.size.body * 0.8
     const whenLines = wrap(ctx, m.when, maxW, whenSize, TYPE.weight.black)
-    whenLines.forEach((l, k) => text(ctx, l, tx, lineY - 70 - (whenLines.length - 1 - k) * whenSize * TYPE.lineHeight, { size: whenSize, weight: TYPE.weight.black, tracking: D, color, align, alpha: a }))
-    const wl = wrap(ctx, m.what, maxW, TYPE.size.body * 0.8, TYPE.weight.medium)
-    wl.forEach((l, k) => text(ctx, l, tx, lineY + (v.span ? 190 : 110) + k * TYPE.size.body * 0.8 * TYPE.bodyLineHeight, {
-      size: TYPE.size.body * 0.8, weight: TYPE.weight.medium, color: r.textSoft, align, alpha: a,
-    }))
+    const whatLines = wrap(ctx, m.what, maxW, whatSize, TYPE.weight.bold)
+    const rows = [
+      ...whenLines.map((l) => ({ l, size: whenSize, weight: TYPE.weight.black, color, lh: TYPE.lineHeight })),
+      ...whatLines.map((l) => ({ l, size: whatSize, weight: TYPE.weight.bold, color: r.text, lh: TYPE.bodyLineHeight })),
+    ]
+    const heights = rows.map((row) => row.size * row.lh)
+    const total = heights.reduce((s2, h) => s2 + h, 0)
+    let ty = up ? tip - 24 - total : tip + 24
+    rows.forEach((row, k) => {
+      text(ctx, row.l, tx, ty + row.size * 0.85, { size: row.size, weight: row.weight, tracking: k < whenLines.length ? D : 0, color: row.color, align, alpha: a })
+      ty += heights[k]!
+    })
   })
 }
