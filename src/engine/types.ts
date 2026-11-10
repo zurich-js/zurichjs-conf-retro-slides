@@ -217,6 +217,21 @@ export type Visual = Base &
         peak?: string
       }
     | {
+        kind: 'booking'
+        /** The airline whose app it is (text only, no logo). */
+        app: string
+        /** Beside the phone on the flat slide. */
+        kicker: string
+        title: string
+        /** Airport code and city at each end. */
+        from: { code: string; city: string }
+        to: { code: string; city: string }
+        when: string
+        what: string
+        /** The fare picked on the results screen, e.g. "Economy · direct". */
+        fare: string
+      }
+    | {
         kind: 'split'
         title: string
         kicker?: string
@@ -310,6 +325,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   journey: 'dark',
   video: 'dark',
   split: 'dark',
+  booking: 'dark',
   checkout: 'dark',
   timeline: 'dark',
 }
@@ -318,7 +334,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
  * Named camera destinations. `screen` is solved in src/renderers/Stage.tsx;
  * the rest are measured poses in src/scene/venue.ts (CUES).
  */
-export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats', 'lanyards', 'laptop', 'shuttle', 'seat-full', 'wings', 'walk-on', 'signing'] as const
+export const CAMERA_CUES = ['screen', 'stage', 'room', 'letters', 'podium', 'booth', 'rig', 'wall', 'foyer', 'merch', 'atrium', 'booths', 'badges', 'map', 'projector', 'foifi-full', 'foifi', 'foifi-screen', 'deploy', 'cake', 'cabin', 'seat', 'gate', 'gate-full', 'apron', 'atm', 'atm-wide', 'aerial', 'seats', 'lanyards', 'laptop', 'shuttle', 'seat-full', 'wings', 'walk-on', 'signing', 'phone', 'phone-full'] as const
 export type CameraCue = (typeof CAMERA_CUES)[number]
 
 export interface Slide {

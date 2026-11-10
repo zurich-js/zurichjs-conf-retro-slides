@@ -39,7 +39,7 @@ const WALK_SECS = 4.6
 const sine = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2
 
 /** A simple figure in the deck's avatar language, with arms and legs that can move. */
-function Figure({ tee, refs }: { tee: string; refs: { arm: React.RefObject<THREE.Group | null>; legs: React.RefObject<(THREE.Group | null)[]> } }) {
+export function Figure({ tee, refs }: { tee: string; refs: { arm: React.RefObject<THREE.Group | null>; legs: React.RefObject<(THREE.Group | null)[]> } }) {
   const print = useTeamPrint()
   return (
     <group>

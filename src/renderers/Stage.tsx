@@ -10,7 +10,7 @@ import { CUE, DEBUG, STILL } from '../engine/params'
 import { slides } from '../content/slides'
 import { CAMERA_CUES, type CameraCue } from '../engine/types'
 import { Set } from '../scene/Set'
-import { CUES, FLOOR, FOIFI_IMAGE, GATE_IMAGE, SEAT_IMAGE, HALL, PROJECTOR_PANEL, M, routeBetween, SCREEN, type SolvedCue, type Space } from '../scene/venue'
+import { CUES, FLOOR, FOIFI_IMAGE, GATE_IMAGE, PHONE_IMAGE, PHONE_TURN_SECS, SEAT_IMAGE, HALL, PROJECTOR_PANEL, M, routeBetween, SCREEN, type SolvedCue, type Space } from '../scene/venue'
 import { MASK } from '../scene/layers'
 
 export { SCREEN }
@@ -56,13 +56,13 @@ const POSES = Object.fromEntries(
       fov: c.fov,
       base: c.fov,
       space: c.space ?? 'hall',
-      enter: c.enter && { from: c.enter.from, follow: !!c.enter.follow, seconds: c.enter.seconds ?? REVEAL, turn: c.enter.turn ?? ([0.35, 0.95] as const), via: c.enter.via.map((w) => new THREE.Vector3(...w).multiplyScalar(M)) },
+      enter: c.enter && { from: c.enter.from, follow: !!c.enter.follow, seconds: c.enter.seconds ?? REVEAL, watch: c.enter.watch && new THREE.Vector3(...c.enter.watch).multiplyScalar(M), turn: c.enter.turn ?? ([0.35, 0.95] as const), via: c.enter.via.map((w) => new THREE.Vector3(...w).multiplyScalar(M)) },
     },
   ]),
 ) as Record<Exclude<CameraCue, SolvedCue>, Pose>
 const SCREEN_POSE: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'hall' }
 
-interface Pose { pos: THREE.Vector3; target: THREE.Vector3; fov: number; base?: number; space: Space; enter?: { from: CameraCue; via: THREE.Vector3[]; follow: boolean; seconds: number; turn: readonly [number, number] } }
+interface Pose { pos: THREE.Vector3; target: THREE.Vector3; fov: number; base?: number; space: Space; enter?: { from: CameraCue; via: THREE.Vector3[]; follow: boolean; watch?: THREE.Vector3; seconds: number; turn: readonly [number, number] } }
 
 /** 'screen' is solved per aspect; every other cue is a measured pose in the venue. */
 const PROJECTOR_POSE: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'foifi' }
@@ -70,6 +70,8 @@ const FOIFI_FULL: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3()
 
 const GATE_FULL: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'gate' }
 const SEAT_FULL: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'plane' }
+// From the phone in his hand: a slow close-in while the phone turns landscape (Caller.tsx).
+const PHONE_FULL: Pose = { pos: new THREE.Vector3(), target: new THREE.Vector3(), fov: 35, space: 'foifi', enter: { from: 'phone', via: [], follow: false, seconds: PHONE_TURN_SECS, turn: [0, 1] } }
 
 /** Fill the viewport with an image facing +z (facing = 1) or −z (facing = −1). */
 function fill(pose: Pose, img: { width: number; centre: readonly [number, number, number] }, facing: 1 | -1, aspect: number) {
@@ -85,6 +87,8 @@ function cue(name: CameraCue, aspect: number) {
   if (name === 'gate-full') return fill(GATE_FULL, GATE_IMAGE, 1, aspect)
   // The seat-back screen in front of 15C faces back down the cabin (−z), toward us.
   if (name === 'seat-full') return fill(SEAT_FULL, SEAT_IMAGE, -1, aspect)
+  // Faris's phone, held landscape, its screen facing him (+z).
+  if (name === 'phone-full') return fill(PHONE_FULL, PHONE_IMAGE, 1, aspect)
   if (name === 'foifi-full') {
     // Foifi's projector screen fills the viewport, like 'screen' does in the hall.
     const [x, y, z] = FOIFI_IMAGE.centre
@@ -250,6 +254,7 @@ const spaceOf = (name: CameraCue): Space =>
   : name === 'projector' || name === 'foifi-full' ? 'foifi'
   : name === 'gate-full' ? 'gate'
   : name === 'seat-full' ? 'plane'
+  : name === 'phone-full' ? 'foifi'
   : (CUES[name].space ?? 'hall')
 const ROOF = (FLOOR + HALL.ridge + 0.3) * M
 
@@ -385,7 +390,12 @@ function CameraRig() {
         look.lerpVectors(tmp.b, c.target, smooth(0.7, 1, e))
       } else if (mv.reveal) {
         // Keep watching what we came out of, then flip round to the subject.
-        look.lerpVectors(mv.fromLook, c.target, smooth(c.enter!.turn[0], c.enter!.turn[1], e))
+        const [t0, t1] = c.enter!.turn
+        if (c.enter!.watch) {
+          // Find someone first, keep them in view, then turn to the subject.
+          tmp.b.lerpVectors(mv.fromLook, c.enter!.watch, smooth(0, Math.min(0.25, t0), e))
+          look.lerpVectors(tmp.b, c.target, smooth(t0, t1, e))
+        } else look.lerpVectors(mv.fromLook, c.target, smooth(t0, t1, e))
       } else if (mv.walk) {
         // Eyes level, looking down the route, then turning to the subject.
         mv.xz.getPointAt(Math.min(1, e + 0.1), tmp.b)

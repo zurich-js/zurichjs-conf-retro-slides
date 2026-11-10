@@ -45,7 +45,7 @@ src/
   content/moments.ts  the road in pictures (photo, date, city, event) for `moments`
   engine/             types, validation, store, keys, URL params, frame loop
   painters/           kit.ts primitives + one painter per Kind (journey.ts: the globe; inbox.ts: CFP;
-                      checkout.ts: card payments; split.ts, timeline.ts; atm.ts; video in index.ts)
+                      checkout.ts: card payments; booking.ts: airline app; split.ts, timeline.ts; atm.ts; video in index.ts)
   renderers/          FlatScreen, Stage (R3F + medium shader + camera rig), SlideIndex, Presenter
   scene/venue.ts      Technopark auditorium in METRES: dims, surfaces, lights, CUES
   scene/textures.ts   procedural, deterministic canvas textures (built once)
@@ -70,6 +70,7 @@ src/
   scene/Dressing.tsx    wraps event dressing: rises out of the floor as `dressed` goes 0 → 1, strips instantly
   scene/WalkOn.tsx      the wings: an organiser (Nadja) mics up the speaker; the speaker walks to the podium
   scene/StagePieces.tsx drawing table, e18e panel (`panel`), group photo crowd (`group-photo`)
+  scene/Caller.tsx      Faris in Foifi with his phone: books the first flight (portrait), turns it landscape for the road
   scene/Roads.tsx       Technopark ↔ airport road, cars with speaker portraits, delayed planes holding (`shuttle`)
 public/brand/         conf logos (copied from zurichjs-conf/public/images/logo),
                       technopark.png (venue logo, technopark-allianz.ch),
@@ -190,7 +191,7 @@ Copied into `PALETTE`; never import across repos.
   Portals live in `PORTALS` (venue.ts); a new room needs a portal.
 - **Camera cues**: `screen` (solved) · `stage` · `room` · `letters` · `podium`
   · `booth` · `rig` · `wall` · `foyer` · `badges` · `merch` · `atrium` ·
-  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle` · `seat-full` · `wings` · `walk-on` · `signing`. Poses
+  `booths` · `map` · `cabin` · `seat` · `gate` · `gate-full` · `apron` · `atm` · `atm-wide` · `aerial` · `seats` · `laptop` · `shuttle` · `seat-full` · `wings` · `walk-on` · `signing` · `phone` · `phone-full`. Poses
   live in `CUES` (venue.ts). Each cue has a `space` (`hall` | `booth` |
   `foyer` | `atrium` | `map` | `foifi` | `plane` | `gate` | `city`); moves
   inside a room glide, so a new cue needs a clear line to its neighbours in
@@ -278,16 +279,25 @@ Copied into `PALETTE`; never import across repos.
   pressure, companies, speakers, the CFP, attendees, four value propositions,
   card and cash out (see Revision batches). Survey and CFP numbers are
   sourced; the rest is Faris's account.
+- **Booking the road (Faris, 10 Nov 2026):** after the ATM's cash out the
+  camera turns to find Faris in Foifi (his portrait over the avatar) and
+  settles over his shoulder (`phone`): on his phone, held portrait, an
+  airline app (`booking` kind, SWISS as text, no logo, no prices) searches
+  ZRH to JFK, picks the flight, pays, Booked. On `road` the phone turns
+  landscape as the camera dives into it (`phone-full`) and the globe plays.
+- **Cover to anniversary:** a slow 12 s reveal: out of the projector's lens,
+  a half circle round the projector under the pothos, back to the whole
+  room, then in to the slide (`foifi-screen`'s `enter`).
 - After the meetup numbers, still at Foifi (the agenda slide was cut, 9 Nov): chapter 1 (why on
   earth) and chapter 2 (the hard market, our three problems), then **ZurichJS
   on the road** (the globe) as the answer; then the camera flies to Technopark.
 
 ## Deck content (current, 9 Nov 2026)
-- The talk is the **ZurichJS Conf retrospective**: 165 slides for a 40-minute
+- The talk is the **ZurichJS Conf retrospective**: 166 slides for a 40-minute
   slot, first scaffolded from `zurichjs-conf-retro-handoff.md` and reworked
   through the review passes logged in `docs/storyline.md`.
 - **Running order:** the opening at Foifi (10: cover to the meetup years) ·
-  1 Why on earth (12) · 2 A hard year (61, including the road globe and
+  1 Why on earth (12) · 2 A hard year (62, including the road globe and
   photos, the airport pricing block, the venue flyover, badges, people and
   the year in motion) · 3 The machine (8) · 4 Building the programme (7) ·
   5 Filling the room (17) · 6 The rollercoaster (7) · 7 The week and the day

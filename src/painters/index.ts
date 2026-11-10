@@ -16,6 +16,7 @@ import { CHATTER_SECS, paintChatter } from './chatter'
 import { ARRIVALS_SECS, paintArrivals } from './arrivals'
 import { paintMatrix } from './matrix'
 import { paintSplit, SPLIT_SECS } from './split'
+import { BOOKING_SECS, paintBooking } from './booking'
 import { CHECKOUT_SECS, paintCheckout } from './checkout'
 import { paintTimeline, TIMELINE_SECS } from './timeline'
 
@@ -370,10 +371,11 @@ const pipeline: Painter<'pipeline'> = paintPipeline
 const chatter: Painter<'chatter'> = paintChatter
 const arrivals: Painter<'arrivals'> = paintArrivals
 const split: Painter<'split'> = paintSplit
+const booking: Painter<'booking'> = paintBooking
 const checkout: Painter<'checkout'> = paintCheckout
 const timeline: Painter<'timeline'> = paintTimeline
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals, video: vid, split, timeline, checkout }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals, video: vid, split, timeline, checkout, booking }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear
@@ -382,6 +384,7 @@ const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement,
 export function drawTiming(visual: Visual | undefined): { secs: number; linear: boolean } {
   if (visual?.kind === 'video') return { secs: visual.seconds, linear: true }
   if (visual?.kind === 'split') return { secs: SPLIT_SECS, linear: false }
+  if (visual?.kind === 'booking') return { secs: BOOKING_SECS, linear: true }
   if (visual?.kind === 'checkout') return { secs: CHECKOUT_SECS, linear: true }
   if (visual?.kind === 'timeline') return { secs: TIMELINE_SECS, linear: false }
   if (visual?.kind === 'journey') return { secs: journeySeconds(visual), linear: true }

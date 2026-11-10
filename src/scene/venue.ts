@@ -194,6 +194,21 @@ export const ATM = { x: 15.62, z: 9.2, depth: 0.45, screen: { width: 0.42, y: 1.
 /** World metres of a point in the ATM's local frame. */
 export const atmPoint = (x: number, y: number, z: number) => foifi(ATM.x - z, y, ATM.z + x)
 
+/**
+ * Faris in Foifi, booking the first flight on his phone (Foifi local frame):
+ * standing by the cash machine, facing the screen wall (−z), the phone in
+ * his right hand, its screen facing him (+z). Held portrait to book (`long` is
+ * the screen's long side); turned landscape for the road.
+ */
+/** Seconds of the phone → phone-full move; the phone turns landscape in its first half (before the slide changes). */
+export const PHONE_TURN_SECS = 3
+export const CALLER = { x: 13.3, z: 9.7, phone: { x: 13.14, y: 1.36, z: 9.34, long: 0.1244 } } as const
+/** The phone's screen turned landscape (metres): width and centre, facing +z. */
+export const PHONE_IMAGE = {
+  width: CALLER.phone.long,
+  centre: [FOIFI.x + CALLER.phone.x - FOIFI.width / 2, FLOOR + CALLER.phone.y, FOIFI.z + CALLER.phone.z + 0.0005] as const,
+}
+
 /** The image on Foifi's projector screen (metres): width and centre, facing +z. */
 export const FOIFI_IMAGE = {
   width: 3.0,
@@ -272,7 +287,7 @@ export const ROAD: readonly (readonly [number, number])[] = [
 ]
 
 /** Cues solved per aspect so an image exactly fills the viewport. */
-export type SolvedCue = 'screen' | 'projector' | 'foifi-full' | 'gate-full' | 'seat-full'
+export type SolvedCue = 'screen' | 'projector' | 'foifi-full' | 'gate-full' | 'seat-full' | 'phone-full'
 /** A point in Foifi's local frame (metres) → world metres. */
 export const foifi = (x: number, y: number, z: number): readonly [number, number, number] =>
   [FOIFI.x + x - FOIFI.width / 2, FLOOR + y, FOIFI.z + z]
@@ -443,6 +458,8 @@ export interface CuePose {
     via: readonly (readonly [number, number, number])[]
     /** Look down the route while moving (following someone), instead of back at where we came from. */
     follow?: boolean
+    /** Look at this point during the move (before `turn`), instead of what we came out of. */
+    watch?: readonly [number, number, number]
     /** Seconds the entrance takes (default 4.6). */
     seconds?: number
     /** Part of the move (0–1) over which the eyes turn from what we came out of to the subject (default 0.35–0.95). */
@@ -488,6 +505,18 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
     // Out of the projector's eye: back away along the beam, swing round the
     // projector, flip to face the screen the slide is projected on.
     enter: { from: 'projector', via: [foifi(8, 3.05, 5.2), foifi(10.9, 2.5, 8.2)] },
+  },
+  /**
+   * Over Faris's right shoulder, his phone in hand: the booking on its screen.
+   * From the cash machine, the camera turns to find him, circles round in
+   * front of him, then settles behind his shoulder.
+   */
+  phone: {
+    pos: foifi(13.1, 1.55, 9.88), target: foifi(CALLER.phone.x, CALLER.phone.y, CALLER.phone.z), fov: 18, space: 'foifi',
+    enter: {
+      from: 'atm-wide', seconds: 7, turn: [0.72, 0.95], watch: foifi(CALLER.x, 1.5, CALLER.z),
+      via: [foifi(14.0, 1.62, 8.3), foifi(12.9, 1.64, 8.0), foifi(12.3, 1.64, 9.2), foifi(12.6, 1.62, 10.2)],
+    },
   },
   /** At the cash machine: close on its screen, straight on. */
   atm: { pos: atmPoint(-0.04, ATM.screen.y + 0.1, 0.82), target: atmPoint(-0.04, ATM.screen.y, 0.15), fov: 36, space: 'foifi' },
