@@ -515,9 +515,9 @@ export const VISUALS = {
     message: 'Request received.', tone: 'neutral', detail: 'AI where it is relevant and credible. Not a new identity.',
   },
   'pressure-top': {
-    kind: 'atm', kicker: 'Top-down pressure', title: 'Who pays wants a say.',
-    options: [{ label: 'Sponsors' }, { label: 'Companies: AI only' }, { label: 'Marketing budgets' }, { label: 'AI hype' }],
-    message: 'Push: AI branding, visibility, speaking slots.', tone: 'warn',
+    kind: 'atm', kicker: 'Top-down pressure', title: 'The people paying wanted AI.',
+    options: [{ label: 'Sponsors: more AI on stage' }, { label: 'Sponsors: buy a talk' }, { label: 'Companies: AI or no tickets' }],
+    message: 'We stayed a JavaScript conference.', tone: 'warn',
   },
   'atm-value': {
     kind: 'atm', kicker: 'Companies and experienced engineers', title: 'Why should I spend a day there?',
