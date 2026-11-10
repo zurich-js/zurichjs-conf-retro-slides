@@ -443,6 +443,10 @@ export interface CuePose {
     via: readonly (readonly [number, number, number])[]
     /** Look down the route while moving (following someone), instead of back at where we came from. */
     follow?: boolean
+    /** Seconds the entrance takes (default 4.6). */
+    seconds?: number
+    /** Part of the move (0–1) over which the eyes turn from what we came out of to the subject (default 0.35–0.95). */
+    turn?: readonly [number, number]
   }
   /** Defaults to 'hall'. */
   space?: Space
@@ -490,7 +494,17 @@ export const CUES: Readonly<Record<Exclude<CameraCue, SolvedCue>, CuePose>> = {
   /** At the cash machine, stepped back: screen, card slot, keypad and the cash slot. */
   'atm-wide': { pos: atmPoint(0.12, 1.56, 1.45), target: atmPoint(0.02, 1.32, 0.16), fov: 58, space: 'foifi' },
   /** Pause im Foifi, close on the projector screen under the hanging plants. */
-  'foifi-screen': { pos: foifi(8.0, 1.5, 5.6), target: foifi(8.0, 2.05, 0.9), fov: 46, space: 'foifi' },
+  'foifi-screen': {
+    pos: foifi(8.0, 1.5, 5.6), target: foifi(8.0, 2.05, 0.9), fov: 46, space: 'foifi',
+    // Out of the projector's eye, slowly: back away along the beam, circle the
+    // projector from its lens round to its back, rise to the whole room from
+    // the back, then push in to the slide on the screen.
+    enter: {
+      // Kept under the hanging pothos (they reach down to about 2 m).
+      from: 'projector', seconds: 12, turn: [0.33, 0.5],
+      via: [foifi(8, 3.05, 6.3), foifi(8.95, 2.85, 6.95), foifi(9.0, 2.75, 8.25), foifi(8.1, 2.75, 8.65), foifi(8.9, 2.6, 10.6), foifi(8.6, 2.45, 12.1), foifi(8.0, 2.0, 9.6)],
+    },
+  },
   /** Over the laptop where conf.zurichjs.com went live, screen beyond. */
   deploy: { pos: foifi(5.4, 0.95, 2.52), target: foifi(5.4, 0.885, 2.22), fov: 40, space: 'foifi' },
   /** The anniversary cake on the "new Date()" flyer. */
