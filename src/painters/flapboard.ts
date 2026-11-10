@@ -76,6 +76,9 @@ export function paintFlapboard(ctx: Ctx, v: FlapVisual, p: number, r: Roles) {
   const tileH = tileW * TALL
   const rowPitch = tileH * 1.1
   const fontSize = tileH * 0.74
+  // A short board (width-bound) would hug the title and leave the bottom
+  // empty: centre it in the space left. The title stays put across boards.
+  y += Math.max(0, avail - v.rows.length * rowPitch) / 2
   const startX = SAFE.left
   const colX: number[] = []
   let cx = startX
