@@ -275,6 +275,17 @@ export const VISUALS = {
       { at: 1, when: 'Show time', what: 'Deliver, whatever happened', tone: 'good' },
     ],
   },
+  'stakes-bets': {
+    kind: 'numbers', kicker: 'And then you bet on the day', title: 'No insurance covers any of it',
+    items: [
+      { value: '100', label: 'Promises, all kept on the same day' },
+      { value: 'Flights', label: 'Every speaker lands in time' },
+      { value: 'Talks', label: 'Each one matches its abstract' },
+      { value: 'Weather', label: 'Good for the after-party', tone: 'neutral' },
+      { value: 'Nature', label: 'No natural disasters', tone: 'neutral' },
+      { value: 'Insurance', label: 'None that covers this', tone: 'warn' },
+    ],
+  },
   'stakes-split': { kind: 'stat', value: 'CHF 33k', tone: 'warn', label: 'At least, each. Three organisers, no financial safety net: the minimum split three ways.' },
   'stakes-worst': {
     kind: 'numbers', kicker: 'And if it had failed after we signed', title: 'Worst case: about double the minimum',
@@ -433,7 +444,6 @@ export const VISUALS = {
       { label: 'A talk on stage', values: ['no', 'Add-on', 'yes', 'no'] },
     ],
   },
-  'sponsor-talks': { kind: 'statement', kicker: 'Elsewhere: a 20-minute sponsor talk, about CHF 6,600', text: 'At ZurichJS Conf, speaking slots were not for sale.', emphasis: 'not for sale.' },
   'refuse-talks': { kind: 'statement', kicker: 'An offer we turned down', text: 'CHF 15,000 today. What does it cost us tomorrow?', emphasis: 'cost us tomorrow?' },
   'sponsor-pipeline': {
     kind: 'numbers', kicker: 'Sponsorship, 2025 to 2026', title: 'The sponsors you see are the survivors',
@@ -485,6 +495,7 @@ export const VISUALS = {
     kind: 'atm', kicker: 'Sponsors', title: 'What would you like to fund?',
     options: [{ label: 'A booth' }, { label: 'A technical talk slot' }, { label: 'Your logo' }, { label: 'An AI conference instead' }],
     selected: [1], selectedTone: 'bad',
+    note: 'Elsewhere: a 20-minute sponsor talk, about CHF 6,600',
   },
   'atm-declined': {
     kind: 'atm', kicker: 'Sponsors · A technical talk slot', title: 'TRANSACTION DECLINED',
@@ -504,9 +515,9 @@ export const VISUALS = {
     message: 'Request received.', tone: 'neutral', detail: 'AI where it is relevant and credible. Not a new identity.',
   },
   'pressure-top': {
-    kind: 'atm', kicker: 'Top-down pressure', title: 'Who pays wants a say.',
-    options: [{ label: 'Sponsors' }, { label: 'Companies: AI only' }, { label: 'Marketing budgets' }, { label: 'AI hype' }],
-    message: 'Push: AI branding, visibility, speaking slots.', tone: 'warn',
+    kind: 'atm', kicker: 'Top-down pressure', title: 'The people paying wanted AI.',
+    options: [{ label: 'Sponsors: more AI on stage' }, { label: 'Sponsors: buy a talk' }, { label: 'Companies: AI or no tickets' }],
+    message: 'We stayed a JavaScript conference.', tone: 'warn',
   },
   'atm-value': {
     kind: 'atm', kicker: 'Companies and experienced engineers', title: 'Why should I spend a day there?',
