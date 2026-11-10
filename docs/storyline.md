@@ -6,7 +6,7 @@ Working document for the team. It captures the storyline **as it is in the deck 
 
 ## Current state (9 Nov 2026, end of day)
 
-165 slides: the Foifi opening (10) and nine chapters: 1 Why on earth (12), 2 A hard year (61, with the road, the airport pricing, the venue flyover and the year in motion), 3 The machine (8), 4 Building the programme (7), 5 Filling the room (17), 6 The rollercoaster (7), 7 The week and the day (27), 8 What we learned (5), 9 The final numbers (11). Chapter openers 3 to 9 use the curtain.
+166 slides: the Foifi opening (10) and nine chapters: 1 Why on earth (12), 2 A hard year (62, with the road, the airport pricing, the venue flyover and the year in motion), 3 The machine (8), 4 Building the programme (7), 5 Filling the room (17), 6 The rollercoaster (7), 7 The week and the day (27), 8 What we learned (5), 9 The final numbers (11). Chapter openers 3 to 9 use the curtain.
 
 Since the sections below were written:
 - Cuts and merges (see below), and chapter 6 split into 6 and 7.

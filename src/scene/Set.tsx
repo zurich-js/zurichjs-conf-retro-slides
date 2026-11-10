@@ -1,3 +1,4 @@
+import { Caller } from './Caller'
 import { Suspense, useLayoutEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { useLoader } from '@react-three/fiber'
@@ -58,6 +59,9 @@ export function Set({ frame }: { frame: THREE.Material }) {
       <Venue name="foifi">
         <Foifi frame={frame} />
         <Atm frame={frame} />
+        <Suspense fallback={null}>
+          <Caller frame={frame} />
+        </Suspense>
       </Venue>
       <Venue name="airport">
         <Airport frame={frame} />

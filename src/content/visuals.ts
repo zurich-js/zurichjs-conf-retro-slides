@@ -551,6 +551,8 @@ export const VISUALS = {
     ],
   },
   'atm-dispense': { kind: 'atm', kicker: 'Funding ZurichJS Conf', title: 'Please take your card and your cash.', step: 'dispense' },
+  // Faris books the first trip on his phone in Foifi; the next slide dives into the phone for the road.
+  'book-flight': { kind: 'booking', app: 'SWISS', kicker: 'On the road', title: 'First stop: New York.', from: { code: 'ZRH', city: 'Zurich' }, to: { code: 'JFK', city: 'New York' }, when: 'Nov 2025', what: 'React Summit US', fare: 'Economy · direct' },
 
   // ── 3 · The machine ────────────────────────────────────────────────────
   'ch3': { kind: 'section', number: '03 · Four people, day jobs, one app', title: 'The machine' },

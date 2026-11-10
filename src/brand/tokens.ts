@@ -34,6 +34,20 @@ export const PALETTE = {
 } as const
 
 /**
+ * A third-party airline app shown inside a slide (`booking`): its own light
+ * UI and red bar, never a deck tone. Only the booking painter uses it.
+ */
+const APP = {
+  bar: '#E2001A',
+  sheet: '#FFFFFF',
+  panel: '#F2F2F4',
+  line: '#D9D9DE',
+  ink: '#141414',
+  muted: '#6B6B73',
+  done: PALETTE.green,
+} as const
+
+/**
  * Semantic tones. Every colour has ONE fixed meaning across the whole talk so
  * the audience learns it once:
  *   hero    — the point of the slide (yellow)
@@ -74,6 +88,8 @@ export interface Roles {
   /** Resolve a semantic tone on this ground. */
   tone: (t: Tone) => string
   wordmark: string
+  /** An airline app's own colours, for the phone in `booking` (the same on every ground). */
+  app: typeof APP
 }
 export type Ground = 'dark' | 'yellow'
 
@@ -90,6 +106,7 @@ export const GROUNDS: Readonly<Record<Ground, Roles>> = {
     emphasis: PALETTE.yellow,
     tone: (t) => TONE[t],
     wordmark: '/brand/wordmark-conf-white.svg',
+    app: APP,
   },
   yellow: {
     bg: PALETTE.yellow,
@@ -103,6 +120,7 @@ export const GROUNDS: Readonly<Record<Ground, Roles>> = {
     emphasis: PALETTE.black,
     tone: () => PALETTE.black,
     wordmark: '/brand/wordmark-conf.svg',
+    app: APP,
   },
 }
 
