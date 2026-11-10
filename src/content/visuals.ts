@@ -275,6 +275,17 @@ export const VISUALS = {
       { at: 1, when: 'Show time', what: 'Deliver, whatever happened', tone: 'good' },
     ],
   },
+  'stakes-bets': {
+    kind: 'numbers', kicker: 'And then you bet on the day', title: 'No insurance covers any of it',
+    items: [
+      { value: '100', label: 'Promises, all kept on the same day' },
+      { value: 'Flights', label: 'Every speaker lands in time' },
+      { value: 'Talks', label: 'Each one matches its abstract' },
+      { value: 'Weather', label: 'Good for the after-party', tone: 'neutral' },
+      { value: 'Nature', label: 'No natural disasters', tone: 'neutral' },
+      { value: 'Insurance', label: 'None that covers this', tone: 'warn' },
+    ],
+  },
   'stakes-split': { kind: 'stat', value: 'CHF 33k', tone: 'warn', label: 'At least, each. Three organisers, no financial safety net: the minimum split three ways.' },
   'stakes-worst': {
     kind: 'numbers', kicker: 'And if it had failed after we signed', title: 'Worst case: about double the minimum',

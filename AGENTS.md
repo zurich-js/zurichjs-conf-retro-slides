@@ -355,7 +355,7 @@ Copied into `PALETTE`; never import across repos.
   the notes and out of this public repo.
 - **Chapter 1:** why a conference (fresh life, bring the circuit home, Front
   passed the baton, Zurich deserved an international web conference); the
-  stakes as 100k* minimum, spend shares, a commitments timeline, 33k each,
+  stakes as 100k* minimum, spend shares, a commitments timeline, the bets on the day (`stakes-bets`: ~100 promises, flights, talks, weather, nature, no insurance), 33k each,
   and the worst case.
 - **Chapter 2:** sponsorship as a hard sell (half at the smallest tier), the
   pipeline and how deals die, verified sponsor packages, talks not for sale,
