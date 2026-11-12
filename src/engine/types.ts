@@ -34,6 +34,21 @@ export type Visual = Base &
         /** Outline part of the image in accent: x, y, w, h as fractions of the image. */
         mark?: { x: number; y: number; w: number; h: number }
       }
+    | {
+        kind: 'diff'
+        kicker?: string
+        title: string
+        /** The pull request: its number, the file, its title. */
+        pr: string
+        file: string
+        summary: string
+        /** The file's lines as a unified diff. A `hidden` line carries a run of whitespace and then
+         *  code past the right edge: the painter scrolls along it and draws the code as redacted
+         *  blocks, never as text. */
+        lines: readonly { op: ' ' | '-' | '+'; text: string; hidden?: { spaces: number; chars: number } }[]
+        /** One line under the diff: what the hidden code did. */
+        note?: string
+      }
     | { kind: 'code'; title?: string; lines: readonly string[]; highlight?: readonly number[]; /** Bigger type, for a short block that must read from the back of the room. */ large?: boolean }
     | {
         kind: 'growth'
@@ -50,6 +65,8 @@ export type Visual = Base &
         from?: number
         /** Values are shares (0–100): end values get a %, and no growth multiple is shown. */
         percent?: boolean
+        /** Vertical markers at a point index (e.g. when a campaign started), labelled at the top. */
+        marks?: readonly { at: number; label: string }[]
       }
     | {
         kind: 'heatmap'
@@ -336,6 +353,7 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   quote: 'dark',
   image: 'dark',
   code: 'dark',
+  diff: 'dark',
   numbers: 'dark',
   calendar: 'dark',
   growth: 'dark',
@@ -405,9 +423,11 @@ export interface Slide {
    * fit the speaker's headset mic and check it in the wings; `walk-on`
    * walks the speaker up the steps to the podium (the camera follows behind);
    * `panel` seats the e18e panel on stage; `group-photo` fills the stage with
-   * everyone, the foam letters held up at the front.
+   * everyone, the foam letters held up at the front; `carpool` drives an
+   * organiser's car with five workshop attendees from Technopark to the
+   * second workshop venue on the `shuttle` cue.
    */
-  action?: 'cut-letters' | 'plug-in' | 'rush' | 'mic-up' | 'walk-on' | 'panel' | 'group-photo'
+  action?: 'cut-letters' | 'plug-in' | 'rush' | 'mic-up' | 'walk-on' | 'panel' | 'group-photo' | 'carpool'
   /** Speaker notes. Shown in ?presenter, never painted on the frame. */
   notes?: string
 }

@@ -6,7 +6,7 @@ import { useTexture } from '@react-three/drei'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 import { Airport } from './Airport'
 import { Exterior } from './Exterior'
-import { Roads, SPEAKER_PHOTOS } from './Roads'
+import { CARPOOL_PHOTO, Roads, SPEAKER_PHOTOS } from './Roads'
 import { Atm } from './Atm'
 import { Atrium } from './Atrium'
 import { Foifi } from './Foifi'
@@ -28,6 +28,7 @@ useTexture.preload(PROP_ASSETS.rollup)
 useTexture.preload(FOYER_ASSETS.skyline)
 useTexture.preload(SPONSOR_ASSETS as string[])
 useTexture.preload(SPEAKER_PHOTOS as unknown as string[])
+useTexture.preload(CARPOOL_PHOTO)
 useTexture.preload('/team/nadja.png')
 
 /**

@@ -94,6 +94,10 @@ export function defineSlides(
         }
         if (v.span && !(v.span.from >= 0 && v.span.from < v.span.to && v.span.to <= 1)) throw new Error(`Visual "${id}": span must sit inside 0–1`)
       }
+      if (v?.kind === 'diff') {
+        if (v.lines.length < 1 || v.lines.length > 12) throw new Error(`Visual "${id}": a diff shows 1 to 12 lines`)
+        if (v.lines.filter((l) => l.hidden).length > 1) throw new Error(`Visual "${id}": a diff has at most one hidden line`)
+      }
       if (v?.kind === 'video') {
         if (!/^\/video\/[a-z0-9-]+\.mp4$/.test(v.src)) throw new Error(`Visual "${id}": video src "${v.src}" must be /video/<name>.mp4 (local, offline-safe)`)
         if (!(v.seconds > 0 && v.seconds < 600)) throw new Error(`Visual "${id}": video seconds must be its length (0 to 600)`)
@@ -103,6 +107,9 @@ export function defineSlides(
         for (const series of v.series) {
           if (series.values.length !== v.x.length) throw new Error(`Visual "${id}": series "${series.label}" has ${series.values.length} values for ${v.x.length} x labels`)
         }
+        for (const m of v.marks ?? []) {
+          if (!(m.at >= 0 && m.at <= v.x.length - 1)) throw new Error(`Visual "${id}": mark "${m.label}" must sit on the x axis (0 to ${v.x.length - 1})`)
+        }
       }
     }
     if (s.fill !== undefined && !(s.fill >= 0 && s.fill <= 1)) {
@@ -111,7 +118,7 @@ export function defineSlides(
     if (s.dressed !== undefined && !(s.dressed >= 0 && s.dressed <= 1)) {
       throw new Error(`Slide "${s.id}" dressed must be between 0 and 1`)
     }
-    if (s.action !== undefined && !['cut-letters', 'plug-in', 'rush', 'mic-up', 'walk-on', 'panel', 'group-photo'].includes(s.action)) {
+    if (s.action !== undefined && !['cut-letters', 'plug-in', 'rush', 'mic-up', 'walk-on', 'panel', 'group-photo', 'carpool'].includes(s.action)) {
       throw new Error(`Slide "${s.id}" action "${s.action}" is not a known action`)
     }
     if (s.effect !== undefined && !(s.effect >= 0 && s.effect <= 1)) {

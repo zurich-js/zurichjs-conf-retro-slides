@@ -21,6 +21,7 @@ import { CHECKOUT_SECS, paintCheckout } from './checkout'
 import { paintTimeline, TIMELINE_SECS } from './timeline'
 import { paintQuestions, QUESTIONS_SECS } from './questions'
 import { FLOORPLAN_SECS, paintFloorplan } from './floorplan'
+import { DIFF_SECS, paintDiff } from './diff'
 
 type Painter<K extends VisualKind> = (ctx: Ctx, v: Extract<Visual, { kind: K }>, p: number, r: Roles) => void
 
@@ -366,6 +367,7 @@ const moments: Painter<'moments'> = paintMoments
 const flapboard: Painter<'flapboard'> = paintFlapboard
 const atm: Painter<'atm'> = paintAtm
 const strike: Painter<'strike'> = paintStrike
+const diff: Painter<'diff'> = paintDiff
 const badgetest: Painter<'badgetest'> = paintBadgeTest
 const matrix: Painter<'matrix'> = paintMatrix
 const inbox: Painter<'inbox'> = paintInbox
@@ -379,7 +381,7 @@ const timeline: Painter<'timeline'> = paintTimeline
 const questions: Painter<'questions'> = paintQuestions
 const floorplan: Painter<'floorplan'> = paintFloorplan
 
-const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals, video: vid, split, timeline, checkout, booking, questions, floorplan }
+const PAINTERS: { [K in VisualKind]: Painter<K> } = { title, section, statement, stat, bars, quote, image: img, code, diff, numbers, journey, calendar, growth, heatmap, matrix, moments, flapboard, atm, strike, badgetest, inbox, pipeline, chatter, arrivals, video: vid, split, timeline, checkout, booking, questions, floorplan }
 
 /**
  * How long a visual's draw-in lasts, and whether its painter wants raw linear
@@ -399,6 +401,7 @@ export function drawTiming(visual: Visual | undefined): { secs: number; linear: 
   if (visual?.kind === 'chatter') return { secs: CHATTER_SECS, linear: true }
   if (visual?.kind === 'arrivals') return { secs: ARRIVALS_SECS, linear: true }
   if (visual?.kind === 'strike') return { secs: STRIKE_SECS, linear: true }
+  if (visual?.kind === 'diff') return { secs: DIFF_SECS, linear: true }
   if (visual?.kind === 'atm') return { secs: ATM_SECS, linear: false }
   if (visual?.kind === 'flapboard') return { secs: flapSeconds(visual), linear: true }
   if (visual?.kind === 'moments') return { secs: momentsSeconds(visual), linear: true }

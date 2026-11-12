@@ -58,6 +58,18 @@ export function paintGrowth(ctx: Ctx, v: GrowthVisual, p: number, r: Roles) {
     label(ctx, xl, X(i), plot.b + 70, r.textMuted, { align: i === 0 ? 'left' : i === n - 1 ? 'right' : 'center', alpha: ga })
   })
 
+  // Markers (e.g. when a campaign started): a dashed rule up the plot, its label at the top.
+  for (const m of v.marks ?? []) {
+    const mx = X(m.at)
+    ctx.save(); ctx.globalAlpha = ga
+    ctx.strokeStyle = r.textMuted
+    ctx.lineWidth = 4
+    ctx.setLineDash([18, 16])
+    ctx.beginPath(); ctx.moveTo(mx, plot.t - 10); ctx.lineTo(mx, plot.b); ctx.stroke()
+    ctx.restore()
+    label(ctx, m.label, mx + 20, plot.t + 20, r.textSoft, { alpha: ga })
+  }
+
   // Lines, drawn left to right from `from` to the last shown point.
   const shown = Math.min(n, v.show ?? n)
   const from = Math.min(shown - 1, v.from ?? 0)

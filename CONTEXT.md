@@ -33,7 +33,8 @@ A choreographed set action a slide plays once as it draws in (`action`):
 fits the next speaker's headset in the wings; the check goes green) or
 `walk-on` (the speaker walks up the steps to the podium, the camera
 following behind), `panel` (the e18e panel seated on stage) or
-`group-photo` (everyone on stage, the foam letters held up at the front).
+`group-photo` (everyone on stage, the foam letters held up at the front) or
+`carpool` (Colin drives five workshop attendees from Technopark to Livingdocs AG on the `shuttle` cue).
 Closed list.
 
 ## Fill
@@ -50,10 +51,10 @@ addressed by id. The data lives here once; every renderer reads it.
 
 ## Kind
 The closed set of visual forms: `title`, `section`, `statement`, `stat`,
-`bars`, `quote`, `image` (optionally titled, with a `mark` outline), `code`,
+`bars`, `quote`, `image` (optionally titled, with a `mark` outline), `code`, `diff` (a pull request's change to one file; a `hidden` line scrolls through its whitespace to code drawn as redacted blocks),
 `numbers` (2–6 number tiles), `calendar` (a split-flap calendar rolling month
 by month between two dates), `growth` (lines growing from their start;
-`show`/`from` continue it across steps), `heatmap` (rows of value-shaded
+`show`/`from` continue it across steps; `marks` flag moments such as a campaign start), `heatmap` (rows of value-shaded
 cells, e.g. RSVPs per month per year), `matrix` (a ✓/✗ feature grid, one
 column highlighted), `moments` (photos in date order flowing past a month
 timeline, then a wall with totals), `flapboard` (an airport split-flap
