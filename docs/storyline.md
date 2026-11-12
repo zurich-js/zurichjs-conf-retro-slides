@@ -6,7 +6,7 @@ Working document for the team. It captures the storyline **as it is in the deck 
 
 ## Current state (9 Nov 2026, end of day)
 
-179 slides (12 Nov): the Foifi opening (10) and nine chapters: 1 Why on earth (12), 2 A hard year (71, with the ATM, the road, the airport pricing and payments, the venue flyover and the year in motion), 3 The machine (12), 4 Building the programme (7), 5 Filling the room (17), 6 The rollercoaster (7), 7 The week and the day (27), 8 What we learned (5), 9 The final numbers (11). Chapter openers 3 to 9 use the curtain.
+179 slides (12 Nov): the Foifi opening (10) and nine chapters: 1 Why on earth (12), 2 A hard year (71, with the ATM, the road, the airport pricing and payments, the venue flyover and the year in motion), 3 The machine (12), 4 Building the programme (7), 5 Filling the room (18), 6 The rollercoaster (6), 7 The week and the day (27), 8 What we learned (5), 9 The final numbers (11). Chapter openers 3 to 9 use the curtain.
 
 Since the sections below were written:
 - Cuts and merges (see below), and chapter 6 split into 6 and 7.
@@ -15,8 +15,9 @@ Since the sections below were written:
 - Arnau: 06:00 flight from Düsseldorf, landed 08:00, workshop at 09:00 (`arrivals-board`, `arnau-rush`, `gate-to-room`).
 - Nadja miked up every speaker (`mic-up`, her portrait over the organiser).
 - Readability: slides on in-scene screens use close cues; the `stage` view moved closer.
+- Feedback pass (12 Nov): `accepted` (9 via CFP, 5 invited), `lesson-email` as a work-vs-personal matrix, `workshops-split` (Colin's carpool to Livingdocs AG, replaces `story-workshops`), `ways-in` and `invoices` in shares, `ads` as a line chart plus `ads-buyers`, `lo-178` as the PR diff, `not-in-data` cut, no hoodies owed, `come-2028` tentative Q1 2028.
 
-Still open: the placeholder slides (`not-in-data`, `story-workshops`, `feedback-heard`, `next-edition`), the unverified figures below, and the decisions list. The tables further down are the history of each pass; slide numbers in them are out of date.
+Still open: the placeholder slides (`feedback-heard`, `next-edition`), the unverified figures below, and the decisions list. The tables further down are the history of each pass; slide numbers in them are out of date.
 
 ## Final polish, 12 Nov 2026
 

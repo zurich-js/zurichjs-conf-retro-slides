@@ -738,10 +738,23 @@ export const VISUALS = {
   // ── 4 · Building the programme ─────────────────────────────────────────
   'ch4': { kind: 'section', number: '04 · 434 submissions, 9 picked', title: 'Building the programme' },
   'reviews': { kind: 'stat', value: '2,489', label: 'Reviews from 15 reviewers. About 166 each.' },
-  'lesson-email': { kind: 'strike', kicker: 'A weird lesson: ask for a personal email', name: 'speaker@yourcompany.com', to: 'speaker@gmail.com', note: 'By the time we said yes or no, some had changed jobs or lost them. Ticket holders too.' },
-  'accepted': { kind: 'stat', value: '9 of 434', label: 'Accepted from the CFP, about 2.1%: 6 talks, 3 workshops. 5 more waitlisted.' },
-  'story-workshops': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Running the workshops.', emphasis: 'workshops.' },
-  'workshops': { kind: 'stat', value: '6', label: 'Workshops, 80 seats. Workshop day, 10 September.' },
+  'lesson-email': {
+    kind: 'matrix', kicker: 'A double-edged sword', title: 'Work email or personal email?',
+    columns: [{ label: 'Work email', sub: 'you@company.com' }, { label: 'Personal email', sub: 'you@gmail.com' }],
+    rows: [
+      { label: 'Reach the company to bring the team', values: ['yes', 'no'] },
+      { label: 'Still reachable after a job change', values: ['no', 'yes'] },
+    ],
+  },
+  'accepted': {
+    kind: 'numbers', title: 'How the programme came together',
+    items: [
+      { value: '9', label: 'Via the CFP: 9 of 434, about 2.1%' },
+      { value: '5', label: 'Already invited before the CFP', tone: 'neutral' },
+    ],
+  },
+  'workshops': { kind: 'stat', value: '6', label: 'Workshops, 80 seats, in two venues at once. Workshop day, 10 September.' },
+  'workshops-split': { kind: 'statement', kicker: 'Two venues in parallel', text: 'No go. Colin drove five attendees across town.', emphasis: 'No go.' },
 
   // ── 5 · Filling the room ───────────────────────────────────────────────
   'ch5': { kind: 'section', number: '05 · Price, channels, people', title: 'Filling the room' },
@@ -884,14 +897,21 @@ export const VISUALS = {
   },
 
   'ways-in': {
-    kind: 'numbers', title: 'So we built ways in',
+    kind: 'numbers', kicker: 'Share of all 330 tickets', title: 'So we built ways in',
     items: [
-      { value: '96', label: 'Tickets with a discount code' },
-      { value: '33', label: 'Student and unemployed tickets', tone: 'neutral' },
-      { value: '41', label: 'Via community partner codes', tone: 'neutral' },
+      { value: '29%', label: 'Used a discount code' },
+      { value: '10%', label: 'Student and unemployed', tone: 'neutral' },
+      { value: '12%', label: 'Community partner codes', tone: 'neutral' },
     ],
   },
-  'invoices': { kind: 'stat', value: '30', label: 'Company tickets, all paid by invoice. 9 invoices, all bank transfer.', tone: 'neutral' },
+  'invoices': {
+    kind: 'split', kicker: 'Who paid · 267 paid tickets', title: 'Mostly people, not companies',
+    segments: [
+      { label: 'B2C: bought by people', value: 237, tone: 'hero' },
+      { label: 'B2B: company invoice', value: 30, tone: 'neutral' },
+    ],
+    note: '30 company tickets on 9 invoices, all by bank transfer.',
+  },
   'currencies': { kind: 'stat', value: '1 in 5', label: 'Tickets paid in EUR, GBP or USD. 55 EUR · 5 GBP · 4 USD.' },
   'heard-from': {
     kind: 'bars', title: '1 in 3 heard from a friend or colleague', source: 'How survey respondents heard about it (106 answered)',
@@ -921,6 +941,16 @@ export const VISUALS = {
   },
   'newsletter': { kind: 'stat', value: '1,215', label: 'Visitors in one day from Kevin Powell’s newsletter. A friend, not an ad.' },
   'ads': {
+    kind: 'growth', kicker: 'Visitors per month · from ads vs other', title: 'Ads came late, and sold little',
+    source: '8 of 180 web buyers first came from an ad',
+    x: ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+    series: [
+      { label: 'Other', values: [565, 1618, 862, 1048, 1072, 1324, 1638, 3193, 2854, 2760], tone: 'hero' },
+      { label: 'From ads', values: [0, 0, 0, 0, 0, 0, 918, 0, 7531, 1648], tone: 'warn' },
+    ],
+    marks: [{ at: 6, label: 'Reddit' }, { at: 8, label: 'Google Ads' }],
+  },
+  'ads-buyers': {
     kind: 'numbers', title: 'Ads brought traffic, not buyers',
     items: [
       { value: '40%', label: 'Of site visitors arrived from an ad', tone: 'warn' },
@@ -957,7 +987,21 @@ export const VISUALS = {
   // ── 6 · The rollercoaster ──────────────────────────────────────────────
   'ch6': { kind: 'section', number: '06 · Highs and lows of the year', title: 'The rollercoaster' },
   'ch7': { kind: 'section', number: '07 · Countdown to doors', title: 'The week and the day' },
-  'lo-178': { kind: 'stat', value: '#178', label: 'Removed an obfuscated malicious payload hidden in a build config. Low · 25 May 2026.', tone: 'bad' },
+  'lo-178': {
+    kind: 'diff', kicker: 'Low · 25 May 2026', title: 'A build config with a passenger',
+    pr: '#178', file: 'postcss.config.mjs', summary: 'Remove obfuscated malicious payload',
+    lines: [
+      { op: '-', text: "import { createRequire } from 'module';" },
+      { op: '-', text: 'const require = createRequire(import.meta.url);' },
+      { op: ' ', text: 'const config = {' },
+      { op: ' ', text: '  plugins: ["@tailwindcss/postcss"],' },
+      { op: ' ', text: '};' },
+      { op: ' ', text: '' },
+      { op: '-', text: 'export default config;', hidden: { spaces: 3643, chars: 3787 } },
+      { op: '+', text: 'export default config;' },
+    ],
+    note: 'It fetched remote code, ran it with eval, and spawned a detached process.',
+  },
   'mail-inbox': {
     kind: 'numbers', kicker: 'The inbox · Jul 2025 to Nov 2026', title: 'A year of email',
     items: [
@@ -1064,10 +1108,8 @@ export const VISUALS = {
     items: [
       { value: '222', label: 'T-shirts handed out' },
       { value: '33', label: 'Hoodies handed out on the day', tone: 'neutral' },
-      { value: '48', label: 'Hoodies still owed after the day', tone: 'warn' },
     ],
   },
-  'not-in-data': { kind: 'statement', kicker: 'Data gap · R1', text: 'The ones not in the data.', emphasis: 'not in the data.' },
 
   // ── 8 · What we learned ────────────────────────────────────────────────
   'ch8': { kind: 'section', number: '08 · For anyone who wants to organise something', title: 'What we learned' },
@@ -1101,7 +1143,7 @@ export const VISUALS = {
     ],
   },
   'come-2028': {
-    kind: 'numbers', kicker: 'See you at the next one', title: 'Come in 2028',
+    kind: 'numbers', kicker: 'Tentative plan · Q1 2028', title: 'Come in 2028',
     items: [
       { value: 'Come back', label: 'As an attendee or speaker' },
       { value: 'Volunteer', label: 'Help us run the next one', tone: 'neutral' },

@@ -286,6 +286,16 @@ export const ROAD: readonly (readonly [number, number])[] = [
   [74, ATRIUM.start + 16], [92, ATRIUM.start + 16], [112, ATRIUM.start + 4], [128, -2], [140, -14], [AIRPORT.x + 2, AIRPORT.z + LOUNGE.depth + 6],
 ]
 
+/**
+ * Workshop day's second venue (Livingdocs AG), schematic like the road: a
+ * short spur north off the airport road. `carpool` drives Colin's car along
+ * CARPOOL from Technopark's entrance to its door. Not to scale.
+ */
+export const LIVINGDOCS = { x: 86, z: -34, w: 20, d: 14, h: 12 } as const
+export const CARPOOL: readonly (readonly [number, number])[] = [
+  ROAD[0]!, [88, ATRIUM.start + 16], [94, ATRIUM.start + 4], [94, -10], [90, LIVINGDOCS.z + LIVINGDOCS.d / 2 + 4],
+]
+
 /** Cues solved per aspect so an image exactly fills the viewport. */
 export type SolvedCue = 'screen' | 'projector' | 'foifi-full' | 'gate-full' | 'seat-full' | 'phone-full'
 /** A point in Foifi's local frame (metres) → world metres. */

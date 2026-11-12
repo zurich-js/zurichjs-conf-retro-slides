@@ -304,8 +304,7 @@ Copied into `PALETTE`; never import across repos.
   1 Why on earth (12) · 2 A hard year (71, including the ATM scene, the road
   globe and photos, the airport pricing and payments block, the venue
   flyover with the atrium plan, badges, people and the year in motion) ·
-  3 The machine (12) · 4 Building the programme (7) · 5 Filling the room
-  (17) · 6 The rollercoaster (7) · 7 The week and the day (27) · 8 What we
+  3 The machine (12) · 4 Building the programme (7) · 5 Filling the room (18) · 6 The rollercoaster (6) · 7 The week and the day (27) · 8 What we
   learned (5) · 9 The final numbers (11).
 - Notes carry CHECK / DATA GAP / SLOT flags; placeholder slides still on
   screen are listed under Open decisions. Notes are public: no names of
@@ -418,6 +417,23 @@ Copied into `PALETTE`; never import across repos.
   routes from the zurichjs-conf repo (231 route files, 321 route × method
   endpoints, 108 migrations), by domain, with verified edge cases.
 
+## Feedback pass (Faris, 12 Nov 2026)
+- `accepted`: 9 via the CFP, 5 already invited; no waitlist on screen.
+- `lesson-email` is a double-edged sword (`matrix`): a work email lets us reach
+  the company to bring the team, a personal one survives a job change.
+- Workshops ran in two venues in parallel, Technopark and Livingdocs AG: no go.
+  `workshops-split` (replaces the `story-workshops` slot) plays `action:
+  'carpool'` on the `shuttle` cue: Colin drives five attendees to Livingdocs
+  (schematic spur, `LIVINGDOCS` / `CARPOOL` in venue.ts).
+- `ways-in` in shares of 330 tickets; `invoices` is a B2B / B2C `split` of the
+  267 paid tickets.
+- `ads` is a line chart (visitors from ads vs other, campaign markers); the
+  three tiles moved to `ads-buyers`.
+- `lo-178` shows PR #178 as a `diff`: the whitespace run, then the payload as
+  redacted blocks. The payload itself never goes in the deck.
+- Cut `not-in-data`; no hoodies-owed tile on `merch-guess`; `come-2028` says
+  tentative plan, Q1 2028.
+
 ## Open decisions
 Track here; resolve with Faris, then update code and move the line above.
 
@@ -426,8 +442,8 @@ Track here; resolve with Faris, then update code and move the line above.
       the sponsors share them.
 - [ ] **Real dimensions** — the exterior follows OSM and the 1993 drawings; the
       rooms inside are still estimated from photos (`scene/venue.ts`).
-- [ ] **Placeholders on screen**: `not-in-data`, `story-workshops`,
-      `feedback-heard`, `next-edition` still show Slot or Data gap. Fill or
+- [ ] **Placeholders on screen**: `feedback-heard`, `next-edition` still
+      show Slot or Data gap. Fill or
       cut before the talk. (`brand` is now a plain hero, presented by Bogdan;
       `story-comms` leads into `comms-questions`.)
 - [ ] **Facts to confirm** (see `docs/storyline.md`, Unverified figures):
