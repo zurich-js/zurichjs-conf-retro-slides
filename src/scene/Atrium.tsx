@@ -421,7 +421,7 @@ function Table({ x, z, yaw, cloth, length = 2.2 }: { x: number; z: number; yaw: 
   )
 }
 
-/** The sponsor booths, laid out as photographed. */
+/** The sponsor booths, laid out as photographed. Their positions are mirrored in `ATRIUM_BOOTHS` (content/visuals.ts) for the atrium plan: move both together. */
 function Booths() {
   const logos = useSponsorLogos()
   const rollupArt = useTexture(ATRIUM_ASSETS.rollup)

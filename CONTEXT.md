@@ -61,7 +61,7 @@ departures board: columns of flaps that spin and land), `atm` (one screen of
 a cash machine: prompt, touch options, a tapped choice; its `step` drives the
 machine in the set: card in, cash out), `strike` (one name: struck through and
 renamed, or stamped, e.g. Deprecated), `badgetest` (a caption whose `rig`
-drives the badge-hole test stand; see Badge test), `inbox` (the call for papers: one envelope per submission flying into a server on the day it came in, a daily histogram and topic bars), `pipeline` (commits running through CI stages month by month, shipped features called out), `chatter` (a year of Slack: a filling channel, team-level figures (never per person), the private / DM / public split), `arrivals` (flights into Zurich on a zoomed globe, one per origin, with a tally), `checkout` (ticket-shop card payments flying into a terminal on the day they were paid, coloured by currency, with payments per day and a by-month histogram), `booking` (booking a flight in an airline's mobile app on a portrait phone: search, the flight, payment, booked; the set shows only its 9:16 column), `split` (one 100% bar divided into shares, with a legend of rounded percentages that add to 100), `timeline` (dated marks along a schematic line, with an optional shaded span), `video` (a rendered clip, e.g. a Remotion render in `public/video`, played full frame with its sound, then held on its `rest` frame), `journey` (the road-to-Zurich globe:
+drives the badge test stand; see Badge test), `inbox` (the call for papers: one envelope per submission flying into a server on the day it came in, a daily histogram and topic bars), `pipeline` (commits running through CI stages month by month, shipped features called out), `chatter` (a year of Slack: a filling channel, team-level figures (never per person), the private / DM / public split), `arrivals` (flights into Zurich on a zoomed globe, one per origin, with a tally), `checkout` (ticket-shop card payments flying into a terminal on the day they were paid, coloured by currency, with payments per day and a by-month histogram), `booking` (booking a flight in an airline's mobile app on a portrait phone: search, the flight, payment, booked; the set shows only its 9:16 column), `split` (one 100% bar divided into shares, with a legend of rounded percentages that add to 100), `timeline` (dated marks along a schematic line, with an optional shaded span), `questions` (an inbox filling up: one card per incoming request, subject lines only, the first alone and then faster and faster), `floorplan` (one room from above in metres: landmarks, booths named on leader lines, an optional zoom out from one booth and optional illustrative walking routes as moving dots that settle into arrows), `video` (a rendered clip, e.g. a Remotion render in `public/video`, played full frame with its sound, then held on its `rest` frame), `journey` (the road-to-Zurich globe:
 one leg per step, or with `play` every leg in one autoplaying draw-in). Each
 kind has exactly one painter. Adding a kind is a deliberate act (type +
 painter + doc), never a one-off.
@@ -181,9 +181,11 @@ A fixed colour meaning used across the whole talk: `hero` (yellow), `neutral`
 through the ground, so on yellow every tone is black.
 
 ## Badge test
-The `badgetest` kind: the caption for one step of the badge-hole test (one
-hole, two holes, stress, held), projected above the check-in counter. Its
-`rig` drives the test stand on the counter (`scene/Foyer.tsx`, `BadgeLab`):
-one-hole badge flips; two-hole badge hangs flat; under stress the single hole
-tears and that badge drops, the two-hole one holds. The `lanyards` cue frames
+The `badgetest` kind: the caption for one step of the badge test (one clip,
+two attachment points, tested, the takeaway), projected above the check-in
+counter. Its `rig` drives the test stand on the counter (`scene/Foyer.tsx`,
+`BadgeLab`; the rig ids still say `one-hole` / `two-holes`): the single-clip
+badge flips; the two-point badge hangs flat; under stress the single-clip badge
+gives way and drops, the two-point one holds. On screen, say clips and
+attachment points, never holes. The `lanyards` cue frames
 the stand with the projection behind it.
