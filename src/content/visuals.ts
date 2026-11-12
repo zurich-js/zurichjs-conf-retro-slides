@@ -29,6 +29,16 @@ const RSVP_ROWS = [
   { label: '2025/26', values: [35, 39, 104, 79, 73, 94, 90, 40, 85, 38, 88, 45], tone: 'neutral' },
 ] as const
 
+/** Booths in the atrium, metres from the set (scene/Atrium.tsx, rebuilt from the aftermovie): x across (left −), z from the entrance. */
+const ATRIUM_BOOTHS = [
+  { label: 'CopilotKit', x: -9.2, z: 4.4 },
+  { label: 'PrimeUI', x: -9.2, z: 8.2 },
+  { label: 'ZurichJS', x: -10.4, z: 12.4 },
+  { label: 'AG Grid', x: -8.8, z: 16.2, tone: 'hero' },
+  { label: 'namespace', x: -1, z: 24.4 },
+  { label: 'Proton', x: 9.4, z: 12.5 },
+] as const
+
 export const VISUALS = {
   // ── Opening ────────────────────────────────────────────────────────────
   cover: { kind: 'title', kicker: 'The ZurichJS team', title: 'ZurichJS Conf retrospective', subtitle: '9 to 12 September 2026, Zurich' },
@@ -60,15 +70,39 @@ export const VISUALS = {
     columns: RSVP_MONTHS, rows: RSVP_ROWS, show: 2,
   },
   'one-year': { kind: 'statement', ground: 'yellow', text: 'One year of ZurichJS. Ten months to the conference.', emphasis: 'Ten months' },
-  // ── Attention to detail: one hole or two ──
-  'badge-one-hole': { kind: 'badgetest', kicker: 'Attention to detail', title: 'One hole, and the badge flips.', note: 'Hang it from the middle and it spins round: half the room shows you the back.', rig: 'one-hole' },
-  'badge-two-holes': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Two holes, and it stays put.', note: 'Two clips on a V of lanyard: the name faces out all day.', rig: 'two-holes' },
-  'badge-stress': { kind: 'badgetest', kicker: 'So we stress-tested the holes', title: 'Would they snap?', note: 'Weight on, pulled hard. A single hole tears through; two holes share the load.', rig: 'stress' },
-  'badge-held': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Two holes. Tested. Held.', rig: 'held' },
+  // ── Attention to detail: one clip or two attachment points ──
+  'badge-one-clip': { kind: 'badgetest', kicker: 'Attention to detail', title: 'One clip. One annoying problem.', note: 'It keeps turning away from the person you’re speaking to.', rig: 'one-hole' },
+  'badge-two-clips': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Two attachment points. It stays put.', note: 'Stable, facing out, readable in every conversation.', rig: 'two-holes' },
+  'badge-tested': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Then we tested it.', note: 'We tested the pressure points, materials and durability.', rig: 'stress' },
+  'badge-detail': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Even the smallest details deserve engineering.', rig: 'held' },
   'empty-seats': { kind: 'statement', kicker: 'The auditorium, ten months out', text: 'Every one of these seats had to be sold.', emphasis: 'had to be sold.' },
   'venue-map': { kind: 'statement', kicker: 'Ten months later · Technopark Zürich', text: 'One building, one week, one conference.', emphasis: 'one conference.' },
   'venue-atrium': { kind: 'statement', kicker: 'The atrium', text: 'Sponsors, coffee, and every hallway conversation.', emphasis: 'hallway' },
   'venue-booths': { kind: 'statement', kicker: 'Sponsor booths', text: 'The people who paid for the room.', emphasis: 'paid for the room.' },
+  'venue-plan': {
+    kind: 'floorplan', kicker: 'The atrium · from above', title: 'Every booth, in one hall',
+    width: 23, depth: 32, entrance: 'From registration', focus: 3,
+    landmarks: [
+      { label: 'Cocktail tables', x: 0, z: 9.5, w: 11, d: 14 },
+      { label: 'Lift', x: 0, z: 28.8, w: 4.6, d: 4.6 },
+    ],
+    booths: ATRIUM_BOOTHS,
+  },
+  'venue-flow': {
+    kind: 'floorplan', kicker: 'Foot traffic', note: 'Illustrative, not measured', title: 'We weren’t just filling a venue. We were orchestrating an experience.',
+    width: 23, depth: 32, entrance: 'From registration',
+    landmarks: [
+      { label: 'Cocktail tables', x: 0, z: 9.5, w: 11, d: 14 },
+      { label: 'Lift', x: 0, z: 28.8, w: 4.6, d: 4.6 },
+    ],
+    booths: ATRIUM_BOOTHS,
+    flows: [
+      [[0, 0], [-4, 2.5], [-6.6, 4.4], [-6.6, 8.2], [-7.6, 12.4], [-6.4, 16.2]],
+      [[0, 0], [3, 4], [5.5, 9], [7.2, 12.5]],
+      [[6.8, 14], [2, 16.5], [-1, 19], [-1, 22.4]],
+      [[-1, 22.4], [-4, 19.5], [-6.4, 17.4]],
+    ],
+  },
   'venue-badges': { kind: 'statement', kicker: 'Check-in', text: 'Nine kinds of badge.', emphasis: 'Nine' },
   'venue-merch': { kind: 'statement', kicker: 'Volunteer merch desk', text: 'Cups and totes.', emphasis: 'totes.' },
   'people-359': { kind: 'stat', value: '359', label: 'People in the room' },
@@ -272,7 +306,7 @@ export const VISUALS = {
       { at: 0, when: '12 months out', what: 'Venue and suppliers signed', tone: 'hero' },
       { at: 0.33, when: 'Point of no return', what: 'Penalty-free exits expire', tone: 'warn' },
       { at: 0.67, when: '1 to 3 months out', what: 'Viability becomes clear', tone: 'neutral' },
-      { at: 1, when: 'Show time', what: 'Deliver, whatever happened', tone: 'good' },
+      { at: 1, when: 'Go time', what: 'Ship, ship, ship. At all costs.', tone: 'hero' },
     ],
   },
   'stakes-bets': {
@@ -283,7 +317,6 @@ export const VISUALS = {
       { value: 'Talks', label: 'Each one matches its abstract' },
       { value: 'Weather', label: 'Good for the after-party', tone: 'neutral' },
       { value: 'Nature', label: 'No natural disasters', tone: 'neutral' },
-      { value: 'Insurance', label: 'None that covers this', tone: 'warn' },
     ],
   },
   'stakes-split': { kind: 'stat', value: 'CHF 33k', tone: 'warn', label: 'At least, each. Three organisers, no financial safety net: the minimum split three ways.' },
@@ -351,6 +384,85 @@ export const VISUALS = {
       { cells: ['ZURICHJS CONF', '2H', 'CHF 150'] },
     ],
   },
+  // How we kept it affordable: nonprofit, VAT, and owning the payments.
+  'affordable-engineered': {
+    kind: 'flapboard', title: 'How we kept it affordable',
+    columns: [{ width: 26 }],
+    rows: [
+      { cells: ["AFFORDABILITY WASN'T"] },
+      { cells: ['ACCIDENTAL.'] },
+      { cells: ['WE ENGINEERED IT.'], highlight: true },
+    ],
+  },
+  'vat-threshold': {
+    kind: 'flapboard', title: 'A nonprofit, under the VAT line',
+    columns: [{ label: 'Swiss VAT', width: 24 }, { label: '', width: 8, align: 'right' }],
+    rows: [
+      { cells: ['STANDARD RATE', '8.1%'] },
+      { cells: ['MUST REGISTER FROM', 'CHF 100K'] },
+      { cells: ['QUALIFYING NONPROFITS', 'CHF 250K'] },
+      { cells: ['ZURICHJS CONF', 'BELOW'], highlight: true },
+    ],
+  },
+  'vat-tradeoff': {
+    kind: 'flapboard', title: 'The catch',
+    columns: [{ width: 26 }],
+    rows: [
+      { cells: ['BELOW THE THRESHOLD:'] },
+      { cells: ['NO VAT ON OUR TICKETS.'] },
+      { cells: ['GROW PAST IT, AND THE'], highlight: true },
+      { cells: ['MATHS CHANGES.'], highlight: true },
+    ],
+  },
+  'fees-platform': {
+    kind: 'flapboard', title: 'A ticketing platform, illustrative',
+    columns: [{ label: 'Fee', width: 22 }, { label: 'Cost', width: 8, align: 'right' }],
+    rows: [
+      { cells: ['TICKETING PLATFORM', '~3%'] },
+      { cells: ['CARD PROCESSING', '~2.9%'] },
+      { cells: ['PER TRANSACTION', 'CHF 0.30'] },
+    ],
+  },
+  'fees-own': {
+    kind: 'flapboard', title: 'So we ran our own payments',
+    columns: [{ width: 28 }],
+    rows: [
+      { cells: ['CARD PAYMENTS'] },
+      { cells: ['SEPA DIRECT DEBIT'] },
+      { cells: ['BANK TRANSFER'] },
+      { cells: ['ROUTED BY CURRENCY'] },
+      { cells: ['STRIPE PARTNER AND NONPROFIT'] },
+      { cells: ['ONLY WHERE IT PAID OFF'], highlight: true },
+    ],
+  },
+  'fees-ours': {
+    kind: 'flapboard', title: 'What a payment cost us',
+    columns: [{ label: 'Currency', width: 12 }, { label: 'Effective fee, approx.', width: 22, align: 'right' }],
+    rows: [
+      { cells: ['CHF', 'UNDER 1.5%'], highlight: true },
+      { cells: ['EUR', 'AROUND 3.5%'] },
+      { cells: ['USD', 'UNDER 4.5%'] },
+      { cells: ['GBP', 'UNDER 6%'] },
+    ],
+  },
+  'fees-compare': {
+    kind: 'flapboard', title: 'On a CHF 100 ticket, illustrative',
+    columns: [{ label: 'Fees', width: 22 }, { label: '', width: 10, align: 'right' }],
+    rows: [
+      { cells: ['PLATFORM MODEL', 'CHF 6.20'] },
+      { cells: ['OUR CHF PAYMENTS', '< CHF 1.50'], highlight: true },
+      { cells: ['KEPT, AT LEAST', 'CHF 4.70'], highlight: true },
+    ],
+  },
+  'every-franc': {
+    kind: 'flapboard', title: 'Every franc',
+    columns: [{ width: 28 }],
+    rows: [
+      { cells: ['WE SQUEEZED MORE VALUE'] },
+      { cells: ['OUT OF EVERY SINGLE'] },
+      { cells: ['SWISS FRANC.'], highlight: true },
+    ],
+  },
   'vip-vs-standard': {
     kind: 'flapboard', title: 'Standard or VIP',
     columns: [{ label: 'Two tickets', width: 23 }, { label: 'Standard', width: 8 }, { label: 'VIP', width: 8 }],
@@ -364,11 +476,21 @@ export const VISUALS = {
     ],
   },
   'vip-tiers': {
-    kind: 'flapboard', title: 'Tiers, not barriers',
-    columns: [{ width: 24 }],
+    kind: 'flapboard', title: 'Tickets for every budget',
+    columns: [{ width: 27 }],
     rows: [
-      { cells: ['A TIER FOR EVERY BUDGET,'] },
-      { cells: ['SO THE FLOOR STAYS LOW.'], highlight: true },
+      { cells: ['DIFFERENT BUDGETS.'] },
+      { cells: ['SAME OPPORTUNITY'], highlight: true },
+      { cells: ['TO BELONG.'], highlight: true },
+    ],
+  },
+  'ticket-tiers': {
+    kind: 'flapboard', title: 'One conference, three ways in',
+    columns: [{ label: 'Ticket', width: 20 }, { label: 'Price', width: 7, align: 'right' }, { label: 'Adds', width: 13 }],
+    rows: [
+      { cells: ['VIP', 'CHF 495', 'PARTY, PERKS'] },
+      { cells: ['STANDARD', 'CHF 295', 'THE FULL DAY'] },
+      { cells: ['STUDENT, UNEMPLOYED', 'CHF 175', 'THE FULL DAY'], highlight: true },
     ],
   },
   'vip-invested': {
@@ -381,16 +503,6 @@ export const VISUALS = {
       { cells: ['UPGRADED TO VIP', '8', ''] },
     ],
   },
-  'vip-funds': {
-    kind: 'flapboard', title: 'Spend more if you can, so everyone can come',
-    columns: [{ label: 'What the tiers paid for', width: 23 }, { label: 'Total', width: 9, align: 'right' }],
-    rows: [
-      { cells: ['VIP TICKETS', '46'] },
-      { cells: ['WORKSHOP SEATS', '80'], highlight: true },
-      { cells: ['STUDENT, UNEMPLOYED', '33'] },
-    ],
-  },
-
   // ── 2 · A hard year ────────────────────────────────────────────────────
   'ch2': { kind: 'section', number: '02 · Three problems', title: 'A hard year' },
   'hardest-year': { kind: 'statement', text: 'One of the hardest years in a decade to run a JavaScript conference.', emphasis: 'hardest years in a decade' },
@@ -439,7 +551,6 @@ export const VISUALS = {
       { label: 'A talk on stage', values: ['no', 'Add-on', 'yes', 'no'] },
     ],
   },
-  'refuse-talks': { kind: 'statement', kicker: 'An offer we turned down', text: 'CHF 15,000 today. What does it cost us tomorrow?', emphasis: 'cost us tomorrow?' },
   'sponsor-pipeline': {
     kind: 'numbers', kicker: 'Sponsorship, 2025 to 2026', title: 'The sponsors you see are the survivors',
     items: [
@@ -477,7 +588,7 @@ export const VISUALS = {
     note: '98 of 112 said just right, good or excellent. 14 found it expensive.',
   },
   'ai-changed': { kind: 'statement', text: 'AI changed what people submitted.', emphasis: 'AI' },
-  'ai-share': { kind: 'stat', value: '171 / 428', label: 'CFP submissions mentioned AI: about 40%.', source: 'Keyword match in the submission text: a mention, not the main topic' },
+  'ai-share': { kind: 'atm', kicker: 'Speakers · The CFP', title: 'Submissions that mentioned AI:', message: '171 of 428. About 40%.', tone: 'warn', note: 'Keyword match: a mention, not the main topic' },
   'three-problems': { kind: 'statement', ground: 'yellow', text: 'Three problems, and AI pressed on every one: from the top and from the bottom.', emphasis: 'from the top and from the bottom.' },
   // ── The AI squeeze, as a cash machine: who would pay, and for what ──
   'atm-insert': { kind: 'atm', kicker: 'Funding ZurichJS Conf', title: 'Please insert your card.', step: 'insert' },
@@ -490,18 +601,19 @@ export const VISUALS = {
     kind: 'atm', kicker: 'Sponsors', title: 'What would you like to fund?',
     options: [{ label: 'A booth' }, { label: 'A technical talk slot' }, { label: 'Your logo' }, { label: 'An AI conference instead' }],
     selected: [1], selectedTone: 'bad',
-    note: 'Elsewhere: a 20-minute sponsor talk, about CHF 6,600',
   },
   'atm-declined': {
     kind: 'atm', kicker: 'Sponsors · A technical talk slot', title: 'TRANSACTION DECLINED',
     message: 'Talks are not for sale.', tone: 'bad', detail: 'Insufficient editorial permissions.',
   },
+  'refuse-talks': {
+    kind: 'atm', kicker: 'Sponsors · An offer we turned down', title: 'CHF 15,000 for talk slots, today.',
+    message: 'What would it cost us tomorrow?', tone: 'warn', detail: 'Attendee trust. An independent programme. Our name.',
+  },
   'pitch-time': {
-    kind: 'numbers', kicker: 'The compromise', title: 'Want to sell something? Call it a pitch.',
-    items: [
-      { value: 'Talk', label: 'Picked by editorial review. Not for sale.', tone: 'neutral' },
-      { value: 'Pitch', label: '2 or 5 minutes, clearly labelled promotion. Sponsors could buy it.', tone: 'hero' },
-    ],
+    kind: 'atm', kicker: 'Sponsors · For sale?', title: 'Want to sell something? Call it a pitch.',
+    options: [{ label: 'A technical talk', value: 'NO' }, { label: 'Pitch, 2 or 5 min', value: 'YES' }],
+    selected: [1], message: 'Clearly labelled. Never dressed up as a talk.', tone: 'hero',
   },
   'atm-ai': {
     kind: 'atm', kicker: 'Sponsors', title: 'What would you like to fund?',
@@ -519,7 +631,7 @@ export const VISUALS = {
     options: [{ label: 'I already know this stuff' }, { label: 'Talks are too beginner' }, { label: 'What will I really learn?' }, { label: 'Is it worth the time?' }],
     message: 'We were selling the value of being in the room.', tone: 'hero',
   },
-  'pressure-bottom': { kind: 'statement', kicker: 'Bottom-up pressure', text: 'Speakers, attendees, the community: they decide if the programme delivers.', emphasis: 'if the programme delivers.' },
+  'pressure-bottom': { kind: 'atm', kicker: 'Bottom-up pressure', title: 'Speakers, attendees, the community:', message: 'They decide if the programme delivers.', tone: 'hero' },
   'atm-speakers': {
     kind: 'atm', kicker: 'Speakers', title: 'Speakers submit what they think conferences want.',
     options: [{ label: 'Market signal: AI' }, { label: 'Engineering depth' }],
@@ -538,15 +650,14 @@ export const VISUALS = {
     options: [{ label: 'AI slop', value: 'NO' }, { label: 'Grounded engineering', value: 'YES' }],
     selected: [1], message: 'AI, yes. AI slop, no.',
   },
-  'substance': { kind: 'statement', ground: 'yellow', text: 'People didn’t want less innovation. They wanted more substance.', emphasis: 'more substance.' },
+  'substance': { kind: 'atm', kicker: 'Attendees', title: 'People didn’t want less innovation.', message: 'They wanted more substance.', tone: 'hero' },
   'value-props': {
-    kind: 'numbers', kicker: 'So we changed how we pitched it', title: 'One conference. Four value propositions.',
-    items: [
-      { value: 'Sponsors', label: 'A credible return and the right audience', tone: 'hero' },
-      { value: 'Companies', label: 'A reason to invest time and training budget', tone: 'neutral' },
-      { value: 'Speakers', label: 'A programme that rewards strong technical content', tone: 'good' },
-      { value: 'Attendees', label: 'Depth, practical relevance, real connections', tone: 'warn' },
+    kind: 'atm', kicker: 'So we changed how we pitched it', title: 'One conference. Four value propositions.',
+    options: [
+      { label: 'Sponsors: right audience' }, { label: 'Companies: worth it' },
+      { label: 'Speakers: depth wins' }, { label: 'Attendees: worth the day' },
     ],
+    selected: [0, 1, 2, 3],
   },
   'atm-dispense': { kind: 'atm', kicker: 'Funding ZurichJS Conf', title: 'Please take your card and your cash.', step: 'dispense' },
   // Faris books the first trip on his phone in Foifi; the next slide dives into the phone for the road.
@@ -555,46 +666,80 @@ export const VISUALS = {
   // ── 3 · The machine ────────────────────────────────────────────────────
   'ch3': { kind: 'section', number: '03 · Four people, day jobs, one app', title: 'The machine' },
   'small-team': {
-    kind: 'numbers', title: 'A small team, and an admin that did the rest',
+    kind: 'numbers', ground: 'yellow', title: 'A tiny team. A mighty punch.',
     items: [
-      { value: '4', label: 'Organisers' },
-      { value: '15', label: 'CFP reviewers', tone: 'neutral' },
-      { value: '13', label: 'Door staff', tone: 'neutral' },
+      { value: '4', label: 'Organisers, with day jobs' },
+      { value: '359', label: 'People in the room', tone: 'neutral' },
+      { value: '24', label: 'Sponsors', tone: 'neutral' },
+      { value: '434', label: 'Talk submissions', tone: 'neutral' },
     ],
   },
   'story-volunteers': { kind: 'statement', kicker: 'Volunteers', text: 'We started recruiting volunteers far too late.', emphasis: 'far too late.' },
-  'story-comms': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Every email, every question.', emphasis: 'every question.' },
-  'brand': { kind: 'statement', kicker: 'Data gap · M1', text: 'Brand and design.', emphasis: 'design.' },
+  'story-comms': { kind: 'statement', kicker: 'Communications', text: 'Every email, every question.', emphasis: 'every question.' },
+  'comms-questions': {
+    kind: 'questions', kicker: 'The inbox', title: 'And everyone had a question.', note: 'Representative, not a log',
+    messages: [
+      'Where is my workshop being held?',
+      'Can I get an invoice?',
+      'Can you make an exception?',
+      'Can you sponsor my travel?',
+      'Can you help with my visa?',
+      'Can I change my ticket?',
+      'Can you help me with this?',
+    ],
+  },
+  'brand': { kind: 'title', title: 'Brand & Design' },
+  // Agent share of merged PRs (head branch claude/, cursor/ or codex/), by month: monthly and running total.
+  // Monthly shares and PR counts from the GitHub PR list (281 merged PRs, 164 from agent branches).
   'agent-share': {
-    kind: 'bars', title: 'From helper to default', unit: '%', source: 'Agent share of merged PRs',
-    bars: [
-      { label: 'Nov', value: 12, tone: 'neutral' }, { label: 'Dec', value: 50, tone: 'neutral' }, { label: 'Jan', value: 0, tone: 'neutral' },
-      { label: 'Feb', value: 53, tone: 'neutral' }, { label: 'Mar', value: 55, tone: 'neutral' }, { label: 'Apr', value: 47, tone: 'neutral' },
-      { label: 'May', value: 28, tone: 'neutral' }, { label: 'Jun', value: 68, tone: 'neutral' }, { label: 'Jul', value: 89, tone: 'hero' },
-      { label: 'Aug', value: 85, tone: 'neutral' }, { label: 'Sep', value: 71, tone: 'neutral' },
+    kind: 'growth', kicker: 'Merged PRs from agent branches', title: 'We built agentic practices into how we shipped.',
+    x: ['Nov 2025', '', '', '', '', '', '', '', '', '', 'Sep 2026'],
+    series: [
+      { label: 'Each month', values: [13, 50, 0, 53, 55, 47, 28, 68, 89, 85, 71], tone: 'neutral' },
+      { label: 'Running total', values: [13, 35, 26, 36, 42, 44, 38, 42, 51, 56, 58], tone: 'hero' },
     ],
+    percent: true,
   },
-  'my-job': {
-    kind: 'numbers', title: 'My job changed',
-    items: [
-      { value: '56 → 1', label: 'My own commits, May to August', tone: 'neutral' },
-      { value: '119', label: 'Agent commits in July' },
-    ],
-  },
+  // The app, from the zurichjs-conf repo (main, last commit 21 Sep 2026): src/pages/api, test files excluded.
+  'app-simple': { kind: 'statement', kicker: 'The plan', text: 'A conference website. How hard could it be?', emphasis: 'How hard could it be?' },
   'app-grew': {
     kind: 'numbers', title: 'What the app grew into',
     items: [
-      { value: '1 → 133', label: 'Test files' },
-      { value: '266', label: 'API route files', tone: 'neutral' },
+      { value: '231', label: 'API route files' },
+      { value: '321', label: 'Endpoints: route × HTTP method', tone: 'neutral' },
       { value: '108', label: 'Database migrations', tone: 'neutral' },
     ],
   },
+  'app-domains': {
+    kind: 'bars', title: 'What 231 routes run', source: 'API route files by domain · zurichjs-conf repo',
+    bars: [
+      { label: 'Speakers and CFP', value: 68, tone: 'hero' },
+      { label: 'Tickets and payments', value: 50, tone: 'hero' },
+      { label: 'Sponsors and partners', value: 35, tone: 'neutral' },
+      { label: 'Door and the day', value: 32, tone: 'neutral' },
+      { label: 'Admin and site', value: 22, tone: 'neutral' },
+      { label: 'Workshops', value: 14, tone: 'neutral' },
+      { label: 'Company invoices', value: 10, tone: 'neutral' },
+    ],
+  },
+  'app-edges': {
+    kind: 'numbers', kicker: 'Beyond the happy path', title: 'Every edge case became a route',
+    items: [
+      { value: '4', label: 'Currencies: CHF, EUR, GBP, USD' },
+      { value: 'Refunds', label: 'And cancellations, tickets and workshops', tone: 'neutral' },
+      { value: 'Reassign', label: 'A ticket or workshop seat to someone else', tone: 'neutral' },
+      { value: 'Waitlists', label: 'When tickets or workshops sell out', tone: 'neutral' },
+      { value: 'Upgrades', label: 'Standard to VIP, paid afterwards', tone: 'neutral' },
+      { value: 'Undo', label: 'Every door action: badge, check-in, goodies', tone: 'neutral' },
+    ],
+  },
+  'app-payoff': { kind: 'statement', ground: 'yellow', text: 'We weren’t just building a website. We were building the infrastructure to run a conference.', emphasis: 'the infrastructure to run a conference.' },
 
   // ── 4 · Building the programme ─────────────────────────────────────────
-  'ch4': { kind: 'section', number: '04 · 434 ideas, 9 picked', title: 'Building the programme' },
+  'ch4': { kind: 'section', number: '04 · 434 submissions, 9 picked', title: 'Building the programme' },
   'reviews': { kind: 'stat', value: '2,489', label: 'Reviews from 15 reviewers. About 166 each.' },
   'lesson-email': { kind: 'strike', kicker: 'A weird lesson: ask for a personal email', name: 'speaker@yourcompany.com', to: 'speaker@gmail.com', note: 'By the time we said yes or no, some had changed jobs or lost them. Ticket holders too.' },
-  'accepted': { kind: 'stat', value: '9', label: 'Accepted from 434. 6 talks, 3 workshops, 5 waitlisted.' },
+  'accepted': { kind: 'stat', value: '9 of 434', label: 'Accepted from the CFP, about 2.1%: 6 talks, 3 workshops. 5 more waitlisted.' },
   'story-workshops': { kind: 'statement', kicker: 'Slot · organiser story', text: 'Running the workshops.', emphasis: 'workshops.' },
   'workshops': { kind: 'stat', value: '6', label: 'Workshops, 80 seats. Workshop day, 10 September.' },
 

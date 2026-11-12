@@ -6,7 +6,7 @@ Working document for the team. It captures the storyline **as it is in the deck 
 
 ## Current state (9 Nov 2026, end of day)
 
-165 slides: the Foifi opening (10) and nine chapters: 1 Why on earth (11), 2 A hard year (62, with the road, the airport pricing, the venue flyover and the year in motion), 3 The machine (8), 4 Building the programme (7), 5 Filling the room (17), 6 The rollercoaster (7), 7 The week and the day (27), 8 What we learned (5), 9 The final numbers (11). Chapter openers 3 to 9 use the curtain.
+179 slides (12 Nov): the Foifi opening (10) and nine chapters: 1 Why on earth (12), 2 A hard year (71, with the ATM, the road, the airport pricing and payments, the venue flyover and the year in motion), 3 The machine (12), 4 Building the programme (7), 5 Filling the room (17), 6 The rollercoaster (7), 7 The week and the day (27), 8 What we learned (5), 9 The final numbers (11). Chapter openers 3 to 9 use the curtain.
 
 Since the sections below were written:
 - Cuts and merges (see below), and chapter 6 split into 6 and 7.
@@ -16,7 +16,30 @@ Since the sections below were written:
 - Nadja miked up every speaker (`mic-up`, her portrait over the organiser).
 - Readability: slides on in-scene screens use close cues; the `stage` view moved closer.
 
-Still open: the placeholder slides (`brand`, `not-in-data`, `story-comms`, `story-workshops`, `feedback-heard`, `next-edition`), the unverified figures below, and the decisions list. The tables further down are the history of each pass; slide numbers in them are out of date.
+Still open: the placeholder slides (`not-in-data`, `story-workshops`, `feedback-heard`, `next-edition`), the unverified figures below, and the decisions list. The tables further down are the history of each pass; slide numbers in them are out of date.
+
+## Final polish, 12 Nov 2026
+
+179 slides (was 165). What changed, by slide id:
+
+| Slide | Change |
+|---|---|
+| `stakes-no-cancel` | Last mark: "Go time · Ship, ship, ship. At all costs." (was "Deliver, whatever happened"). |
+| `stakes-bets` | Insurance tile removed; the title says it once. |
+| `atm-talk` | No price comparison with sponsored talks elsewhere (note and notes). |
+| `refuse-talks` | Moved into the ATM, right after `atm-declined`, as a machine screen. |
+| `pitch-time`, `pressure-bottom`, `ai-share`, `substance`, `value-props` | Now ATM screens on the `atm` cue: the scene never leaves the machine until `atm-dispense`. |
+| `affordable-engineered`, `vat-threshold`, `vat-tradeoff`, `fees-platform`, `fees-own`, `fees-ours`, `fees-compare`, `every-franc` | **New** at the gate: how we kept it affordable. Platform model and CHF 100 comparison labelled illustrative; fee rates are the organiser's approximate figures; which VAT threshold applies is not claimed. |
+| `vip-tiers`, `ticket-tiers` | "Different budgets. Same opportunity to belong." and the three tiers (VIP, standard, student and unemployed). `vip-funds` ("spend more so everyone can come") cut. |
+| `venue-plan`, `venue-flow` | **New** (`floorplan`): pull back from AG Grid to the atrium plan; illustrative routes, "We weren't just filling a venue. We were orchestrating an experience." |
+| `badge-one-clip`, `badge-two-clips`, `badge-tested`, `badge-detail` | Were `badge-one-hole`, `badge-two-holes`, `badge-stress`, `badge-held`. Clips and attachment points, no holes, no test results. |
+| `small-team` | "A tiny team. A mighty punch." on yellow: 4 organisers vs 359 people, 24 sponsors, 434 submissions. |
+| `comms-questions` | **New** (`questions`) after `story-comms`: "And everyone had a question." Representative asks, no senders. |
+| `brand` | "Brand & Design" hero, no data gap; Bogdan presents. |
+| `agent-share` | Line chart: monthly and running share of merged PRs from agent branches. |
+| `my-job` | Cut. |
+| `app-simple`, `app-grew`, `app-domains`, `app-edges`, `app-payoff` | The app, from the zurichjs-conf repo: 231 API route files (the old 266 counted 35 test files), 321 route × method endpoints, 108 migrations; routes by domain; edge cases with routes; "infrastructure to run a conference". |
+| `ch4`, `accepted` | "434 submissions, 9 picked"; "9 of 434", about 2.1%. |
 
 ## Cuts, merges and the chapter 6 split, 9 Nov 2026
 

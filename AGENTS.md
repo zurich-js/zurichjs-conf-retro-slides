@@ -45,7 +45,8 @@ src/
   content/moments.ts  the road in pictures (photo, date, city, event) for `moments`
   engine/             types, validation, store, keys, URL params, frame loop
   painters/           kit.ts primitives + one painter per Kind (journey.ts: the globe; inbox.ts: CFP;
-                      checkout.ts: card payments; booking.ts: airline app; split.ts, timeline.ts; atm.ts; video in index.ts)
+                      checkout.ts: card payments; booking.ts: airline app; split.ts, timeline.ts; atm.ts;
+                      questions.ts: the inbox of asks; floorplan.ts: the atrium plan; video in index.ts)
   renderers/          FlatScreen, Stage (R3F + medium shader + camera rig), SlideIndex, Presenter
   scene/venue.ts      Technopark auditorium in METRES: dims, surfaces, lights, CUES
   scene/textures.ts   procedural, deterministic canvas textures (built once)
@@ -275,9 +276,12 @@ Copied into `PALETTE`; never import across repos.
   tickets) and from the bottom (speakers pivoting, attendees wanting less AI,
   no slop). Then a cash machine at Foifi plays it screen by screen (`atm` kind,
   `atm` / `atm-wide` cues): card in, the empty screen, the options, the talk
-  slot in red, TRANSACTION DECLINED, pitch time, the AI request, top-down
-  pressure, companies, speakers, the CFP, attendees, four value propositions,
-  card and cash out (see Revision batches). Survey and CFP numbers are
+  slot in red, TRANSACTION DECLINED, the CHF 15k offer we refused (the
+  payoff of the decline), pitch time, the AI request, top-down pressure,
+  companies, bottom-up pressure, speakers, the CFP, attendees, more
+  substance, four value propositions, card and cash out. **The whole scene
+  stays on the machine** (12 Nov): every screen in it is an `atm` visual on
+  the `atm` cue; nothing cuts back to a plain slide until the card is out. Survey and CFP numbers are
   sourced; the rest is Faris's account.
 - **Booking the road (Faris, 10 Nov 2026):** after the ATM's cash out the
   camera turns to find Faris in Foifi (his portrait over the avatar) and
@@ -293,15 +297,16 @@ Copied into `PALETTE`; never import across repos.
   on the road** (the globe) as the answer; then the camera flies to Technopark.
 
 ## Deck content (current, 9 Nov 2026)
-- The talk is the **ZurichJS Conf retrospective**: 165 slides for a 40-minute
+- The talk is the **ZurichJS Conf retrospective**: 179 slides for a 40-minute
   slot, first scaffolded from `zurichjs-conf-retro-handoff.md` and reworked
   through the review passes logged in `docs/storyline.md`.
 - **Running order:** the opening at Foifi (10: cover to the meetup years) ·
-  1 Why on earth (11) · 2 A hard year (62, including the road globe and
-  photos, the airport pricing block, the venue flyover, badges, people and
-  the year in motion) · 3 The machine (8) · 4 Building the programme (7) ·
-  5 Filling the room (17) · 6 The rollercoaster (7) · 7 The week and the day
-  (27) · 8 What we learned (5) · 9 The final numbers (11).
+  1 Why on earth (12) · 2 A hard year (71, including the ATM scene, the road
+  globe and photos, the airport pricing and payments block, the venue
+  flyover with the atrium plan, badges, people and the year in motion) ·
+  3 The machine (12) · 4 Building the programme (7) · 5 Filling the room
+  (17) · 6 The rollercoaster (7) · 7 The week and the day (27) · 8 What we
+  learned (5) · 9 The final numbers (11).
 - Notes carry CHECK / DATA GAP / SLOT flags; placeholder slides still on
   screen are listed under Open decisions. Notes are public: no names of
   vendors or private people, no internal money figures.
@@ -358,9 +363,9 @@ Copied into `PALETTE`; never import across repos.
   stakes as 100k* minimum, spend shares, a commitments timeline, the bets on the day (`stakes-bets`: ~100 promises, flights, talks, weather, nature, no insurance), 33k each,
   and the worst case.
 - **Chapter 2:** sponsorship as a hard sell (half at the smallest tier), the
-  pipeline and how deals die, verified sponsor packages, talks not for sale,
-  the CHF 15k offer we refused; the ATM plays empty, options, the talk slot
-  in red, TRANSACTION DECLINED, then pitch time, then the AI request; top-down
+  pipeline and how deals die, verified sponsor packages; the ATM plays empty,
+  options, the talk slot in red, TRANSACTION DECLINED, the CHF 15k offer we
+  refused, then pitch time, then the AI request; top-down
   vs bottom-up pressure; companies' value doubts; speakers, the CFP (171 of
   428), attendees (AI, yes; AI slop, no); four value propositions.
 
@@ -389,6 +394,30 @@ Copied into `PALETTE`; never import across repos.
 - **No after-party** (removed by Faris, 9 Nov): the lake venue was built and
   then taken out; the after-party only appears as data (spend, value grid, VIP).
 
+## Final polish (Faris, 12 Nov 2026)
+- **Stakes:** the timeline ends on "Go time: ship, ship, ship. At all costs."
+  The no-insurance point is said once (`stakes-bets` title).
+- **Affordability, engineered** (at the gate, on the board): nonprofit under
+  the applicable VAT threshold (8.1% standard rate; CHF 100k general, CHF
+  250k for qualifying nonprofits; which applies is not claimed), the scaling
+  catch, an illustrative platform fee model (3% + 2.9% + CHF 0.30), our own
+  Stripe payments, effective fees per currency (organiser's approximate
+  figures), the CHF 100 comparison (illustrative), "every single Swiss franc".
+  VAT is never mixed into the fee comparison.
+- **VIP framing:** different budgets, same opportunity to belong. Never VIPs
+  paying for others, never donors or charity.
+- **Venue:** from AG Grid's booth, `venue-plan` pulls back to the atrium plan
+  (`floorplan` kind, positions from the set) and `venue-flow` draws
+  illustrative routes, labelled as not measured.
+- **Badges:** clips and attachment points on screen, never holes; no test
+  results claimed.
+- **The machine:** "A tiny team. A mighty punch." (yellow); the inbox of asks
+  (`comms-questions`, representative, no senders); Brand & Design is a bare
+  hero for Bogdan; agent share is a line chart (monthly and running total of
+  merged PRs from agent branches); `my-job` cut; the app slides count API
+  routes from the zurichjs-conf repo (231 route files, 321 route × method
+  endpoints, 108 migrations), by domain, with verified edge cases.
+
 ## Open decisions
 Track here; resolve with Faris, then update code and move the line above.
 
@@ -397,10 +426,17 @@ Track here; resolve with Faris, then update code and move the line above.
       the sponsors share them.
 - [ ] **Real dimensions** — the exterior follows OSM and the 1993 drawings; the
       rooms inside are still estimated from photos (`scene/venue.ts`).
-- [ ] **Placeholders on screen**: `brand`, `not-in-data`, `story-comms`,
-      `story-workshops`, `feedback-heard`, `next-edition` still show Slot or
-      Data gap. Fill or cut before the talk.
+- [ ] **Placeholders on screen**: `not-in-data`, `story-workshops`,
+      `feedback-heard`, `next-edition` still show Slot or Data gap. Fill or
+      cut before the talk. (`brand` is now a plain hero, presented by Bogdan;
+      `story-comms` leads into `comms-questions`.)
 - [ ] **Facts to confirm** (see `docs/storyline.md`, Unverified figures):
       three vs four organisers on the hook; first ticket 13 Nov (Stripe
       export starts 25 Nov); Arnau's workshop started on time; the 3 to 5
-      minute worst delay; which sponsor gave out the hot sauce.
+      minute worst delay; which sponsor gave out the hot sauce; which VAT
+      threshold applies to ZurichJS (`vat-threshold` only says BELOW);
+      whether SEPA Direct Debit was on in Stripe (not visible in the app
+      code); the organiser's effective fee figures (`fees-ours`); that the
+      badge stand's stress animation (single clip gives way) matches the
+      real test; booth positions on `venue-plan` are from the set, not a
+      surveyed plan.

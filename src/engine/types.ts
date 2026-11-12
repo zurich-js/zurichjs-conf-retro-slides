@@ -261,6 +261,34 @@ export type Visual = Base &
         rest?: number
       }
     | {
+        kind: 'questions'
+        title: string
+        kicker?: string
+        /** Representative incoming requests, in the order they land in the inbox. Subject lines only: no senders. */
+        messages: readonly string[]
+        /** Small, bottom right (e.g. "Representative, not a log"). */
+        note?: string
+      }
+    | {
+        kind: 'floorplan'
+        title: string
+        kicker?: string
+        /** The room in metres: `width` across (x, centred on 0), `depth` from the entrance (z = 0). */
+        width: number
+        depth: number
+        /** Where people come in, at z = 0. */
+        entrance: string
+        /** Fixed features drawn muted (lift tower, the tables): centre and size in metres. */
+        landmarks: readonly { label: string; x: number; z: number; w: number; d: number }[]
+        /** Booths, centre in metres. No tone → neutral. */
+        booths: readonly { label: string; x: number; z: number; tone?: Tone }[]
+        /** Booth index the draw-in starts zoomed in on, then pulls back to the whole room. */
+        focus?: number
+        /** Illustrative walking routes (polylines in metres), drawn as moving dots then arrows. */
+        flows?: readonly (readonly (readonly [number, number])[])[]
+        note?: string
+      }
+    | {
         kind: 'journey'
         title: string
         journey: Journey
@@ -328,6 +356,8 @@ export const DEFAULT_GROUND: Readonly<Record<VisualKind, Ground>> = {
   booking: 'dark',
   checkout: 'dark',
   timeline: 'dark',
+  questions: 'dark',
+  floorplan: 'dark',
 }
 
 /**
