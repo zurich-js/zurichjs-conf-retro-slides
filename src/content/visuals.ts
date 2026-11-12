@@ -71,9 +71,9 @@ export const VISUALS = {
   },
   'one-year': { kind: 'statement', ground: 'yellow', text: 'One year of ZurichJS. Ten months to the conference.', emphasis: 'Ten months' },
   // ── Attention to detail: one clip or two attachment points ──
-  'badge-one-clip': { kind: 'badgetest', kicker: 'Attention to detail', title: 'One clip. One annoying problem.', note: 'It twists, flips and slips. The badge keeps turning away from the person you’re speaking to.', rig: 'one-hole' },
+  'badge-one-clip': { kind: 'badgetest', kicker: 'Attention to detail', title: 'One clip. One annoying problem.', note: 'It keeps turning away from the person you’re speaking to.', rig: 'one-hole' },
   'badge-two-clips': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Two attachment points. It stays put.', note: 'Stable, facing out, readable in every conversation.', rig: 'two-holes' },
-  'badge-tested': { kind: 'badgetest', kicker: 'Then we tested it', title: 'We tested the pressure points, materials and durability.', rig: 'stress' },
+  'badge-tested': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Then we tested it.', note: 'We tested the pressure points, materials and durability.', rig: 'stress' },
   'badge-detail': { kind: 'badgetest', kicker: 'Attention to detail', title: 'Even the smallest details deserve engineering.', rig: 'held' },
   'empty-seats': { kind: 'statement', kicker: 'The auditorium, ten months out', text: 'Every one of these seats had to be sold.', emphasis: 'had to be sold.' },
   'venue-map': { kind: 'statement', kicker: 'Ten months later · Technopark Zürich', text: 'One building, one week, one conference.', emphasis: 'one conference.' },
